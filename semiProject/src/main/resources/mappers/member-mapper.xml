@@ -2,6 +2,66 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.project.semi.member.model.mapper.MemberMapper"> 
 
+
+		<select id="checkEmail" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+		WHERE 
+		MEMBER_EMAIL = #{memberEmail}
+ 	</select>
+ 	
+ 	<insert id="signUp">
+		INSERT INTO MEMBER
+		VALUES (SEQ_MEMBER_NO.NEXTVAL, 
+			 #{memberEmail},
+			 #{memberPw},
+			 #{memberNickname},
+			 #{memberTel},
+			 #{memberAddress},
+			 NULL,
+			 DEFAULT,
+			 DEFAULT,
+			 DEFAULT
+		)	
+	</insert>
+	
+	<select id="findMemberByPw" resultType="Member">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_PW = #{memberPw}
+	</select>
+	
+	<select id="findMemberByEmail" resultType="Member">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_EMAIL = #{memberEamil}
+	</select> 	
+ 	
+ 	<select id="login" resultType="Member">
+		SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME, MEMBER_PW, MEMBER_TEL, MEMBER_ADDRESS, PROFILE_IMG, AUTHORITY, 
+		TO_CHAR(ENROLL_DATE, 'YYYY "년" MM"월" DD"일" HH24 "시" MI "분" SS"초"') ENROLL_DATE
+		FROM MEMBER
+		WHERE MEMBER_EMAIL = #{memberEmail}
+		AND MEMBER_DEL_FL = 'N'
+	
+	</select>
+
+	<update  id="updateInfo">
+		UPDATE MEMBER SET
+		MEMBER_NICKNAME = #{memberNickname},
+		MEMBER_TEL = #{memberTel},
+		MEMBER_ADDRESS = #{memberAddress}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+	
+	<select id="findMemberByMemberNo" resultType="Member">
+		SELECT * FROM MEMBER
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<update id="updateImg">
+		UPDATE MEMBER SET 
+		PROFILE_IMG = #{profileImg}
+		WHERE MEMBER_NO = #{memberNo}
+	</update>
+
  	
 
  	
