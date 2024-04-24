@@ -3,6 +3,7 @@ package com.project.semi.board.model.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 
 import com.project.semi.board.model.dto.Board;
 
@@ -15,8 +16,10 @@ public interface BoardMapper {
 	int getListCount();
 
 	/** 자유 게시판 목록 조회
+	 * @param rowBounds 
+	 * @param cp 
 	 * @return boardList
 	 */
-	List<Board> selectBoardList();
+	List<Board> selectBoardList(int cp, RowBounds rowBounds);
 
 }

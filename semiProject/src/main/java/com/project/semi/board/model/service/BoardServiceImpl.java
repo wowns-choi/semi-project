@@ -35,13 +35,15 @@ public class BoardServiceImpl implements BoardService {
 		int offset = (cp-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		List<Board> boardList = mapper.selectBoardList();
+		List<Board> boardList = mapper.selectBoardList(cp, rowBounds);
 		
 		// 목록 조회 결과 + Pagination 객체를 Map 으로 묶어서 돌려줌
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
+		
+		System.out.println(map.get("pagination"));
 		
 		return map;
 	}
