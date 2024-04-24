@@ -4,37 +4,85 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title th:text="#{app.name}">message.properties 값 출력</title>
-
 	
-	<th:block th:replace="~{common/common}"></th:block>
-	
+	<!-- main css -->
 	<link rel="stylesheet" href="/css/common/main.css">
 	
+	<!-- navbar css -->
 	<link rel="stylesheet" href="/css/common/navbar.css">
-
-	<link rel="stylesheet" href="/css/common/loginModal.css"> 
 	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">	
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+	  
 </head>
 <body>
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
 	<th:block th:replace="~{common/loginModal}"></th:block>
 
-	<th:block th:replace="~{common/navbar}"></th:block>
-	
 	<div style="width: 100vw; height: 7vh;"></div>	
 	<div id="home-content-container">
 		<div></div>
-		<div></div>
+		<div>
+		</div>
 		<div></div>		
 	</div>
 	
+	
+	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
 
+	<div id="body-container">
+		<div></div>
+		<div>
+			<th:block th:each="lecture : ${lectureList}">
+				<a th:href="|/lecture/showLectureDetail?lectureNo=${lecture.lectureNo}|" class="element-div">
+					
+					<th:block th:if="${lecture.files != null}">
+						<img th:src="|${lecture.files.get(0).filePath}${lecture.files.get(0).fileRename}|"
+						class="lecture-img"
+						>
+					</th:block>
+					
+					<div th:if="${lecture.files == null}" class="lecture-img-basic">
+						<img src="/images/user.png">
+					</div>
+					
+					<div th:text="|[${lecture.lectureHomeTitle}]|" class="lecture-name">
+					</div>
+					
+					<div th:text="${lecture.lectureHomeContent}" class="lecture-title">	
+					</div>
+					
+					<div th:text="${lecture.formattedEnrollDate}" class="lecture-formatted-enroll-date">
+					</div>
+					<div></div>
+					
+					<div th:text="|가격 : ${lecture.price}|" class="lecture-price">
+					</div>
+					
+					<div th:text="|${lecture.memberNickname}|" class="lecture-memberNickname">
+						<img src="">
+						<span></span>
+					</div>
+				
+				</a>
+			</th:block>
+		</div>
+		<div></div>
+	</div>
+	
+	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
 
 	<div style="height: 100vh;"></div>
-	
+
 	<th:block th:replace="~{common/footer}"></th:block>
-	
-	<script src="/js/common/loginModal.js"></script>
-	
+	<!--navbar js-->
 	<script src="/js/common/navbar.js"></script>
+	<!— 로그인 모달창 js —>
+	<script src="/js/common/loginModal.js"></script>
 </body>
 </html>

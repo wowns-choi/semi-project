@@ -38,6 +38,13 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	// Auth0 JWT 라이브러리 추가 (카카오 로그인 관련)
+	implementation 'com.auth0:java-jwt:3.19.0'
+
+	// JWKs를 위한 RSA 라이브러리 추가 (카카오 로그인 관련해서 공개키를 가져오기 위하여 추가함)
+	implementation 'com.auth0:jwks-rsa:0.21.1'
+
 }
 
 tasks.named('test') {
