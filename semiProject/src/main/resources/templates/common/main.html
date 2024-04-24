@@ -1,11 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:text="#{app.name}">message.properties 값 출력</title>
+
+	
+	<th:block th:replace="~{common/common}"></th:block>
+	
+	<link rel="stylesheet" href="/css/common/main.css">
+	
+	<link rel="stylesheet" href="/css/common/navbar.css">
+
+	<link rel="stylesheet" href="/css/common/loginModal.css"> 
+	
 </head>
 <body>
-    aaaaaaaaaaaa
+	<th:block th:replace="~{common/loginModal}"></th:block>
+
+	<th:block th:replace="~{common/navbar}"></th:block>
+	
+	<div style="width: 100vw; height: 7vh;"></div>	
+	<div id="home-content-container">
+		<div></div>
+		<div></div>
+		<div></div>		
+	</div>
+	
+
+
+	<div style="height: 100vh;"></div>
+	
+	<th:block th:replace="~{common/footer}"></th:block>
+	
+	<script src="/js/common/loginModal.js"></script>
+	
+	<script src="/js/common/navbar.js"></script>
 </body>
 </html>

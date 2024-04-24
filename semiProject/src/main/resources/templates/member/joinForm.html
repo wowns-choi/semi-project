@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/css/joinForm.css">
+   
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	<!-- 로그 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">	
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+
+<body>
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	
+
+    <div id="full-container">
+        <div id="inner-container">
+            <div id="right-container">
+                <div id="right-container-left-empty-space"></div>
+                <div id="right-container-content-container">
+                    <div id="div1"></div>
+                    <div id="div2"></div>
+                    <div id="div3"></div>
+
+                    <div id="div5">회원가입</div>
+                    <div id="div6">애플리케이션에 오신걸 환영합니다
+                    </div>
+                    <div id="div7">엄청나게 훌륭한 저희 애플리케이션에 가입하시고 난 후 이러이러한 서비스를 이용해보세요!</div>
+                    <div id="div8">
+                        <form id="sing-up-form" action="signUp" method="post">
+                    </div>
+                    <div id="div9">
+                        <input type="text" name="memberEmail" placeholder="이메일" id="input-email">
+						<button type="button" id="send-auth-key-btn">인증번호 받기</button>
+                    </div>
+					<div id="email-error">* 이메일을 입력해주세요. 비밀번호 분실시 입력하신 이메일로 메일이 발송됩니다. </div>
+					<div id="empty-space-1"></div>
+					<div id="div9-1">
+						<input type="text" name="auth-key" placeholder="인증번호 입력" id="auth-key">
+						<button type="button" id="check-auth-key-btn">인증하기</button>
+					</div>
+					<div id="auth-key-error"> </div>
+					<div id="empty-space-2"></div>
+
+                    <div id="div10"></div>
+                    <div id="div11">
+                        <input type="password" 	name="memberPw" placeholder="비밀번호" id="member-pw">
+                        <input type="password" placeholder="비밀번호 확인" id="member-pw-confirm">
+                    </div>
+					<div id="password-error">영어,숫자,특수문자(!,@,#,-,_) 6~20글자 사이로 입력해주세요.</div>
+					<div id="empty-space-3"></div>
+
+                    <div id="div12"></div>
+                    <div id="div13">
+                        <input type="text" name="memberNickname" placeholder="이름" id="member-nickname">
+                    </div>
+					<div id="name-error">* 한글, 영어, 숫자로만 2~10글자 </div>
+					<div id="empty-space-4"></div>
+                    <div id="div15">
+                        <input type="text" name="memberTel" placeholder="010" id="member-tel">
+                    </div>
+					<div id="phone-error">* 이메일을 입력해주세요 </div>
+					<div id="empty-space-4"></div>
+                    <div id="div17">
+                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+						<span>
+							[선택]	
+						</span>
+                    </div>
+                    <div id="div18">
+                        <input type="text" name="memberAddress" id="postcode" placeholder="우편번호">
+                    </div>
+                    <div id="div19">
+                        <input type="text" name="memberAddress" id="roadAddress" placeholder="도로명주소">
+                        <input type="text" name="memberAddress" id="jibunAddress" placeholder="지번주소">
+                    </div>
+                    <div id="div20">
+                        <span id="guide" style="color:#999;display:none"></span>
+                        <input type="text" name="memberAddress" id="detailAddress" placeholder="상세주소">
+                    </div>
+                    <div id="div21">
+                        <button type="submit" id="submit-btn"> Sign Up</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="/js/joinForm.js"></script>
+
+        <!-- 다음 api -->
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <script>
+            //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+            function execDaumPostcode() {
+                new daum.Postcode({
+                    oncomplete: function (data) {
+                        // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                        // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                        // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                        var roadAddr = data.roadAddress; // 도로명 주소 변수
+                        var extraRoadAddr = ''; // 참고 항목 변수
+
+                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                            extraRoadAddr += data.bname;
+                        }
+                        // 건물명이 있고, 공동주택일 경우 추가한다.
+                        if (data.buildingName !== '' && data.apartment === 'Y') {
+                            extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                        }
+                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                        if (extraRoadAddr !== '') {
+                            extraRoadAddr = ' (' + extraRoadAddr + ')';
+                        }
+
+                        // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById('postcode').value = data.zonecode;
+                        document.getElementById("roadAddress").value = roadAddr;
+                        document.getElementById("jibunAddress").value = data.jibunAddress;
+
+
+                    }
+                }).open();
+            }
+        </script>
+		
+		<!--navbar js-->
+		<script src="/js/common/navbar.js"></script>
+		
+		<!-- 로그인 모달창 js -->
+		<script src="/js/common/loginModal.js"></script>
+		
+		<script th:inline="javascript">
+		  const message =  /*[[${message}]]*/ "전달 받은 message";
+		
+		  if(message != null) alert(message);		
+		</script>
+		
+</body>
+
+
+</html>
