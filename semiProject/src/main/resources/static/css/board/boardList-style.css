@@ -36,7 +36,8 @@ a:hover {
     /* display: flex; */
     width: 1000px;
     /* height: 800px; */
-    margin : 50px auto;
+    /* margin : 50px auto; */
+    margin: 100px auto 50px auto;
 }
 
 .board-title{
