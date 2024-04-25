@@ -93,7 +93,6 @@ public class MemberController {
 		if( loginMember != null ) { // 로그인 성공
 			model.addAttribute("loginMember", loginMember); // @SessionAttributes() 와 함께했기에 세션스코프에 올라진것.
 		}
-		
 		return "redirect:/"; // 메인 페이지 재요청
 	}
 

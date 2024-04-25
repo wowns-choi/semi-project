@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.project.semi.main.model.dto.Lecture;
 import com.project.semi.main.model.dto.LectureFile;
 import com.project.semi.main.model.service.LectureService;
+import com.project.semi.member.model.dto.Member;
 import com.project.semi.member.model.mapper.MemberMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +25,10 @@ public class MainController {
 	private final LectureService lectureService;
 	
 	@GetMapping("/")
-	public String home(Model model) {
+	public String home(Model model
+			) {
+	
+		
 		//lecture 테이블과 그 테이블과 연관된 이미지들을 가져와서 model 에 잘 담아줘야 함. 
 		
 		

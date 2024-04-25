@@ -12,8 +12,10 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import jakarta.servlet.MultipartConfigElement;
-@Configuration
+import lombok.extern.slf4j.Slf4j;
+@Slf4j	
 @PropertySource("classpath:/config.properties")
+@Configuration
 public class FileConfig implements WebMvcConfigurer{
 	
 	
@@ -48,6 +50,8 @@ public class FileConfig implements WebMvcConfigurer{
 	// 서버 컴퓨터의 어떤 경로에 접근할지 설정해줄 수 있다. 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		log.info("profileResourceHandler={}", profileResourceHandler);
+		log.info("profileResourceLocation={}", profileResourceLocation);
 		registry.addResourceHandler(profileResourceHandler)
 		.addResourceLocations(profileResourceLocation);
 		
