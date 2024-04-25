@@ -5,6 +5,7 @@
     position: fixed;
     border-bottom: 0.5px solid lightgray;
     display: flex;
+    top: 0;
 }
 #navbar > div:nth-child(1){
 	flex-basis: 15%;
