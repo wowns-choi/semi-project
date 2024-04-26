@@ -51,4 +51,27 @@ public class BoardServiceImpl implements BoardService {
 	public Board selectOne(Map<String, Integer> map) {
 		return mapper.selectOne(map);
 	}
+
+	@Override
+	public int boardLike(Map<String, Integer> map) {
+
+		int result = 0;
+		
+		if(map.get("likeCheck") == 1) {
+			
+			result = mapper.deleteBoardLike(map);
+			
+		} else {
+			
+			result = mapper.insertBoardLike(map);
+			
+		}
+
+		if(result > 0) {
+			return mapper.selectLikeCount(map.get("boardNo"));
+		}
+		
+		return -1;
+
+	}
 }

@@ -68,8 +68,8 @@ if(updateBtn != null) {
     updateBtn.addEventListener("click", () => {
 
         // GET 방식
-        // 목표 : /editBoard/1/1990/update
-        // 게시글 상세 조회 시 현재 경로 : /board/1/1990?cp=1
+        // 목표 : /editBoard/all/1990/update
+        // 게시글 상세 조회 시 현재 경로 : /board/all/1990?cp=1
         location.href = location.pathname.replace('board', 'editBoard') + "/update" + location.search;
         // location. 현재 경로 뽑아내서
         // location.search 물음표 뒷부분부터 찾아서 붙여줌
