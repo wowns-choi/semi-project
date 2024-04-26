@@ -19,7 +19,7 @@
 
 	font-weight: bold;
     border: 0;
-    background-color: #455ba8;
+    background-color: darkslategray;
     color: white;
     cursor: pointer;
 }
@@ -63,16 +63,17 @@
 
     font-weight: bold;
     border: 0;
-    background-color: #455ba8;
+    background-color: darkslategray;
     color : white;
-
+	border-radius: 5px;
     cursor: pointer;
 }
 
 .comment-btn-area button:hover{
     background-color: white;
-    color : #455ba8;
-    border: 2px solid #455ba8;
+    color : darkslategray;
+    border: 1px solid darkslategray;
+	border-radius: 5px;
 }
 
 .update-textarea{
@@ -116,4 +117,12 @@
 /* 댓글 내용 */
 .comment-content{
 	white-space: pre-wrap; /* 작성된 문자열 모양 그대로(공백 유지) */
+}
+
+#addComment{
+	border: 0;
+    background-color: darkslategray;
+    color : white;
+	border-radius: 5px;
+    cursor: pointer;
 }
