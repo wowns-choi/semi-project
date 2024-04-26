@@ -90,3 +90,15 @@ if(deleteBtn != null) {
         // -> /editBoard/1/2006/delete?cp=1
     });
 };
+
+// --------------------------------------------------------------------------------
+
+/* 목록으로 이동하기 */
+const goToListBtn = document.querySelector("#goToListBtn");
+
+goToListBtn.addEventListener("click", () => {
+
+    // 현재 경로 /board/all/1950?cp=6
+    // /board/all?cp=6
+    location.href = "/board/all" + location.search;
+});
