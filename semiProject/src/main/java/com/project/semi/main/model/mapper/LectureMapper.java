@@ -27,6 +27,11 @@ public interface LectureMapper {
 
 	int addReviewReply(LectureReview lectureReivew);
 
+	int replyUpdate(Map<String, Object> paramMap);
+
+	int replyUpdate2(Map<String, Object> paramMap);
+
+
 
 	
 

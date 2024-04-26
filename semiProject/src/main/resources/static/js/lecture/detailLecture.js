@@ -316,44 +316,78 @@ document.querySelectorAll('.reply-x-btn').forEach(replyXBtn => {
 });
 
 
-/*
-let xBtnIcon = document.querySelector('#x-btn-icon');
 
-let id= reviewFile.id; ???????????
-let name = reviewFile.name;
 
-const reviewWriteDiv1 = document.querySelector('#review-write-div1'); ?????
+let addInput2;
+let updateFlag3 = 0;
+document.querySelectorAll('.reply-update-form>i:nth-child(3)').forEach(x => {
+    x.addEventListener('click', function(e) {
+        let aa = x.previousElementSibling;  // 이벤트 리스너 내부로 이동
 
-xBtnIcon.addEventListener('click', function(e){	
-	//1.
-	reviewFile.remove();
-	reviewFile = document.createElement('input');
-	reviewFile.type = 'file';
-	reviewFile.id = id;
-	reviewFile.name = name;
-	reviewFile.style.display = 'none';
-	
-
-	//이벤트 리스너도.
-	reviewFile.addEventListener('change',function(e){
-	
-	let file = e.target.files[0];
-	
-	let reader = new FileReader();
-	reader.readAsDataURL(file);
-	
-	reader.onload = function(e){
-		reviewInputImg.src = e.target.result; 
-		reviewInputImg.style.display = 'block';
-	}
-	});
-	
-	//붙여줘야지 
-	reviewWriteDiv1.append(reviewFile);
-	
-	
-	
-	reviewInputImg.style.display = 'none';
+        // 현재 display 상태에 따라 토글합니다.
+        if (aa.style.display === 'flex') {
+            aa.style.display = 'none';
+        } else {
+            aa.style.display = 'flex';  // 이전에 누락된 부분을 수정
+            
+        }
+        
+        if(updateFlag3 % 2 == 0){
+            addInput2 = document.createElement('input');
+            addInput2.type = 'hidden';
+            addInput2.name = 'wantDeleteImg';
+            addInput2.value = 'yes';
+           
+            this.append(addInput2);
+            updateFlag3 += 1;
+		}else{
+			addInput2.remove();
+		}
+        
+    });
 });
 
-*/
+let toggleFlag = 0;
+document.querySelectorAll('.reply-update').forEach(replyUpdate => {
+	replyUpdate.addEventListener('click', function(e){
+		let form = this.parentElement.previousElementSibling;
+		let img = this.parentElement.previousElementSibling.previousElementSibling;
+		let createDate = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
+		let content = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
+		let replyUpdateImg = this.parentElement.previousElementSibling.children[1];
+		
+		if(toggleFlag%2 == 0){
+			form.style.display = 'flex';
+			img.style.display = 'none';
+			createDate.style.display = 'none';
+			content.style.display = 'none';
+			this.innerText = '취소';
+			toggleFlag += 1;
+
+		} else{
+			form.style.display = 'none';
+			img.style.display = 'block';
+			createDate.style.display = 'block';
+			content.style.display = 'block';
+			toggleFlag += 1;
+			this.innerText = '수정';
+			replyUpdateImg.style.display = 'flex';
+			if(addInput2 != null){
+			addInput2.remove();				
+			}
+
+
+			
+		}
+		
+	});
+});
+
+
+
+
+
+
+
+
+
