@@ -43,8 +43,12 @@ public class BoardServiceImpl implements BoardService {
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
 		
-		System.out.println(map.get("pagination"));
-		
 		return map;
+	}
+
+	// 자유 게시판 게시글 상세 조회
+	@Override
+	public Board selectOne(Map<String, Integer> map) {
+		return mapper.selectOne(map);
 	}
 }
