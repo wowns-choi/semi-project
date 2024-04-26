@@ -43,8 +43,6 @@ public class BoardServiceImpl implements BoardService {
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
 		
-		System.out.println(map.get("pagination"));
-		
 		return map;
 	}
 

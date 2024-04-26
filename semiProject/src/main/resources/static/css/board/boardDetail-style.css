@@ -120,21 +120,31 @@
 
 /* 버튼 */
 .board-btn-area button{
-    width: 80px;
+    /* width: 80px;
     height: 30px;
 
     font-weight: bold;
-    border: 0;
-    background-color: #455ba8;
+    border: 0; */
+    background-color: darkslategray;
     color : white;
+
+	font-size: 16px;
+	width: 5vw;
+	height: 5vh;
+	border: none;
+	border-radius: 5%;
+	transition: color 0.3s, background-color 0.3s;
 
     cursor: pointer;
 }
 
 .board-btn-area button:hover{
-    background-color: white;
-    color : #455ba8;
-    border: 2px solid #455ba8;
+    /* background-color: white;
+    color : darkslategray;
+    border: 2px solid darkslategray; */
+	background-color: white;
+	color: darkslategray;
+	border: 0.5px solid darkslategray;
 }
 
 
