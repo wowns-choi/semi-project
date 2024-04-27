@@ -87,7 +87,8 @@ if(deleteBtn != null) {
 
     deleteBtn.addEventListener("click", () => {
         location.href = location.pathname.replace('board', 'editBoard') + "/delete" + location.search;
-        // -> /editBoard/1/2006/delete?cp=1
+        // 현재 : /board/all/2002?cp=1
+        // -> /editBoard/all/2002/delete?cp=1
     });
 };
 
