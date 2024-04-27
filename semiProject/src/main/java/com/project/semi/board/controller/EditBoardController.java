@@ -115,7 +115,8 @@ public class EditBoardController {
 			@RequestParam("images") List<MultipartFile> images,
 			RedirectAttributes ra,
 			@RequestParam(value="deleteOrder", required = false) String deleteOrder,
-			@RequestParam(value="queryString", required = false, defaultValue="") String queryString) {
+			@RequestParam(value="queryString", required = false, defaultValue="") String queryString
+			) throws IllegalStateException, IOException {
 		
 		inputBoard.setBoardNo(boardNo);
 		inputBoard.setMemberNo(loginMember.getMemberNo());
@@ -125,6 +126,49 @@ public class EditBoardController {
 		String message = null;
 		String path = null;
 		
-		return "";
+		if(result > 0) {
+			message = "게시글이 수정되었습니다.";
+			path = "/board/all/" + boardNo + queryString;
+		} else {
+			message = "수정 실패";
+			path = "update"; // 수정 화면 전환 상태로 redirect하는 상대 경로
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:" + path;
+	}
+	
+	@GetMapping("all/{boardNo:[0-9]+}/delete")
+	public String boardDelete(
+			@PathVariable("boardNo") int boardNo,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra,
+			@RequestParam("cp") int cp) {
+		
+		Board board = Board.builder()
+				.boardNo(boardNo)
+				.memberNo(loginMember.getMemberNo())
+				.build();
+		
+		// UPDATE
+		int result = service.boardDelete(board);
+		
+		String message = null;
+		String path = null;
+		
+		if(result > 0) {
+			// 삭제 성공 시 
+			message = "게시글이 삭제되었습니다.";
+			path = "/board/all";
+		} else {
+			message = "삭제 실패";
+			path = String.format("/board/all/%d?cp=%d", boardNo, cp);
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:" + path;
+		
 	}
 }
