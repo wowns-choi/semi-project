@@ -25,7 +25,7 @@ public interface MemberService {
 
 	Member findMemberByMemberNo(Integer memberNo);
 
-	//int updateImg(MultipartFile profileImg, Member loginMember) throws Exception;
+	int updateImg(MultipartFile profileImg, Member loginMember) throws Exception;
 
 	
 

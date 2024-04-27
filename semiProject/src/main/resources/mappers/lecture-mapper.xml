@@ -161,4 +161,18 @@
 		)
 	</insert>
 	
+		<update id="replyUpdate">
+		UPDATE LECTURE_REVIEW
+		SET REVIEW_CONTENT = #{reviewContent},
+		REVIEW_IMG = null
+		WHERE LECTURE_REVIEW_NO = #{lectureReviewNo}
+	</update>
+	
+	<update id="replyUpdate2">
+		UPDATE LECTURE_REVIEW
+		SET REVIEW_CONTENT = #{reviewContent}
+		WHERE LECTURE_REVIEW_NO = #{lectureReviewNo}
+	</update>
+	
+	
 </mapper>

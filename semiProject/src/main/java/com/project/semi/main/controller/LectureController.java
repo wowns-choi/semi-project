@@ -1,5 +1,6 @@
 package com.project.semi.main.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -80,7 +81,7 @@ public class LectureController {
 							@RequestParam("reviewImg") MultipartFile reviewImg,
 							@SessionAttribute("loginMember") Member loginMember,
 							RedirectAttributes ra
-			) {
+			) throws IllegalStateException, IOException{
 		
 		// log 로 잘 들어온 거 확인함. 
 		
@@ -136,7 +137,32 @@ public class LectureController {
 			ra.addFlashAttribute("message", "답글 작성 중 오류 발생");
 		} 
 		
-		return "redirect:/showLectureDetail?lectureNo=" + lectureNo;
+		return "redirect:/lecture/showLectureDetail?lectureNo=" + lectureNo;
+	}
+	
+	@PostMapping("replyUpdate")
+	public String replyUpdate(
+			@RequestParam("reviewContent") String reviewContent, 
+			@RequestParam(value= "wantDeleteImg",  required=false) String wantDeleteImg,
+			@SessionAttribute("loginMember") Member loginMember,
+			@RequestParam("lectureNo") String lectureNo,
+			@RequestParam("parentReviewNo") String parentReviewNo,
+			@RequestParam("lectureReviewNo") String lectureReviewNo,
+			RedirectAttributes ra 
+			
+			) {
+		
+		int memberNo = loginMember.getMemberNo();
+	
+		int result = lectureService.replyUpdate(reviewContent, wantDeleteImg, memberNo, lectureNo, parentReviewNo, lectureReviewNo);
+		
+		if(result != 0) { // 제대로 업데이트 됬다. 
+			ra.addFlashAttribute("message", "대댓글 수정 중 오류 발생");
+		} 
+		
+		return "redirect:/lecture/showLectureDetail?lectureNo=" + lectureNo;
+
+		
 	}
 
 	

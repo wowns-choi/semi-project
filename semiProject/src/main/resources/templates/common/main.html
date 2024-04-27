@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title th:text="#{app.name}">message.properties 값 출력</title>
+	<title>message.properties 값 출력</title>
 	
 	<!-- main css -->
 	<link rel="stylesheet" href="/css/common/main.css">
@@ -48,7 +48,7 @@
 					</th:block>
 					
 					<div th:if="${lecture.files == null}" class="lecture-img-basic">
-						<img src="/images/user.png">
+						<img src="/lecture/file/20240417192203_00001.jpg">
 					</div>
 					
 					<div th:text="|[${lecture.lectureHomeTitle}]|" class="lecture-name">

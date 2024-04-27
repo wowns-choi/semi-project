@@ -1,8 +1,11 @@
 package com.project.semi.main.model.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -156,7 +159,7 @@ public class LectureServiceImpl implements LectureService{
 	}
 
 	@Override
-	public int addReview(String lectureNo, String reviewContent, MultipartFile reviewImg, Member loginMember) {
+	public int addReview(String lectureNo, String reviewContent, MultipartFile reviewImg, Member loginMember) throws IllegalStateException, IOException {
 		int memberNo = loginMember.getMemberNo();
 		
 		String updatePath = null;
@@ -176,6 +179,11 @@ public class LectureServiceImpl implements LectureService{
 				.build();
 				
 		int result = lectureMapper.addReview(lectureReivew);
+		
+		if(result > 0) {
+			reviewImg.transferTo(new File(folderPath + rename));
+		}
+		
 		
 		return result;
 	}
@@ -215,7 +223,7 @@ public class LectureServiceImpl implements LectureService{
 		}
 		
 		LectureReview lectureReivew = LectureReview.builder()
-				.reviewWriteMember(memberNo)
+				.memberNo(memberNo)
 				.reviewContent(reviewContent)
 				.reviewImg(updatePath)
 				.lectureNo(Integer.parseInt(lectureNo))
@@ -223,12 +231,38 @@ public class LectureServiceImpl implements LectureService{
 				.build();
 		
 		
+		log.debug(lectureReivew.toString());
+		
 		return lectureMapper.addReviewReply(lectureReivew);
 		
 		
 		
 		
 
+	}
+
+	@Override
+	public int replyUpdate(String reviewContent, String wantDeleteImg, int memberNo, String lectureNo,
+			String parentReviewNo, String lectureReviewNo) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("reviewContent", reviewContent);
+		paramMap.put("wantDeleteImg", wantDeleteImg);
+		paramMap.put("memberNo", memberNo);
+		paramMap.put("lectureNo", lectureNo);
+		paramMap.put("lectureReviewNo", lectureReviewNo);
+		
+		int result = 0;
+		
+		if(wantDeleteImg != null) {
+			result = lectureMapper.replyUpdate(paramMap);
+		}else {
+			result = lectureMapper.replyUpdate2(paramMap);
+		}
+		
+		
+		
+		
+		return 0;
 	}
 	
 	

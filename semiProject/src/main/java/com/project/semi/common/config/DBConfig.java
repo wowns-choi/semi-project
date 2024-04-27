@@ -16,6 +16,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import lombok.extern.slf4j.Slf4j;
+
 /*@Configuration
  * - 해당 클래스가 설정용 클래스임을 명시하는 역할을 하는 애노테이션임.
  * 	   + 스프링 컨테이너가 객체(빈, 싱글톤)로 생성해서 내부 코드를 서버 실행시 모두 수행
@@ -47,12 +49,15 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @PropertySource("classpath:/config.properties")
+@Slf4j
 public class DBConfig {
+	
+
 	
 	@Autowired
 	private ApplicationContext applicationContext; //application scope 객체만들때 사용된 클래스가 ApplicationContext 이다.
 					// 즉 ApplicationContext 타입 객체는 현재프로젝트를 가리킨다. 
-	
+
 	
 	
 	///////////////////// HikariCP 설정 시작 ////////////////
@@ -75,6 +80,8 @@ public class DBConfig {
 	////////////////////// Mybatis 설정 시작 //////////////////////////////
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource datasource) throws Exception {
+		
+		log.info("asddddd");	
 		
 		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
 		sessionFactoryBean.setDataSource(datasource);
