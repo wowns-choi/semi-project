@@ -75,7 +75,11 @@
 			(SELECT IMG_PATH || IMG_RENAME
 			 FROM "BOARD_IMG"
 			 WHERE BOARD_NO = #{boardNo}
-			 AND   IMG_ORDER = 0) THUMBNAIL
+			 AND   IMG_ORDER = 0) THUMBNAIL,
+			(SELECT COUNT(*)
+			 FROM BOARD_LIKE
+			 WHERE MEMBER_NO = #{memberNo}
+			 AND BOARD_NO = #{boardNo}) LIKE_CHECK
 		FROM "BOARD"
 		JOIN "MEMBER" USING(MEMBER_NO)
 		WHERE BOARD_DEL_FL = 'N'
@@ -127,5 +131,18 @@
 		FROM BOARD_LIKE
 		WHERE BOARD_NO = #{boardNo}
 	</select>
+
+	<!-- 조회수 1 증가 -->
+	<update id="updateReadCount">
+		UPDATE "BOARD" SET
+		READ_COUNT = READ_COUNT + 1
+		WHERE BOARD_NO = #{boardNo}
+	</update>
 	
+	<!-- 조회수 조회 -->
+	<select id="selectReadCount">
+		SELECT READ_COUNT
+		FROM "BOARD"
+		WHERE BOARD_NO = #{boardNo}
+	</select>	
 </mapper>

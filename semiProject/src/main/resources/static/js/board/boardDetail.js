@@ -1,4 +1,4 @@
-console.log("boardDetail.js 연결 확인");
+// console.log("boardDetail.js 연결 확인");
 
 /* 좋아요 버튼(하트) 클릭 시 비동기로 좋아요 INSERT/DELETE */
 
