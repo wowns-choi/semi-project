@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.semi.board.model.mapper.EditBoardMapper">
+
+	<!-- 게시글 작성 -->
+	<insert id="boardInsert" useGeneratedKeys="true" parameterType="Board">
+	
+		<selectKey order="BEFORE" resultType="_int" keyProperty="boardNo">
+			SELECT SEQ_BOARD_NO.NEXTVAL FROM DUAL
+		</selectKey>
+	
+		INSERT INTO "BOARD"
+		VALUES( #{boardNo},
+				#{boardTitle},
+				#{boardContent},
+				DEFAULT, DEFAULT, DEFAULT, DEFAULT,
+				#{memberNo}
+		)
+	</insert>
+	
+	<!-- 게시글 이미지 모두 삽입 -->
+	<insert id="insertUploadList" parameterType="list">
+		INSERT INTO BOARD_IMG
+
+		<foreach collection="list" item="img"
+			open="(" close=")" separator=" UNION ">
+			SELECT NEXT_IMG_NO(),
+			#{img.imgPath},
+			#{img.imgOriginalName},
+			#{img.imgRename},
+			#{img.imgOrder},
+			#{img.boardNo}
+			FROM DUAL
+		</foreach>
+		
+	</insert>
+	
+	<!-- 게시글 부분 수정 (제목/내용) -->
+	<update id="boardUpdate">
+		UPDATE "BOARD" SET
+		BOARD_TITLE = #{boardTitle},
+		BOARD_CONTENT = #{boardContent}
+		WHERE BOARD_NO = #{boardNo}
+		AND MEMBER_NO = #{memberNo}
+	</update>
+</mapper>
