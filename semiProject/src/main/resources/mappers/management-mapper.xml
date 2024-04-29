@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.project.semi.main.model.mapper.LectureMapper"> 
-
- 	<resultMap id="firstLectureRM" type="Lecture">
+<mapper namespace="com.project.semi.management.model.mapper.ManagementMapper"> 
+<resultMap id="firstLectureRM" type="Lecture">
 	    <id property="lectureNo" column="LECTURE_NO" />
 	    <result property="memberNo" column="MEMBER_NO" />
 	    <result property="lectureCategoryNum" column="LECTURE_CATEGORY_NUM" />
@@ -25,7 +24,7 @@
 	    
 	    <!-- 조인해서 가져올 것들  -->
 	    <result property="memberNickname" column="MEMBER_NICKNAME" />
-   	    <result property="profileImg" column="PROFILE_IMG"/>    
+	    <result property="profileImg" column="PROFILE_IMG"/>
 	    <result property="dayOfWeek" column="DAY_OF_WEEK" />
 	    
 	    <!-- LECTURE_ADDRESS 조인 -->
@@ -68,8 +67,10 @@
 	    </collection>
 	</resultMap>
 	
-	
-	<select id="findLecturesLatest" resultMap="firstLectureRM">
+
+
+
+ 	<select id="showMyLectures" resultMap="firstLectureRM">
 	    SELECT
 	        L.LECTURE_NO,
 	        L.MEMBER_NO,
@@ -81,7 +82,6 @@
      	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
 	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
   
-			
 			LF.LECTURE_FILE_NO,
 			LF.FILE_PATH,
 			LF.ORIGINAL_NAME,
@@ -90,125 +90,20 @@
 			M.MEMBER_NICKNAME,
 	        M.PROFILE_IMG
 			
-			
 			FROM LECTURE L
 			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
 			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+			WHERE M.MEMBER_NO = #{memberNo}
 			ORDER BY L.ENROLL_DATE DESC
-	</select>
-	
-	<select id="findLectureDetail" resultMap="firstLectureRM">
-    	SELECT
-	        L.LECTURE_NO,
-	        L.MEMBER_NO,
-	        L.LECTURE_TITLE,
-	        L.LECTURE_CONTENT,
-	        
-	        TO_CHAR(L.ENROLL_DATE, 'YYYY"년" MM"월" DD"일"') FORMMATED_ENROLL_DATE,
-	        L.LECTURE_DEL_FL,
-	        L.PRICE,
-	        L.INSTRUCTOR_INTORODUCTION,
-	        L.LECTURE_LEVEL,
-	        L.START_TIME,
-	        L.HOW_LONG,
-	        L.ACCEPTABLE_NUMBER,
-	        L.REST_NUMBER,
-	        TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
-	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
-	        
-	        LF.LECTURE_FILE_NO,
-	        LF.FILE_PATH,
-	        LF.ORIGINAL_NAME,
-	        LF.FILE_RENAME,
-	        LF.UPLOAD_DATE,
-	        
-	        M.MEMBER_NICKNAME,
-	        M.PROFILE_IMG,
-	        
-	        LA.POST_CODE,
-	        LA.ROAD_ADDRESS,
-	        LA.JIBUN_ADDRESS,
-	        LA.DETAIL_ADDRESS,
-	        
-	        LM.LATITUDE,
-	        LM.HARDNESS
-	        
-	        
-	        
-	    FROM LECTURE L
-	    LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO 
-	    LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
-	    LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
-	    LEFT JOIN LECTURE_MAP LM ON L.LECTURE_NO = LM.LECTURE_NO
-	    WHERE L.LECTURE_NO = #{lectureNo}
-        ORDER BY L.ENROLL_DATE DESC
-	</select>
-
-	
-	<select id="findReview" resultType="LectureReview">
-		SELECT LECTURE_REVIEW.*, MEMBER.MEMBER_NO, MEMBER.MEMBER_NICKNAME, MEMBER.PROFILE_IMG
-		FROM LECTURE_REVIEW
-		LEFT JOIN MEMBER ON LECTURE_REVIEW.MEMBER_NO = MEMBER.MEMBER_NO
-		WHERE LECTURE_REVIEW.LECTURE_NO = #{lectureNo}
-		AND LECTURE_REVIEW.REVIEW_DEL_FL = 'N'
-		ORDER BY LECTURE_REVIEW.CREATE_DATE_REVIEW ASC
-	</select>
-	
-	
-	<insert id="addReview">
-		INSERT INTO LECTURE_REVIEW VALUES
-		(
-		SEQ_LECTURE_REVIEW_NO.NEXTVAL,
-		#{reviewWriteMember},
-		#{lectureNo},
-		#{reviewContent},
-		#{reviewImg},
-		DEFAULT,
-		NULL,
-		DEFAULT
-		)
-	</insert>
-	
-	<update id="updateReview">
-		UPDATE LECTURE_REVIEW SET
-		REVIEW_CONTENT = #{reviewContent2},
-		REVIEW_IMG = NULL
-		WHERE LECTURE_REVIEW_NO = #{updateReplyNo}
-	</update>
-	
-	<update id="updateReview2">
-		UPDATE LECTURE_REVIEW SET
-		REVIEW_CONTENT = #{reviewContent2}
-		WHERE LECTURE_REVIEW_NO = #{updateReplyNo}
-	</update>
-	
-	<insert id="addReviewReply">
-		INSERT INTO LECTURE_REVIEW
-		VALUES 
-		(
-			SEQ_LECTURE_REVIEW_NO.NEXTVAL,
-			#{memberNo},
-			#{lectureNo},
-			#{reviewContent},
-			#{reviewImg},
-			DEFAULT,
-			#{parentReviewNo},
-			DEFAULT
-		)
-	</insert>
-	
-		<update id="replyUpdate">
-		UPDATE LECTURE_REVIEW
-		SET REVIEW_CONTENT = #{reviewContent},
-		REVIEW_IMG = null
-		WHERE LECTURE_REVIEW_NO = #{lectureReviewNo}
-	</update>
-	
-	<update id="replyUpdate2">
-		UPDATE LECTURE_REVIEW
-		SET REVIEW_CONTENT = #{reviewContent}
-		WHERE LECTURE_REVIEW_NO = #{lectureReviewNo}
-	</update>
-	
-	
+			OFFSET #{startRow} ROWS
+			FETCH NEXT #{pageSize} ROWS ONLY
+ 	</select>
+ 	
+ 	<select id="countMyLecture">
+ 		SELECT COUNT(*) FROM LECTURE 
+ 		WHERE MEMBER_NO = #{memberNo}
+ 		AND LECTURE_DEL_FL = 'N'
+ 	</select>
+ 	
+ 	
 </mapper>

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var calendar = new FullCalendar.Calendar(calendarEl, {
     locale: 'ko',
 	initialView: 'dayGridMonth',
+	initialDate: startDate,
     dateClick: function(info) {
 
 		
