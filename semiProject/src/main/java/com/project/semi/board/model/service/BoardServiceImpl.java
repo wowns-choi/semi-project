@@ -43,8 +43,50 @@ public class BoardServiceImpl implements BoardService {
 		map.put("pagination", pagination);
 		map.put("boardList", boardList);
 		
-		System.out.println(map.get("pagination"));
-		
 		return map;
+	}
+
+	// 자유 게시판 게시글 상세 조회
+	@Override
+	public Board selectOne(Map<String, Integer> map) {
+		return mapper.selectOne(map);
+	}
+
+	@Override
+	public int boardLike(Map<String, Integer> map) {
+
+		int result = 0;
+		
+		if(map.get("likeCheck") == 1) {
+			
+			result = mapper.deleteBoardLike(map);
+			
+		} else {
+			
+			result = mapper.insertBoardLike(map);
+			
+		}
+
+		if(result > 0) {
+			return mapper.selectLikeCount(map.get("boardNo"));
+		}
+		
+		return -1;
+
+	}
+
+	// 조회 수 증가
+	@Override
+	public int updateReadCount(int boardNo) {
+		
+		// 1. 조회 수 1 증가
+		int result = mapper.updateReadCount(boardNo);
+		
+		// 2. 현재 조회 수 조회
+		if(result > 0) {
+			return mapper.selectReadCount(boardNo);
+		}
+		
+		return -1; // 실패한 경우 -1 반환
 	}
 }
