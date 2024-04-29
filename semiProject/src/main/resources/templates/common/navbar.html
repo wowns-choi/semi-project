@@ -1,7 +1,8 @@
 <div id="navbar">
 	<div></div>
 	<div>
-		<a>아이콘</a>
+
+		<a href="/">아이콘</a>
 		<a href="/board/all">자유게시판</a>
 		<a href="/register/idVerification" id="class-register">
 			<i class="fa-solid fa-file-circle-plus"></i>
@@ -11,6 +12,7 @@
 			<i class="fa-solid fa-list-check"></i>
 			<span style="font-size: 8px;">(강의 관리)</span>
 		</a>
+
 		<!--로그인 됐을 경우-->
 		<th:block th:if="${session.loginMember != null}">
 			<div id="welcome">

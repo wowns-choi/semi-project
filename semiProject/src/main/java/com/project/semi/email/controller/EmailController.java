@@ -55,7 +55,7 @@ public class EmailController {
 			return 1;
 		}
 		
-		//인증번호가 일치하지 않는다.		
+		//인증번호가 일치하지 않는다.
 		return 0;
 	}
 	

@@ -1,6 +1,7 @@
 package com.project.semi.board.model.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -21,5 +22,41 @@ public interface BoardMapper {
 	 * @return boardList
 	 */
 	List<Board> selectBoardList(int cp, RowBounds rowBounds);
+
+	/** 자유 게시판 게시물 상세 조회
+	 * @param map
+	 * @return board
+	 */
+	Board selectOne(Map<String, Integer> map);
+
+	/** 좋아요 해제
+	 * @param map
+	 * @return result
+	 */
+	int deleteBoardLike(Map<String, Integer> map);
+
+	/** 좋아요 체크
+	 * @param map
+	 * @return  result
+	 */
+	int insertBoardLike(Map<String, Integer> map);
+
+	/** 게시글 좋아요 개수 조회
+	 * @param integer
+	 * @return result
+	 */
+	int selectLikeCount(Integer integer);
+
+	/** 조회수 1 증가
+	 * @param boardNo
+	 * @return result
+	 */
+	int updateReadCount(int boardNo);
+
+	/** 조회수 조회
+	 * @param boardNo
+	 * @return result
+	 */
+	int selectReadCount(int boardNo);
 
 }

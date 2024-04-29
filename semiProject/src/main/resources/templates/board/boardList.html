@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,7 +88,7 @@
 
 			<div class="btn-area">
 				<!-- 로그인 상태일 때만 글쓰기 버튼 노출 -->
-				<button id="insertBtn">글쓰기</button>
+				<button id="insertBtn" th:if="${session.loginMember}">글쓰기</button>
 			</div>
 
 
@@ -127,8 +127,6 @@
 				</ul>
 			</div>
 
-
-
 			<!-- 검색창 -->
 			<form action="#" method="get" id="boardSearch">
 
@@ -147,17 +145,13 @@
 		</section>
 	</main>
 
-
 	<th:block th:replace="~{common/footer}"></th:block>
 
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
 
-
-
-
-
-
-
-
-	<th:block th:replace="~{common/footer}"></th:block>
+	<script src="/js/board/boardList.js"></script>
 </body>
 </html>

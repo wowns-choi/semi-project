@@ -45,6 +45,13 @@ public class FileConfig implements WebMvcConfigurer{
 	
 	//===================================================	
 
+	// 게시판 이미지
+	@Value("${my.board.resource-handler}")
+	private String boardResourceHandler; // 요청 주소
+	
+	@Value("${my.board.resource-location}")
+	private String boardResourceLocation; // 연결될 서버 폴더 경로
+	
 	// 요청 주소(a 태그의 href 나 img 태그의 src속성을 말함)에 따라
 	// 서버 컴퓨터의 어떤 경로에 접근할지 설정해줄 수 있다. 
 	@Override
@@ -53,6 +60,11 @@ public class FileConfig implements WebMvcConfigurer{
 		log.info("profileResourceLocation={}", profileResourceLocation);
 		registry.addResourceHandler(profileResourceHandler)
 		.addResourceLocations(profileResourceLocation);
+
+		
+		registry.addResourceHandler(boardResourceHandler)
+		.addResourceLocations(boardResourceLocation);
+
 	}
 	
 	@Bean
