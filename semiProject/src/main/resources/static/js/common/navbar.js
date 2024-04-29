@@ -39,3 +39,4 @@ document.addEventListener("DOMContentLoaded", function() {
         dropdownMenu.style.display = 'none';  // display 속성을 flex로 설정하여 보이게 합니다.
     });
 });
+

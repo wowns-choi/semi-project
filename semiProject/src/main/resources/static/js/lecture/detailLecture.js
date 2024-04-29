@@ -102,13 +102,15 @@ function changeQuantity(change) {
 }
 
 
+//====================================================================================
+
 // 리플 textarea에 입력하기 시작하면 '리뷰' 버튼 색깔 바꾸기
-var textarea = document.getElementById('write-content');
+var textarea2 = document.getElementById('write-content');
 
 let reviewWriteBtn = document.querySelector('#review-write-btn');
 
-textarea.addEventListener('input', function(){
-	if(textarea.value == ''){
+textarea2.addEventListener('input', function(){
+	if(textarea2.value == ''){
 		reviewWriteBtn.style.backgroundColor = 'lightgray';	
 		reviewWriteBtn.style.color = 'gray';	
 	} else{
@@ -174,217 +176,254 @@ xBtnIcon.addEventListener('click', function(e){
 	reviewInputImg.style.display = 'none';
 });
 
-let updateFlag = 0;
-let updateFlag2 = 0;
-let addInput;
-// 리뷰 수정
+
+// 리뷰(부모)의 수정 버튼 클릭 시
 document.querySelectorAll('.update-text').forEach(updateText => {
-	updateText.addEventListener('click', function(e){
-		
-		let updateFormDiv = this.parentElement.previousElementSibling;
-		let reviewImg2 = this.parentElement.previousElementSibling.previousElementSibling;
-		let createDate = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
-		let currentReviewContent = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
-		
-		// x 버튼 누르면.
-		let updateForm = this.parentElement.previousElementSibling.firstElementChild;
-		let textarea = this.parentElement.previousElementSibling.firstElementChild.children[0];
-		let imgTag= this.parentElement.previousElementSibling.firstElementChild.children[1];
-		let xButton= this.parentElement.previousElementSibling.firstElementChild.children[2];
-		let saveBtn= this.parentElement.previousElementSibling.firstElementChild.children[3];
-						
-		updateFlag += 1;
-		if(updateFlag % 2 == 0){
-			// 수정 취소버튼을 누를 경우, 
-			// 다시, 이미지를 block 으로보여주고, 
-			imgTag.style.display = '';
-			updateFlag2 = 0;
-			addInput.remove();
-		}
-		
-		
-		xButton.addEventListener('click', function(e){
-			if(updateFlag2 == 0){
-				imgTag.style.display = 'none';
-				addInput = document.createElement('input');
-				addInput.type = 'hidden';
-				addInput.name = 'wantDeleteImg';
-				addInput.value = 'yes';
-				updateForm.append(addInput);
-				updateFlag2 += 1;				
-			}
-
-		});
-
-
 	
-		let flag = updateFormDiv.style.display === 'block' ? true : false;
+	updateText.addEventListener('click', function(e){
+		// 뭐 해줘야 해? 
+		// 1. 리뷰의 내용(reviewContent)과, 언제 생성된 리뷰인지 나타내는 것(stringCreateDate)을 감춰줘야 함. 
+		// 2. 수정폼 보여주기 
 		
-		if(flag == false){
-			//none(안보이고 있던 상태)
-			updateFormDiv.style.display = 'block';
-			currentReviewContent.style.display='none';
-			createDate.style.display='none';
-			reviewImg2.style.display = 'none';
+		let isEditing = this.dataset.editing === 'true';
+		let beHide = this.parentElement.previousElementSibling.previousElementSibling;
+		let showFormDiv = this.parentElement.previousElementSibling;
+		let showForm = this.parentElement.previousElementSibling.children[0];
+		let imgInShowForm = this.parentElement.previousElementSibling.children[0].children[1];
+
+		if (!isEditing) {
+			// 편집 모드로 전환
+			beHide.style.display = 'none';
+			showFormDiv.style.display = 'block';
+			showForm.style.display = 'flex';
+			
+			
 			this.innerText = '취소';
 			
-		}else{
-			//block(보이고 있던 상태)
-			updateFormDiv.style.display = 'none';
-			currentReviewContent.style.display='block';	
-			createDate.style.display='block';	
-			reviewImg2.style.display = 'block';	
+			console.log(showFormDiv.style.display);
+			
+		} else {
+			// 편집 모드 해제
+			beHide.style.display = 'block';
+			showFormDiv.style.display = 'none';
+			showForm.style.display = 'none';
 			this.innerText = '수정';
+			
+			// 신호 지우기
+			
+			
+			// 그리고 무조건 이미지 보여줘야 함. 
+			
+			// 신호 지우기 (만약, 리뷰의 리플(자식) 에 달려있는 이미지를 지우라는 의미에서 x 버튼을 누른적이 있다면, 그 신호 지워줌)
+			if(showForm.lastElementChild.tagName === 'INPUT' && showForm.lastElementChild.name === 'wantDeleteImg'){
+				showForm.removeChild(showForm.lastElementChild);
+			}
+			
+			// 그리고, 무조건 이미지 다시 보여줘야함. 
+			imgInShowForm.style.display = 'block';
+			
 		}
+		// 상태 토글
+		this.dataset.editing = !isEditing;
+	});
+});
+
+// 리뷰의 수정버튼 눌렀을 때, x버튼 을 누르면 "이미지 감추기"" + "서버에 이미지 지우라는 신호 보내기" 
+document.querySelectorAll('.xxx-btn').forEach(xb2 => {
+	
+	xb2.addEventListener('click', function(e){
+		// 이미지 감추기
+		this.previousElementSibling.style.display = 'none';
 		
-		
-		// x버튼을 클릭했을 경우, 
-		
+		// 서버에 이미지 지우라는 신호 보내기 
+		// 1) 일단, 이미 신호가 추가된 적이 있는지를 따짐 
+		if(this.parentElement.lastElementChild.tagName === 'INPUT' && this.parentElement.lastElementChild.name === 'wantDeleteImg'){
+			return;
+		}else{
+			// 2) 없을 경우 신호를 추가해줌
+			let signal2 = document.createElement('input');
+			signal2.type = 'text';
+			signal2.name = 'wantDeleteImg';
+		    signal2.value = 'true';
+		    this.parentElement.append(signal2);			
+		}		
 	});
 });
 
 
-// 답글 입력 시작하면, '답글' 버튼 색깔바꾸기
-document.querySelectorAll('.dapgle-textarea').forEach(dapgleTextarea =>{
-	dapgleTextarea.addEventListener('input', function(e){
+
+
+
+// 댓글 쓰기 버튼 누를 시
+document.querySelectorAll('.reply-btn').forEach(replyBtn => {
+	
+	replyBtn.addEventListener('click', function(e){
 		
-		let dapgleBtn = dapgleTextarea.nextElementSibling;
+		let isBool = this.dataset.bool === 'true';
 		
-		if(dapgleTextarea.value == ''){
-			dapgleBtn.style.backgroundColor = 'lightgray';
-			dapgleBtn.style.color = 'gray';		
+		if(isBool){
+            replyBtn.nextElementSibling.style.display = 'flex';
 		} else{
-			dapgleBtn.style.backgroundColor = '#006aff';
-			dapgleBtn.style.color = 'white';
+            replyBtn.nextElementSibling.style.display = 'none';
 		}
-	});
+		
+		this.dataset.bool = !isBool;
+	})	
 });
 
-// 답글 file 선택시 그 파일을 보여줘야 함.
+
+// 리뷰의 리플(자식) 달 때, 파일 선택하면, 이미지 미리 보여주기 
 document.querySelectorAll('.reply-file-input').forEach(replyFileInput => {
+	
 	replyFileInput.addEventListener('change', function(e){
-		let replyFileImg = replyFileInput.parentElement.nextElementSibling;
-		let file = e.target.files[0];
-	
-		let reader = new FileReader();
-		reader.readAsDataURL(file);
-	
-		reader.onload = function(e){
-		replyFileImg.src = e.target.result;
-		replyFileImg.style.display = 'block';
 		
-	}})
+		let replyFilePreviewImg = this.parentElement.nextElementSibling;
+		
+		let file2 = e.target.files[0];
+		let reader = new FileReader();
+		reader.readAsDataURL(file2);
+		
+		reader.onload = function(e){
+			replyFilePreviewImg.src = e.target.result;
+			replyFilePreviewImg.style.display = 'block';
+			
+		}
+		
+	});
+	
 });
 
 
+// 리뷰의 리플(자식) 달 때, x 버튼 누르면, 
+// 1) 미리 보여줬던 이미지 감추기
+// 2) type="file" 인 input 태그를 지우고, 새로 만들어주기 
 
-// x버튼을 클릭하면, ---------------------------------------------------- 
-document.querySelectorAll('.reply-x-btn').forEach(replyXBtn => {
+document.querySelectorAll('.reply-x-btn').forEach(x => {
 	
-	replyXBtn.addEventListener('click', function(e){
-		let replyFileInput = replyXBtn.previousElementSibling.previousElementSibling.firstElementChild;
-		let name = replyFileInput.name;
-		replyFileInput.remove();
-		replyFileInput = document.createElement('input');
-		replyFileInput.type = 'file';
-		replyFileInput.name = name;
-		replyFileInput.classList.add('reply-file-input');
+	x.addEventListener('click', function(e){
 		
-		replyFileInput.addEventListener('change',function(e){
-			let file = e.target.files[0];
+		// 미리 보여줬던 이미지 감추기 
+		let previewImg = this.previousElementSibling;
+			previewImg.style.display = 'none';
+		// type="file" 인 input 태그를 지우고, 새로 만들어주기 
+		
+		let oldInput = this.previousElementSibling.previousElementSibling.lastElementChild;
+		
+		let newInput = document.createElement('input');
+		newInput.type = 'file';
+		newInput.name = 'replyFile';
+		newInput.classList.add('reply-file-input reply-file-label'); 
+		// reply-file-input 은 display:none; 이라는 style 을 주기 위함이며, 
+		// reply-file-label 은 라벨과 연동하기 위함이다. 
+		
+		// oldInput -> newInput 으로 대체 
+		oldInput.parentElement.replaceChild(newInput, oldInput);
+		
+		
+		alert('aaaaaaaaaaaaa');
+		
+		newInput.addEventListener('change', function(e){
 			
+			let file3 = e.target.files[0];
 			let reader = new FileReader();
-			
-			reader.readAsDataURL(file);
+			reader.readAsDataURL(file3);
 			
 			reader.onload = function(e){
-				
-        		let replyImg = replyXBtn.previousElementSibling; // 이미지 태그 참조
-				
-				replyImg.src = e.target.result; 
-				replyImg.style.display = 'block';
+			this.parentElement.nextElementSibling.src = e.target.result;
+			this.parentElement.nextElementSibling.style.display = 'block';
+			
+			alert('aawowns');				
 			}
 		});
 		
-		let replyFileLabel = this.previousElementSibling.previousElementSibling;
-		replyFileLabel.append(replyFileInput);
 		
-		let replyFileImage = this.previousElementSibling;
-		replyFileImage.style.display = 'none';
 		
-	})
+	})	
+	
 });
 
 
 
 
-let addInput2;
-let updateFlag3 = 0;
-document.querySelectorAll('.reply-update-form>i:nth-child(3)').forEach(x => {
-    x.addEventListener('click', function(e) {
-        let aa = x.previousElementSibling;  // 이벤트 리스너 내부로 이동
 
-        // 현재 display 상태에 따라 토글합니다.
-        if (aa.style.display === 'flex') {
-            aa.style.display = 'none';
-        } else {
-            aa.style.display = 'flex';  // 이전에 누락된 부분을 수정
-            
-        }
-        
-        if(updateFlag3 % 2 == 0){
-            addInput2 = document.createElement('input');
-            addInput2.type = 'hidden';
-            addInput2.name = 'wantDeleteImg';
-            addInput2.value = 'yes';
-           
-            this.append(addInput2);
-            updateFlag3 += 1;
-		}else{
-			addInput2.remove();
-		}
-        
-    });
-});
 
-let toggleFlag = 0;
-document.querySelectorAll('.reply-update').forEach(replyUpdate => {
-	replyUpdate.addEventListener('click', function(e){
-		let form = this.parentElement.previousElementSibling;
-		let img = this.parentElement.previousElementSibling.previousElementSibling;
-		let createDate = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling;
-		let content = this.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling;
-		let replyUpdateImg = this.parentElement.previousElementSibling.children[1];
+// 리뷰 리플(자식) 수정버튼 눌렀을 경우 
+document.querySelectorAll('.reply-update').forEach(updateBtn => {
+	
+	updateBtn.addEventListener('click', function(e){
 		
-		if(toggleFlag%2 == 0){
-			form.style.display = 'flex';
-			img.style.display = 'none';
-			createDate.style.display = 'none';
-			content.style.display = 'none';
+		let reupFlag =this.dataset.reup === 'true';
+		let beHide2 = this.parentElement.previousElementSibling.previousElementSibling;
+		let showFormDiv2 = this.parentElement.previousElementSibling;
+		let inFormImg= this.parentElement.previousElementSibling.children[1];
+		
+		
+		if (reupFlag) {
+			// 편집 모드로 전환
+			beHide2.style.display = 'none';
+			showFormDiv2.style.display = 'flex';
 			this.innerText = '취소';
-			toggleFlag += 1;
-
-		} else{
-			form.style.display = 'none';
-			img.style.display = 'block';
-			createDate.style.display = 'block';
-			content.style.display = 'block';
-			toggleFlag += 1;
+			
+		} else {
+			// 편집 모드 해제
+			beHide2.style.display = 'block';
+			showFormDiv2.style.display = 'none';
 			this.innerText = '수정';
-			replyUpdateImg.style.display = 'flex';
-			if(addInput2 != null){
-			addInput2.remove();				
+			
+			// 신호 지우기 (만약, 리뷰의 리플(자식) 에 달려있는 이미지를 지우라는 의미에서 x 버튼을 누른적이 있다면, 그 신호 지워줌)
+			if(showFormDiv2.lastElementChild.tagName === 'INPUT' && showFormDiv2.lastElementChild.name === 'wantDeleteImg'){
+				showFormDiv2.removeChild(showFormDiv2.lastElementChild);
 			}
-
-
+			
+			// 그리고, 무조건 이미지 다시 보여줘야함. 
+			inFormImg.style.display = 'block';
+			
+			
 			
 		}
 		
+		// 상태 토글
+		this.dataset.reup = !reupFlag;
 	});
+	
+});
+
+
+// 리뷰의 리플(자식) 에서 수정버튼 눌렀을 때, x버튼 을 누르면 "이미지 감추기"" + "서버에 이미지 지우라는 신호 보내기" 
+document.querySelectorAll('.review-update-x-btn').forEach(xb => {
+	
+	xb.addEventListener('click', function(e){
+		// 이미지 감추기
+		this.previousElementSibling.style.display = 'none';
+		
+		// 서버에 이미지 지우라는 신호 보내기 
+		// 1) 일단, 이미 신호가 추가된 적이 있는지를 따짐 
+		if(this.parentElement.lastElementChild.tagName === 'INPUT' && this.parentElement.lastElementChild.name === 'wantDeleteImg'){
+			return;
+		}else{
+			// 2) 없을 경우 신호를 추가해줌
+			let signal = document.createElement('input');
+			signal.type = 'hidden';
+			signal.name = 'wantDeleteImg';
+		    signal.value = 'true';
+		    this.parentElement.append(signal);			
+		}
+		
+
+	    
+		
+	});
+	
 });
 
 
 
+
+
+
+
+
+//--------------------------------------------------------------------------
 
 
 

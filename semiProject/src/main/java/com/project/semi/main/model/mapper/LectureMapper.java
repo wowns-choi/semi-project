@@ -30,9 +30,5 @@ public interface LectureMapper {
 	int replyUpdate(Map<String, Object> paramMap);
 
 	int replyUpdate2(Map<String, Object> paramMap);
-
-
-
-	
-
 }
+

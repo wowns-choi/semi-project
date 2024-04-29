@@ -21,9 +21,24 @@
 	    <result property="formattedEndDate" column="FORMMATED_END_DATE" />
 	    <result property="formattedEnrollDate" column="FORMMATED_ENROLL_DATE" />
 	    
+	    
+	    
 	    <!-- 조인해서 가져올 것들  -->
 	    <result property="memberNickname" column="MEMBER_NICKNAME" />
 	    <result property="dayOfWeek" column="DAY_OF_WEEK" />
+	    
+	    <!-- LECTURE_ADDRESS 조인 -->
+	    <result property="postCode" column="POST_CODE"/>
+	    <result property="roadAddress" column="ROAD_ADDRESS"/>
+	    <result property="jibunAddress" column="JIBUN_ADDRESS"/>
+	    <result property="detailAddress" column="DETAIL_ADDRESS"/>
+	    
+	    <!-- LECTURE_MAP 조인 -->
+	    <result property="latitude" column="LATITUDE"/>
+	    <result property="hardness" column="HARDNESS"/>
+	    
+	    
+	    
 	    
 	    <collection property="files" ofType="LectureFile">
 	        <id property="lectureFileNo" column="LECTURE_FILE_NO" />
@@ -95,15 +110,30 @@
 	        L.REST_NUMBER,
 	        TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
 	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+	        
 	        LF.LECTURE_FILE_NO,
 	        LF.FILE_PATH,
 	        LF.ORIGINAL_NAME,
 	        LF.FILE_RENAME,
 	        LF.UPLOAD_DATE,
-	        M.MEMBER_NICKNAME
+	        
+	        M.MEMBER_NICKNAME,
+	        
+	        LA.POST_CODE,
+	        LA.ROAD_ADDRESS,
+	        LA.JIBUN_ADDRESS,
+	        LA.DETAIL_ADDRESS,
+	        
+	        LM.LATITUDE,
+	        LM.HARDNESS
+	        
+	        
+	        
 	    FROM LECTURE L
 	    LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO 
 	    LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+	    LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+	    LEFT JOIN LECTURE_MAP LM ON L.LECTURE_NO = LM.LECTURE_NO
 	    WHERE L.LECTURE_NO = #{lectureNo}
         ORDER BY L.ENROLL_DATE DESC
 	</select>

@@ -121,9 +121,9 @@
 						></div>
 						<textarea name="reviewContent" id="write-content" placeholder="리뷰를 작성해주세요" ></textarea> 					
 					</div>
-					<button type="submit" id="review-write-btn">리뷰</button>
+					<button type="submit" id="review-write-btn">					<i class="fa-regular fa-paper-plane"></i></button>
 					<label for="review-file" id="review-file-label">
-						파일
+						<i class="fa-regular fa-file-image"></i>
 					</label>
 					<img th:with="user=#{user.default.image}"
 						th:src="${user}"
@@ -142,56 +142,66 @@
 					<i class="fa-regular fa-comment-dots"></i>
 					댓글
 				</div>
+				
+				<!-- ========================= 본격적인 리뷰의 시작. ========================= -->
 				<div th:each="review :${fiveParentReview}" class="review-per">
 					<div>
 						<img th:with="user=#{user.default.image}" 
 						th:src="${review.profileImg ?: user}">
 						<div th:text="${review.memberNickname}" ></div>							
 					</div>
-
-					<div th:text="${review.reviewContent}"></div>	
-					<div th:text="${review.stringCreateDate}"></div>
-					
-					<img th:if="${review.reviewImg}" th:src="${review.reviewImg}">
-					
-					<div class="update-form-div">
-						<form th:action="@{/lecture/updateReview}" method="post" enctype="multipart/form-data" >
-							<textarea name="reviewContent2"  placeholder="리뷰를 작성해주세요" th:value="${review.reviewContent}" th:text="${review.reviewContent}"></textarea> 					
-
-							<img th:if="${review.reviewImg}"  th:src="${review.reviewImg}">
-							<!-- 현재 맥이 파일 접근권한을 막아서, 외부 파일이 안읽어와져서 주석처리해놓음. -->
-							<!--<img th:src="${review.reviewImg}">-->
-							<i class="fa-solid fa-circle-xmark" id="x-btn-icon2"></i>
-
-
-							<button type="submit">저장</button>
-							<input type="hidden" name="updateReplyNo" th:value="${review.lectureReviewNo}">
-							<input type="hidden" name="lectureNo" th:value="${lecture.lectureNo}">
-
-
-						</form>
+					<div>
+						<div th:text="${review.reviewContent}"></div>	
+						<div th:text="${review.stringCreateDate}"></div>
+						<img th:if="${review.reviewImg}" th:src="${review.reviewImg}">
 					</div>
+
+						<!-- =====================평소에는 숨겨져 있다가 "수정" 버튼 누르면 나오게 되는 부분 시작=============== -->
+						<div class="update-form-div">
+							<form th:action="@{/lecture/updateReview}" method="post" enctype="multipart/form-data" >
+								<textarea name="reviewContent2"  placeholder="리뷰를 작성해주세요" th:value="${review.reviewContent}" th:text="${review.reviewContent}"></textarea> 					
+	
+								<img th:if="${review.reviewImg}"  th:src="${review.reviewImg}" class="aaa">
+								<!-- 현재 맥이 파일 접근권한을 막아서, 외부 파일이 안읽어와져서 주석처리해놓음. -->
+								<!--<img th:src="${review.reviewImg}">-->
+								<div class="xxx-btn">
+								<i class="fa-solid fa-circle-xmark" ></i>
+								</div>
+	
+								<button type="submit">저장</button>
+								<input type="hidden" name="updateReplyNo" th:value="${review.lectureReviewNo}">
+								<input type="hidden" name="lectureNo" th:value="${lecture.lectureNo}">
+							</form>
+						</div>
+						<!-- =====================평소에는 숨겨져 있다가 수정 버튼 누르면 나오게 되는 부분 끝 =============== -->
+
 					
 					<div th:if="${session.loginMember.memberNo == review.memberNo}" class="update-delete-container">
-<!--this -->						<span th:attr="data-review-no=${review.lectureReviewNo}" class="update-text">수정</span>
+						<span th:attr="data-review-no=${review.lectureReviewNo}" data-editing="false"  class="update-text">수정</span>
 						<a th:href="@{/lecture/deleteReview?lectureReviewNo={lectureReviewNo}(lectureReviewNo = ${review.lectureReviewNo})}">삭제</a>
 					</div>					
-					<div class="reply-btn">
-						답글
+					<div class="reply-btn" data-bool="true">
+						댓글 쓰기
+
 					</div>
-					<div>
+					
+					<!-- ======== 여기까지가리뷰의 답급 전 까지 ========== -->
+					<!-- ======== 여기서부터 리뷰의 리플에 대한 html ========== -->
+					<!-- ======== 리뷰의 리플 달기 시작 ========== -->
+					
+					<div class="reply-input-form-container">
 						<form action="/lecture/addReviewReply" method="post" class="reply-input-form" enctype="multipart/form-data">
 							<img th:with="user=#{user.default.image}"
 								th:src="${session.loginMember.profileImg ?: user}"
 								>
 							<textarea name="reviewContent2"  placeholder="답글을 작성해주세요" class="dapgle-textarea"></textarea> 					
-							<button type="submit" class="dapgle">답글</button>
+							<button type="submit" class="dapgle"><i class="fa-regular fa-paper-plane"></i></button>
 							<label class="reply-file-label"> 
-								파일 
+								<i class="fa-regular fa-file-image"></i>
 								<input type="file" name="replyFile" class="reply-file-input">
 							</label>
-							<img  src="" class="reply-file-img">
-							<span class="reply-x-btn">
+							<img  src="asdffsd" class="reply-file-img">
+							<span class="reply-x-btn" data-reply="true">
 								<i class="fa-solid fa-circle-xmark"></i>
 							</span>
 							<input type="hidden" name="lectureNo" th:value="${lecture.lectureNo}">
@@ -199,24 +209,28 @@
 						</form>
 					</div>
 					
+					<!-- ======== 리뷰의 리플 달기 끝 ========== -->					
 					
-
+					<!-- ======== 리뷰의 리플 렌더링 ========== -->
 					<div th:each="reply : ${review.replies}" class="reply-container">
 						<div class="reply-img-div">
 							<img th:with="user=#{user.default.image}" 
 							th:src="${reply.profileImg ?: user}" class="reply-member-img">
 							<div th:text="${reply.memberNickname}" class="reply-member-nickname"></div>
 						</div>
-						<div th:text="${reply.reviewContent}" class="reply-review-content"></div>
-						<div th:text="${reply.stringCreateDate}" class="reply-createdate"></div>
-						<!--<img th:src="${reply.reviewImg}">-->
-						<img src="/images/user.png " class="reply-img">
+						<div>
+							<div th:text="${reply.reviewContent}" class="reply-review-content"></div>
+							<div th:text="${reply.stringCreateDate}" class="reply-createdate"></div>
+							<img th:if="${reply.reviewImg}" th:src="${reply.reviewImg}" class="reply-img">
+						</div>
 						
 						<form action="/lecture/replyUpdate" method="post" class="reply-update-form">
 							<textarea name="reviewContent"  placeholder="리뷰를 작성해주세요" th:value="${reply.reviewContent}" th:text="${reply.reviewContent}" class="reply-update-textarea"></textarea>
 							<!--	<img th:src="${reply.reviewImg}"> -->
 							<img src="/images/user.png" class="reply-update-img">
-							<i class="fa-solid fa-circle-xmark"></i>
+							<div class="review-update-x-btn">
+								<i class="fa-solid fa-circle-xmark"></i>
+							</div>
 							<button class="reply-update-save-btn">저장</button>
 							<input type="hidden" name="lectureNo" th:value="${lectureNo}">
 							<input type="hidden" name="parentReviewNo" th:value="${review.lectureReviewNo}">
@@ -224,18 +238,34 @@
 						</form>
 						
 						<div class="reply-update-delete-div">
-							<span class="reply-update">수정</span>
+							<span class="reply-update" 	data-reup="true" >수정</span>
 							<span class="reply-delete">삭제</span>
 						</div>					
 					</div>
 				</div>
 				
 			</div>
+
+			
+			<!-- 페이지네이션 -->
+			
+			<div th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}">
+			    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;">Current Page</span>
+			    <a th:unless="${i == currentPage}" th:href="@{/lecture/showLectureDetail(lectureNo=${lectureNo}, currentPage=${i})}"
+					th:text="${i}">Page Link</a>
+			    &nbsp;&nbsp;
+			</div>
+
 			<div id="div-10">
 				<div id="map" style="width:500px;height:400px;"></div>
 			</div>
-				
-
+			
+			<div th:text="${lecture.postCode}"></div>
+			<div th:text="${lecture.roadAddress}"></div>
+			<div th:text="${lecture.jibunAddress}"></div>
+			<div th:text="${lecture.detailAddress}"></div>
+			<div th:text="${lecture.latitude}"></div>
+			<div th:text="${lecture.hardness}"></div>
 
 			
 			

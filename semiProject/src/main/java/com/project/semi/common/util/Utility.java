@@ -1,6 +1,7 @@
 package com.project.semi.common.util;
 
 import java.text.SimpleDateFormat;
+import java.util.Random;
 
 public class Utility {
 
@@ -40,5 +41,16 @@ public class Utility {
 		// lastIndexOf 니까, 끝에서부터 찾아서 인덱스 반환. 그래서, . 을 기준으로 0 1 2 3 이니까, 3 을 반환
 		
 		return date + "_" + number +  ext;
+	}
+	
+	
+	public static int phoneAuth() {
+        Random random = new Random();
+        
+        // 1000 (포함)과 10000 (미포함) 사이의 랜덤 숫자 생성
+        int fourDigitNumber = 1000 + random.nextInt(9000);
+        
+        return fourDigitNumber;
+		
 	}
 }

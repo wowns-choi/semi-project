@@ -37,7 +37,7 @@ public class Lecture {
     
     private Integer lectureLevel;
         
-    private Integer startTime;
+    private String startTime;
     
     private Integer howLong;
     
@@ -66,5 +66,19 @@ public class Lecture {
 
     // 5. LECTURE_INQUIRY
     private List<LectureInquiry> inquirys;
+    
+    // 6. LECTURE_ADDRESS
+    private String postCode;
+    private String roadAddress;
+    private String jibunAddress;
+    private String detailAddress;
+    
+    // 7. LECTURE_MAP
+    private String latitude;
+    private String hardness;
+    
+    
+    
+    
     
 }
