@@ -38,6 +38,21 @@
 	flex-basis: 15%;
 }
 
+/*----------------------클래스 등록, 클래스 관리 -----------------------------*/
+#class-register{
+	text-decoration: none;
+	margin-left: 10px;
+	color: black;
+}
+#class-manage{
+	text-decoration: none;
+	margin-left: 10px;
+	margin-right: 10px;
+
+	color: black;
+}
+
+
 
 /*-----------------------------------------------------*/
 

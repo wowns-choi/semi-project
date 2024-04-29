@@ -55,7 +55,7 @@ public class LectureServiceImpl implements LectureService{
 	}
 
 	@Override
-	public Map<String,Object> findLectureDetail(String lectureNo) {
+	public Map<String,Object> findLectureDetail(String lectureNo, String page) {
 		Lecture lecture = lectureMapper.findLectureDetail(lectureNo);
 		
 		List<LectureReview> list = lectureMapper.findReview(lectureNo); // 최신순 6개 조회.
@@ -130,11 +130,22 @@ public class LectureServiceImpl implements LectureService{
         }
         
         // parentReviews 에서 현재 보여질 review 들만 골라내야 함. 
-        Integer currentPage = 1; // 현재 페이지
+        Integer currentPage = Integer.parseInt(page); // 현재 페이지
         Integer pageSize = 5; // 한 페이지당 리뷰 개수
         Integer totalPosts = parentReviews.size(); // 전체 review 개수
         Integer pageGroupSize = 5; // 페이지그룹당 페이지 수
+        // 현재 페이지가 속한 페이지그룹의 첫번째 페이지 
+        // 1) 현재 페이지가 속한 페이지그룹 구하기
+        Integer currentGroup = (int)Math.ceil((double) currentPage/pageGroupSize);
+        // 2) 현재 페이지가 속한 페이지그룹의 첫번째 페이지 구하기 
+        Integer currentGroupFirstPage = (currentGroup - 1) * pageGroupSize + 1;
+        // 현재 페이지가 속한 그룹의 마지막 페이지 구하기 
+        // 그 전에, 마지막 페이지를 구해야 함. 
+        Integer totalPages = (int)Math.ceil((double)totalPosts/pageSize);
+        Integer currentGroupLastPage = Math.min(currentGroupFirstPage + pageGroupSize - 1, totalPages);
+        
         Integer startRow = (currentPage - 1) * pageSize; 
+        
         
         List<LectureReview> fiveParentReview = new ArrayList<>();
         
@@ -149,11 +160,21 @@ public class LectureServiceImpl implements LectureService{
         
         Map<String, Object> returnMap = new ConcurrentHashMap<String, Object>();
         returnMap.put("lecture", lecture);
-        returnMap.put("fiveParentReview", fiveParentReview);
+        returnMap.put("fiveParentReview", fiveParentReview); // 1
+        //returnMap.put("currentPage", currentPage); // 2 컨트롤러에서 파라미터로 받은 거 쓰려고함. 
+        returnMap.put("totalPosts", totalPosts); //3
+        returnMap.put("pageGroupSize", pageGroupSize); // 6
+        returnMap.put("currentGroupFirstPage", currentGroupFirstPage); // 4
+        returnMap.put("currentGroupLastPage", currentGroupLastPage); //5
+        
+        
+        
         
         for(LectureReview review : fiveParentReview) {
         	log.debug("aaaaaaaaaaaaaaaaaaaaa====={}", review.getMemberNo());
         }
+        
+        
 
 		return returnMap;
 	}

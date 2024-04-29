@@ -13,7 +13,7 @@ public interface LectureService {
 
 	List<Lecture> findLectures();
 
-	Map<String, Object> findLectureDetail(String lectureNo);
+	Map<String, Object> findLectureDetail(String lectureNo, String page);
 
 	int addReview(String lectureNo, String reviewContent, MultipartFile reviewImg, Member loginMember) throws IllegalStateException, IOException;
 

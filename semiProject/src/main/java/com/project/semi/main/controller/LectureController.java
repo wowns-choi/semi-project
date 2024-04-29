@@ -36,17 +36,32 @@ public class LectureController {
 	
 	@GetMapping("/showLectureDetail")
 	public String showLecture(@RequestParam("lectureNo") String lectureNo,
+							@RequestParam(value="currentPage", required=false, defaultValue = "1") String currentPage, 
 								Model model
 			) {
 		
-		Map<String, Object> returnMap = lectureService.findLectureDetail(lectureNo);
+		log.debug("currentPage=={}", currentPage);
+		
+		Map<String, Object> returnMap = lectureService.findLectureDetail(lectureNo, currentPage);
 		Lecture lecture = (Lecture) returnMap.get("lecture");
 		List<LectureReview> fiveParentReview = (List<LectureReview>) returnMap.get("fiveParentReview");
+		Integer totalPosts = (Integer) returnMap.get("totalPosts");
+		Integer pageGroupSize = (Integer) returnMap.get("pageGroupSize");
+		Integer currentGroupFirstPage = (Integer) returnMap.get("currentGroupFirstPage");
+		Integer currentGroupLastPage = (Integer) returnMap.get("currentGroupLastPage");
 		
 		model.addAttribute("lecture", lecture);
 		model.addAttribute("fiveParentReview", fiveParentReview);
+		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("totalPosts", totalPosts);
+		model.addAttribute("pageGroupSize", pageGroupSize);
+		model.addAttribute("currentGroupFirstPage", currentGroupFirstPage);
+		model.addAttribute("currentGroupLastPage", currentGroupLastPage);
 		
-		String startTime = Integer.toString(lecture.getStartTime());
+		model.addAttribute("lectureNo", lectureNo);
+		
+		
+		String startTime = lecture.getStartTime();
         String startFirstTwo = startTime.substring(0, 2);  // 0, 1 인덱스 추출
         String startLastTwo = startTime.substring(2, 4);  // 2, 3 인덱스 추출
         
@@ -152,6 +167,7 @@ public class LectureController {
 			
 			) {
 		
+		log.debug("wantDeleteImg=={}", wantDeleteImg);		
 		int memberNo = loginMember.getMemberNo();
 	
 		int result = lectureService.replyUpdate(reviewContent, wantDeleteImg, memberNo, lectureNo, parentReviewNo, lectureReviewNo);
