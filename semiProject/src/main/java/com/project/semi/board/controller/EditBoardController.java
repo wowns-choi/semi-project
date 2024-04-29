@@ -74,7 +74,8 @@ public class EditBoardController {
 			@PathVariable("boardNo") int boardNo,
 			@SessionAttribute("loginMember") Member loginMember,
 			Model model,
-			RedirectAttributes ra) {
+			RedirectAttributes ra,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
 		
 		Map<String, Integer> map = new HashMap<>();
 		map.put("boardNo", boardNo);
@@ -144,7 +145,7 @@ public class EditBoardController {
 			@PathVariable("boardNo") int boardNo,
 			@SessionAttribute("loginMember") Member loginMember,
 			RedirectAttributes ra,
-			@RequestParam("cp") int cp) {
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
 		
 		Board board = Board.builder()
 				.boardNo(boardNo)
