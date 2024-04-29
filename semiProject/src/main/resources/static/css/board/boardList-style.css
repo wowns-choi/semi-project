@@ -103,7 +103,7 @@ a:hover {
 
     font-weight: bold;
     color: darkslategray;
-    border: 2px solid darkslategray;
+    border: 1px solid darkslategray;
     border-radius: 5px;
 
     cursor: pointer;
@@ -119,7 +119,8 @@ a:hover {
 }
 
 .pagination li{
-    width: 20px;
+    width: 30px;
+    height: 30px;
     margin: 0 5px;
     text-align: center;
 }
@@ -128,6 +129,9 @@ a:hover {
     display: block;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .current{
@@ -260,4 +264,6 @@ a:hover {
     transform: scale(1.2);
 }
 
-
+#boardSearch > button {
+    border-radius: 3px;
+}

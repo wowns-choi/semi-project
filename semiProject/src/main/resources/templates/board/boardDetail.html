@@ -140,7 +140,6 @@
 
     </main>
 
-
     <th:block th:replace="~{common/footer}"></th:block>
 
     <script th:inline="javascript">
@@ -153,9 +152,13 @@
 
         // 현재 게시글 좋아요 여부를 전역 변수로 저장 (값이 변함)
         let likeCheck = /*[[${board.likeCheck}]]*/ "좋아요 여부";
+
+        // 댓글/답글에 보여줄 프로필
+        const userDefaultImage = /*[[#{user.default.image}]]*/ "기본 이미지";
     </script>
 
     <script src="/js/board/boardDetail.js"></script>
+    <script src="/js/board/comment.js"></script>
     
     <script src="/js/common/navbar.js"></script>
     <script src="/js/common/loginModal.js"></script>
