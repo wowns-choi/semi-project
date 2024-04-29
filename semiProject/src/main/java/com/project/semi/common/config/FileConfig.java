@@ -53,7 +53,6 @@ public class FileConfig implements WebMvcConfigurer{
 		log.info("profileResourceLocation={}", profileResourceLocation);
 		registry.addResourceHandler(profileResourceHandler)
 		.addResourceLocations(profileResourceLocation);
-		
 	}
 	
 	@Bean

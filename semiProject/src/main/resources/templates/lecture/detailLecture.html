@@ -264,8 +264,8 @@
 			<div th:text="${lecture.roadAddress}"></div>
 			<div th:text="${lecture.jibunAddress}"></div>
 			<div th:text="${lecture.detailAddress}"></div>
-			<div th:text="${lecture.latitude}"></div>
-			<div th:text="${lecture.hardness}"></div>
+			
+
 
 			
 			
@@ -323,12 +323,23 @@
 		자바스크립트에서 타임리프를 쓰려면, 아래와 같이 하면 된다. 
 	 -->
 	<script th:inline="javascript">
+		
 		const startDate = /*[[${lecture.formattedStartDate}]]*/ "강의시작날짜";
 		const endDate = /*[[${lecture.formattedEndDate}]]*/ "마지막강의날짜";
+		
+	
+		
 		
 		// 달력에 보면, 기간이라고 표시되어있는 긴 줄이 마지막날을 포함하지 않고 있어서, 마지막강의날짜 + 1 인 값을 구해놔야함. 
 		let date2 = new Date(endDate);
 		date2.setDate(date2.getDate() + 1);		
+		
+
+		
+		// 위도와 경도 타임리프로 받아서 자바스크립트 변수로 만들기
+		let latitude = /*[[${lecture.latitude}]]*/ "위도";
+		let hardness = /*[[${lecture.hardness}]]*/ "경도";
+		
 	</script>
 	
 	<!-- detailLecture.js : 달력 api(fullCalender) 여기 있음 -->
@@ -339,7 +350,7 @@
 		// 지도 보여주는 것
 		var container = document.getElementById('map');
 		var options = {
-			center: new kakao.maps.LatLng(33.450701, 126.570667),
+			center: new kakao.maps.LatLng(latitude, hardness),
 			level: 3
 		};
 	
@@ -347,7 +358,7 @@
 		// 지도에 컨트롤 올리기 
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = { 
-		        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		        center: new kakao.maps.LatLng(latitude, hardness), // 지도의 중심좌표
 		        level: 3 // 지도의 확대 레벨
 		    };
 		
@@ -363,6 +374,19 @@
 		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
 		var zoomControl = new kakao.maps.ZoomControl();
 		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		
+		
+		//-----------------------마커
+		// 마커가 표시될 위치입니다 
+		var markerPosition  = new kakao.maps.LatLng(latitude, hardness); 
+		
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+		
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
 		
 	</script>
 

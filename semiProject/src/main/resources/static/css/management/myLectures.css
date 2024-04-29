@@ -1,0 +1,176 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+#home-content-container{
+	display: flex;
+	margin-top: 13vh;
+}
+#home-content-container > div:nth-child(1){
+	flex-basis: 15%;
+}
+#home-content-container > div:nth-child(2){
+	flex-basis: 70%;
+}
+#home-content-container > div:nth-child(3){
+	flex-basis: 15%;
+}
+
+#body-container{
+	width: 100vw;
+	display:flex;
+}
+#body-container>div:nth-child(1){
+	flex-basis: 10%;
+}
+#body-container>div:nth-child(2){
+	padding-top: 50px;
+	flex-basis: 80%;
+	display:flex;
+    align-items: flex-start; /* 아이템들을 상단 정렬 */
+    justify-content: flex-start; /* 아이템들을 시작 지점부터 배치 */
+    row-gap: 4rem;
+    column-gap: 3rem;
+	padding-left: 50px;
+    flex-wrap: wrap; /* 여러 줄로 아이템을 나열하게 함 */
+}
+
+
+#body-container>div:nth-child(3){
+	flex-basis: 10%;
+}
+
+.element-div{
+	width: 330px;
+	height: 350px;
+	display: flex;
+	flex-direction: column;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* 부드러운 변환 효과 */
+    text-decoration: none;
+	border-bottom-left-radius: 7px;    
+	border-bottom-right-radius: 7px;    
+}
+.element-div:hover{
+    transform: translateY(-10px); /* 마우스 오버 시 10px 위로 이동 */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* 그림자 효과 추가 */
+}
+
+.lecture-img{
+	height: 150px;
+	width: auto;
+	object-fit: cover; /* 컨테이너를 채우면서 이미지의 비율 유지 */
+	object-position: center; /* 이미지가 잘리는 경우 중심에서 잘리도록 설정 */
+}
+.lecture-img-basic{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 150px;
+	width: 100%;
+}
+.lecture-img-basic > img{
+	width: 30%;
+	height: 100px;
+}
+.lecture-name{
+	width: 97%;
+	height: 10%;
+	display:flex;
+	padding-left: 9px;
+	align-items: center;
+	font-weight: bold;
+	border-top: 1px solid black;
+	font-size: 16px;
+	color: black;
+
+}
+.lecture-title{
+	width: 97%;
+	height: 17%;
+	display:flex;
+	padding-left: 9px;
+	font-size: 13px;
+	color: gray;
+}
+
+.lecture-formatted-enroll-date{
+	width: 97%;
+	height: 10%;
+	display:flex;
+	padding-left: 11px;
+	align-items: center;
+	font-size: 11px;
+	color: gray;
+}
+.lecture-price{
+	width: 97%;
+	height: 10%;
+	display:flex;
+	padding-left: 9px;
+	padding-top: 3px;
+	align-items: center;
+	font-size: 16px;
+	color: #fafafa;
+	border-radius: 3px;
+	background-color: darkslategray;
+}
+
+.update-btn{
+	width:50%; 
+	height: 3.3vh;
+	background-color: white;
+	color: darkslategray;
+	border: none;
+	transition: background-color 0.3s, color 0.3s;
+	cursor: pointer;
+}
+.update-btn:hover{
+	color: white;
+	background-color: darkslategray;
+	
+
+}
+.delete-btn{
+	width:50%;
+	background-color: white;
+	color: darkslategray;
+	border: none;
+	border-left: 1px solid lightgray;
+		transition: background-color 0.3s, color 0.3s;
+		cursor: pointer;
+
+}
+
+.delete-btn:hover{
+		color: white;
+	background-color: darkslategray;
+
+}
+
+
+.lecture-memberNickname{
+	width: 97%;
+	height: 10%;
+	display:flex;
+	padding-left: 9px;
+	padding-top: 3px;
+	align-items: center;
+	font-size: 16px;
+	color: darkslategray;
+	border-radius: 3px;
+}
+

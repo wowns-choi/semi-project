@@ -57,6 +57,7 @@ public class Lecture {
     
     // 2. MEMBER
     private String memberNickname;
+    private String profileImg;
 
     // 3. LECTURE_DAYS
     private Integer dayOfWeek;
