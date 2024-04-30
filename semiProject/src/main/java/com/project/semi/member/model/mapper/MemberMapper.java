@@ -1,5 +1,7 @@
 package com.project.semi.member.model.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.semi.member.model.dto.Member;
@@ -23,5 +25,15 @@ public interface MemberMapper {
 	Member findMemberByMemberNo(Integer memberNo);
 
 	int updateImg(Member member);
+
+	String findPw(int memberNo);
+
+	void withdrawal(int memberNo);
+
+	int newPw(Map<String, Object> paramMap);
+
+	
+
+	
 
 }

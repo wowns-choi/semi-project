@@ -1,5 +1,7 @@
 package com.project.semi.member.model.service;
 
+import java.util.Map;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.semi.member.model.dto.Member;
@@ -26,6 +28,18 @@ public interface MemberService {
 	Member findMemberByMemberNo(Integer memberNo);
 
 	int updateImg(MultipartFile profileImg, Member loginMember) throws Exception;
+
+	int withdrawal(Map<String, String> map, Member loginMember);
+
+	
+	/** 비밀번호 변경 , 입력한 값과 DB저장값 비교용
+	 * @param inputPw
+	 * @param memberNo
+	 * @return
+	 */
+	int changePw(String inputPw, int memberNo);
+
+	int newPw(String newPw, Member loginMember);
 
 	
 

@@ -2,6 +2,8 @@ package com.project.semi.member.model.service;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -170,7 +172,69 @@ public class MemberServiceImpl implements MemberService{
 	 loginMember.setProfileImg(updatePath); // 세션객체 안에 있는 이미지 경로도 바꿔줌.
 	 // @SessionAttribute 를 쓰면 // 거기서 쓴 객체를 이렇게 바꾸면, 반영이 된다고 함. 
 	 return result;
-	 } 
+	 }
+
+
+	  // 회원 탈퇴
+	@Override
+	public int withdrawal(Map<String, String> map, Member loginMember) {
+		
+		// 1 . member 테이블에 사용자 식별 번호를 가져오기
+		int memberNo = loginMember.getMemberNo();
+		
+		String encPw = memberMapper.findPw(memberNo);
+		String pwInput = map.get("pwInput");
+		
+		// 2 . 비크립트 인코더로 입력한 비밀번호와 DB에 암호화해서 저장된 비밀번호가 일치한지를 검증!
+		boolean flag = bCryptPasswordEncoder.matches(pwInput, encPw);
+
+		int result = 0;
+		
+		if (bCryptPasswordEncoder.matches(pwInput, encPw)) {
+			memberMapper.withdrawal(memberNo);
+			result= 1;
+			
+		}
+	
+		return result;
+	}
+
+
+	@Override
+	public int changePw(String inputPw, int memberNo) {
+		
+		String memberPw = memberMapper.findPw(memberNo);
+		
+		boolean flag = bCryptPasswordEncoder.matches(inputPw, memberPw);
+		
+		
+		int result = 0;
+		
+		if( flag ) result = 1;
+		
+		
+		return result;
+	}
+
+
+	@Override
+	public int newPw(String newPw, Member loginMember) {
+		
+		String encPw = bCryptPasswordEncoder.encode(newPw);
+		
+		log.debug("encPw===={}", encPw);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("encPw", encPw);
+		paramMap.put("memberNo", loginMember.getMemberNo());
+		
+		
+		int result = memberMapper.newPw(paramMap);
+		
+		return result;
+				
+		
+	} 
 
 
 
