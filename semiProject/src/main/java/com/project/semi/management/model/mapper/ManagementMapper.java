@@ -14,4 +14,8 @@ public interface ManagementMapper {
 
 	int countMyLecture(int memberNo);
 
+	int findOwner(Map<String, Integer> paramMap);
+
+	Lecture findLectureAllData(Integer lectureNo);
+
 }

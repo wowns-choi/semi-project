@@ -39,7 +39,7 @@
 		<div></div>
 		<div>
 			<th:block th:each="lecture : ${lectureList}">
-				<a th:href="|/lecture/showLectureDetail?lectureNo=${lecture.lectureNo}|" class="element-div">
+				<div th:href="|/lecture/showLectureDetail?lectureNo=${lecture.lectureNo}|" class="element-div">
 					
 					<th:block th:if="${lecture.files != null}">
 						<img th:src="|${lecture.files.get(0).filePath}${lecture.files.get(0).fileRename}|"
@@ -61,27 +61,27 @@
 					</div>
 					<div></div>
 					
-					<div th:text="|가격 : ${lecture.price}|" class="lecture-price">
+					<div th:text="회원관리" class="lecture-price">
 					</div>
 					
 					<div style="display: flex;">
-						<button  class="update-btn">수정</button>
-						<button 	class="delete-btn">삭제</button>
+						<a th:href="@{/manage/updateLecture(lectureNo=${lecture.lectureNo})}" class="update-btn">글 수정</a>
+						<a class="delete-btn"> 삭제</a>
 					</div>
-										
-
-				
-				</a>
+									
+				</div>
 			</th:block>
 		</div>
 		<div></div>
 	</div>
 	<!-- 페이지네이션 -->
-	<div th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}">
-	    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;">Current Page</span>
-	    <a th:unless="${i == currentPage}" th:href="@{/lecture/showLectureDetail(lectureNo=${lectureNo}, currentPage=${i})}"
+	<div id="pagination-div">
+	<div th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}" class="pagination-element">
+	    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;" class="current-page-span">Current Page</span>
+	    <a th:unless="${i == currentPage}" th:href="@{/manage/showMyLectures(page=${i})}" class="pagination-a"
 			th:text="${i}">Page Link</a>
 	    &nbsp;&nbsp;
+	</div>
 	</div>
 	<!-- 페이지네이션 -->
 	

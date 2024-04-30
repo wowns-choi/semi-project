@@ -67,6 +67,48 @@
 	    </collection>
 	</resultMap>
 	
+	<select id="findLectureAllData" resultMap="firstLectureRM">
+	    SELECT
+	        L.LECTURE_NO,
+	        L.MEMBER_NO,
+	        L.LECTURE_CATEGORY_NUM,
+	        L.LECTURE_HOME_TITLE,
+	        L.LECTURE_HOME_CONTENT,
+	        L.LECTURE_TITLE,
+	        L.LECTURE_CONTENT,
+	        L.PRICE,
+	        L.INSTRUCTOR_INTORODUCTION,
+	        L.LECTURE_LEVEL,
+	        L.START_TIME,
+	        L.HOW_LONG,
+	        L.ACCEPTABLE_NUMBER,
+	        L.REST_NUMBER,
+     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+  
+			LF.LECTURE_FILE_NO,
+			LF.FILE_PATH,
+			LF.ORIGINAL_NAME,
+			LF.FILE_RENAME,
+			
+			LA.POST_CODE,
+			LA.ROAD_ADDRESS,
+			LA.JIBUN_ADDRESS,
+			LA.DETAIL_ADDRESS,
+			
+			LM.LATITUDE,
+			LM.HARDNESS
+			
+			FROM LECTURE L
+			
+			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+			
+			LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+			
+			LEFT JOIN LECTURE_MAP LM ON L.LECTURE_NO = LM.LECTURE_NO
+			
+			WHERE L.LECTURE_NO = #{lectureNo}
+	</select>
 
 
 
@@ -104,6 +146,12 @@
  		WHERE MEMBER_NO = #{memberNo}
  		AND LECTURE_DEL_FL = 'N'
  	</select>
+ 	
+ 	<select id="findOwner">
+		SELECT COUNT(*) FROM LECTURE
+		WHERE MEMBER_NO = #{memberNo}
+		AND LECTURE_NO = #{lectureNo}
+	</select>
  	
  	
 </mapper>
