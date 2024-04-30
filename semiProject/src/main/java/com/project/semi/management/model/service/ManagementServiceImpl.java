@@ -81,15 +81,16 @@ public class ManagementServiceImpl implements ManagementService {
 		paramMap.put("lectureNo", lectureNo);
 		paramMap.put("memberNo", memberNo);
 		
-		return managementMapper.findOwner(paramMap);
 		
-
+		return managementMapper.findOwner(paramMap);
 	}
 
 	@Override
 	public Lecture findLectureAllData(Integer lectureNo) {
 
 		Lecture lecture = managementMapper.findLectureAllData(lectureNo);
+		
+		log.debug("lecture", lecture.toString());
 		
 		return lecture;
 	}
