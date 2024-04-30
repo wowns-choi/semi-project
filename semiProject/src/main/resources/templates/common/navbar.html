@@ -1,43 +1,59 @@
 <div id="navbar">
 	<div></div>
-	<div>
-
-		<a href="/">아이콘</a>
-		<a href="/board/all">자유게시판</a>
-		<a href="/register/idVerification" id="class-register">
-			<i class="fa-solid fa-file-circle-plus"></i>
-			<span style="font-size: 8px;">(강의 등록)</span>
-		</a>	
-		<a href="/manage/showMyLectures" id="class-manage">
-			<i class="fa-solid fa-list-check"></i>
-			<span style="font-size: 8px;">(강의 관리)</span>
-		</a>
-
-		<!--로그인 됐을 경우-->
-		<th:block th:if="${session.loginMember != null}">
-			<div id="welcome">
-				<img th:with="user=#{user.default.image}"
-					 th:src="${session.loginMember.profileImg ?: user}"
-					 id="memberProfile"
-					 alt="프로필 이미지">	
-			</div>
+	<div id="container">
+		<div id="icon">
+			<a href="/" id="logo-box">
+				<img src="/images/logo.png" id="logo">
+			</a>
 			
-			<div id="update-user-info-and-logout-dropdown">
-				<div id="update-user-info-and-logout-dropdown-child">
-					<a href="/member/myData">내 정보</a>
-					<a href="/member/password-validation">비밀번호 변경</a>
-					<a href="/member/withdrawal" id="withdrawal">회원 탈퇴하기</a>
-					<a href="/member/logout" id="logout">로그아웃</a>
-					
-				</div>
-			</div>
-		</th:block>
-		
-		<!— 로그인이 되어있지 않을 경우—>
-		<th:block th:if="${session.loginMember == null}">
-			<button type="button" id="show-login-modal">로그인</button>	
-		</th:block>
-		
+			<a href="/board/all" id="free-board">
+				<!-- <i class="fa-solid fa-ellipsis-vertical" id="free-board"></i> -->
+				자유게시판
+			</a>
+
+			<a href="/faq/lecturer" id="faq">
+				FAQ
+			</a>
+			
 		</div>
+
+		<div>
+			
+			<a href="/register/idVerification" id="class-register">
+				<i class="fa-solid fa-file-circle-plus"></i>
+				<span style="font-size: 8px;">(강의 등록)</span>
+			</a>	
+			<a href="/manage/showMyLectures" id="class-manage">
+				<i class="fa-solid fa-list-check"></i>
+				<span style="font-size: 8px;">(강의 관리)</span>
+			</a>
+	
+			<!--로그인 됐을 경우-->
+			<th:block th:if="${session.loginMember != null}">
+				<div id="welcome">
+					<img th:with="user=#{user.default.image}"
+						 th:src="${session.loginMember.profileImg ?: user}"
+						 id="memberProfile"
+						 alt="프로필 이미지">	
+				</div>
+				
+				<div id="update-user-info-and-logout-dropdown">
+					<div id="update-user-info-and-logout-dropdown-child">
+						<a href="/member/myData">내 정보</a>
+						<a href="/member/password-validation">비밀번호 변경</a>
+						<a href="/member/withdrawal" id="withdrawal">회원 탈퇴하기</a>
+						<a href="/member/logout" id="logout">로그아웃</a>
+						
+					</div>
+				</div>
+			</th:block>
+			
+			<!-- 로그인이 되어있지 않을 경우 -->
+			<th:block th:if="${session.loginMember == null}">
+				<button type="button" id="show-login-modal">로그인</button>	
+			</th:block>
+		</div>
+		
+	</div>
 	<div></div>
 </div>

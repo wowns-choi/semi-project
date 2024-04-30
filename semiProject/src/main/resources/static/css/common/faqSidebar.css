@@ -1,0 +1,42 @@
+#faqSidebar{
+    margin-top: 0px;
+    /* height: 100vh; */
+    position: fixed;
+    /* border-right: 0.5px solid lightgray; */
+    width: 40%;
+    display: flex;
+    align-items: center;
+    
+    /* left: 100px; */
+    justify-content: center;
+}
+
+#side-faq {
+    font-size: 30px;
+    color: rgba(47, 79, 79, 0.9);
+    margin-left: 0;
+}
+
+#faqSidebar > ul {
+    list-style: none;
+}
+
+#faqSidebar li:nth-child(2) {
+    margin-top: 20px;
+}
+
+#faqSidebar li:nth-child(3) {
+    margin-top: 20px;
+}
+
+#faqSidebar a {
+    text-decoration: none;
+}
+
+.faq-menu {
+    color: gray;
+}
+
+.addColor {
+    color : darkslategray;
+}
