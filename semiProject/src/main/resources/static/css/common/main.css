@@ -3,6 +3,28 @@
     src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
+
+}
+
+@font-face {
+	font-family: 'Ownglyph_meetme-Rg';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+    font-family: 'intelone-mono-font-family-regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/intelone-mono-font-family-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'KCCChassam';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCCChassam.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 
 * {
@@ -140,3 +162,150 @@ body {
 	border-radius: 3px;
 }
 
+#carouselExampleCaptions{
+	height: 50%;
+	width: 50%;
+}
+
+#full-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 80px;
+}
+
+#full-container h5,.p-text {
+	word-spacing: 10px;
+	font-family: 'KCCChassam';
+}
+
+#full-container h5 {
+	font-size: 25px;
+}
+
+#full-container .p-text {
+	font-size: 20px;
+}
+
+#carousel1 {
+	z-index: 0;
+	background-image: url('/images/soap.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 400px;
+	position: relative;
+}
+
+.soap-box h5 {
+	position: absolute;
+	bottom: 60px;
+	left: 15px;
+}
+
+.soap-box .p-text {
+	position: absolute;
+	bottom: 30px;
+	left: 15px;
+}
+
+#carousel2 {
+	z-index: 0;
+	background-image: url('/images/glassdeco.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 400px;
+	position: relative;
+}
+
+.glass-box h5 {
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+}
+
+.glass-box .p-text {
+	position: absolute;
+	bottom: 20px;
+	left: 0;
+}
+
+#carousel3 {
+	z-index: 0;
+	background-image: url('/images/drawing.avif');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 400px;
+	position: relative;
+}
+
+.draw-box {
+	height: 400px;
+	width: 100%;
+}
+
+.draw-box h5 {
+	position: absolute;
+	top: 30px;
+	left: 0;
+}
+
+.draw-box .p-text {
+	position: absolute;
+	top: 60px;
+	left: 0;
+}
+
+#carousel4 {
+	z-index: 0;
+	background-image: url('/images/leather.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 400px;
+	position: relative;
+}
+
+.leather-box {
+	height: 100px;
+}
+
+.leather-box h5 {
+	position: absolute;
+	right: 0;
+	bottom: 35px;
+}
+
+.leather-box p {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+#carousel5 {
+	z-index: 0;
+	background-image: url('/images/cook.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 400px;
+	position: relative;
+}
+
+.cooking-box {
+	height: 400px;
+}
+
+.cooking-box h5 {
+	position: absolute;
+	right: 0;
+	top: 30px;
+}
+
+.cooking-box p {
+	position: absolute;
+	right: 0;
+	top: 65px;
+}
