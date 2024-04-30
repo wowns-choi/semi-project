@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -194,7 +195,95 @@ public class MemberController {
 		return "redirect:/member/myData";
 	}
 	
+	@GetMapping("withdrawal")
+	public String withdrawal() {
+		
+		return "/member/withdrawal";
+	}
 	
-
-
+	@PostMapping("withdrawal")
+	@ResponseBody
+	public int withdrawal(
+			@RequestBody Map<String, String> map,
+			@SessionAttribute("loginMember") Member loginMember
+			) {
+		
+		//log.debug("111111111111={}", map.get("pwInput"));
+		//log.debug("111111111111={}", map.get("pwConfInput"));
+		
+		return memberService.withdrawal(map,loginMember);
+		
+	}
+	
+	@GetMapping("password-validation")
+	public String changePassword() {
+		
+		return "/member/changePassword";
+	}
+	
+	@PostMapping("changePassword")
+	@ResponseBody
+	public int changePassword(
+			@RequestBody Map<String,String> map,
+			@SessionAttribute("loginMember") Member loginMember
+			) {
+		// 사용자가 입력한, ajax 비동기 통신을 통해 들고온 비밀번호 값
+		String inputPw = map.get("changePw");
+		
+		int memberNo =loginMember.getMemberNo();
+		
+		return memberService.changePw(inputPw, memberNo);
+		
+	}
+	
+	@GetMapping("newPw")
+	public String newPw() {
+		return "/member/newPw";
+	}
+	
+	@PostMapping("newPw")
+	public String newPw(
+			@RequestParam("newPw") String newPw,
+			@SessionAttribute("loginMember") Member loginMember,
+			RedirectAttributes ra			
+			) {
+		 int result = memberService.newPw(newPw,loginMember);
+		 
+		 String message = null;
+		 String path = null;
+		 
+		 if( result > 0 ) {
+		
+			 message = "비밀번호 변경이 완료되었습니다.";
+			 path = "/";
+		 }else {
+			 
+			 message = "비밀번호 변경중 오류가 발생하였습니다. 다시 시도해주세요.";
+			 path = "/password-validation";
+		 }
+		 ra.addFlashAttribute("message", message);
+		 
+		return "redirect:" + path;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
