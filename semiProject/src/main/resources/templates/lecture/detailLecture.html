@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:text="#{app.name}">message.properties 값 출력</title>
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+	  
+	<!-- 달력 -->
+	<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css' rel='stylesheet' />
+	<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js'></script>
+	
+	<!-- detailLecture.css -->
+	<link rel="stylesheet" href="/css/lecture/detailLecture.css">
+	
+	<!-- 카카오 지도 api -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa&libraries=services,clusterer,drawing"></script>
+
+
+</head>
+<body>
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+
+	<div style="width: 100vw; height: 7vh;"></div>	
+	<div id="home-content-container">
+		<div></div>
+		<div>
+		</div>
+		<div></div>		
+	</div>
+	
+	
+	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+
+	<div id="body-container" >
+		<div id="left-container"></div>
+		<div>
+			
+		</div>
+		<div id="mid-container">
+		    <div>
+		        <img th:if="${lecture.files.size() > 0 and lecture.files.get(0).filePath != null}" 
+		             th:src="|${lecture.files.get(0).filePath}${lecture.files.get(0).fileRename}|" 
+		             id="lecture-img-main">    
+		    </div>
+		    <div>
+		        <img th:if="${lecture.files.size() > 1 and lecture.files.get(1).filePath != null}" 
+		             th:src="|${lecture.files.get(1).filePath}${lecture.files.get(1).fileRename}|" 
+		             id="lecture-img-sub-1">
+		        <img th:if="${lecture.files.size() > 2 and lecture.files.get(2).filePath != null}" 
+		             th:src="|${lecture.files.get(2).filePath}${lecture.files.get(2).fileRename}|" 
+		             id="lecture-img-sub-2">
+		        <img th:if="${lecture.files.size() > 3 and lecture.files.get(3).filePath != null}" 
+		             th:src="|${lecture.files.get(3).filePath}${lecture.files.get(3).fileRename}|" 
+		             id="lecture-img-sub-3">
+		        <img th:if="${lecture.files.size() > 4 and lecture.files.get(4).filePath != null}" 
+		             th:src="|${lecture.files.get(4).filePath}${lecture.files.get(4).fileRename}|" 
+		             id="lecture-img-sub-4">    
+		    </div>                
+		    <div id="empty-space-div-1"></div>
+		</div>
+	</div>
+	
+	<div id="body-container-2">
+		<div id="left-container-2"></div>
+		<div id="mid-container-2">
+			<div id="div-1">
+				<div th:text="${lecture.lectureTitle}"></div>
+			</div>
+			<div id="div-2">
+				<div>
+					<i class="fa-regular fa-clock"></i> &nbsp;
+					<span th:text="|${startFirstTwo}시 ${startLastTwo}분 시작|"></span>
+				</div>
+				<div>
+					<i class="fa-solid fa-hourglass-half"></i>	&nbsp;
+					<span th:text="|${lecture.howLong}시간 수업|"></span>
+				</div>
+				<div>
+					<i class="fa-solid fa-stairs"></i>	&nbsp;
+					<span th:text="|${lectureLevelString}|"></span>					
+				</div>
+			</div>
+			<div id="div-3">
+				<textarea th:text="${lecture.lectureContent}" id="lecture-content" readonly> </textarea>
+			</div>
+			<div id="div-4">
+				<div>
+					<i class="fa-solid fa-person-chalkboard"></i>&nbsp;&nbsp;
+					강사 소갯말
+				</div>
+				<textarea th:text="${lecture.instructorIntroduction}" readonly></textarea>				
+			</div>
+			<div id="div-5"></div>
+			<div id="div-6"> <!-- 후기 -->
+				<div>Review</div>
+				<form action="/lecture/addReview" method="post" enctype="multipart/form-data">
+				<div id="review-write-container">
+					<div id="review-write-div1">
+						
+						<img	th:if="${session.loginMember}"
+							th:with="user=#{user.default.image}"
+							th:src="${session.loginMember.profileImg ?: user}"
+							id="writer-img"
+							>
+					</div>
+					<div id="review-write-div2">
+						<div th:text="${session.loginMember.memberNickname}"
+						id="writer-name"
+						></div>
+						<textarea name="reviewContent" id="write-content" placeholder="리뷰를 작성해주세요" ></textarea> 					
+					</div>
+					<button type="submit" id="review-write-btn">					<i class="fa-regular fa-paper-plane"></i></button>
+					<label for="review-file" id="review-file-label">
+						<i class="fa-regular fa-file-image"></i>
+					</label>
+					<img th:with="user=#{user.default.image}"
+						th:src="${user}"
+						id="review-input-img"
+						>
+					<span id="x-btn"> 
+						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
+					</span>
+					<input type="file" name="reviewImg" placeholder="파일" id="review-file" style="display:none;">
+					<input type="hidden" name="lectureNo" th:value="${lectureNo}">
+					</form>	
+				</div>
+				
+				
+				<div>				
+					<i class="fa-regular fa-comment-dots"></i>
+					댓글
+				</div>
+				
+				<!-- ========================= 본격적인 리뷰의 시작. ========================= -->
+				<div th:each="review :${fiveParentReview}" class="review-per">
+					<div>
+						<img th:with="user=#{user.default.image}" 
+						th:src="${review.profileImg ?: user}">
+						<div th:text="${review.memberNickname}" ></div>							
+					</div>
+					<div>
+						<div th:text="${review.reviewContent}"></div>	
+						<div th:text="${review.stringCreateDate}"></div>
+						<img th:if="${review.reviewImg}" th:src="${review.reviewImg}">
+					</div>
+
+						<!-- =====================평소에는 숨겨져 있다가 "수정" 버튼 누르면 나오게 되는 부분 시작=============== -->
+						<div class="update-form-div">
+							<form th:action="@{/lecture/updateReview}" method="post" enctype="multipart/form-data" >
+								<textarea name="reviewContent2"  placeholder="리뷰를 작성해주세요" th:value="${review.reviewContent}" th:text="${review.reviewContent}"></textarea> 					
+	
+								<img th:if="${review.reviewImg}"  th:src="${review.reviewImg}" class="aaa">
+								<!-- 현재 맥이 파일 접근권한을 막아서, 외부 파일이 안읽어와져서 주석처리해놓음. -->
+								<!--<img th:src="${review.reviewImg}">-->
+								<div class="xxx-btn">
+								<i class="fa-solid fa-circle-xmark" ></i>
+								</div>
+	
+								<button type="submit">저장</button>
+								<input type="hidden" name="updateReplyNo" th:value="${review.lectureReviewNo}">
+								<input type="hidden" name="lectureNo" th:value="${lecture.lectureNo}">
+							</form>
+						</div>
+						<!-- =====================평소에는 숨겨져 있다가 수정 버튼 누르면 나오게 되는 부분 끝 =============== -->
+
+					
+					<div th:if="${session.loginMember.memberNo == review.memberNo}" class="update-delete-container">
+						<span th:attr="data-review-no=${review.lectureReviewNo}" data-editing="false"  class="update-text">수정</span>
+						<a th:href="@{/lecture/deleteReview?lectureReviewNo={lectureReviewNo}(lectureReviewNo = ${review.lectureReviewNo})}">삭제</a>
+					</div>					
+					<div class="reply-btn" data-bool="true">
+						댓글 쓰기
+
+					</div>
+					
+					<!-- ======== 여기까지가리뷰의 답급 전 까지 ========== -->
+					<!-- ======== 여기서부터 리뷰의 리플에 대한 html ========== -->
+					<!-- ======== 리뷰의 리플 달기 시작 ========== -->
+					
+					<div class="reply-input-form-container">
+						<form action="/lecture/addReviewReply" method="post" class="reply-input-form" enctype="multipart/form-data">
+							<img th:with="user=#{user.default.image}"
+								th:src="${session.loginMember.profileImg ?: user}"
+								>
+							<textarea name="reviewContent2"  placeholder="답글을 작성해주세요" class="dapgle-textarea"></textarea> 					
+							<button type="submit" class="dapgle"><i class="fa-regular fa-paper-plane"></i></button>
+							<label class="reply-file-label"> 
+								<i class="fa-regular fa-file-image"></i>
+								<input type="file" name="replyFile" class="reply-file-input">
+							</label>
+							<img  src="asdffsd" class="reply-file-img">
+							<span class="reply-x-btn" data-reply="true">
+								<i class="fa-solid fa-circle-xmark"></i>
+							</span>
+							<input type="hidden" name="lectureNo" th:value="${lecture.lectureNo}">
+							<input type="hidden" name="parentReviewNo" th:value="${review.lectureReviewNo}">
+						</form>
+					</div>
+					
+					<!-- ======== 리뷰의 리플 달기 끝 ========== -->					
+					
+					<!-- ======== 리뷰의 리플 렌더링 ========== -->
+					<div th:each="reply : ${review.replies}" class="reply-container">
+						<div class="reply-img-div">
+							<img th:with="user=#{user.default.image}" 
+							th:src="${reply.profileImg ?: user}" class="reply-member-img">
+							<div th:text="${reply.memberNickname}" class="reply-member-nickname"></div>
+						</div>
+						<div>
+							<div th:text="${reply.reviewContent}" class="reply-review-content"></div>
+							<div th:text="${reply.stringCreateDate}" class="reply-createdate"></div>
+							<img th:if="${reply.reviewImg}" th:src="${reply.reviewImg}" class="reply-img">
+						</div>
+						
+						<form action="/lecture/replyUpdate" method="post" class="reply-update-form">
+							<textarea name="reviewContent"  placeholder="리뷰를 작성해주세요" th:value="${reply.reviewContent}" th:text="${reply.reviewContent}" class="reply-update-textarea"></textarea>
+							<!--	<img th:src="${reply.reviewImg}"> -->
+							<img src="/images/user.png" class="reply-update-img">
+							<div class="review-update-x-btn">
+								<i class="fa-solid fa-circle-xmark"></i>
+							</div>
+							<button class="reply-update-save-btn">저장</button>
+							<input type="hidden" name="lectureNo" th:value="${lectureNo}">
+							<input type="hidden" name="parentReviewNo" th:value="${review.lectureReviewNo}">
+							<input type="hidden" name="lectureReviewNo" th:value="${reply.lectureReviewNo}" >
+						</form>
+						
+						<div class="reply-update-delete-div">
+							<span class="reply-update" 	data-reup="true" >수정</span>
+							<span class="reply-delete">삭제</span>
+						</div>					
+					</div>
+				</div>
+				
+			</div>
+
+			
+			<!-- 페이지네이션 -->
+			
+			<div th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}">
+			    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;">Current Page</span>
+			    <a th:unless="${i == currentPage}" th:href="@{/lecture/showLectureDetail(lectureNo=${lectureNo}, currentPage=${i})}"
+					th:text="${i}">Page Link</a>
+			    &nbsp;&nbsp;
+			</div>
+
+			<div id="div-10">
+				<div id="map" style="width:500px;height:400px;"></div>
+			</div>
+			
+			<div th:text="${lecture.postCode}"></div>
+			<div th:text="${lecture.roadAddress}"></div>
+			<div th:text="${lecture.jibunAddress}"></div>
+			<div th:text="${lecture.detailAddress}"></div>
+			
+
+
+			
+			
+		</div>
+	</div>
+	
+	
+	<!-- ============== 결제 컨테이너 ================ -->
+	<div id="pay-container">
+		<div style="width: 100%; height: 100px;" id="pay-div-1"></div>
+		<div id="pay-div-2"> 
+			<div></div>
+			<div id='calendar'></div>
+			<div></div>
+		</div>
+		<div id="pay-div-3">
+			<span>참여가능인원 :</span>  <span th:text="|${lecture.restNumber}/${lecture.acceptableNumber}|"></span>
+		</div>
+		<div id="pay-div-4">
+			<span>가격 : </span>  
+			<span th:text="${lecture.price}" id="price-per"></span>
+		</div>
+		<div id="pay-div-5" class="quantity-selector">
+			인원 : 
+		    <button id="decrease" onclick="changeQuantity(-1)">-</button>
+		    <input type="text" id="quantity" value="1" readonly>
+		    <button id="increase" onclick="changeQuantity(1)">+</button>
+		</div>
+		
+		<div id="pay-div-6">
+			<span>날짜 :&nbsp;&nbsp;</span>  
+			<span id="select-date-span"></span>
+		</div>
+		<div id="pay-div-7">
+			<span>총 결제 금액 :&nbsp;&nbsp;</span>
+			<span th:text="|${lecture.price}원|" id="total-price"></span>
+		</div>
+		
+		<div id="pay-div-8">
+			<button type="button"> 결제하기 </button>
+		</div>
+	</div>
+	
+	
+
+	<div style="height: 400vh;"></div>
+	<th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
+
+	
+	<!-- 특정날짜만을 선택할 수 있도록 구현하기 위해서, db에서 가져온 데이터를 자바스크립트 변수에 담아야한다.
+		자바스크립트에서 타임리프를 쓰려면, 아래와 같이 하면 된다. 
+	 -->
+	<script th:inline="javascript">
+		
+		const startDate = /*[[${lecture.formattedStartDate}]]*/ "강의시작날짜";
+		const endDate = /*[[${lecture.formattedEndDate}]]*/ "마지막강의날짜";
+		
+	
+		
+		
+		// 달력에 보면, 기간이라고 표시되어있는 긴 줄이 마지막날을 포함하지 않고 있어서, 마지막강의날짜 + 1 인 값을 구해놔야함. 
+		let date2 = new Date(endDate);
+		date2.setDate(date2.getDate() + 1);		
+		
+
+		
+		// 위도와 경도 타임리프로 받아서 자바스크립트 변수로 만들기
+		let latitude = /*[[${lecture.latitude}]]*/ "위도";
+		let hardness = /*[[${lecture.hardness}]]*/ "경도";
+		
+	</script>
+	
+	<!-- detailLecture.js : 달력 api(fullCalender) 여기 있음 -->
+	<script src="/js/lecture/detailLecture.js"></script>
+	
+	<!-- 카카오 지도 -->
+	<script>
+		// 지도 보여주는 것
+		var container = document.getElementById('map');
+		var options = {
+			center: new kakao.maps.LatLng(latitude, hardness),
+			level: 3
+		};
+	
+		var map = new kakao.maps.Map(container, options);
+		// 지도에 컨트롤 올리기 
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = { 
+		        center: new kakao.maps.LatLng(latitude, hardness), // 지도의 중심좌표
+		        level: 3 // 지도의 확대 레벨
+		    };
+		
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+		
+		// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+		var mapTypeControl = new kakao.maps.MapTypeControl();
+		
+		// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+		// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+		map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+		
+		// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		var zoomControl = new kakao.maps.ZoomControl();
+		map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+		
+		
+		//-----------------------마커
+		// 마커가 표시될 위치입니다 
+		var markerPosition  = new kakao.maps.LatLng(latitude, hardness); 
+		
+		// 마커를 생성합니다
+		var marker = new kakao.maps.Marker({
+		    position: markerPosition
+		});
+		
+		// 마커가 지도 위에 표시되도록 설정합니다
+		marker.setMap(map);
+		
+	</script>
+
+</body>
+</html>

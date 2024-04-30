@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.semi.common.util.Utility;
 import com.project.semi.member.model.dto.Member;
 import com.project.semi.member.model.mapper.MemberMapper;
 
@@ -26,12 +27,12 @@ public class MemberServiceImpl implements MemberService{
 	private final MemberMapper memberMapper;
 	
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
-//	
-//	@Value("${my.profile.web-path}")
-//	private String webPath; // 앞에 붙이는 조각
-//	
-//	@Value("${my.profile.folder-path}")
-//	private String folderPath; //찐 저장소
+	
+	@Value("${my.profile.web-path}")
+	private String webPath; // 앞에 붙이는 조각
+	
+	@Value("${my.profile.folder-path}")
+	private String folderPath; //찐 저장소
 	
 	/** 
 	 * 회원가입 시, 중복된 이메일이 있는지 확인하는 이메일.
@@ -137,31 +138,40 @@ public class MemberServiceImpl implements MemberService{
 
 
 	// 프로필 이미지 변경
-	/*
-	 * @Override public int updateImg(MultipartFile profileImg, Member loginMember)
-	 * throws Exception{
-	 * 
-	 * log.debug("profileImg={}", profileImg);
-	 * 
-	 * String updatePath = null; String rename = null;
-	 * 
-	 * if(!profileImg.isEmpty()) { rename =
-	 * Utility.fileRename(profileImg.getOriginalFilename()); log.debug("rename={}",
-	 * rename);
-	 * 
-	 * updatePath = webPath + rename; // 고유키 앞에 조각을 붙임. log.debug("updatePath={}",
-	 * updatePath); }
-	 * 
-	 * Member member = Member.builder() .memberNo(loginMember.getMemberNo())
-	 * .profileImg(updatePath) .build();
-	 * 
-	 * int result = memberMapper.updateImg(member);
-	 * 
-	 * if(result > 0) { // 업데이트 성공시 if(!profileImg.isEmpty()) { // 찐 저장소에 이미지 저장
-	 * profileImg.transferTo(new File(folderPath + rename)); }
-	 * loginMember.setProfileImg(rename); // 세션객체 안에 있는 이미지 경로도 바꿔줌.
-	 * // @SessionAttribute 를 쓰면 // 거기서 쓴 객체를 이렇게 바꾸면, 반영이 된다고 함. } return result; }
-	 */
+	  @Override 
+	  public int updateImg(MultipartFile profileImg, Member loginMember)
+	  throws Exception{
+	 
+	 log.debug("profileImg={}", profileImg);
+	 
+	 String updatePath = null; 
+	 String rename = null;
+	 
+	 if(!profileImg.isEmpty()) { rename =
+	 Utility.fileRename(profileImg.getOriginalFilename()); 
+	 log.debug("rename={}", rename);
+	 
+	 updatePath = webPath + rename; // 고유키 앞에 조각을 붙임.
+	 log.debug("updatePath={}",updatePath); }
+	 
+	 Member member = Member.builder()
+			 							.memberNo(loginMember.getMemberNo())
+			 							.profileImg(updatePath)
+			 							.build();
+	 
+	 int result = memberMapper.updateImg(member);
+	 
+	 if(result > 0) { // 업데이트 성공시 
+		 if(!profileImg.isEmpty()) {  // 사용자가 이미지 제출시 
+			 profileImg.transferTo(new File(folderPath + rename));  // 찐 저장소에 이미지 저장
+			 }
+	 }
+	 
+	 loginMember.setProfileImg(updatePath); // 세션객체 안에 있는 이미지 경로도 바꿔줌.
+	 // @SessionAttribute 를 쓰면 // 거기서 쓴 객체를 이렇게 바꾸면, 반영이 된다고 함. 
+	 return result;
+	 } 
+
 
 
 

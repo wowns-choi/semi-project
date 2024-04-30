@@ -35,7 +35,7 @@ public class BoardServiceImpl implements BoardService {
 		int offset = (cp-1)*limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		List<Board> boardList = mapper.selectBoardList();
+		List<Board> boardList = mapper.selectBoardList(cp, rowBounds);
 		
 		// 목록 조회 결과 + Pagination 객체를 Map 으로 묶어서 돌려줌
 		Map<String, Object> map = new HashMap<>();
@@ -44,5 +44,49 @@ public class BoardServiceImpl implements BoardService {
 		map.put("boardList", boardList);
 		
 		return map;
+	}
+
+	// 자유 게시판 게시글 상세 조회
+	@Override
+	public Board selectOne(Map<String, Integer> map) {
+		return mapper.selectOne(map);
+	}
+
+	@Override
+	public int boardLike(Map<String, Integer> map) {
+
+		int result = 0;
+		
+		if(map.get("likeCheck") == 1) {
+			
+			result = mapper.deleteBoardLike(map);
+			
+		} else {
+			
+			result = mapper.insertBoardLike(map);
+			
+		}
+
+		if(result > 0) {
+			return mapper.selectLikeCount(map.get("boardNo"));
+		}
+		
+		return -1;
+
+	}
+
+	// 조회 수 증가
+	@Override
+	public int updateReadCount(int boardNo) {
+		
+		// 1. 조회 수 1 증가
+		int result = mapper.updateReadCount(boardNo);
+		
+		// 2. 현재 조회 수 조회
+		if(result > 0) {
+			return mapper.selectReadCount(boardNo);
+		}
+		
+		return -1; // 실패한 경우 -1 반환
 	}
 }

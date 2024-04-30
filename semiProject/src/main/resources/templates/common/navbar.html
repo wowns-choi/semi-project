@@ -1,8 +1,18 @@
 <div id="navbar">
 	<div></div>
 	<div>
-		<a>아이콘</a>
-		<a href="/board/1">자유게시판</a>	
+
+		<a href="/">아이콘</a>
+		<a href="/board/all">자유게시판</a>
+		<a href="/register/idVerification" id="class-register">
+			<i class="fa-solid fa-file-circle-plus"></i>
+			<span style="font-size: 8px;">(강의 등록)</span>
+		</a>	
+		<a href="/manage/showMyLectures" id="class-manage">
+			<i class="fa-solid fa-list-check"></i>
+			<span style="font-size: 8px;">(강의 관리)</span>
+		</a>
+
 		<!--로그인 됐을 경우-->
 		<th:block th:if="${session.loginMember != null}">
 			<div id="welcome">
@@ -23,7 +33,7 @@
 			</div>
 		</th:block>
 		
-		<!-- 로그인이 되어있지 않을 경우-->
+		<!— 로그인이 되어있지 않을 경우—>
 		<th:block th:if="${session.loginMember == null}">
 			<button type="button" id="show-login-modal">로그인</button>	
 		</th:block>

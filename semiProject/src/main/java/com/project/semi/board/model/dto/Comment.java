@@ -21,7 +21,7 @@ public class Comment {
 	private String commentDelFl;
 	private int boardNo;
 	private int memberNo;
-	private int parentCommentNo;
+	private int parentComment;
 	
 	// 댓글 조회 시 회원 프로필, 닉네임
 	private String memberNickname;

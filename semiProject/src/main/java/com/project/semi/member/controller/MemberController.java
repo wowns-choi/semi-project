@@ -93,7 +93,6 @@ public class MemberController {
 		if( loginMember != null ) { // 로그인 성공
 			model.addAttribute("loginMember", loginMember); // @SessionAttributes() 와 함께했기에 세션스코프에 올라진것.
 		}
-		
 		return "redirect:/"; // 메인 페이지 재요청
 	}
 
@@ -107,7 +106,12 @@ public class MemberController {
 	@GetMapping("myData")
 	public String info(@SessionAttribute("loginMember") Member loginMember,
 						Model model) {
-		
+		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.toString());		
+
+		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
+		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
+		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
+		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
 		// 수정 후 다시 이 메서드로 오기 때문에, db 에서 조회해온다. 
 		Member member = memberService.findMemberByMemberNo(loginMember.getMemberNo());
 		
@@ -167,28 +171,28 @@ public class MemberController {
 	}
 	
 	
-//	@PostMapping("updateMyImg")
-//	public String updateImg(@RequestParam("profileImg") MultipartFile profileImg,
-//					@SessionAttribute("loginMember") Member loginMember,
-//					RedirectAttributes ra
-//			) throws Exception {
-//		
-//		log.debug("profileImg={}", profileImg);
-//		
-//		int result = memberService.updateImg(profileImg, loginMember);
-//		
-//		String message = null;
-//		
-//		if( result > 0 ) {
-//			message = "이미지가 변경되었습니다.";
-//		} else { 
-//			message = "이미지 변경 중 오류 발생";
-//		}
-//		
-//		ra.addFlashAttribute("message", message);
-//		
-//		return "redirect:/member/myData";
-//	}
+	@PostMapping("updateMyImg")
+	public String updateImg(@RequestParam("profileImg") MultipartFile profileImg,
+					@SessionAttribute("loginMember") Member loginMember,
+					RedirectAttributes ra
+			) throws Exception {
+		
+		log.debug("profileImg={}", profileImg);
+		
+		int result = memberService.updateImg(profileImg, loginMember);
+		
+		String message = null;
+		
+		if( result > 0 ) {
+			message = "이미지가 변경되었습니다.";
+		} else { 
+			message = "이미지 변경 중 오류 발생";
+		}
+		
+		ra.addFlashAttribute("message", message);
+		
+		return "redirect:/member/myData";
+	}
 	
 	
 

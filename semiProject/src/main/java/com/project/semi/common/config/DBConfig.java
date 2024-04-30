@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
+import com.project.semi.register.controller.CoolSMSController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+
+import lombok.extern.slf4j.Slf4j;
 
 /*@Configuration
  * - 해당 클래스가 설정용 클래스임을 명시하는 역할을 하는 애노테이션임.
@@ -47,12 +51,13 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @PropertySource("classpath:/config.properties")
+@Slf4j
 public class DBConfig {
 	
 	@Autowired
 	private ApplicationContext applicationContext; //application scope 객체만들때 사용된 클래스가 ApplicationContext 이다.
 					// 즉 ApplicationContext 타입 객체는 현재프로젝트를 가리킨다. 
-	
+
 	
 	
 	///////////////////// HikariCP 설정 시작 ////////////////
@@ -75,6 +80,8 @@ public class DBConfig {
 	////////////////////// Mybatis 설정 시작 //////////////////////////////
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource datasource) throws Exception {
+		
+		log.info("asddddd");
 		
 		SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
 		sessionFactoryBean.setDataSource(datasource);

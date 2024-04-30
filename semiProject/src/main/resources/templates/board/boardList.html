@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +8,24 @@
     <!-- templates/common/common.html 조각으로 추가 -->
     <th:block th:replace="~{common/common}"></th:block>
 
+	<!-- <link rel="stylesheet" href="/css/common/main.css"> -->
+	
+	<link rel="stylesheet" href="/css/common/navbar.css">
+
+	<link rel="stylesheet" href="/css/common/loginModal.css"> 
+
     <link rel="stylesheet" href="/css/board/boardList-style.css">
 </head>
 <body>
+	<th:block th:replace="~{common/navbar}"></th:block>
+	
+	<th:block th:replace="~{common/loginModal}"></th:block>
+
 	<main>
 
 		<section class="board-list">
 
-			<h1 class="board-name">게시판 이름</h1>
+			<h1 class="board-name">자유 게시판</h1>
 
 			<div class="list-wrapper">
 				<table class="list-table">
@@ -33,35 +43,41 @@
 
 					<tbody>
 						<!-- 게시글이 존재하지 않을 때 -->
-						<tr>
-							<th colspan="6">게시글이 존재하지 않습니다.</th>
-						</tr>
+						<th:block th:if="${#lists.isEmpty(boardList)}">
+							<tr>
+								<th colspan="6">게시글이 존재하지 않습니다.</th>
+							</tr>
+						</th:block>
 
 						<!-- 게시글이 존재할 때 -->
-						<tr>
+						<th:block th:unless="${#lists.isEmpty(boardList)}">
+							<tr th:each="board : ${boardList}" th:object="${board}">
+									
+								<td th:text="*{boardNo}">게시글 번호</td>
 								
-							<td>게시글 번호</td>
-							
-							<td>
-								<!-- 썸네일 추가 예정 -->
-
-								<a>게시글 제목</a>
-
-							</td>
-
-							<!-- 작성자 닉네임 -->
-							<td>닉네임</td>
-
-							<!-- 작성일 -->
-							<td>2023-10-26</td>
-
-							<!-- 조회수 -->
-							<td>0</td>
-
-							<!-- 좋아요 수 -->
-							<td>0</td>
-
-						</tr>
+								<td>
+									<!-- 썸네일 추가 예정 -->
+	
+									<a th:text="*{boardTitle}"
+									th:href="@{/board/all/{boardNo}(boardNo=*{boardNo}, cp=${pagination.currentPage})}">게시글 제목</a>
+	
+									<th:block th:text="|[*{commentCount}]|">댓글 수</th:block>
+								</td>
+	
+								<!-- 작성자 닉네임 -->
+								<td th:text="*{memberNickname}">닉네임</td>
+	
+								<!-- 작성일 -->
+								<td th:text="*{boardWriteDate}">2024-04-24</td>
+	
+								<!-- 조회수 -->
+								<td th:text="*{readCount}">0</td>
+	
+								<!-- 좋아요 수 -->
+								<td th:text="*{likeCount}">0</td>
+	
+							</tr>
+						</th:block>
 
 
 					</tbody>
@@ -72,7 +88,7 @@
 
 			<div class="btn-area">
 				<!-- 로그인 상태일 때만 글쓰기 버튼 노출 -->
-				<button id="insertBtn">글쓰기</button>
+				<button id="insertBtn" th:if="${session.loginMember}">글쓰기</button>
 			</div>
 
 
@@ -81,35 +97,35 @@
 			<!-- 게시글이 있을 때만 페이지네이션이 보이게 할 예정 -->
 			<div class="pagination-area">
 
-				<ul class="pagination">
+				<ul class="pagination" th:object="${pagination}">
 
 					<!-- 첫 페이지로 이동 -->
-					<li><a>&lt;&lt;</a></li>
+					<li><a th:href="@{/board/all?cp=1}">&lt;&lt;</a></li>
 
 					<!-- 이전 목록 마지막 번호로 이동 -->
-					<li><a>&lt;</a></li>
+					<li><a th:href="@{/board/all?cp={page}(page=*{prevPage})}">&lt;</a></li>
 
 					<!-- 특정 페이지로 이동 -->
-						
-					<li>
-						<a class="current">1</a>
-					</li>
+					<th:block th:each="i : *{#numbers.sequence(startPage,endPage)}">
+						<!-- 현재 보고있는 페이지 -->
+						<li th:if="${i} == *{currentPage}">
+							<a class="current" th:text="${i}">현재 페이지</a>
+						</li>
+	
+						<!-- 보고있지 않은 페이지 -->
+						<li th:unless="${i} == *{currentPage}">
+							<a th:text="${i}"
+							th:href="@{/board/all?cp={page}(page=${i})}">이동할 페이지</a>
+						</li>
+					</th:block>
 
-					<!-- 보고있지 않은 페이지 -->
-					<li>
-						<a>2</a>
-					</li>
-
-					
 					<!-- 다음 목록 시작 번호로 이동 -->
-					<li><a>&gt;</a></li>
+					<li><a th:href="@{/board/all?cp={page}(page=*{nextPage})}">&gt;</a></li>
 
 					<!-- 끝 페이지로 이동 -->
-					<li><a>&gt;&gt;</a></li>
+					<li><a th:href="@{/board/all?cp={page}(page=*{maxPage})}">&gt;&gt;</a></li>
 				</ul>
 			</div>
-
-
 
 			<!-- 검색창 -->
 			<form action="#" method="get" id="boardSearch">
@@ -129,17 +145,13 @@
 		</section>
 	</main>
 
-
 	<th:block th:replace="~{common/footer}"></th:block>
 
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
 
-
-
-
-
-
-
-
-	<th:block th:replace="~{common/footer}"></th:block>
+	<script src="/js/board/boardList.js"></script>
 </body>
 </html>
