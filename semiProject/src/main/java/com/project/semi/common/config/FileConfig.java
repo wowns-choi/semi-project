@@ -15,6 +15,7 @@ import jakarta.servlet.MultipartConfigElement;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j	
 @PropertySource("classpath:/config.properties")
+@Configuration
 public class FileConfig implements WebMvcConfigurer{
 	
 	

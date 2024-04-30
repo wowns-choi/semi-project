@@ -169,43 +169,43 @@
 						<i class="fa-regular fa-clock"></i>
 						강의 시작 시각
 					</span>
-					<div id="lecture-start-time-inner-div">
+					<div id="lecture-start-time-inner-div">						
 						<select class="form-select form-select-sm mb-3" name="startHour" 
 						aria-label="Large select example" id="startHour">
-						  <option selected value="01">1시</option>
-						  <option value="02">2시</option>
-						  <option value="03">3시</option>
-						  <option value="04">4시</option>
-						  <option value="05">5시</option>
-	  					  <option value="06">6시</option>
-	  					  <option value="07">7시</option>
-	  					  <option value="08">8시</option>
-	  					  <option value="09">9시</option>
-	  					  <option value="10">10시</option>
-	  					  <option value="11">11시</option>
-	  					  <option value="12">12시</option>
-	  					  <option value="13">13시</option>
-	  					  <option value="14">14시</option>
-	  					  <option value="15">15시</option>
-	  					  <option value="16">16시</option>
-	  					  <option value="17">17시</option>
-	  					  <option value="18">18시</option>
-	  					  <option value="19">19시</option>
-	  					  <option value="20">20시</option>
-	  					  <option value="21">21시</option>
-	  					  <option value="22">22시</option>
-	  					  <option value="23">23시</option>
-	  					  <option value="24">24시</option>
+						  <option  value="01" th:selected="${firstTwoChars == '1'}">1시</option>
+						  <option value="02" 	th:selected="${	firstTwoChars == '2'}">2시</option>
+						  <option value="03"  th:selected="${firstTwoChars == '3'}">3시</option>
+						  <option value="04"  th:selected="${firstTwoChars == '4'}">4시</option>
+						  <option value="05" th:selected="${firstTwoChars == '5'}">5시</option>
+	  					  <option value="06" th:selected="${firstTwoChars == '6'}">6시</option>
+	  					  <option value="07" th:selected="${firstTwoChars == '7'}">7시</option>
+	  					  <option value="08" th:selected="${firstTwoChars == '8'}" >8시</option>
+	  					  <option value="09" th:selected="${firstTwoChars == '9'}">9시</option>
+	  					  <option value="10" th:selected="${firstTwoChars == '10'}">10시</option>
+	  					  <option value="11"  th:selected="${firstTwoChars == '11'}">11시</option>
+	  					  <option value="12" th:selected="${firstTwoChars == '12'}">12시</option>
+	  					  <option value="13"	th:selected="${	firstTwoChars == '13'}">13시</option>
+	  					  <option value="14" th:selected="${firstTwoChars == '14'}">14시</option>
+	  					  <option value="15"	 th:selected="${firstTwoChars == '15'}">15시</option>
+	  					  <option value="16"	 th:selected="${firstTwoChars == '16'}">16시</option>
+	  					  <option value="17"	th:selected="${	firstTwoChars == '17'}">17시</option>
+	  					  <option value="18" th:selected="${firstTwoChars == '18'}">18시</option>
+	  					  <option value="19" th:selected="${firstTwoChars == '19'}">19시</option>
+	  					  <option value="20" th:selected="${firstTwoChars == '20'}">20시</option>
+	  					  <option value="21"	 th:selected="${firstTwoChars == '21'}">21시</option>
+	  					  <option value="22" th:selected="${firstTwoChars == 22}">22시</option>
+	  					  <option value="23" th:selected="${firstTwoChars == 23}">23시</option>
+	  					  <option value="24" th:selected="${firstTwoChars == 24}">24시</option>
 						</select>
 						
 						<select class="form-select form-select-sm mb-3" name="startMin" 
 						aria-label="Large select example" id="startMin">
-						  <option selected value="10">10분</option>
-						  <option value="20">20분</option>
-						  <option value="30">30분</option>
-						  <option value="40">40분</option>
-						  <option value="50">50분</option>
-						  <option value="60">60분</option>
+						  <option selected value="10" th:selected="${lastTwoChars == '10'}" >10분</option>
+						  <option value="20"  th:selected="${lastTwoChars == '20'}">20분</option>
+						  <option value="30"  th:selected="${lastTwoChars == '30'}">30분</option>
+						  <option value="40" th:selected="${lastTwoChars == '40'}">40분</option>
+						  <option value="50" th:selected="${lastTwoChars == '50'}">50분</option>
+						  <option value="60" th:selected="${lastTwoChars == '60'}">60분</option>
 						</select>
 					</div>
 				</div>
@@ -216,30 +216,30 @@
 					</label>
 					<select class="form-select form-select-sm mb-3" name="howLong" 
 					aria-label="Large select example" id="howLong">
-					  <option selected value="1">1시간</option>
-					  <option value="2">2시간</option>
-					  <option value="3">3시간</option>
-					  <option value="4">4시간</option>
-					  <option value="5">5시간</option>
-					  <option value="6">6시간</option>
-					  <option value="7">7시간</option>
-					  <option value="8">8시간</option>
-					  <option value="9">9시간</option>
-					  <option value="10">10시간</option>
-					  <option value="11">11시간</option>
-					  <option value="12">12시간</option>
-					  <option value="13">13시간</option>
-					  <option value="14">14시간</option>
-					  <option value="15">15시간</option>
-					  <option value="16">16시간</option>
-					  <option value="17">17시간</option>
-					  <option value="18">18시간</option>
-					  <option value="19">19시간</option>
-					  <option value="20">20시간</option>
-					  <option value="21">21시간</option>
-					  <option value="22">22시간</option>
-					  <option value="23">23시간</option>
-					  <option value="24">24시간</option> 
+					  <option selected value="1" 	th:selected="${	findLecture.howLong == 1}">1시간</option>
+					  <option value="2"  th:selected="${findLecture.howLong == 2}">2시간</option>
+					  <option value="3" 	th:selected="${	findLecture.howLong == 3}">3시간</option>
+					  <option value="4" 	th:selected="${	findLecture.howLong == 4}">4시간</option>
+					  <option value="5"  th:selected="${findLecture.howLong == 5}">5시간</option>
+					  <option value="6"  th:selected="${findLecture.howLong == 6}">6시간</option>
+					  <option value="7" 	th:selected="${	findLecture.howLong == 7}">7시간</option>
+					  <option value="8" 	th:selected="${	findLecture.howLong == 8}">8시간</option>
+					  <option value="9" 	th:selected="${	findLecture.howLong == 9}">9시간</option>
+					  <option value="10" th:selected="${findLecture.howLong == 10}">10시간</option>
+					  <option value="11" th:selected="${	findLecture.howLong == 11}">11시간</option>
+					  <option value="12"	 th:selected="${findLecture.howLong == 12}">12시간</option>
+					  <option value="13" th:selected="${findLecture.howLong == 13}">13시간</option>
+					  <option value="14" th:selected="${findLecture.howLong == 14}">14시간</option>
+					  <option value="15"	 th:selected="${findLecture.howLong == 15}">15시간</option>
+					  <option value="16" th:selected="${findLecture.howLong == 16}">16시간</option>
+					  <option value="17" th:selected="${findLecture.howLong == 17}">17시간</option>
+					  <option value="18"th:selected="${	findLecture.howLong == 18}">18시간</option>
+					  <option value="19" th:selected="${findLecture.howLong == 19}">19시간</option>
+					  <option value="20" th:selected="${findLecture.howLong == 20}">20시간</option>
+					  <option value="21"	 th:selected="${findLecture.howLong == 21}">21시간</option>
+					  <option value="22"th:selected="${findLecture.howLong == 22}">22시간</option>
+					  <option value="23"th:selected="${findLecture.howLong == 23}">23시간</option>
+					  <option value="24" th:selected="${findLecture.howLong == 24}">24시간</option> 
 					</select>
 				</div>
 				<div id="acceptable-number-div">
@@ -247,21 +247,21 @@
 						<i class="fa-solid fa-people-group"></i>
 						수용 가능 인원
 					</span>
-					<input type="number" name="acceptableNumber" id="acceptable-number" placeholder="숫자만 입력해주세요">
+					<input type="number" name="acceptableNumber" id="acceptable-number" th:value="${findLecture.acceptableNumber}" placeholder="숫자만 입력해주세요">
 				</div>
 				<div id="start-date-div">
 					<span>
 						<i class="fa-regular fa-calendar"></i>
 						강의 시작 날짜
 					</span>
-					<input type="date" name="startDate" id="start-date">						
+					<input type="date" name="startDate" id="start-date" th:value="${findLecture.formattedStartDate}">						
 				</div>
 				<div id="end-date-div">
 					<span>
 						<i class="fa-regular fa-calendar"></i>
 						강의 종료 날짜
 					</span>
-					<input type="date" name="endDate" id="end-date">
+					<input type="date" name="endDate" id="end-date" th:value="${findLecture.formattedEndDate}">
 				</div>
 			</div>
 			
@@ -281,7 +281,7 @@
  						배송 정보
 			         </div>
 			         <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
-			             class="find-address-btn"> <br>
+			             class="find-address-btn" > <br>
 			     </div>
 			     <div id="post-code-div">
 			         <span id="post-code-div-1">
@@ -292,7 +292,7 @@
 					th:text="${postCode}"
 					>
 			         </span>
-			         <input type="text" id="sample4_postcode" name="lecturePostCode" placeholder="우편번호" readonly>
+			         <input type="text" th:value="${findLecture.postCode}" id="sample4_postcode" name="lecturePostCode" placeholder="우편번호" readonly>
 			     </div>
 			     <div id="road-address-div">
 			         <span>
@@ -303,7 +303,7 @@
 					th:text="${roadAddress}"
 					>
 			         </span>
-			         <input type="text" id="sample4_roadAddress" name="lectureRoadAddress" placeholder="도로명주소" readonly>
+			         <input type="text" 	th:value="${findLecture.roadAddress}" id="sample4_roadAddress" name="lectureRoadAddress" placeholder="도로명주소" readonly>
 			     </div>
 			     <div id="jibun-address-div">
 			         <span>
@@ -314,7 +314,7 @@
 					th:text="${jibunAddress}"
 					>
 			         </span>
-			         <input type="text" id="sample4_jibunAddress" name="lectureJibunAddress" placeholder="지번주소" readonly>
+			         <input type="text" id="sample4_jibunAddress"  th:value="${findLecture.jibunAddress}" name="lectureJibunAddress" placeholder="지번주소" readonly>
 			     </div>
 			     <div id="detail-address-div">
 			         <span>
@@ -325,7 +325,7 @@
 					th:text="${detailAddress}">
 			         </span>
 			         <span id="guide" style="color:#999;display:none" ></span>
-			         <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="lectureDetailAddress">
+			         <input type="text" th:value="${findLecture.detailAddress}" id="sample4_detailAddress" placeholder="상세주소" name="lectureDetailAddress">
 			     </div>
 			
 			 </div>
@@ -334,12 +334,18 @@
 			 
 			 <div id="map" style="width:500px;height:400px;"></div>
 			 
-			<input type="number" name="price"> 원 
+			<input type="number" name="price" th:value="${findLecture.price}"> 원 
 			 
 			 <div id="register-btn-div">
 			  <button type="submit" id="register-btn">등록</button>
 			 </div> 
 	</form>
+	
+	<script th:inline="javascript">
+		// 위도와 경도 타임리프로 받아서 자바스크립트 변수로 만들기
+		let latitude = /*[[${findLecture.latitude}]]*/ "위도";
+		let hardness = /*[[${findLecture.hardness}]]*/ "경도";
+	</script>
 			
 			
 		<!-- 다음 주소 api -->
@@ -467,8 +473,18 @@
 			    }
 			</script>
 			
+			<!--- 지울부분 -->
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa"></script>
+			<script>
+				var container = document.getElementById('map');
+				var options = {
+					center: new kakao.maps.LatLng(33.450701, 126.570667),
+					level: 3
+				};
 			
-
+				var map = new kakao.maps.Map(container, options);
+			</script>
+		
 			
 
 

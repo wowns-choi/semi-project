@@ -61,10 +61,17 @@ public class ManagementController {
 		
 		model.addAttribute("findLecture", findLecture);
 		
+		
+		String startTime = findLecture.getStartTime();
+		
+		
+        String firstTwoChars = startTime.substring(0, 2); // 첫 번째에서 두 번째 문자까지 추출
+        String lastTwoChars = startTime.substring(startTime.length() - 2); // 마지막 두 문자 추출
+
+        model.addAttribute("firstTwoChars", firstTwoChars);
+        model.addAttribute("lastTwoChars", lastTwoChars);
+		
 		return "/management/updateForm";
-		
-		
-		
 	}
 	
 	
