@@ -10,4 +10,8 @@ public interface ManagementService {
 
 	void showMyLectures(int memberNo, String page, Model model);
 
+	int findOwner(Integer lectureNo, Integer memberNo);
+
+	Lecture findLectureAllData(Integer lectureNo);
+
 }

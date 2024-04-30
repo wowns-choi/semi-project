@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.semi.main.model.dto.Lecture;
 import com.project.semi.management.model.service.ManagementService;
@@ -39,5 +40,33 @@ public class ManagementController {
 		return "/management/myLectures";
 	}
 	
+	@GetMapping("updateLecture")
+	public String updateLecture(@RequestParam("lectureNo") Integer lectureNo,
+							@SessionAttribute("loginMember") Member loginMember,
+							RedirectAttributes ra, Model model
+			) {
+		
+		// 1. 요청한 사용자가 해당 강의의 주인이 맞는지 확인하는 코드
+		int result = managementService.findOwner(lectureNo, loginMember.getMemberNo());
+		
+		if(result == 0) {
+			ra.addFlashAttribute("message", "잘못된 접근입니다.");
+			return "redirect:/";
+		}
+		
+		// 2. 강의에 대한 정보를 가져와서 수정폼에 뿌려줄건데, 그걸 위해 강의에 대한 정보를 조회해온다.
+		Lecture findLecture = managementService.findLectureAllData(lectureNo);
+		
+		log.debug(findLecture.toString());
+		
+		model.addAttribute("findLecture", findLecture);
+		
+		return "/management/updateForm";
+		
+		
+		
+	}
+	
 	
 }
+
