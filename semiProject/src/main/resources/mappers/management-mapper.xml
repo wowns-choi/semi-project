@@ -152,6 +152,46 @@
 		WHERE MEMBER_NO = #{memberNo}
 		AND LECTURE_NO = #{lectureNo}
 	</select>
- 	
+	
+	<update id="updateLecture">
+		UPDATE LECTURE SET
+		LECTURE_CATEGORY_NUM = #{field},
+		LECTURE_HOME_TITLE = #{lectureHomeTitle},
+		LECTURE_HOME_CONTENT = #{lectureHomeContent},
+		LECTURE_TITLE = #{lectureTitle},
+		LECTURE_CONTENT = #{lectureContent},
+		INSTRUCTOR_INTORODUCTION = #{instructor},
+		LECTURE_LEVEL = #{level},
+		START_TIME = #{startTime},
+		HOW_LONG = #{howLong},
+		ACCEPTABLE_NUMBER = #{acceptableNumber},
+		START_DATE = #{startDate},
+		END_DATE = #{endDate}
+		
+		WHERE LECTURE_NO = #{lectureNo}
+	</update>
+	
+	<select id="findLectureNos">
+		SELECT LECTURE_FILE_NO FROM LECTURE_FILE 
+		WHERE LECTURE_NO =#{lectureNo}
+		ORDER BY LECTURE_NO ASC
+	</select>
+
+	<update id="addLectureeFile">
+		UPDATE LECTURE_FILE SET 
+		FILE_PATH = #{filePath},
+		ORIGINAL_NAME = #{originalName}
+		FILE_RENAME = #{fileRename}
+		WHERE LECTURE_FILE_NO = #{lectureFileNo}
+	</update>
+	
+	<update id="updateLectureAddress">
+		UPDATE 
+	
+	</update>
+
+	 
+
+
  	
 </mapper>

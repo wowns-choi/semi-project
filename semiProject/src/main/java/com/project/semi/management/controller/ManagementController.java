@@ -1,10 +1,13 @@
 package com.project.semi.management.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.semi.main.model.dto.Lecture;
 import com.project.semi.management.model.service.ManagementService;
 import com.project.semi.member.model.dto.Member;
+import com.project.semi.register.model.dto.RegisterDTO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -59,8 +63,7 @@ public class ManagementController {
 		
 		log.debug(findLecture.toString());
 		
-		model.addAttribute("findLecture", findLecture);
-		
+		model.addAttribute("findLecture", findLecture);		
 		
 		String startTime = findLecture.getStartTime();
 		
@@ -72,6 +75,32 @@ public class ManagementController {
         model.addAttribute("lastTwoChars", lastTwoChars);
 		
 		return "/management/updateForm";
+	}
+	
+	@PostMapping("updateLecture")
+	public String updateLecture(@ModelAttribute RegisterDTO register) throws IllegalStateException, IOException{
+		
+		log.debug("register=={}", register); //lectureNo 을 hidden 타입 input 으로 전달받음. 
+		int result = managementService.updateLecture(register);
+		
+		
+		
+		
+		// 주소는 입력해도 입력하지 않아도 그냥 온 걸 그대로 업데이트 해주면 됨.
+		
+		
+		
+		// 위도경도는 null 이 아닌 경우에만 update 해주면 됨. 
+		
+		
+		
+		// 파일은?  파일은 현재 어떤 다른 이미지로 바꾼 경우, 그 이미지가 들어오도록 해놨고,
+		// 다른 이미지로 바꾸지 않은 경우, 그냥 null 이 들어오도록 해놨다. 
+		
+		
+		
+		
+		return null;
 	}
 	
 	

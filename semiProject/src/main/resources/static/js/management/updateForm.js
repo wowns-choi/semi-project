@@ -1,6 +1,8 @@
 // 이미지 미리보기 
 document.querySelector('#d1').addEventListener('change', function(e){
 	let img1 = this.previousElementSibling.previousElementSibling;
+	let img21 = document.querySelector('#img1');	
+
 	
 	let file = e.target.files[0];
 	let reader = new FileReader();
@@ -9,12 +11,15 @@ document.querySelector('#d1').addEventListener('change', function(e){
 	reader.onload = function(e){
 		img1.src = e.target.result;
 		img1.style.display = 'block';
+				img21.style.display = 'none';
+
 	}
 	
 });
 document.querySelector('#d2').addEventListener('change', function(e){
 	let img1 = this.previousElementSibling.previousElementSibling;
-	
+		let img22 = document.querySelector('#img2');	
+
 	let file = e.target.files[0];
 	let reader = new FileReader();
 	reader.readAsDataURL(file);
@@ -22,11 +27,15 @@ document.querySelector('#d2').addEventListener('change', function(e){
 	reader.onload = function(e){
 		img1.src = e.target.result;
 		img1.style.display = 'block';
+						img22.style.display = 'none';
+
 	}
 	
 });
 document.querySelector('#d3').addEventListener('change', function(e){
 	let img1 = this.previousElementSibling.previousElementSibling;
+			let img23 = document.querySelector('#img3');	
+
 	
 	let file = e.target.files[0];
 	let reader = new FileReader();
@@ -35,11 +44,15 @@ document.querySelector('#d3').addEventListener('change', function(e){
 	reader.onload = function(e){
 		img1.src = e.target.result;
 		img1.style.display = 'block';
+						img23.style.display = 'none';
+
 	}
 	
 });
 document.querySelector('#d4').addEventListener('change', function(e){
 	let img1 = this.previousElementSibling.previousElementSibling;
+			let img24 = document.querySelector('#img4');	
+
 	
 	let file = e.target.files[0];
 	let reader = new FileReader();
@@ -48,11 +61,15 @@ document.querySelector('#d4').addEventListener('change', function(e){
 	reader.onload = function(e){
 		img1.src = e.target.result;
 		img1.style.display = 'block';
+						img24.style.display = 'none';
+
 	}
 	
 });
 document.querySelector('#d5').addEventListener('change', function(e){
 	let img1 = this.previousElementSibling.previousElementSibling;
+			let img25 = document.querySelector('#img5');	
+
 	
 	let file = e.target.files[0];
 	let reader = new FileReader();
@@ -61,6 +78,8 @@ document.querySelector('#d5').addEventListener('change', function(e){
 	reader.onload = function(e){
 		img1.src = e.target.result;
 		img1.style.display = 'block';
+						img25.style.display = 'none';
+
 	}
 	
 });
@@ -69,6 +88,8 @@ document.querySelector('#d5').addEventListener('change', function(e){
 document.querySelector('#f1').addEventListener('click', function(e){
 	
 	let img1 = document.querySelector('#img1');
+	let img11 = document.querySelector('#img2-1');
+	
 	// input 태그 갈아낀다. 
 	document.querySelector('#d1').remove();	
 	let newInput1 = document.createElement('input');
@@ -83,8 +104,8 @@ document.querySelector('#f1').addEventListener('click', function(e){
 			reader.readAsDataURL(file);
 	
 			reader.onload = function(e){
-			img1.src = e.target.result;
-			img1.style.display = 'block';
+			img11.src = e.target.result;
+			img11.style.display = 'block';
 			}
 	
 	});
@@ -92,7 +113,9 @@ document.querySelector('#f1').addEventListener('click', function(e){
 	document.querySelector('#register-image-div-1').append(newInput1);
 
 	// 이미지 감춘다. 
-	img1.style.display = 'none';
+	img1.style.display='block';
+	img11.style.display = 'none';
+	
 	
 });
 document.querySelector('#f2').addEventListener('click', function(e){
