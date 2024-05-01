@@ -80,5 +80,19 @@
 		MEMBER_PW = #{encPw}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
+	
+		<select id="foundIdCount">
+		SELECT COUNT(*)
+		FROM "MEMBER"
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+		AND MEMBER_TEL = #{memberTel}
+	</select>
+	
+	<select id="foundId">
+		SELECT *
+		FROM "MEMBER"
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+		AND MEMBER_TEL = #{memberTel}
+	</select>
  	
 </mapper>

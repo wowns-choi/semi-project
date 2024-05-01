@@ -32,6 +32,10 @@ public interface MemberMapper {
 
 	int newPw(Map<String, Object> paramMap);
 
+	Member foundId(Member member);
+
+	int foundIdCount(Member member);
+
 	
 
 	

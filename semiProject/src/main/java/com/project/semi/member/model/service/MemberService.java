@@ -41,6 +41,12 @@ public interface MemberService {
 
 	int newPw(String newPw, Member loginMember);
 
+	/** 아이디 찾기
+	 * @param member
+	 * @return
+	 */
+	String foundId(Member member);
+
 	
 
 

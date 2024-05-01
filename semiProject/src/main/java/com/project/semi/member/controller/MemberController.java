@@ -265,6 +265,64 @@ public class MemberController {
 		 
 		return "redirect:" + path;
 	}
+	
+	
+	
+	@GetMapping("findMemberEmail")
+	public String foundId() {
+		
+		return "/member/foundId";
+	}
+	
+	
+	@PostMapping("/foundId")
+	public String foundId(
+			@ModelAttribute Member member,
+			Model model,
+			RedirectAttributes ra
+			
+			) {
+				
+		String result = memberService.foundId(member);
+
+		String message = null;
+		if (result.equals("not correct")) {
+			
+			message = "일치하는 사용자의 정보가 없습니다. 아이디 또는 휴대폰 번호를 확인해주세요.";
+			ra.addFlashAttribute("message", message);
+			
+			return "redirect:/member/foundId";
+						
+		}else {
+			
+			model.addAttribute("memberEmail" , result);
+			return "/member/idResult"; 
+		}
+				
+	}
+	
+	@GetMapping("idResult")
+	public String idResult() {
+		
+		return "/member/idResult"; // 실제로 return 값을 받아줄 html 경로 작성
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
 
