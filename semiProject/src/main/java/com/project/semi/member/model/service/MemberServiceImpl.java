@@ -234,6 +234,26 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 				
 		
+	}
+
+	// 아이디 찾기
+	@Override
+	public String foundId(Member member) {
+		
+		int result = memberMapper.foundIdCount(member);
+		
+		if(result > 0 ) {
+			
+			Member findMember = memberMapper.foundId(member);
+			
+			return findMember.getMemberEmail();
+		}else {
+			return "not correct";
+		}
+		
+		
+
+		
 	} 
 
 
