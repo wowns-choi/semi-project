@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.semi.main.model.dto.Lecture;
@@ -30,5 +31,13 @@ public interface LectureMapper {
 	int replyUpdate(Map<String, Object> paramMap);
 
 	int replyUpdate2(Map<String, Object> paramMap);
+
+	List<Map<String, Object>> selectCategoryTypeList();
+
+	List<Lecture> selectList(int lectureCategoryNum);
+
+	int getListCount();
+
+	List<Lecture> selectLectureList(int cp, RowBounds rowBounds);
 }
 

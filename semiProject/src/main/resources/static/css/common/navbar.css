@@ -67,14 +67,15 @@
 /*----------------------클래스 등록, 클래스 관리 -----------------------------*/
 #class-register{
 	text-decoration: none;
-	margin-left: 10px;
+	margin-left: 20px;
 	color: black;
+    margin-top: 15px;
 }
 #class-manage{
 	text-decoration: none;
-	margin-left: 10px;
+	margin-left: 20px;
 	margin-right: 10px;
-
+    margin-top: 15px;
 	color: black;
 }
 
@@ -130,4 +131,9 @@
 #update-user-info-and-logout-dropdown-child > a:hover{
     background-color: #fafafa;
     color: #ffc175;
+}
+
+#icon-box {
+    display: flex;
+    flex-direction: row;
 }

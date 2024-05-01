@@ -210,5 +210,72 @@
 		WHERE LECTURE_REVIEW_NO = #{lectureReviewNo}
 	</update>
 	
+	<select id="selectCategoryTypeList">
+		SELECT LECTURE_CATEGORY_NUM "lectureCategoryNum", CATEGORY_NAME "categoryName"
+		FROM LECTURE_TYPE
+		ORDER BY LECTURE_CATEGORY_NUM
+	</select>
 	
+	<select id="selectList" resultMap="firstLectureRM">
+	    SELECT
+	        L.LECTURE_NO,
+	        L.MEMBER_NO,
+	        L.LECTURE_CATEGORY_NUM,
+	        L.LECTURE_HOME_TITLE,
+	        L.LECTURE_HOME_CONTENT,
+	        L.PRICE,
+	        L.LECTURE_LEVEL,
+     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+  
+			
+			LF.LECTURE_FILE_NO,
+			LF.FILE_PATH,
+			LF.ORIGINAL_NAME,
+			LF.FILE_RENAME,
+			
+			M.MEMBER_NICKNAME,
+	        M.PROFILE_IMG
+			
+			
+			FROM LECTURE L
+			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+			WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+			ORDER BY L.ENROLL_DATE DESC
+	</select>
+	
+	<select id="getListCount">
+		SELECT COUNT(*)
+		FROM "LECTURE"
+		WHERE LECTURE_DEL_FL = 'N'
+	</select>
+	
+	<select id="selectLectureList" resultMap="firstLectureRM">
+	    SELECT
+	        L.LECTURE_NO,
+	        L.MEMBER_NO,
+	        L.LECTURE_CATEGORY_NUM,
+	        L.LECTURE_HOME_TITLE,
+	        L.LECTURE_HOME_CONTENT,
+	        L.PRICE,
+	        L.LECTURE_LEVEL,
+     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+  
+			
+			LF.LECTURE_FILE_NO,
+			LF.FILE_PATH,
+			LF.ORIGINAL_NAME,
+			LF.FILE_RENAME,
+			
+			M.MEMBER_NICKNAME,
+	        M.PROFILE_IMG
+			
+			
+			FROM LECTURE L
+			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+			ORDER BY L.ENROLL_DATE DESC
+	</select>
 </mapper>
