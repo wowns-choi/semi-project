@@ -13,7 +13,6 @@
 	flex-basis: 15%;
 }
 
-
 #navbar > div:nth-child(2){
     flex-basis: 70%;
 	display: flex;
