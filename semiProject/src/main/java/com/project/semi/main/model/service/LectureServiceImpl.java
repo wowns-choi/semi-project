@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import com.project.semi.common.util.Utility;
 import com.project.semi.main.model.dto.Lecture;
 import com.project.semi.main.model.dto.LectureFile;
 import com.project.semi.main.model.dto.LectureReview;
+import com.project.semi.main.model.dto.MainPagination;
 import com.project.semi.main.model.mapper.LectureMapper;
 import com.project.semi.member.model.dto.Member;
 
@@ -41,6 +43,7 @@ public class LectureServiceImpl implements LectureService{
 	
 	@Override
 	public List<Lecture> findLectures() {
+		
 		List<Lecture> lectureList = lectureMapper.findLecturesLatest();
 		
 		for(Lecture lec : lectureList) { //이 for 문으로 인해, 연관된 이미지가 없는 게시글은 files 라는 List자료구조를 담은 필드에 null 이 담기게 되었음. 
@@ -284,6 +287,41 @@ public class LectureServiceImpl implements LectureService{
 		
 		
 		return 0;
+	}
+
+	// 카테고리 종류 조회(전처리)
+	@Override
+	public List<Map<String, Object>> selectCategoryTypeList() {
+		return lectureMapper.selectCategoryTypeList();
+	}
+
+	// 카테고리별 리스트 조회
+	@Override
+	public List<Lecture> selectList(int lectureCategoryNum) {
+		return lectureMapper.selectList(lectureCategoryNum);
+	}
+
+	// 페이지네이션
+	@Override
+	public Map<String, Object> viewAll(int cp) {
+		
+		int listCount = lectureMapper.getListCount();
+		
+		MainPagination mainPagination = new MainPagination(cp,listCount);
+		
+		int limit = mainPagination.getLimit();
+		int offset = (cp - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		List<Lecture> lectureList = lectureMapper.selectLectureList(cp, rowBounds);
+
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("mainPagination", mainPagination);
+		map.put("lectureList", lectureList);
+		
+		// 5. 결과 반환
+		return map;
 	}
 	
 	

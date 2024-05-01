@@ -1,16 +1,33 @@
 /*댓글*/
+#commentArea {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.comment-list-area {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
 .comment-write-area {
 	display: flex;
 	min-height: 85px;
 	justify-content: center;
 	
 	margin: 30px 0;
+
+	width: 60%;
 }
 
 .comment-write-area > textarea{
 	flex-basis: 75%;
     margin-right: 10px;
 	resize: none;
+	
+	width: 100%;
 }
 
 .comment-write-area > button{
@@ -24,9 +41,12 @@
     cursor: pointer;
 }
 
+/* 댓글창의 너비를 조절하고 싶을 때 이거의 width 를 고치면 됨.  */
 #commentList{
 	padding: 0;
 	list-style: none;
+	width: 60%; 
+
 }
 
 .comment-writer {
@@ -137,4 +157,8 @@
     color : darkslategray;
     border: 1px solid darkslategray;
     border-radius: 5px;
+}
+
+#commentList p,span {
+	color: black;
 }

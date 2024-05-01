@@ -48,9 +48,9 @@
 		<div class="carousel-inner">
 		  <div class="carousel-item active">
 			<img class="d-block w-100" id="carousel1">
-			<div class="carousel-caption d-none d-md-block soap-box">
-			  <h5 style="color: rgb(10,125,169);">Soap Art Class</h5>
-			  <p class="p-text" style="color: rgb(10,125,169);">Make your own soap :)</p>
+			<div class="carousel-caption d-none d-md-block draw-box">
+				<h5 style="color: black;">Drawing Class</h5>
+				<p class="p-text" style="color: black;">Let's draw !</p>
 			</div>
 		  </div>
 		  <div class="carousel-item">
@@ -62,9 +62,9 @@
 		  </div>
 		  <div class="carousel-item">
 			<img class="d-block w-100" id="carousel3">
-			<div class="carousel-caption d-none d-md-block draw-box">
-			  <h5 style="color: black;">Drawing Class</h5>
-			  <p class="p-text" style="color: black;">Let's draw !</p>
+			<div class="carousel-caption d-none d-md-block soap-box">
+				<h5 style="color: rgb(10,125,169);">Soap Art Class</h5>
+				<p class="p-text" style="color: rgb(10,125,169);">Make your own soap :)</p>
 			</div>
 		  </div>
 		  <div class="carousel-item">
@@ -91,6 +91,19 @@
 		  <span class="visually-hidden">Next</span>
 		</button>
 	  </div>
+	</div>
+
+	<div id="category-list">
+		<ul>
+			<li>
+				<a href="/">전체 메뉴</a>
+			</li>
+			<th:block th:each="categoryType : ${application.categoryTypeList}">
+				<li class="category-li">
+					<a th:text="${categoryType.categoryName}" class="category-btn" th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}"></a>
+				</li>
+			</th:block>
+		</ul>
 	</div>
 
 	<div id="body-container">
@@ -132,6 +145,41 @@
 		</div>
 		<div></div>
 	</div>
+
+	<div class="pagination-area">
+
+		<ul class="pagination" th:object="${mainPagination}">
+
+			<!-- 첫 페이지로 이동 -->
+			<li><a href="/?cp=1">&lt;&lt;</a></li>
+
+			<!-- 이전 목록 마지막 번호로 이동 -->
+			<li><a href="/?cp=*{prevPage}">&lt;</a></li>
+
+			<!-- 특정 페이지로 이동 -->
+			<th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
+				<!-- 현재 보고있는 페이지 -->
+				<li th:if="${i} == *{currentPage}">
+					<a class="current" th:text="${i}">1</a>
+				</li>
+
+				<!-- 보고있지 않은 페이지 -->
+				<li th:unless="${i} == *{currentPage}">
+					<a th:text="${i}"
+					th:href="@{/board/{boardCode}(boardCode=${boardCode}, cp=${i})}">2</a>
+				</li>
+
+			</th:block>
+
+			<!-- 다음 목록 시작 번호로 이동 -->
+			<li><a th:href="@{/board/{boardCode}(boardCode=${boardCode}, cp=*{nextPage})}">&gt;</a></li>
+
+			<!-- 끝 페이지로 이동 -->
+			<li><a th:href="@{/board/{boardCode}(boardCode=${boardCode}, cp=*{maxPage})}">&gt;&gt;</a></li>
+		</ul>
+	</div>
+
+
 
 	<div style="height: 100vh;"></div>
 
