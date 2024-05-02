@@ -117,6 +117,12 @@
         width : 150px;
 
         padding: 7px;
+        
+        transition: transform 0.3s ease;
+    }
+    
+    input:hover {
+        transform: scale(1.05);
     }
         .input1{
             margin-right: 5vw;

@@ -7,15 +7,20 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.semi.common.util.Utility;
+import com.project.semi.email.model.service.EmailService;
 import com.project.semi.member.model.dto.Member;
 import com.project.semi.member.model.mapper.MemberMapper;
 
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +34,9 @@ public class MemberServiceImpl implements MemberService{
 	private final MemberMapper memberMapper;
 	
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	private final EmailService emailService;
+	
 	
 	@Value("${my.profile.web-path}")
 	private String webPath; // 앞에 붙이는 조각
@@ -192,6 +200,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		if (bCryptPasswordEncoder.matches(pwInput, encPw)) {
 			memberMapper.withdrawal(memberNo);
+			
 			result= 1;
 			
 		}
@@ -250,13 +259,80 @@ public class MemberServiceImpl implements MemberService{
 		}else {
 			return "not correct";
 		}
-		
-		
-
-		
-	} 
+	
+	}
 
 
+	@Override
+	public int getAuth(Member member) {
+		
+		int count = memberMapper.getAuth(member);
+		
+		
+		
+		if(count > 0) {
+			
+			emailService.sendEmail("findPwAuthKey", member.getMemberEmail());
+			
+			return 1;
+						
+		}else {
+			
+			return 0;
+		}
+		
+	}
+
+
+	@Override
+	public int newPw(String memberEmail, String checkAuthKey) {
+		
+		Map<String, String> map = new HashMap<>();
+		
+		map.put("memberEmail", memberEmail);
+		map.put("checkAuthKey", checkAuthKey);
+		
+		 int result = memberMapper.checkAuth(map);
+		 
+		 return result;
+		
+	}
+
+
+	@Override
+	public int rePw(String newPw, String memberEmail) {
+
+		String  pw = bCryptPasswordEncoder.encode(newPw);
+					
+		
+		Map<String, String> map = new HashMap<>();
+			
+		
+		map.put("newPw", pw);
+		map.put("memberEmail", memberEmail);
+		
+		int result = memberMapper.rePw(map);
+		
+		
+		return result;
+	}
+
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }

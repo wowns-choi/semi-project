@@ -308,20 +308,69 @@ public class MemberController {
 	}
 	
 	
+	@GetMapping("findMemberPw")
+	public String foundPw() {
+		
+		return "/member/foundPw";
+	}
 	
+	@PostMapping("/getAuth")
+	@ResponseBody
+	public int getAuth(
+				@RequestBody Member member
+				) {
+		
+		return memberService.getAuth(member);
+	}
 	
+	@PostMapping("foundPw")
+	public String newPw(
+				@RequestParam("memberEmail") String memberEmail,
+				@RequestParam("checkAuthKey") String checkAuthKey,
+				Model model,
+				RedirectAttributes ra
+			) {
+		
+		int result = memberService.newPw(memberEmail, checkAuthKey);
+		
+		if (result > 0 ) {
+			
+			model.addAttribute("memberEmail",memberEmail);
+			
+			return "/member/rePw";
+			
+		}
+		
+		return null;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@PostMapping("/rePw")
+	public String rePw(
+			@RequestParam("newPw") String newPw,
+			@RequestParam("newPwConf") String newPwConf,
+			@RequestParam("memberEmail") String memberEmail,
+			RedirectAttributes ra
+			) {
+		
+		
+		int result = memberService.rePw(newPw,memberEmail);
+		
+		
+		
+		if(result > 0) {
+			
+			return "redirect:/" ;
+		}else {
+			
+			ra.addFlashAttribute("message", "서버 에러 발생");
+			
+			return "rdeirect:/";
+			
+		}
+		
+		
+	}
+
 	
 }
 

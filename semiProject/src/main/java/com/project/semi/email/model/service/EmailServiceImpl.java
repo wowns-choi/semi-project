@@ -51,8 +51,10 @@ public class EmailServiceImpl implements EmailService{
 		
 			switch(htmlName) { // 어떤 html 을 이메일로 보낼것인지에 따라, 제목을 달리함.
 			case "signup" :
-				subject = "[애플리케이션 이름] 회원 가입 인증번호 입니다.";
+				subject = "[CHee : Mi] 회원 가입 인증번호 입니다.";
 				break;
+			case "findPwAuthKey" :
+				subject = "[CHee : Mi] 비밀번호 찾기 인증번호 입니다.";
 			}
 			
 		// 1-3) 메일 보내기
@@ -75,7 +77,7 @@ public class EmailServiceImpl implements EmailService{
 			// 1-3-5) CID(Content-ID) 를 이용해서 메일에 이미지 첨부할 수 있음.
 			// 보낼 html 파일에서 이 이미지를 사용하려면, <img src="cid:logo"> 이런식으로 쓰면 됨. 
 			// 파일을 넣는 게 아니라, html 파일에 그려질 이미지를 첨부한다는거야.
-			helper.addInline("logo", new ClassPathResource("static/images/logo.jpg"));
+			helper.addInline("logo", new ClassPathResource("static/images/logo.png"));
 			
 			// 1-3-6) helper 의 setText 메서드를 호출하면서 넘겨준 파라미터의 의미.
 			// 1번 파라미터 : 메일로 보낼 문자열. loadHtml 이라는 메서드를 실행하면, 메일로 보낼 문자열이 리턴되야함. 
