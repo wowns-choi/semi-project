@@ -39,5 +39,9 @@ public interface LectureMapper {
 	int getListCount();
 
 	List<Lecture> selectLectureList(int cp, RowBounds rowBounds);
+
+	int getSelectCount(int lectureCategoryNum);
+
+	List<Lecture> selectCategoryList(int lectureCategoryNum, RowBounds rowBounds);
 }
 

@@ -323,6 +323,29 @@ public class LectureServiceImpl implements LectureService{
 		// 5. 결과 반환
 		return map;
 	}
+
+	@Override
+	public Map<String, Object> selectView(int lectureCategoryNum, int cp) {
+
+		int listCount = lectureMapper.getSelectCount(lectureCategoryNum);
+		
+		MainPagination mainPagination = new MainPagination(cp,listCount);
+		
+		int limit = mainPagination.getLimit();
+		int offset = (cp - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		List<Lecture> lectureList = lectureMapper.selectCategoryList(lectureCategoryNum, rowBounds);
+
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("mainPagination", mainPagination);
+		map.put("lectureList", lectureList);
+		
+		// 5. 결과 반환
+		return map;
+
+	}
 	
 	
 	

@@ -55,13 +55,17 @@ public class MainController {
 		return "common/main";
 	}
 	
-	@GetMapping("{lectureCategoryNum:[0-9]+}")
+	@GetMapping("/{lectureCategoryNum:[0-9]+}")
 	public String select(@PathVariable("lectureCategoryNum") int lectureCategoryNum,
-			Model model) {
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
 		
-		List<Lecture> selectList = lectureService.selectList(lectureCategoryNum);
+		Map<String, Object> map = lectureService.selectView(lectureCategoryNum, cp);
 		
-		model.addAttribute("lectureList", selectList);
+//		List<Lecture> selectList = lectureService.selectList(lectureCategoryNum);
+		model.addAttribute("lectureCategoryNum", lectureCategoryNum);
+		model.addAttribute("lectureList", map.get("lectureList"));
+		model.addAttribute("mainPagination", map.get("mainPagination"));
 		
 		return "/common/main";
 	}

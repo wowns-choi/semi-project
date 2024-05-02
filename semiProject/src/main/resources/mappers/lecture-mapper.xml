@@ -278,4 +278,44 @@
 			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
 			ORDER BY L.ENROLL_DATE DESC
 	</select>
+	
+	<select id="getSelectCount">
+		SELECT COUNT(*)
+		FROM "LECTURE"
+		WHERE LECTURE_DEL_FL = 'N'
+		<if test="lectureCategoryNum != 0">
+			AND LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+		</if>
+	</select>
+	
+		<select id="selectCategoryList" resultMap="firstLectureRM">
+	    SELECT
+	        L.LECTURE_NO,
+	        L.MEMBER_NO,
+	        L.LECTURE_CATEGORY_NUM,
+	        L.LECTURE_HOME_TITLE,
+	        L.LECTURE_HOME_CONTENT,
+	        L.PRICE,
+	        L.LECTURE_LEVEL,
+     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+  
+			
+			LF.LECTURE_FILE_NO,
+			LF.FILE_PATH,
+			LF.ORIGINAL_NAME,
+			LF.FILE_RENAME,
+			
+			M.MEMBER_NICKNAME,
+	        M.PROFILE_IMG
+			
+			
+			FROM LECTURE L
+			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+			<if test="lectureCategoryNum != 0">
+				WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+			</if>
+			ORDER BY L.ENROLL_DATE DESC
+	</select>
 </mapper>

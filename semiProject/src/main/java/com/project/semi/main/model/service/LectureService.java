@@ -37,4 +37,6 @@ public interface LectureService {
 
 	Map<String, Object> viewAll(int cp);
 
+	Map<String, Object> selectView(int lectureCategoryNum, int cp);
+
 }

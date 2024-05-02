@@ -96,7 +96,19 @@
 	<div id="category-list">
 		<ul>
 			<li>
-				<a href="/">전체 메뉴</a>
+				<a href="/0">전체 메뉴</a>
+			</li>
+			<li>
+				<select name="key" id="selectLocation">
+					<option value="전체">전체</option>
+					<option value="서울">서울</option>
+					<option value="경기">경기도</option>
+					<option value="강원">강원도</option>
+					<option value="충청">충청도</option>
+					<option value="전라">전라도</option>
+					<option value="경상">경상도</option>
+					<option value="제주">제주도</option>
+				</select>
 			</li>
 			<th:block th:each="categoryType : ${application.categoryTypeList}">
 				<li class="category-li">
@@ -150,38 +162,29 @@
 
 		<ul class="pagination" th:object="${mainPagination}">
 
-			<!-- 첫 페이지로 이동 -->
-			<li><a href="/?cp=1">&lt;&lt;</a></li>
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=1)}">&lt;&lt;</a></li>
 
-			<!-- 이전 목록 마지막 번호로 이동 -->
-			<li><a href="/?cp=*{prevPage}">&lt;</a></li>
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{prevPage})}">&lt;</a></li>
 
-			<!-- 특정 페이지로 이동 -->
 			<th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
-				<!-- 현재 보고있는 페이지 -->
+
 				<li th:if="${i} == *{currentPage}">
-					<a class="current" th:text="${i}">1</a>
+					<a class="current" th:text="${i}">현재페이지</a>
 				</li>
 
-				<!-- 보고있지 않은 페이지 -->
 				<li th:unless="${i} == *{currentPage}">
 					<a th:text="${i}"
-					th:href="@{/board/{boardCode}(boardCode=${boardCode}, cp=${i})}">2</a>
+					th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=${i})}">이동할 페이지</a>
 				</li>
+			</th:block>	
+			
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{nextPage})}">&gt;</a></li>
 
-			</th:block>
-
-			<!-- 다음 목록 시작 번호로 이동 -->
-			<li><a th:href="@{/board/{boardCode}(boardCode=${boardCode}, cp=*{nextPage})}">&gt;</a></li>
-
-			<!-- 끝 페이지로 이동 -->
-			<li><a th:href="@{/board/{boardCode}(boardCode=${boardCode}, cp=*{maxPage})}">&gt;&gt;</a></li>
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{maxPage})}">&gt;&gt;</a></li>
 		</ul>
 	</div>
 
-
-
-	<div style="height: 100vh;"></div>
+	<!-- <div style="height: 100vh;"></div> -->
 
 	<th:block th:replace="~{common/footer}"></th:block>
 	<!--navbar js-->
@@ -190,5 +193,23 @@
 	<script src="/js/common/loginModal.js"></script>
 
 	<script src="/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
+
+	<script>
+		let selectLocation = document.getElementById('selectLocation');
+		let lectureCategoryNum = /*[[${lectureCategoryNum}]]*/ "카테고리";
+
+		selectLocation.addEventListener('change', function() {
+			console.log('선택된 값', this.value);
+			if(location.search == "") {
+
+				location.href = location.pathname + "?key=" + this.value;
+			} else {
+				
+			//  location.search => ?key=충청
+
+				location.href = location.pathname + location.search + "&key=" + this.value;
+			}
+		})
+	</script>
 </body>
 </html>
