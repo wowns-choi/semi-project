@@ -30,7 +30,8 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String home(Model model,
-			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
+			@RequestParam(value="key", required=false, defaultValue = "전체") String query) {
 		
 		
 		//lecture 테이블과 그 테이블과 연관된 이미지들을 가져와서 model 에 잘 담아줘야 함. 
@@ -58,7 +59,8 @@ public class MainController {
 	@GetMapping("/{lectureCategoryNum:[0-9]+}")
 	public String select(@PathVariable("lectureCategoryNum") int lectureCategoryNum,
 			Model model,
-			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
+			@RequestParam(value="key", required=false, defaultValue = "전체") String query) {
 		
 		Map<String, Object> map = lectureService.selectView(lectureCategoryNum, cp);
 		
