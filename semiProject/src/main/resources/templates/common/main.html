@@ -110,9 +110,18 @@
 					<option value="제주">제주도</option>
 				</select>
 			</li>
-			<th:block th:each="categoryType : ${application.categoryTypeList}">
+			<th:block th:unless="${query}" th:each="categoryType : ${application.categoryTypeList}">
 				<li class="category-li">
-					<a th:text="${categoryType.categoryName}" class="category-btn" th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}"></a>
+					<a th:text="${categoryType.categoryName}" class="category-btn" 
+					th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}"></a>
+					<!-- th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}" -->
+				</li>
+			</th:block>
+			<th:block th:if="${query}" th:each="categoryType : ${application.categoryTypeList}">
+				<li class="category-li">
+					<a th:text="${categoryType.categoryName}" class="category-btn" 
+					th:href="|/${categoryType.lectureCategoryNum}?cp=1&key=${query}|"></a>
+					<!-- th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}" -->
 				</li>
 			</th:block>
 		</ul>
@@ -153,7 +162,6 @@
 				
 				</a>
 			</th:block>
-			<input hidden id="here">
 		</div>
 		<div></div>
 	</div>
@@ -166,7 +174,7 @@
 
 			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{prevPage})}">&lt;</a></li>
 
-			<th:block th:each="i : *{#numbers.sequence(startPage, endPage)}">
+			<th:block th:if="*{startPage lt endPage}" th:each="i : *{#numbers.sequence(startPage, endPage)}">
 
 				<li th:if="${i} == *{currentPage}">
 					<a class="current" th:text="${i}">현재페이지</a>
@@ -178,6 +186,13 @@
 				</li>
 			</th:block>	
 			
+			<!-- 일치하는 게시글이 없을 경우 -->
+			<th:block th:unless="*{startPage lt endPage}">
+				<li>
+					<a class="current">1</a>
+				</li>
+			</th:block>
+
 			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{nextPage})}">&gt;</a></li>
 
 			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{maxPage})}">&gt;&gt;</a></li>
@@ -195,14 +210,10 @@
 	<script src="/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
 
 	<script>
-		let selectLocation = document.getElementById('selectLocation');
+		const selectLocation = document.getElementById('selectLocation');
 		let lectureCategoryNum = /*[[${lectureCategoryNum}]]*/ "카테고리";
 
-		
 		selectLocation.addEventListener('change', function() {
-
-			const here = document.getElementById("#here");
-			here.focus();
 
 			if(location.search == "") {
 
@@ -213,6 +224,13 @@
 				location.href = location.pathname + "?cp=1&key=" + this.value;
 			}
 		})
+
+		// const categoryBtn = document.querySelectorAll(".category-btn");
+
+		// categoryBtn.addEventListener('click', e => {
+
+		// 	console.log(e.target.value);
+		// });
 	</script>
 </body>
 </html>

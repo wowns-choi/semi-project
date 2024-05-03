@@ -38,7 +38,7 @@ public class MainController {
 		
 //		List<Lecture> lectureList = lectureService.findLectures();
 		
-		Map<String, Object> map = lectureService.viewAll(cp);
+		Map<String, Object> map = lectureService.viewAll(cp, query);
 		
 		//Lecture(lectureNo=1, 
 		//memberNo=20, 
@@ -52,7 +52,7 @@ public class MainController {
 		//LectureFile(lectureFileNo=2, lectureNo=1, filePath=/lecture/file, originalName=perfume2.jpg, rename=perfume2.jpg, uploadDate=Thu Apr 18 04:33:19 YAKT 2024)])
 		model.addAttribute("lectureList", map.get("lectureList"));
 		model.addAttribute("mainPagination", map.get("mainPagination"));
-		
+		model.addAttribute("query", query);
 		return "common/main";
 	}
 	
@@ -62,12 +62,15 @@ public class MainController {
 			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
 			@RequestParam(value="key", required=false, defaultValue = "전체") String query) {
 		
-		Map<String, Object> map = lectureService.selectView(lectureCategoryNum, cp);
+		
+		
+		Map<String, Object> map = lectureService.selectView(lectureCategoryNum, cp, query);
 		
 //		List<Lecture> selectList = lectureService.selectList(lectureCategoryNum);
 		model.addAttribute("lectureCategoryNum", lectureCategoryNum);
 		model.addAttribute("lectureList", map.get("lectureList"));
 		model.addAttribute("mainPagination", map.get("mainPagination"));
+		model.addAttribute("query", query);
 		
 		return "/common/main";
 	}

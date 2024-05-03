@@ -303,9 +303,13 @@ public class LectureServiceImpl implements LectureService{
 
 	// 페이지네이션
 	@Override
-	public Map<String, Object> viewAll(int cp) {
+	public Map<String, Object> viewAll(int cp, String query) {
 		
-		int listCount = lectureMapper.getListCount();
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("query", query);		
+		
+		int listCount = lectureMapper.getListCount(map);
 		
 		MainPagination mainPagination = new MainPagination(cp,listCount);
 		
@@ -313,9 +317,10 @@ public class LectureServiceImpl implements LectureService{
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		List<Lecture> lectureList = lectureMapper.selectLectureList(cp, rowBounds);
+		
+		
+		List<Lecture> lectureList = lectureMapper.selectLectureList(map, rowBounds);
 
-		Map<String, Object> map = new HashMap<>();
 		
 		map.put("mainPagination", mainPagination);
 		map.put("lectureList", lectureList);
@@ -325,9 +330,13 @@ public class LectureServiceImpl implements LectureService{
 	}
 
 	@Override
-	public Map<String, Object> selectView(int lectureCategoryNum, int cp) {
+	public Map<String, Object> selectView(int lectureCategoryNum, int cp, String query) {
 
-		int listCount = lectureMapper.getSelectCount(lectureCategoryNum);
+		Map<String, Object> map = new HashMap<>();
+		map.put("query", query);
+		map.put("lectureCategoryNum", lectureCategoryNum);
+		
+		int listCount = lectureMapper.getSelectCount(map);
 		
 		MainPagination mainPagination = new MainPagination(cp,listCount);
 		
@@ -335,9 +344,10 @@ public class LectureServiceImpl implements LectureService{
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		List<Lecture> lectureList = lectureMapper.selectCategoryList(lectureCategoryNum, rowBounds);
+		
 
-		Map<String, Object> map = new HashMap<>();
+		List<Lecture> lectureList = lectureMapper.selectCategoryList(map, rowBounds);
+
 		
 		map.put("mainPagination", mainPagination);
 		map.put("lectureList", lectureList);
