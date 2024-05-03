@@ -123,7 +123,6 @@
 		<div>
 			<th:block th:each="lecture : ${lectureList}">
 				<a th:href="|/lecture/showLectureDetail?lectureNo=${lecture.lectureNo}|" class="element-div">
-					
 					<th:block th:if="${lecture.files != null}">
 						<img th:src="|${lecture.files.get(0).filePath}${lecture.files.get(0).fileRename}|"
 						class="lecture-img"
@@ -154,6 +153,7 @@
 				
 				</a>
 			</th:block>
+			<input hidden id="here">
 		</div>
 		<div></div>
 	</div>
@@ -198,16 +198,19 @@
 		let selectLocation = document.getElementById('selectLocation');
 		let lectureCategoryNum = /*[[${lectureCategoryNum}]]*/ "카테고리";
 
+		
 		selectLocation.addEventListener('change', function() {
-			console.log('선택된 값', this.value);
+
+			const here = document.getElementById("#here");
+			here.focus();
+
 			if(location.search == "") {
 
 				location.href = location.pathname + "?key=" + this.value;
-			} else {
-				
-			//  location.search => ?key=충청
 
-				location.href = location.pathname + location.search + "&key=" + this.value;
+			} else {
+
+				location.href = location.pathname + "?cp=1&key=" + this.value;
 			}
 		})
 	</script>
