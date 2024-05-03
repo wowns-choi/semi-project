@@ -36,12 +36,12 @@ public interface LectureMapper {
 
 	List<Lecture> selectList(int lectureCategoryNum);
 
-	int getListCount();
+	int getListCount(Map<String, Object> map);
 
-	List<Lecture> selectLectureList(int cp, RowBounds rowBounds);
+	List<Lecture> selectLectureList(Map<String, Object> map, RowBounds rowBounds);
 
-	int getSelectCount(int lectureCategoryNum);
+	int getSelectCount(Map<String, Object> map);
 
-	List<Lecture> selectCategoryList(int lectureCategoryNum, RowBounds rowBounds);
+	List<Lecture> selectCategoryList(Map<String, Object> map, RowBounds rowBounds);
 }
 
