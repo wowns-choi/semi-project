@@ -24,8 +24,13 @@
 						<span th:text="*{memberNickname}">닉네임</span>
 						<span class="comment-date" th:text="*{commentWriteDate}">작성일</span>
 					</p>
-	
-					<p class="comment-content" th:text="*{commentContent}">댓글 내용</p>
+					<div>
+						<!-- 답글에 이미지 있으면 보여주기 -->
+						<th:block>
+							<div style="background-color: red;"><img></div>
+						</th:block>
+						<p class="comment-content" th:text="*{commentContent}">댓글 내용</p>
+					</div>
 	
 					<!-- 버튼 영역 -->
 					<div class="comment-btn-area">
