@@ -100,6 +100,7 @@
 			</li>
 			<li>
 				<select name="key" id="selectLocation">
+					<option value="지역선택">지역 선택</option>
 					<option value="전체">전체</option>
 					<option value="서울">서울</option>
 					<option value="경기">경기도</option>
@@ -114,14 +115,12 @@
 				<li class="category-li">
 					<a th:text="${categoryType.categoryName}" class="category-btn" 
 					th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}"></a>
-					<!-- th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}" -->
 				</li>
 			</th:block>
 			<th:block th:if="${query}" th:each="categoryType : ${application.categoryTypeList}">
 				<li class="category-li">
 					<a th:text="${categoryType.categoryName}" class="category-btn" 
 					th:href="|/${categoryType.lectureCategoryNum}?cp=1&key=${query}|"></a>
-					<!-- th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}" -->
 				</li>
 			</th:block>
 		</ul>
@@ -199,8 +198,6 @@
 		</ul>
 	</div>
 
-	<!-- <div style="height: 100vh;"></div> -->
-
 	<th:block th:replace="~{common/footer}"></th:block>
 	<!--navbar js-->
 	<script src="/js/common/navbar.js"></script>
@@ -215,6 +212,8 @@
 
 		selectLocation.addEventListener('change', function() {
 
+			console.log(this.value);
+
 			if(location.search == "") {
 
 				location.href = location.pathname + "?key=" + this.value;
@@ -224,13 +223,6 @@
 				location.href = location.pathname + "?cp=1&key=" + this.value;
 			}
 		})
-
-		// const categoryBtn = document.querySelectorAll(".category-btn");
-
-		// categoryBtn.addEventListener('click', e => {
-
-		// 	console.log(e.target.value);
-		// });
 	</script>
 </body>
 </html>
