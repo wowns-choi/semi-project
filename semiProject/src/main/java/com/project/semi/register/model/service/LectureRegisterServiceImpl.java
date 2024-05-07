@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.semi.common.util.Utility;
 import com.project.semi.main.model.dto.LectureFile;
 import com.project.semi.register.model.dto.RegisterDTO;
 import com.project.semi.register.model.mapper.LectureRegisterMapper;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -79,6 +81,8 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 		return lectureRegisterMapper.checkPassFlag(memberNo);
 	}
 
+
+	
 	@Override
 	public int registerForm(RegisterDTO register) throws IllegalStateException, IOException {
 		
@@ -254,6 +258,16 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+
+		
+
+
+	
+		
+		
+	
+	
 	
 	
 }
