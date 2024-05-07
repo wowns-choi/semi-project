@@ -102,8 +102,8 @@ body {
 	justify-content: center;
     padding-top: 3vh;;
     padding-bottom: 3vh;;
-    height: 300px;
-
+    min-height: 50vh;
+	
 
 
 }
@@ -121,21 +121,21 @@ body {
 	
 }
 
-#f1, #f2, #f3, #f4, #f5 {
+#x1, #x2, #x3, #x4, #x5 {
 	cursor:pointer;
 }
 
-#d1, #d2, #d3, #d4, #d5 {
+#add-new-1, #add-new-2, #add-new-3, #add-new-4, #add-new-5 {
 	display: none;
 }
 
-#img1, #img2, #img3, #img4, #img5 {
+#before-img1, #before-img2, #before-img3, #before-img4, #before-img5 {
 	width: 200px;
 	height: 200px;
 	border-radius: 5px;
 	display: none;
 }
-#img2-1, #img2-2, #img2-3, #img2-4, #img2-5 {
+#after-img1, #after-img2, #after-img3, #after-img4, #after-img5 {
 	display:none;
 	width: 200px;
 	height: 200px;
@@ -371,6 +371,24 @@ body {
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
 
 }
+
+#lecture-price-span{
+	display: block;
+	color: black;
+	margin-left: 30vw;
+	margin-top: 10vh;
+}
+#price{
+	width: 12vw;
+	height: 5vh;
+	border: 1px solid black;
+	padding-left: 10px;
+	border-radius: 3px;
+	outline: none;
+
+
+}
+
 #register-btn-div{
 	margin-left: 30vw;
 

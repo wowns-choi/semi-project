@@ -80,52 +80,5 @@
 		MEMBER_PW = #{encPw}
 		WHERE MEMBER_NO = #{memberNo}
 	</update>
-	
-		<select id="foundIdCount">
-		SELECT COUNT(*)
-		FROM "MEMBER"
-		WHERE MEMBER_NICKNAME = #{memberNickname}
-		AND MEMBER_TEL = #{memberTel}
-	</select>
-	
-	<select id="foundId">
-		SELECT *
-		FROM "MEMBER"
-		WHERE MEMBER_NICKNAME = #{memberNickname}
-		AND MEMBER_TEL = #{memberTel}
-	</select>
  	
- 	<select id="getAuth">
- 		SELECT COUNT(*)
- 		FROM "MEMBER"
- 		WHERE MEMBER_NICKNAME= #{memberNickname}
- 		AND MEMBER_EMAIL = #{memberEmail}
- 	</select>
- 	
- 	<select id="checkAuth">
- 		SELECT COUNT(*)
- 		FROM "AUTH_KEY"
- 		WHERE EMAIL = #{memberEmail}
- 		AND AUTH_KEY = #{checkAuthKey}
- 	</select>
- 	
- 	<update id="rePw">
- 		UPDATE "MEMBER" SET
- 		MEMBER_PW = #{newPw}
- 		WHERE MEMBER_EMAIL = #{memberEmail}
- 	</update>
 </mapper>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

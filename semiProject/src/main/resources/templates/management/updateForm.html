@@ -37,6 +37,10 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa&libraries=services,clusterer,drawing"></script>
 	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	
 </head>
 <body>
 	
@@ -55,75 +59,81 @@
 	
 	<!-- 핵심 시작 -->
 	<form action="/manage/updateLecture" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="mainFlag" id="main-flag" value="0">
+		<input type="hidden" name="sub1Flag" id="sub1-flag" value="0">
+		<input type="hidden" name="sub2Flag" id="sub2-flag" value="0">
+		<input type="hidden" name="sub3Flag" id="sub3-flag" value="0">
+		<input type="hidden" name="sub4Flag" id="sub4-flag" value="0">
+
 		<input type="hidden" name="lectureNo"  th:value="${findLecture.lectureNo}">
 		
 			<div id="select-img-text">이미지를 선택해주세요</div>
 	
-			<div id="register-image-div">
+			<div id="register-image-div" >
 				<div id="register-image-div-1">
-					<div id="f1">
+					<div id="x1">
 						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
 					</div>
-					<img  id="img1" 	th:if="${findLecture.files.size() > 0 and findLecture.files.get(0).filePath != null}"  th:src="|${findLecture.files.get(0).filePath}${findLecture.files.get(0).fileRename}|" 	style="display:flex;"> 
-					<img  id="img2-1"> 
+					<img  id="before-img1" 	th:if="${findLecture.files.size() > 0 and findLecture.files.get(0).filePath != null}"  th:src="|${findLecture.files.get(0).filePath}${findLecture.files.get(0).fileRename}|" 	style="display:flex;"> 
+					<img  id="after-img1"> 
 
-					<label for="d1" id="la1">
+					<label for="add-new-1" id="la1">
 						<i class="fa-regular fa-file-image"></i>
 					</label>
-					<input type="file" name="main" id="d1">
+					<input type="file" name="main" id="add-new-1">
 					<span id="main-essential-text">(메인사진 필수)</span>
 				</div>
 				
 				<div id="register-image-div-2">
-					<div id="f2">
+					<div id="x2">
 						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
 					</div>
-					<img  id="img2" src=""	th:if="${findLecture.files.size() > 1 and findLecture.files.get(1).filePath != null}"  th:src="|${findLecture.files.get(1).filePath}${findLecture.files.get(1).fileRename}|" style="display:flex;">
-					<img  id="img2-2"> 
+					<img  id="before-img2" src=""	th:if="${findLecture.files.size() > 1 and findLecture.files.get(1).filePath != null}"  th:src="|${findLecture.files.get(1).filePath}${findLecture.files.get(1).fileRename}|" style="display:flex;">
+					<img  id="after-img2"> 
 
-					<label for="d2" id="la2" >
+					<label for="add-new-2" id="la2" >
 						<i class="fa-regular fa-file-image"></i>
 					</label>
-					<input type="file" name="sub1" id="d2">
+					<input type="file" name="sub1" id="add-new-2">
 				</div>
 				
 				<div id="register-image-div-3">
-					<div id="f3">
+					<div id="x3">
 						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
 					</div>
-					<img id="img3"  th:if="${findLecture.files.size() > 2 and findLecture.files.get(2).filePath != null}" 	th:src="|${findLecture.files.get(2).filePath}${findLecture.files.get(2).fileRename}|"					style="display:flex;">
-					<img  id="img2-3"> 
+					<img id="before-img3"  th:if="${findLecture.files.size() > 2 and findLecture.files.get(2).filePath != null}" 	th:src="|${findLecture.files.get(2).filePath}${findLecture.files.get(2).fileRename}|"					style="display:flex;">
+					<img  id="after-img3"> 
 
-					<label for="d3" id="la3">
+					<label for="add-new-3" id="la3">
 						<i class="fa-regular fa-file-image"></i>
 					</label>
-					<input type="file" name="sub2" id="d3">
+					<input type="file" name="sub2" id="add-new-3">
 				</div>
 				
 				<div id="register-image-div-4">
-					<div id="f4">
+					<div id="x4">
 						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
 					</div>
-					<img src="" id="img4" 					th:if="${findLecture.files.size() > 3 and findLecture.files.get(3).filePath != null}" 	th:src="|${findLecture.files.get(3).filePath}${findLecture.files.get(3).fileRename}|"					style="display:flex;">
-					<img  id="img2-4"> 
+					<img src="" id="before-img4" th:if="${findLecture.files.size() > 3 and findLecture.files.get(3).filePath != null}" 	th:src="|${findLecture.files.get(3).filePath}${findLecture.files.get(3).fileRename}|"					style="display:flex;">
+					<img  id="after-img4"> 
 
-					<label for="d4" id="la4">
+					<label for="add-new-4" id="la4">
 						<i class="fa-regular fa-file-image"></i>
 					</label>
-					<input type="file"name="sub3" id="d4">
+					<input type="file"name="sub3" id="add-new-4">
 				</div>
 				
 				<div id="register-image-div-5">
-					<div id="f5">
+					<div id="x5">
 						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
 					</div>
-					<img src="" id="img5" 					th:if="${findLecture.files.size() > 4 and findLecture.files.get(4).filePath != null}" 	th:src="|${findLecture.files.get(4).filePath}${findLecture.files.get(4).fileRename}|"					style="display:flex;">
-					<img  id="img2-5"> 
+					<img src="" id="before-img5" th:if="${findLecture.files.size() > 4 and findLecture.files.get(4).filePath != null}" 	th:src="|${findLecture.files.get(4).filePath}${findLecture.files.get(4).fileRename}|"					style="display:flex;">
+					<img  id="after-img5"> 
 
-					<label for="d5" id="la5">
+					<label for="add-new-5" id="la5">
 						<i class="fa-regular fa-file-image"></i>
 					</label>
-					<input type="file" name="sub4" id="d5">
+					<input type="file" name="sub4" id="add-new-5">
 				</div>
 				
 			</div>
@@ -340,7 +350,6 @@
 			         <input type="text" th:value="${findLecture.detailAddress}" id="sample4_detailAddress" placeholder="상세주소" name="lectureDetailAddress">
 			     </div>
 				 
-				 <button> 위치 확인하기 </button>
 			
 			 </div>
 			 <!-- address-info-container end -->
@@ -348,8 +357,9 @@
 			 
 			 <div id="map" style="width:500px;height:400px;"></div>
 			 
-			<input type="number" name="price" th:value="${findLecture.price}"> 원 
-			 
+			<span id="lecture-price-span">
+				강의 가격 &nbsp;<input type="text" name="price" th:value="${findLecture.price}" id="price"> 원 
+			</span>
 			 <div id="register-btn-div">
 			  <button type="submit" id="register-btn">등록</button>
 			 </div> 
@@ -523,7 +533,7 @@
 
 	<!-- 핵심 끝 -->
 	
-	<div style="height: 100vh;"></div>
+	<div style="height: 30vh;"></div>
 
 	
 	<th:block th:replace="~{common/footer}"></th:block>

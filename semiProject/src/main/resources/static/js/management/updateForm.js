@@ -1,241 +1,154 @@
+const mainFlag = document.querySelector('#main-flag');
+let beforeImg1 = document.querySelector('#before-img1');
+let afterImg1 = document.querySelector('#after-img1');	
+let addNew1 = document.querySelector('#add-new-1');
+
 // 이미지 미리보기 
-document.querySelector('#d1').addEventListener('change', function(e){
-	let img1 = this.previousElementSibling.previousElementSibling;
-	let img21 = document.querySelector('#img1');	
-
-	
+addNew1.addEventListener('change', function(e){
 	let file = e.target.files[0];
 	let reader = new FileReader();
 	reader.readAsDataURL(file);
-	
 	reader.onload = function(e){
-		img1.src = e.target.result;
-		img1.style.display = 'block';
-				img21.style.display = 'none';
-
+		afterImg1.src = e.target.result;
+		afterImg1.style.display = 'block';
+		beforeImg1.style.display = 'none';
 	}
-	
+	mainFlag.value = 1;
 });
-document.querySelector('#d2').addEventListener('change', function(e){
-	let img1 = this.previousElementSibling.previousElementSibling;
-		let img22 = document.querySelector('#img2');	
 
+document.querySelector('#x1').addEventListener('click', function(e){
+	// x버튼 클릭하면, 무조건 기존 이미지 삭제한다는 의미가 되도록 설계할거임. 
+	mainFlag.value = -1;
+	
+	beforeImg1.style.display = 'none';
+	afterImg1.style.display = 'none';
+});
+
+//----------------------------------------------------------------------------------
+
+const sub1Flag = document.querySelector('#sub1-flag');
+let beforeImg2 = document.querySelector('#before-img2');
+let afterImg2 = document.querySelector('#after-img2');	
+let addNew2 = document.querySelector('#add-new-2');
+
+// 이미지 미리보기 
+addNew2.addEventListener('change', function(e){
 	let file = e.target.files[0];
 	let reader = new FileReader();
 	reader.readAsDataURL(file);
-	
 	reader.onload = function(e){
-		img1.src = e.target.result;
-		img1.style.display = 'block';
-						img22.style.display = 'none';
+		afterImg2.src = e.target.result;
+		afterImg2.style.display = 'block';
+		if(beforeImg2 != null){
+		beforeImg2.style.display = 'none';			
+		}
 
 	}
-	
+	sub1Flag.value = 1;
 });
-document.querySelector('#d3').addEventListener('change', function(e){
-	let img1 = this.previousElementSibling.previousElementSibling;
-			let img23 = document.querySelector('#img3');	
 
-	
+document.querySelector('#x2').addEventListener('click', function(e){
+	// x버튼 클릭하면, 무조건 기존 이미지 삭제한다는 의미가 되도록 설계할거임. 
+	sub1Flag.value = -1;
+	if(beforeImg2 != null){
+		beforeImg2.style.display = 'none';		
+	}
+
+	afterImg2.style.display = 'none';
+});
+//----------------------------------------------------------------------------------
+
+const sub2Flag = document.querySelector('#sub2-flag');
+let beforeImg3 = document.querySelector('#before-img3');
+let afterImg3 = document.querySelector('#after-img3');	
+let addNew3 = document.querySelector('#add-new-3');
+
+// 이미지 미리보기 
+addNew3.addEventListener('change', function(e){
 	let file = e.target.files[0];
 	let reader = new FileReader();
 	reader.readAsDataURL(file);
-	
 	reader.onload = function(e){
-		img1.src = e.target.result;
-		img1.style.display = 'block';
-						img23.style.display = 'none';
-
+		afterImg3.src = e.target.result;
+		afterImg3.style.display = 'block';
+		if(beforeImg3 != null){
+		beforeImg3.style.display = 'none';
+		}
 	}
-	
+	sub2Flag.value = 1;
 });
-document.querySelector('#d4').addEventListener('change', function(e){
-	let img1 = this.previousElementSibling.previousElementSibling;
-			let img24 = document.querySelector('#img4');	
 
-	
+document.querySelector('#x3').addEventListener('click', function(e){
+	// x버튼 클릭하면, 무조건 기존 이미지 삭제한다는 의미가 되도록 설계할거임. 
+	sub2Flag.value = -1;
+	if(beforeImg3 != null){
+		beforeImg3.style.display = 'none';		
+	}
+	afterImg3.style.display = 'none';
+});
+//----------------------------------------------------------------------------------
+
+const sub3Flag = document.querySelector('#sub3-flag');
+let beforeImg4 = document.querySelector('#before-img4');
+let afterImg4 = document.querySelector('#after-img4');	
+let addNew4 = document.querySelector('#add-new-4');
+
+// 이미지 미리보기 
+addNew4.addEventListener('change', function(e){
 	let file = e.target.files[0];
 	let reader = new FileReader();
 	reader.readAsDataURL(file);
-	
 	reader.onload = function(e){
-		img1.src = e.target.result;
-		img1.style.display = 'block';
-						img24.style.display = 'none';
-
+		afterImg4.src = e.target.result;
+		afterImg4.style.display = 'block';
+		if(beforeImg4 != null){
+		beforeImg4.style.display = 'none';			
+		}
 	}
-	
+	sub3Flag.value = 1;
 });
-document.querySelector('#d5').addEventListener('change', function(e){
-	let img1 = this.previousElementSibling.previousElementSibling;
-			let img25 = document.querySelector('#img5');	
 
-	
+document.querySelector('#x4').addEventListener('click', function(e){
+	// x버튼 클릭하면, 무조건 기존 이미지 삭제한다는 의미가 되도록 설계할거임. 
+	sub3Flag.value = -1;
+	if(beforeImg4 != null){
+		beforeImg4.style.display = 'none';		
+	}
+	afterImg4.style.display = 'none';
+});
+
+//----------------------------------------------------------------------------------
+
+const sub4Flag = document.querySelector('#sub4-flag');
+let beforeImg5 = document.querySelector('#before-img5');
+let afterImg5 = document.querySelector('#after-img5');	
+let addNew5 = document.querySelector('#add-new-5');
+
+// 이미지 미리보기 
+addNew5.addEventListener('change', function(e){
 	let file = e.target.files[0];
 	let reader = new FileReader();
 	reader.readAsDataURL(file);
-	
 	reader.onload = function(e){
-		img1.src = e.target.result;
-		img1.style.display = 'block';
-						img25.style.display = 'none';
-
+		afterImg5.src = e.target.result;
+		afterImg5.style.display = 'block';
+		if(beforeImg4 != null){
+			beforeImg5.style.display = 'none';
+		}
+		
 	}
-	
+	sub4Flag.value = 1;
 });
 
-// x 버튼 누를 시 
-document.querySelector('#f1').addEventListener('click', function(e){
+document.querySelector('#x5').addEventListener('click', function(e){
+	// x버튼 클릭하면, 무조건 기존 이미지 삭제한다는 의미가 되도록 설계할거임. 
+	sub4Flag.value = -1;
+	if(beforeImg5 != null){
+		beforeImg5.style.display = 'none';
+	}	
 	
-	let img1 = document.querySelector('#img1');
-	let img11 = document.querySelector('#img2-1');
-	
-	// input 태그 갈아낀다. 
-	document.querySelector('#d1').remove();	
-	let newInput1 = document.createElement('input');
-	newInput1.type = 'file';
-	newInput1.id = 'd1';
-	newInput1.name = 'main';
-	newInput1.style.display = 'none';
-		// 이벤트리스너 달아준다.	
-	newInput1.addEventListener('change', function(e){
-			let file = e.target.files[0];
-			let reader = new FileReader();
-			reader.readAsDataURL(file);
-	
-			reader.onload = function(e){
-			img11.src = e.target.result;
-			img11.style.display = 'block';
-			}
-	
-	});
-		
-	document.querySelector('#register-image-div-1').append(newInput1);
-
-	// 이미지 감춘다. 
-	img1.style.display='block';
-	img11.style.display = 'none';
-	
-	
+	afterImg5.style.display = 'none';
 });
-document.querySelector('#f2').addEventListener('click', function(e){
-	
-	let img2 = document.querySelector('#img2');
-	// input 태그 갈아낀다. 
-	document.querySelector('#d2').remove();	
-	let newInput2 = document.createElement('input');
-	newInput2.type = 'file';
-	newInput2.id = 'd2';
-	newInput2.name = 'sub1';
-	newInput2.style.display = 'none';
-		// 이벤트리스너 달아준다.	
-	newInput2.addEventListener('change', function(e){
-			let file = e.target.files[0];
-			let reader = new FileReader();
-			reader.readAsDataURL(file);
-	
-			reader.onload = function(e){
-			img2.src = e.target.result;
-			img2.style.display = 'block';
-			}
-	
-	});
-		
-	document.querySelector('#register-image-div-2').append(newInput2);
-
-	// 이미지 감춘다. 
-	img2.style.display = 'none';
-	
-});
-document.querySelector('#f3').addEventListener('click', function(e){
-	
-	let img3 = document.querySelector('#img3');
-	// input 태그 갈아낀다. 
-	document.querySelector('#d3').remove();	
-	let newInput3 = document.createElement('input');
-	newInput3.type = 'file';
-	newInput3.id = 'd3';
-	newInput3.name = 'sub2';
-	newInput3.style.display = 'none';
-		// 이벤트리스너 달아준다.	
-	newInput3.addEventListener('change', function(e){
-			let file = e.target.files[0];
-			let reader = new FileReader();
-			reader.readAsDataURL(file);
-	
-			reader.onload = function(e){
-			img3.src = e.target.result;
-			img3.style.display = 'block';
-			}
-	
-	});
-		
-	document.querySelector('#register-image-div-3').append(newInput3);
-
-	// 이미지 감춘다. 
-	img3.style.display = 'none';
-	
-});
-document.querySelector('#f4').addEventListener('click', function(e){
-	
-	let img4 = document.querySelector('#img4');
-	// input 태그 갈아낀다. 
-	document.querySelector('#d4').remove();	
-	let newInput4 = document.createElement('input');
-	newInput4.type = 'file';
-	newInput4.id = 'd4';
-	newInput4.name = 'sub3';
-	newInput4.style.display = 'none';
-		// 이벤트리스너 달아준다.	
-	newInput4.addEventListener('change', function(e){
-			let file = e.target.files[0];
-			let reader = new FileReader();
-			reader.readAsDataURL(file);
-	
-			reader.onload = function(e){
-			img4.src = e.target.result;
-			img4.style.display = 'block';
-			}
-	
-	});
-		
-	document.querySelector('#register-image-div-4').append(newInput4);
-
-	// 이미지 감춘다. 
-	img4.style.display = 'none';
-	
-});
-document.querySelector('#f5').addEventListener('click', function(e){
-	
-	let img5 = document.querySelector('#img5');
-	// input 태그 갈아낀다. 
-	document.querySelector('#d5').remove();	
-	let newInput5 = document.createElement('input');
-	newInput5.type = 'file';
-	newInput5.id = 'd5';
-	newInput5.name = 'sub4';
-	newInput5.style.display = 'none';
-		// 이벤트리스너 달아준다.	
-	newInput5.addEventListener('change', function(e){
-			let file = e.target.files[0];
-			let reader = new FileReader();
-			reader.readAsDataURL(file);
-	
-			reader.onload = function(e){
-			img5.src = e.target.result;
-			img5.style.display = 'block';
-			}
-	
-	});
-		
-	document.querySelector('#register-image-div-5').append(newInput5);
-
-	// 이미지 감춘다. 
-	img5.style.display = 'none';
-	
-});
-
-
 
 
 

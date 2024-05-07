@@ -1,0 +1,111 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+
+#admin-home-container{
+	display: flex;
+	width: 100vw;
+	height: 93vh;
+	background-color: aliceblue;
+	justify-content: center;
+	align-items: center;
+		
+}
+#refund-btn{
+	width: 15vw;
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    	margin-left: 20px;
+
+}
+#refund-btn:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+#settlement{
+	width: 15vw;
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 20px;
+	font-size: 30px;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    background-color: coral;
+    color: white;
+
+}
+#settlement:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+#order{
+	width: 15vw;
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 20px;
+	font-size: 30px;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+
+}
+#order:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+#payment{
+	width: 15vw;
+	height: 50vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 20px;
+	font-size: 30px;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+
+}
+#payment:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+
+
+
+
+
+
+
+
+

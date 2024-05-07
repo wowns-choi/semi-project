@@ -1,5 +1,6 @@
 const selectDateSpan = document.querySelector('#select-date-span');
-
+const restNumSpan = document.querySelector('#rest-num-span');
+let selectDate;
 
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
@@ -14,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	        const selectedDate = new Date(info.dateStr); // 선택된 날짜가 2024-01-01 형식으로 info.dateStr 이라는 string 형식으로 들어오면, 이를 Date 타입으로 바꿈. 
 	        const start = new Date(startDate); // db 에서 꺼내온 강의시작날짜를 Date 형식으로 바꿈.
 	        const end = new Date(endDate); // db 에서 꺼내온 강의시작날짜를 Date 형식으로 바꿈.
+			
+			selectDate = info.dateStr;
 	
 	        // 선택된 날짜가 허용된 범위 내에 있는지 확인
 	        if (selectedDate >= start && selectedDate <= end) {
@@ -46,11 +49,18 @@ document.addEventListener('DOMContentLoaded', function() {
 		let str = formatDate(info.dateStr);		
 		selectDateSpan.innerText = str;
 		
+		// info.dateStr => 선택한 날짜가 2024-05-05 형태의 문자열로 선택됨. 
+		fetch('/lecture/checkRestnum?lectureNo=' + lectureNo + '&lectureDate=' + info.dateStr)
+		.then(resp => resp.text())
+		.then(result => {
+			restNumSpan.innerText=result;
+
+		})
+		
 
 		
 		
-      // 예를 들어, 폼의 날짜 입력 필드에 날짜를 설정
-      //document.getElementById('selectedDate').value = info.dateStr;
+
     },
     events: [
       {
@@ -84,6 +94,7 @@ function formatDate(inputDate) {
   return `${year}년 ${month}월 ${day}일`; // 참고로 자바스크립트내에서 백틱을 쓰면 자바스크립트 내에서 선언한 변수를 문자열 내에 포함시킬 수 있다. 
 }
 
+let totalPrice = document.querySelector('#total-price').innerText;
 // 수량 바꿔줌 + 수량에 따라 총 결제금액도 바꿔줌
 function changeQuantity(change) {
     const quantityInput = document.getElementById('quantity');
@@ -94,12 +105,13 @@ function changeQuantity(change) {
     }
     quantityInput.value = currentQuantity;
     
+    
     // 총결제금액 바꾸기
     let pricePer = document.querySelector('#price-per').innerText;
     let pricePerInt = parseInt(pricePer);
-    let totalPrice = pricePerInt * currentQuantity;
+    totalPrice = pricePerInt * currentQuantity;
     
-    document.querySelector('#total-price').innerText = totalPrice + '원';    
+    document.querySelector('#total-price').innerText = totalPrice;    
 }
 
 
@@ -110,42 +122,67 @@ var textarea2 = document.getElementById('write-content');
 
 let reviewWriteBtn = document.querySelector('#review-write-btn');
 
-textarea2.addEventListener('input', function(){
-	if(textarea2.value == ''){
-		reviewWriteBtn.style.backgroundColor = 'lightgray';	
-		reviewWriteBtn.style.color = 'gray';	
-	} else{
-		reviewWriteBtn.style.backgroundColor = '#006aff';	
-		reviewWriteBtn.style.color = 'white';	
-	}
+if(textarea2 != null){
+	textarea2.addEventListener('input', function(){
+		if(textarea2.value == ''){
+			reviewWriteBtn.style.backgroundColor = 'lightgray';	
+			reviewWriteBtn.style.color = 'gray';	
+		} else{
+			reviewWriteBtn.style.backgroundColor = '#006aff';	
+			reviewWriteBtn.style.color = 'white';	
+		}
+	});
+}
+
+document.querySelectorAll('.dapgle-textarea').forEach(tex => {
+    tex.addEventListener('input', function(e){
+        if (this.value === '') {
+            this.nextElementSibling.style.color = 'gray';
+            this.nextElementSibling.style.backgroundColor = 'lightgray';
+        } else {
+			this.nextElementSibling.style.color = 'white';
+            this.nextElementSibling.style.backgroundColor = '#006aff';
+        }
+    });
 });
+
+
+
+
 
 // 리뷰 file 선택시 그 파일을 보여줘야 함. 
 let reviewInputImg = document.querySelector('#review-input-img');
 let reviewFile = document.querySelector('#review-file');
 
-reviewFile.addEventListener('change',function(e){
-	
-	let file = e.target.files[0];
-	
-	let reader = new FileReader();
-	reader.readAsDataURL(file);
-	
-	reader.onload = function(e){
-		reviewInputImg.src = e.target.result; 
-		reviewInputImg.style.display = 'block';
-	}
-})
+if(reviewFile != null){
+	reviewFile.addEventListener('change',function(e){
+		
+		let file = e.target.files[0];
+		
+		let reader = new FileReader();
+		reader.readAsDataURL(file);
+		
+		reader.onload = function(e){
+			reviewInputImg.src = e.target.result; 
+			reviewInputImg.style.display = 'block';
+		}
+	})	
+}
 
-// x버튼을 클릭하면, ---------------------------------------------------- 
+
+// x버튼을 클릭하면, —————————————————————————— 
 let xBtnIcon = document.querySelector('#x-btn-icon');
 
-let id= reviewFile.id;
-let name = reviewFile.name;
+if(reviewFile != null){
+	let id= reviewFile.id;
+	let name = reviewFile.name;
+	
+}
 
 const reviewWriteDiv1 = document.querySelector('#review-write-div1');
 
-xBtnIcon.addEventListener('click', function(e){	
+if(xBtnIcon != null){
+	xBtnIcon.addEventListener('click', function(e){	
 	//1.
 	reviewFile.remove();
 	reviewFile = document.createElement('input');
@@ -175,7 +212,9 @@ xBtnIcon.addEventListener('click', function(e){
 	
 	
 	reviewInputImg.style.display = 'none';
-});
+	});	
+}
+
 
 
 // 리뷰(부모)의 수정 버튼 클릭 시
@@ -243,7 +282,7 @@ document.querySelectorAll('.xxx-btn').forEach(xb2 => {
 		}else{
 			// 2) 없을 경우 신호를 추가해줌
 			let signal2 = document.createElement('input');
-			signal2.type = 'text';
+			signal2.type = 'hidden';
 			signal2.name = 'wantDeleteImg';
 		    signal2.value = 'true';
 		    this.parentElement.append(signal2);			
@@ -424,7 +463,230 @@ document.querySelectorAll('.review-update-x-btn').forEach(xb => {
 
 
 
-//--------------------------------------------------------------------------
+//—————————————————————————————————————
+
+// 댓글보기를 누르면 댓글이 보여져야 함. 
+document.querySelectorAll('.show-reply-btn').forEach(showb => {
+    showb.addEventListener('click', function(e){
+		
+
+		
+
+        let count = this.getAttribute('data-dapCount');
+        
+        let dapgle11 = this.parentElement.nextElementSibling;
+        
+        
+        for(i=0; i<count; i++){
+			dapgle11.style.display = (dapgle11.style.display === 'none') ? 'block' : 'none';
+			dapgle11 = dapgle11.nextElementSibling;
+		}
+        
+
+    });
+});
+
+
+//—————————————————————————————————————
+// payment
+var IMP = window.IMP;
+IMP.init("imp46526078");
+
+
+let quantity = document.querySelector('#quantity').value;
+
+document.querySelector('#want-pay-btn').addEventListener('click', function(e){
+	
+	
+	
+	fetch('/payment/checkRestNumber?lectureNo=' + lectureNo + '&quantity=' + quantity + '&selectDate=' + selectDate)
+	.then(resp => {
+		return resp.text();
+	})
+	.then(result => {		
+		if(result == 0){
+			// 재고가 있다는 뜻
+			alert('로그인 후 이용해주세요'); 
+			
+		}
+		if(result == 1){
+			// 재고가 있다는 뜻
+			payContainerShowFlag = true; 
+			document.querySelector('#payment-method-container').style.display = 'flex';		
+
+		}
+		if(result == 2){
+			// 재고가 없다는 뜻 
+			alert('남은 자리가 부족합니다');
+		}
+	})
+	
+})
+
+document.querySelector('#method-x-div').addEventListener('click', function(e){
+	document.querySelector('#payment-method-container').style.display = 'none';
+});
+
+let cardPayBtn = document.querySelector('#card-div');
+
+
+cardPayBtn.addEventListener('click', function(e){
+	quantity = document.querySelector('#quantity').value;
+	
+	// click 하면, fetch 요청
+	let obj = {
+		'lectureNo' : lectureNo,
+		'totalPrice' : totalPrice,
+		'quantity' : quantity,
+	}
+	
+	fetch('/payment/addOrder',{
+		method : "POST",
+		headers : {"Content-Type" : "application/json"},
+		body : JSON.stringify(obj),
+	})
+	.then(resp => {return resp.json()})
+	.then(data => {
+		
+		let result = data.result;
+		if(result = 1){
+			let merchantUid = data.merchantUid;		
+				
+			// 사전 검증 시작 
+				let obj2 = {
+					'lectureNo' : lectureNo,
+					'quantity' : quantity,
+					'selectDate' : selectDate,
+					'totalPrice' : totalPrice,
+					'merchantUid' : merchantUid,
+				}
+			
+			
+			fetch('/payment/preValidation', {
+				method : "POST",
+				headers : {"Content-Type" : "application/json"},
+				body : JSON.stringify(obj2),
+			})
+			.then(resp => {return resp.text()})
+			.then(result => {
+				if(result.outOfStock != null){
+					alert(result.outOfStock);
+					return;
+				}				
+				
+				// 사전 검증 완료
+				IMP.request_pay(
+					// 첫번째 
+					{
+	                    pg: "html5_inicis",
+	                    pay_method: "card",
+	                    merchant_uid: merchantUid,
+	                    name: lectureTitle,
+	                    amount: totalPrice,
+	                    buyer_name: '최재준',
+	
+						
+					}, 
+					// 두번째 
+					function(rsp){
+						if(rsp.success){
+							fetch('/payment/getPortOneResponse',{
+								method : "POST",
+								headers : {"Content-Type" : "application/json"},
+								body : JSON.stringify({
+									imp_uid : rsp.imp_uid,
+									merchant_uid : rsp.merchant_uid,
+									'lectureNo' : lectureNo,
+									'lectureDate' : selectDate,
+									'totalPrice' : totalPrice,
+								}),
+							})
+							.then(resp => {return resp.text()})
+							.then(data => {
+								if(data == 'success'){
+									alert('결제가 성공하였습니다.');
+								} else{
+									alert(data);
+								}
+								location.href='/lecture/showLectureDetail?lectureNo=' + lectureNo;								
+							})
+						} else{
+							alert('결제에 실패하였습니다. 에러 내용 : ' + rsp.error_msg);
+							location.href= '/payment/paymentFail?merchantUid=' + merchantUid + '&impUid=' + rsp.imp_uid + "&selectDate=" +selectDate +'&lectureNo=' +lectureNo+ '&quantity=' + quantity;
+						}
+					}
+				)
+			})
+		
+		}
+	})
+	
+})
+
+//——————————————————————————————————————————————
+//kakao pay
+document.querySelector('#kakao-div').addEventListener('click', function(){
+	IMP.request_pay(
+	  {
+	    pg: "kakaopay",
+	    pay_method: "card", // 생략가
+	    merchant_uid: "order_no_0002", // 상점에서 생성한 고유 주문번호
+	    name: "주문명:결제테스트",
+	    amount: 1,
+	    buyer_email: "wowns590@naver.com",
+	    buyer_name: "최재준",
+	    buyer_tel: "010-1234-5678",
+	    buyer_addr: "서울특별시 강남구 삼성동",
+	    buyer_postcode: "123-456",
+	    m_redirect_url: "{모바일에서 결제 완료 후 리디렉션 될 URL}",
+	  },
+	  function (rsp) {
+	    // callback 로직
+	    /* …중략… */
+	  },
+	);
+
+	
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

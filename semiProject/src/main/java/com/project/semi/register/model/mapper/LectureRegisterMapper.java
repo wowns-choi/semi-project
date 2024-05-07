@@ -30,6 +30,8 @@ public interface LectureRegisterMapper {
 
 	int addLectureMap(RegisterDTO register);
 
+	void addRestNumberPerDate(Map<String, Object> paramMap);
+
 
 	
 	
