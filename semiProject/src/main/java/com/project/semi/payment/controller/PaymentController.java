@@ -79,8 +79,7 @@ public class PaymentController {
 
 		
 		
-		String totalPriceStr = String.valueOf(map.get("totalPrice"));
-		Integer totalPrice = Integer.parseInt(totalPriceStr);
+		Integer totalPrice = (Integer) map.get("totalPrice");
 
 		String quantityStr = (String) map.get("quantity");
 		Integer quantity = Integer.parseInt(quantityStr);
@@ -106,8 +105,7 @@ public class PaymentController {
 		
 		String selectDate = (String) map.get("selectDate");
 		
-		String totalPriceStr = String.valueOf(map.get("totalPrice"));
-		Integer totalPrice = Integer.parseInt(totalPriceStr);
+		Integer totalPrice = (Integer)map.get("totalPrice");
 
 
 		

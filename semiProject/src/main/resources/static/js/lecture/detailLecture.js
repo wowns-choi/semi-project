@@ -94,7 +94,9 @@ function formatDate(inputDate) {
   return `${year}년 ${month}월 ${day}일`; // 참고로 자바스크립트내에서 백틱을 쓰면 자바스크립트 내에서 선언한 변수를 문자열 내에 포함시킬 수 있다. 
 }
 
-let totalPrice = document.querySelector('#total-price').innerText;
+let totalPrice = parseInt(document.querySelector('#total-price').innerText); // 이때 totalPrice 를 자바스크립트 number 타입으로 바꿔줌 
+console.log(totalPrice+'sssssss'+typeof totalPrice);  // string 인 거 확인. 
+
 // 수량 바꿔줌 + 수량에 따라 총 결제금액도 바꿔줌
 function changeQuantity(change) {
     const quantityInput = document.getElementById('quantity');
@@ -113,6 +115,9 @@ function changeQuantity(change) {
     
     document.querySelector('#total-price').innerText = totalPrice;    
 }
+
+// 결론적으로 totalPrice 는 수량을 늘릴 때에나, 가만히 있을 때에나 
+// 상관없이 모두 javascript number 타입이 되었음. 
 
 
 //====================================================================================
