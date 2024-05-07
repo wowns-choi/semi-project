@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 검색 결과</title>
+
+    <link rel="stylesheet" href="/css/member/idResult.css">
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+</head>
+<body>
+	
+	<th:block th:replace="~{common/navbar}"></th:block>
+	
+	
+	    <section class="container">
+	
+	        <div class="main-box">
+	            
+	            <div class="inputs">
+	                <span>아이디 : </span>
+                    <br>
+                    <br>
+                    <span th:text="${memberEmail}"></span>
+                </div>
+		
+                
+	        </div>
+	  
+	    </section>
+	
+		<th:block th:replace="~{common/footer}"></th:block>
+		<!--navbar js-->
+		<script src="/js/common/navbar.js"></script>
+</body>
+</html>
+

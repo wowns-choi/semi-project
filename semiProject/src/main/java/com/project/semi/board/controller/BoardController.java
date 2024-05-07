@@ -39,10 +39,17 @@ public class BoardController {
 	@GetMapping("all")
 	public String selectBoardList(
 			@RequestParam(value="cp", required=false, defaultValue="1") int cp,
-			Model model) {
+			Model model,
+			@RequestParam Map<String, Object> paramMap) {
 		
 		// 자유 게시판 조회 서비스 호출 후 결과 반환
-		Map<String, Object> map = service.selectBoardList(cp);
+		Map<String, Object> map = null;
+		
+		if(paramMap.get("key") == null) {
+			map = service.selectBoardList(cp);
+		} else {
+			map = service.searchList(paramMap, cp);
+		}
 		
 		model.addAttribute("pagination", map.get("pagination"));
 		model.addAttribute("boardList", map.get("boardList"));

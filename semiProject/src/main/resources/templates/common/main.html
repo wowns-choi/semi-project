@@ -20,7 +20,7 @@
 	<!-- templates/common/common.html 조각으로 추가 -->
 	<th:block th:replace="~{common/common}"></th:block>
 	
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+   <link href="/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
 </head>
 <body>
@@ -37,7 +37,7 @@
 	</div>
 
 	<div id="full-container">
-	  <div id="carouselExampleCaptions" class="carousel slptide" >
+	  <div id="carouselExampleCaptions" class="carousel slide" >
 		<div class="carousel-indicators">
 		  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 		  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -48,9 +48,9 @@
 		<div class="carousel-inner">
 		  <div class="carousel-item active">
 			<img class="d-block w-100" id="carousel1">
-			<div class="carousel-caption d-none d-md-block soap-box">
-			  <h5 style="color: rgb(10,125,169);">Soap Art Class</h5>
-			  <p class="p-text" style="color: rgb(10,125,169);">Make your own soap :)</p>
+			<div class="carousel-caption d-none d-md-block draw-box">
+				<h5 style="color: black;">Drawing Class</h5>
+				<p class="p-text" style="color: black;">Let's draw !</p>
 			</div>
 		  </div>
 		  <div class="carousel-item">
@@ -62,9 +62,9 @@
 		  </div>
 		  <div class="carousel-item">
 			<img class="d-block w-100" id="carousel3">
-			<div class="carousel-caption d-none d-md-block draw-box">
-			  <h5 style="color: black;">Drawing Class</h5>
-			  <p class="p-text" style="color: black;">Let's draw !</p>
+			<div class="carousel-caption d-none d-md-block soap-box">
+				<h5 style="color: rgb(10,125,169);">Soap Art Class</h5>
+				<p class="p-text" style="color: rgb(10,125,169);">Make your own soap :)</p>
 			</div>
 		  </div>
 		  <div class="carousel-item">
@@ -93,12 +93,44 @@
 	  </div>
 	</div>
 
+	<div id="category-list">
+		<ul>
+			<li>
+				<a href="/0">전체 메뉴</a>
+			</li>
+			<li>
+				<select name="key" id="selectLocation">
+					<option value="지역선택">지역 선택</option>
+					<option value="전체">전체</option>
+					<option value="서울">서울</option>
+					<option value="경기">경기도</option>
+					<option value="강원">강원도</option>
+					<option value="충청">충청도</option>
+					<option value="전라">전라도</option>
+					<option value="경상">경상도</option>
+					<option value="제주">제주도</option>
+				</select>
+			</li>
+			<th:block th:unless="${query}" th:each="categoryType : ${application.categoryTypeList}">
+				<li class="category-li">
+					<a th:text="${categoryType.categoryName}" class="category-btn" 
+					th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}"></a>
+				</li>
+			</th:block>
+			<th:block th:if="${query}" th:each="categoryType : ${application.categoryTypeList}">
+				<li class="category-li">
+					<a th:text="${categoryType.categoryName}" class="category-btn" 
+					th:href="|/${categoryType.lectureCategoryNum}?cp=1&key=${query}|"></a>
+				</li>
+			</th:block>
+		</ul>
+	</div>
+
 	<div id="body-container">
 		<div></div>
 		<div>
 			<th:block th:each="lecture : ${lectureList}">
 				<a th:href="|/lecture/showLectureDetail?lectureNo=${lecture.lectureNo}|" class="element-div">
-					
 					<th:block th:if="${lecture.files != null}">
 						<img th:src="|${lecture.files.get(0).filePath}${lecture.files.get(0).fileRename}|"
 						class="lecture-img"
@@ -133,7 +165,38 @@
 		<div></div>
 	</div>
 
-	<div style="height: 100vh;"></div>
+	<div class="pagination-area">
+
+		<ul class="pagination" th:object="${mainPagination}">
+
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=1)}">&lt;&lt;</a></li>
+
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{prevPage})}">&lt;</a></li>
+
+			<th:block th:if="*{startPage lt endPage}" th:each="i : *{#numbers.sequence(startPage, endPage)}">
+
+				<li th:if="${i} == *{currentPage}">
+					<a class="current" th:text="${i}">현재페이지</a>
+				</li>
+
+				<li th:unless="${i} == *{currentPage}">
+					<a th:text="${i}"
+					th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=${i})}">이동할 페이지</a>
+				</li>
+			</th:block>	
+			
+			<!-- 일치하는 게시글이 없을 경우 -->
+			<th:block th:unless="*{startPage lt endPage}">
+				<li>
+					<a class="current">1</a>
+				</li>
+			</th:block>
+
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{nextPage})}">&gt;</a></li>
+
+			<li><a th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${lectureCategoryNum}, cp=*{maxPage})}">&gt;&gt;</a></li>
+		</ul>
+	</div>
 
 	<th:block th:replace="~{common/footer}"></th:block>
 	<!--navbar js-->
@@ -141,6 +204,25 @@
 	<!-- 로그인 모달창 js -->
 	<script src="/js/common/loginModal.js"></script>
 
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
+
+	<script>
+		const selectLocation = document.getElementById('selectLocation');
+		let lectureCategoryNum = /*[[${lectureCategoryNum}]]*/ "카테고리";
+
+		selectLocation.addEventListener('change', function() {
+
+			console.log(this.value);
+
+			if(location.search == "") {
+
+				location.href = location.pathname + "?key=" + this.value;
+
+			} else {
+
+				location.href = location.pathname + "?cp=1&key=" + this.value;
+			}
+		})
+	</script>
 </body>
 </html>

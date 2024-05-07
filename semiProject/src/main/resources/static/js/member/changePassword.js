@@ -13,7 +13,7 @@ changePwBtn.addEventListener("click", function() {
 	.then( resp => resp.text() )
 	.then( result => {
 		
-		alert(result);
+		//alert(result);
 		
 		if(result > 0 ){
 			

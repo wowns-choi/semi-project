@@ -24,4 +24,19 @@ public interface LectureService {
 	int replyUpdate(String reviewContent, String wantDeleteImg, int memberNo, String lectureNo,
 			String parentReviewNo, String lectureReviewNo);
 
+	/** 카테고리 리스트 조회
+	 * @return categoryTypeList
+	 */
+	List<Map<String, Object>> selectCategoryTypeList();
+
+	/** 카테고리 별 리스트 조회
+	 * @param categoryNo
+	 * @return selectList
+	 */
+	List<Lecture> selectList(int lectureCategoryNum);
+
+	Map<String, Object> viewAll(int cp, String query);
+
+	Map<String, Object> selectView(int lectureCategoryNum, int cp, String query);
+
 }

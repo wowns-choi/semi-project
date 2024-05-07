@@ -6,24 +6,27 @@
     border-bottom: 0.5px solid lightgray;
     display: flex;
     top: 0;
-    z-index: 1;
+    z-index: 1000;
 }
 
 #navbar > div:nth-child(1){
 	flex-basis: 15%;
 }
-
+/* 가운데 컨테이너 */
 #navbar > div:nth-child(2){
     flex-basis: 70%;
 	display: flex;
-	justify-content: space-between;
+
 	align-items: center;
+	
 }
 
 #icon {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    flex-basis: 35%;
+    height:100%;
 }
 
 /* #free-board {
@@ -67,15 +70,20 @@
 /*----------------------클래스 등록, 클래스 관리 -----------------------------*/
 #class-register{
 	text-decoration: none;
-	margin-left: 10px;
+	margin-left: 20px;
 	color: black;
+    margin-top: 15px;
+    margin-bottom: 10px;
+
 }
 #class-manage{
 	text-decoration: none;
-	margin-left: 10px;
+	margin-left: 20px;
 	margin-right: 10px;
-
+    margin-top: 15px;
 	color: black;
+    margin-bottom: 10px;
+
 }
 
 /*-----------------------------------------------------*/
@@ -104,6 +112,7 @@
     height: auto;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
     display: none;  /* 초기 상태를 보이지 않게 설정 */
+
 }
 #update-user-info-and-logout-dropdown-child{
     width: 100%;
@@ -130,4 +139,13 @@
 #update-user-info-and-logout-dropdown-child > a:hover{
     background-color: #fafafa;
     color: #ffc175;
+}
+
+#icon-box {
+	flex-basis: 65%;
+	height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }

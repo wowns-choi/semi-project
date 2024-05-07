@@ -89,4 +89,29 @@ public class BoardServiceImpl implements BoardService {
 		
 		return -1; // 실패한 경우 -1 반환
 	}
+
+	// 검색 서비스
+	@Override
+	public Map<String, Object> searchList(Map<String, Object> paramMap, int cp) {
+
+		// 자유 게시판에서 삭제되지 않은 게시글 수 조회
+		int listCount = mapper.getSearchCount(paramMap);
+		
+		// listCount + cp 이용해서 Pagination 객체 생성
+		Pagination pagination = new Pagination(cp,listCount);
+		
+		int limit = pagination.getLimit();
+		int offset = (cp-1)*limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		List<Board> boardList = mapper.selectSearchList(paramMap, rowBounds);
+		
+		// 목록 조회 결과 + Pagination 객체를 Map 으로 묶어서 돌려줌
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("pagination", pagination);
+		map.put("boardList", boardList);
+		
+		return map;
+	}
 }

@@ -7,20 +7,6 @@
 }
 
 @font-face {
-	font-family: 'Ownglyph_meetme-Rg';
-	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-    font-family: 'intelone-mono-font-family-regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/intelone-mono-font-family-regular.woff2') format('woff2');
-    font-weight: 400;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'KCCChassam';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCCChassam.woff2') format('woff2');
     font-weight: normal;
@@ -70,9 +56,29 @@ body {
     flex-wrap: wrap; /* 여러 줄로 아이템을 나열하게 함 */
 }
 
-
 #body-container>div:nth-child(3){
 	flex-basis: 10%;
+}
+
+#category-list {
+	height: 70px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 50px;
+}
+
+#category-list ul {
+	width: 60%;
+	list-style: none;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	margin-bottom: 0;
+	border-top: 0.5px solid darkslategray;
+	border-bottom: 0.5px solid darkslategray;
+	/* box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2); */
+	/* border-radius: 3px; */
 }
 
 .element-div{
@@ -164,14 +170,14 @@ body {
 
 #carouselExampleCaptions{
 	height: 50%;
-	width: 50%;
+	width: 70%;
 }
 
 #full-container{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-bottom: 80px;
+	margin-bottom: 100px;
 }
 
 #full-container h5,.p-text {
@@ -187,13 +193,13 @@ body {
 	font-size: 20px;
 }
 
-#carousel1 {
+#carousel3 {
 	z-index: 0;
 	background-image: url('/images/soap.jpg');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 400px;
+	height: 600px;
 	position: relative;
 }
 
@@ -215,7 +221,7 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 400px;
+	height: 600px;
 	position: relative;
 }
 
@@ -231,18 +237,18 @@ body {
 	left: 0;
 }
 
-#carousel3 {
+#carousel1 {
 	z-index: 0;
 	background-image: url('/images/drawing.avif');
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 400px;
+	height: 600px;
 	position: relative;
 }
 
 .draw-box {
-	height: 400px;
+	height: 600px;
 	width: 100%;
 }
 
@@ -264,7 +270,7 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 400px;
+	height: 600px;
 	position: relative;
 }
 
@@ -290,12 +296,12 @@ body {
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 400px;
+	height: 600px;
 	position: relative;
 }
 
 .cooking-box {
-	height: 400px;
+	height: 600px;
 }
 
 .cooking-box h5 {
@@ -308,4 +314,42 @@ body {
 	position: absolute;
 	right: 0;
 	top: 65px;
+}
+
+#category-list a {
+	text-decoration: none;
+	color: darkslategray;
+}
+
+.pagination-area {
+	margin: 50px 0;
+}
+
+.pagination{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li{
+    width: 20px;
+    margin: 0 10px;
+    text-align: center;
+}
+
+.pagination a{
+	text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+	color: black;
+}
+
+.current{
+    font-weight: bold;
+    background-color: darkslategray;
+    border-radius: 50%;
+    color: white !important;
+    letter-spacing: 0 !important;
 }
