@@ -19,7 +19,7 @@ public interface LectureService {
 
 	int updateReview(String reviewContent2, String wantDeleteImg, String updateReplyNo);
 
-	int addReviewReply(int memberNo, String reviewContent, MultipartFile replyFile, String lectureNo, String parentReviewNo) ;
+	int addReviewReply(int memberNo, String reviewContent, MultipartFile replyFile, String lectureNo, String parentReviewNo) throws IllegalStateException, IOException;
 
 	int replyUpdate(String reviewContent, String wantDeleteImg, int memberNo, String lectureNo,
 			String parentReviewNo, String lectureReviewNo);

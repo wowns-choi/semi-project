@@ -274,6 +274,113 @@ public class MemberController {
 		 
 		return "redirect:" + path;
 	}
+	
+	
+	@GetMapping("findMemberEmail")
+	public String foundId() {
+		
+		return "/member/foundId";
+	}
+	
+	
+	@PostMapping("/foundId")
+	public String foundId(
+			@ModelAttribute Member member,
+			Model model,
+			RedirectAttributes ra
+			
+			) {
+				
+		String result = memberService.foundId(member);
+
+		String message = null;
+		if (result.equals("not correct")) {
+			
+			message = "일치하는 사용자의 정보가 없습니다. 아이디 또는 휴대폰 번호를 확인해주세요.";
+			ra.addFlashAttribute("message", message);
+			
+			return "redirect:/member/foundId";
+						
+		}else {
+			
+			model.addAttribute("memberEmail" , result);
+			return "/member/idResult"; 
+		}
+				
+	}
+	
+	@GetMapping("idResult")
+	public String idResult() {
+		
+		return "/member/idResult"; // 실제로 return 값을 받아줄 html 경로 작성
+	}
+	
+	
+	@GetMapping("findMemberPw")
+	public String foundPw() {
+		
+		return "/member/foundPw";
+	}
+	
+	@PostMapping("/getAuth")
+	@ResponseBody
+	public int getAuth(
+				@RequestBody Member member
+				) {
+		
+		return memberService.getAuth(member);
+	}
+	
+	@PostMapping("foundPw")
+	public String newPw(
+				@RequestParam("memberEmail") String memberEmail,
+				@RequestParam("checkAuthKey") String checkAuthKey,
+				Model model,
+				RedirectAttributes ra
+			) {
+		
+		int result = memberService.newPw(memberEmail, checkAuthKey);
+		
+		if (result > 0 ) {
+			
+			model.addAttribute("memberEmail",memberEmail);
+			
+			return "/member/rePw";
+			
+		}
+		
+		return null;
+	}
+	
+	@PostMapping("/rePw")
+	public String rePw(
+			@RequestParam("newPw") String newPw,
+			@RequestParam("newPwConf") String newPwConf,
+			@RequestParam("memberEmail") String memberEmail,
+			RedirectAttributes ra
+			) {
+		
+		
+		int result = memberService.rePw(newPw,memberEmail);
+		
+		
+		
+		if(result > 0) {
+			
+			return "redirect:/" ;
+		}else {
+			
+			ra.addFlashAttribute("message", "서버 에러 발생");
+			
+			return "rdeirect:/";
+			
+		}
+		
+		
+	}
+	
+	
+	
 }
 
 

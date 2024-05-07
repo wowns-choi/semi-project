@@ -31,6 +31,19 @@ public interface MemberMapper {
 	void withdrawal(int memberNo);
 
 	int newPw(Map<String, Object> paramMap);
+	
+	Member foundId(Member member);
+
+	int foundIdCount(Member member);
+	
+	int getAuth(Member member);
+
+	Map<String, String> checkAuth();
+
+	int checkAuth(Map<String, String> map);
+
+	int rePw(Map<String, String> map);
+
 
 	
 
