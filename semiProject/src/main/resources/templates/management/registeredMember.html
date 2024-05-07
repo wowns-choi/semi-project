@@ -79,7 +79,8 @@
 						<div class="list-title">
 							<div class="list-title1">참여자</div>
 							<div class="list-title2">취소</div>
-							<div class="list-title3">결제 건수</div>											
+							<div class="list-title3">결제 건수</div>
+							<div class="list-title4">메세지</div>
 						</div>
 						
 						<th:block th:if="${new1.babyList != null and new1.babyList.size() > 0}"
@@ -100,9 +101,15 @@
 										<i class="fa-solid fa-ban" ></i>										
 									</a>
 
+
 								</div>
 								<div class="message-div">
 									<div th:text="${baby.quantity}"></div>
+								</div>
+								<div class="message-div">
+										<div class="message-send">
+											<i class="fa-regular fa-envelope"></i>
+										</div>
 								</div>
 						</div>
 						</th:block>						
@@ -118,14 +125,19 @@
 	</div>
 	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
 	
-	
 
+	<div class="hidden-message">
+		<input>
+		<textarea></textarea>
+	</div>
 
 
 	<th:block th:replace="~{common/footer}"></th:block>
 	<!--navbar js-->
 	<script src="/js/common/navbar.js"></script>
-	<!— 로그인 모달창 js —>
+
 	<script src="/js/common/loginModal.js"></script>
+
+		
 </body>
 </html>
