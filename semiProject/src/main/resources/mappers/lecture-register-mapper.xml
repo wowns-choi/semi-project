@@ -8,7 +8,7 @@
 			SEQ_REGISTER_AUTH_NO.NEXTVAL,
 			#{memberNo},
 			#{randomNum},
-			0
+			DEFAULT
 		)
 	</insert>
 

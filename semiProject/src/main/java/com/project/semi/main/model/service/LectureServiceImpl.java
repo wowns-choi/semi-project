@@ -235,7 +235,7 @@ public class LectureServiceImpl implements LectureService{
 				String reviewContent, 
 				MultipartFile replyFile, 
 				String lectureNo, 
-				String parentReviewNo) {
+				String parentReviewNo) throws IllegalStateException, IOException {
 		
 		String updatePath = null;
 		String rename = null; 
@@ -256,6 +256,9 @@ public class LectureServiceImpl implements LectureService{
 		
 		
 		log.debug(lectureReivew.toString());
+		
+	
+		replyFile.transferTo(new File(folderPath + rename));
 		
 		return lectureMapper.addReviewReply(lectureReivew);
 		
