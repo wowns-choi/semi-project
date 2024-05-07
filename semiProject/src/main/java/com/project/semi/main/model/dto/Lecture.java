@@ -78,6 +78,10 @@ public class Lecture {
     private String latitude;
     private String hardness;
     
+    // 8. LECTURE_RESTNUM
+    private List<LectureRestnum> restnumList;
+    
+    
     
     
     

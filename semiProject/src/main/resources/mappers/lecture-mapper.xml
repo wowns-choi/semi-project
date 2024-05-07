@@ -66,7 +66,17 @@
 	        <result property="formattedCreateDateInquiry" column="CREATE_DATE_INQUIRY" />
 	        <result property="parentInquiryNo" column="PARENT_INQUIRY_NO" />
 	    </collection>
-	</resultMap>
+	    <!--
+	    <collection property="restnumList"
+	    	select="selectRestNum"
+	    	column="LECTURE_NO"
+	    	javaType="java.util.ArrayList"
+	    	ofType="LectureRestnum"
+	    />
+	    -->
+	    
+	    </resultMap>
+	    
 	
 	
 	<select id="findLecturesLatest" resultMap="firstLectureRM">
@@ -94,6 +104,7 @@
 			FROM LECTURE L
 			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
 			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+			WHERE LECTURE_DEL_FL = 'N'
 			ORDER BY L.ENROLL_DATE DESC
 	</select>
 	
@@ -101,6 +112,8 @@
     	SELECT
 	        L.LECTURE_NO,
 	        L.MEMBER_NO,
+	        L.LECTURE_HOME_TITLE,
+	        L.LECTURE_HOME_CONTENT,
 	        L.LECTURE_TITLE,
 	        L.LECTURE_CONTENT,
 	        
@@ -141,9 +154,20 @@
 	    LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
 	    LEFT JOIN LECTURE_MAP LM ON L.LECTURE_NO = LM.LECTURE_NO
 	    WHERE L.LECTURE_NO = #{lectureNo}
+	    AND LECTURE_DEL_FL = 'N'
         ORDER BY L.ENROLL_DATE DESC
 	</select>
-
+	
+	<!--
+	<select id="selectRestNum" resultType="LectureRestnum">
+		SELECT
+		LECTURE_RESTNUM_NO, LECTURE_NO, 
+		TO_CHAR(LECTURE_DATE, 'YYYY-MM-DD') LECTURE_DATE_STR,
+		REST_NUM
+		FROM LECTURE_RESTNUM
+		WHERE LECTURE_NO = #{lectureNo}
+	</select>
+	-->
 	
 	<select id="findReview" resultType="LectureReview">
 		SELECT LECTURE_REVIEW.*, MEMBER.MEMBER_NO, MEMBER.MEMBER_NICKNAME, MEMBER.PROFILE_IMG
@@ -211,136 +235,154 @@
 	</update>
 	
 	<select id="selectCategoryTypeList">
-		SELECT LECTURE_CATEGORY_NUM "lectureCategoryNum", CATEGORY_NAME "categoryName"
-		FROM LECTURE_TYPE
-		ORDER BY LECTURE_CATEGORY_NUM
-	</select>
-	
-	<select id="selectList" resultMap="firstLectureRM">
-	    SELECT
-	        L.LECTURE_NO,
-	        L.MEMBER_NO,
-	        L.LECTURE_CATEGORY_NUM,
-	        L.LECTURE_HOME_TITLE,
-	        L.LECTURE_HOME_CONTENT,
-	        L.PRICE,
-	        L.LECTURE_LEVEL,
-     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
-	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+      SELECT LECTURE_CATEGORY_NUM "lectureCategoryNum", CATEGORY_NAME "categoryName"
+      FROM LECTURE_TYPE
+      ORDER BY LECTURE_CATEGORY_NUM
+   </select>
+   
+   <select id="selectList" resultMap="firstLectureRM">
+       SELECT
+           L.LECTURE_NO,
+           L.MEMBER_NO,
+           L.LECTURE_CATEGORY_NUM,
+           L.LECTURE_HOME_TITLE,
+           L.LECTURE_HOME_CONTENT,
+           L.PRICE,
+           L.LECTURE_LEVEL,
+            TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+           TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,    
   
-			
-			LF.LECTURE_FILE_NO,
-			LF.FILE_PATH,
-			LF.ORIGINAL_NAME,
-			LF.FILE_RENAME,
-			
-			M.MEMBER_NICKNAME,
-	        M.PROFILE_IMG
-			
-			
-			FROM LECTURE L
-			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
-			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
-			WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
-			ORDER BY L.ENROLL_DATE DESC
-	</select>
-	
-	<select id="getListCount">
-		SELECT COUNT(*)
-		FROM "LECTURE" L
-		LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
-		WHERE LECTURE_DEL_FL = 'N'
-		<if test="query != '전체' || query == null">
-			AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
-			OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
-		</if>
-	</select>
-	
-	<select id="selectLectureList" resultMap="firstLectureRM">
-	    SELECT
-	        L.LECTURE_NO,
-	        L.MEMBER_NO,
-	        L.LECTURE_CATEGORY_NUM,
-	        L.LECTURE_HOME_TITLE,
-	        L.LECTURE_HOME_CONTENT,
-	        L.PRICE,
-	        L.LECTURE_LEVEL,
-     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
-	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+         
+         LF.LECTURE_FILE_NO,
+         LF.FILE_PATH,
+         LF.ORIGINAL_NAME,
+         LF.FILE_RENAME,
+         
+         M.MEMBER_NICKNAME,
+           M.PROFILE_IMG
+         
+         
+         FROM LECTURE L
+         LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+         LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+         WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+         ORDER BY L.ENROLL_DATE DESC
+   </select>
+   
+   <select id="getListCount">
+      SELECT COUNT(*)
+      FROM "LECTURE" L
+      LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+      WHERE LECTURE_DEL_FL = 'N'
+      <if test="query != '전체' || query == null">
+         AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
+         OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
+      </if>
+   </select>
+   
+   <select id="selectLectureList" resultMap="firstLectureRM">
+       SELECT
+           L.LECTURE_NO,
+           L.MEMBER_NO,
+           L.LECTURE_CATEGORY_NUM,
+           L.LECTURE_HOME_TITLE,
+           L.LECTURE_HOME_CONTENT,
+           L.PRICE,
+           L.LECTURE_LEVEL,
+            TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+           TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,    
   
-			
-			LF.LECTURE_FILE_NO,
-			LF.FILE_PATH,
-			LF.ORIGINAL_NAME,
-			LF.FILE_RENAME,
-			
-			M.MEMBER_NICKNAME,
-	        M.PROFILE_IMG
-			
-			
-			FROM LECTURE L
-			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
-			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
-			LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
-			<if test="query != '전체' || query == null">
-				WHERE ROAD_ADDRESS LIKE '%' || #{query} || '%'
-				OR JIBUN_ADDRESS LIKE '%' || #{query} || '%'
-			</if>
-			ORDER BY L.ENROLL_DATE DESC
-	</select>
-	
-	<select id="getSelectCount">
-		SELECT COUNT(*)
-		FROM "LECTURE" L
-		LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
-		WHERE LECTURE_DEL_FL = 'N'
-		<if test="lectureCategoryNum != 0">
-			AND LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
-		</if>
-		<if test="query != '전체' || query == null">
-			AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
-			OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
-		</if>
-	</select>
-	
-		<select id="selectCategoryList" resultMap="firstLectureRM">
-	    SELECT
-	        L.LECTURE_NO,
-	        L.MEMBER_NO,
-	        L.LECTURE_CATEGORY_NUM,
-	        L.LECTURE_HOME_TITLE,
-	        L.LECTURE_HOME_CONTENT,
-	        L.PRICE,
-	        L.LECTURE_LEVEL,
-     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
-	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+         
+         LF.LECTURE_FILE_NO,
+         LF.FILE_PATH,
+         LF.ORIGINAL_NAME,
+         LF.FILE_RENAME,
+         
+         M.MEMBER_NICKNAME,
+           M.PROFILE_IMG
+         
+         
+         FROM LECTURE L
+         LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+         LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+         LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+         <if test="query != '전체' || query == null">
+            WHERE ROAD_ADDRESS LIKE '%' || #{query} || '%'
+            OR JIBUN_ADDRESS LIKE '%' || #{query} || '%'
+         </if>
+         ORDER BY L.ENROLL_DATE DESC
+   </select>
+   
+   <select id="getSelectCount">
+      SELECT COUNT(*)
+      FROM "LECTURE" L
+      LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+      WHERE LECTURE_DEL_FL = 'N'
+      <if test="lectureCategoryNum != 0">
+         AND LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+      </if>
+      <if test="query != '전체' || query == null">
+         AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
+         OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
+      </if>
+   </select>
+   
+      <select id="selectCategoryList" resultMap="firstLectureRM">
+       SELECT
+           L.LECTURE_NO,
+           L.MEMBER_NO,
+           L.LECTURE_CATEGORY_NUM,
+           L.LECTURE_HOME_TITLE,
+           L.LECTURE_HOME_CONTENT,
+           L.PRICE,
+           L.LECTURE_LEVEL,
+            TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+           TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,    
   
-			
-			LF.LECTURE_FILE_NO,
-			LF.FILE_PATH,
-			LF.ORIGINAL_NAME,
-			LF.FILE_RENAME,
-			
-			M.MEMBER_NICKNAME,
-	        M.PROFILE_IMG
-			
-			
-			FROM LECTURE L
-			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
-			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
-			LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
-			<if test="(lectureCategoryNum != 0) and (query != '전체' || query == null)">
-				WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
-				AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
-				OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
-			</if>
-			<if test="(lectureCategoryNum != 0) and query.equals('전체')">
-				WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
-			</if>
-			<if test="(lectureCategoryNum == 0) and (query != '전체' || query == null)">
-				WHERE ROAD_ADDRESS LIKE '%' || #{query} || '%'
-				OR JIBUN_ADDRESS LIKE '%' || #{query} || '%'
-			</if>
-			ORDER BY L.ENROLL_DATE DESC
+         
+         LF.LECTURE_FILE_NO,
+         LF.FILE_PATH,
+         LF.ORIGINAL_NAME,
+         LF.FILE_RENAME,
+         
+         M.MEMBER_NICKNAME,
+           M.PROFILE_IMG
+         
+         
+         FROM LECTURE L
+         LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+         LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+         LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+         <if test="(lectureCategoryNum != 0) and (query != '전체' || query == null)">
+            WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+            AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
+            OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
+         </if>
+         <if test="(lectureCategoryNum != 0) and query.equals('전체')">
+            WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+         </if>
+         <if test="(lectureCategoryNum == 0) and (query != '전체' || query == null)">
+            WHERE ROAD_ADDRESS LIKE '%' || #{query} || '%'
+            OR JIBUN_ADDRESS LIKE '%' || #{query} || '%'
+         </if>
+         ORDER BY L.ENROLL_DATE DESC
+   </select>
+	
+	
+	<select id="checkRestNum">
+		SELECT REST_NUM FROM LECTURE_RESTNUM
+		WHERE LECTURE_NO = #{lectureNo}
+		AND LECTURE_DATE = TO_DATE(#{lectureDate}, 'YYYY-MM-DD')
 	</select>
+	
+	
+	<update id="deleteReview">
+		UPDATE LECTURE_REVIEW SET 
+		REVIEW_DEL_FL = 'Y'
+		WHERE LECTURE_REVIEW_NO = #{lectureReviewNo}
+	</update>
+	
+	
+	
+	
 </mapper>
