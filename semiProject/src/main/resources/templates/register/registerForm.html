@@ -37,6 +37,9 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa&libraries=services,clusterer,drawing"></script>
 	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
 </head>
 <body>
 	
@@ -333,8 +336,11 @@
 			 
 			 
 			 <div id="map" style="width:500px;height:400px;"></div>
+			 <span id="lecture-price-span">
+			 	강의 가격 &nbsp;<input type="text" name="price" id="price"> 원 
+			 </span>
 			 
-			<input type="number" name="price"> 원 
+			 
 			 
 			 <div id="register-btn-div">
 			  <button type="submit" id="register-btn">등록</button>
@@ -479,7 +485,7 @@
 
 	<!-- 핵심 끝 -->
 	
-	<div style="height: 100vh;"></div>
+	<div style="height: 30vh;"></div>
 
 	
 	<th:block th:replace="~{common/footer}"></th:block>

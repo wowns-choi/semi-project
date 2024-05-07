@@ -12,7 +12,6 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #fafafa;
 }
 
 #home-content-container{
@@ -32,6 +31,7 @@ body {
 #body-container{
 	width: 100vw;
 	display:flex;
+	min-height: 60vh;
 }
 #body-container>div:nth-child(1){
 	flex-basis: 10%;
@@ -108,59 +108,136 @@ body {
 	color: gray;
 }
 
-.lecture-formatted-enroll-date{
-	width: 97%;
-	height: 10%;
+
+
+
+.btn-collection{
 	display:flex;
-	padding-left: 11px;
+	justify-content: center;
 	align-items: center;
-	font-size: 11px;
-	color: gray;
+	height: 4vh;
 }
-.lecture-price{
-	width: 97%;
-	height: 10%;
-	display:flex;
-	padding-left: 9px;
-	padding-top: 3px;
+
+.manage-memeber{
+	flex-basis: 33%;
+	height: 100%;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
 	align-items: center;
-	font-size: 16px;
-	color: #fafafa;
-	border-radius: 3px;
+	color: darkslategray;
+	transition: background-color 0.3s, color 0.3s;
+
+}
+.manage-memeber:hover{
+	color: white;
 	background-color: darkslategray;
 }
 
-.update-btn{
-	width:50%; 
-	height: 3.3vh;
-	background-color: white;
+.update-lecture{
+	flex-basis: 33%; 
+	height: 100%;
 	color: darkslategray;
 	border: none;
 	transition: background-color 0.3s, color 0.3s;
 	cursor: pointer;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
-.update-btn:hover{
+.update-lecture:hover{
 	color: white;
 	background-color: darkslategray;
 	
 
 }
-.delete-btn{
-	width:50%;
-	background-color: white;
+.delete-lecture{
+	flex-basis: 33%; 
+	height: 100%;
+
 	color: darkslategray;
 	border: none;
-	border-left: 1px solid lightgray;
-		transition: background-color 0.3s, color 0.3s;
-		cursor: pointer;
-
+	transition: background-color 0.3s, color 0.3s;
+	cursor: pointer;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.delete-btn:hover{
+.delete-lecture:hover{
 		color: white;
 	background-color: darkslategray;
 
 }
+
+.text-collection{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height: 4vh;
+}
+.manage-memeber-text{
+	flex-basis: 33%; 
+	font-size: 10px;
+	color: gray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+
+}
+.update-lecture-text{
+	flex-basis: 33%; 
+	font-size: 10px;
+	color: gray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.delete-lecture-text{
+	flex-basis: 33%; 
+	font-size: 10px;
+	color: gray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.profile-nickname-div{
+	padding-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid gray;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+}
+
+.b{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+		padding: 4px;
+
+	
+}
+.c{
+	
+	font-size: 13px;
+		padding: 2px;
+		text-decoration: underline;
+
+
+}
+.a{
+	font-size: 13px;
+	color: gray;
+	padding: 3px;
+}
+
 
 
 .lecture-memberNickname{
@@ -182,6 +259,8 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-top: 10vh;
+	margin-bottom: 10vh;
+
 }
 .pagination-element{
 	margin: 3vw;
@@ -218,10 +297,86 @@ body {
 	color: darkslategray;
 	background-color: white;
 }
+#first-page-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
 
+}
+#first-page-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
 
+	
+		
+}
+#previous-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
+	margin-left: 1vw;
+}
+#previous-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+#next-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
+	margin-right: 1vw;	
+}
+#next-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
 
-
+#last-page-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
+}
+#last-page-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+	
+}
 
 
 

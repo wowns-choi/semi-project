@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+	<!-- adminNavbar css -->
+	<link rel="stylesheet" href="/css/admin/common/adminNavbar.css">
+	<!-- adminHome css -->
+	<link rel="stylesheet" href="/css/admin/paymentHome.css">
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+	<th:block th:replace="~{admin/common/adminNavbar}"></th:block>
+
+	<div id="option-container">
+		<form action="/admin/payment" method="post">
+			
+			
+			<input type="text" name="merchantUid" id="option-input" placeholder="주문번호를 입력해주세요">
+			<button type="submit" id="option-btn"> 조회 </button>
+		</form>	
+	</div>
+
+	
+	<div id="refund-container-header"> 
+		결제 내역
+	</div>
+
+	
+	<div id="refund-container-body">
+		<div id="left-container"></div>
+		<div id="mid-container">
+		</div>
+		<div id="right-container"></div>		
+	</div>
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+		
+</body>
+</html>

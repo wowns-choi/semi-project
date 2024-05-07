@@ -41,28 +41,6 @@ public interface MemberService {
 
 	int newPw(String newPw, Member loginMember);
 
-	/** 아이디 찾기
-	 * @param member
-	 * @return
-	 */
-	String foundId(Member member);
-
-	/** 서버에서 이륾과 이메일 조회해오는 메서드
-	 * @param member
-	 * @return
-	 */
-	int getAuth(Member member);
-
-	int newPw(String memberEmail, String checkAuthKey);
-
-	int rePw(String newPw, String memberEmail);
-
-
-
-	
-	
-
-	
 	
 
 

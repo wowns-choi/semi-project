@@ -358,5 +358,30 @@ public class LectureServiceImpl implements LectureService{
 	}
 	
 	
+	@Override
+	public int checkRestNum(String lectureNo, String lectureDate) {
+		
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("lectureNo", lectureNo);
+		paramMap.put("lectureDate", lectureDate);
+		
+		
+		
+		Integer restNum = lectureMapper.checkRestNum(paramMap);
+		
+		log.debug("aaaa***********={}", restNum);
+		return restNum;
+	}
+
+
+	
+	@Override
+	public int deleteReview(String lectureReviewNo) {
+		// 메서드명만 delete 이지, update 하고 있음. 
+		return lectureMapper.deleteReview(lectureReviewNo);
+	}
+
+	
+	
 	
 }

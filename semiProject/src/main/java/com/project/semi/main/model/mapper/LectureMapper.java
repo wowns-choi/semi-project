@@ -43,5 +43,10 @@ public interface LectureMapper {
 	int getSelectCount(Map<String, Object> map);
 
 	List<Lecture> selectCategoryList(Map<String, Object> map, RowBounds rowBounds);
+	
+	Integer checkRestNum(Map<String, Object> paramMap);
+
+	int deleteReview(String lectureReviewNo);
+
 }
 
