@@ -11,7 +11,7 @@
 	    <result property="lectureTitle" column="LECTURE_TITLE" />
 	    <result property="lectureContent" column="LECTURE_CONTENT" />
 	    <result property="price" column="PRICE" />
-	    <result property="instructorIntroduction" column="INSTRUCTOR_INTORODUCTION" />
+	    <result property="instructorIntroduction" column="INSTRUCTOR_INTRODUCTION" />
 	    <result property="lectureLevel" column="LECTURE_LEVEL"/>
 	    <result property="startTime" column="START_TIME" />
 	    <result property="howLong" column="HOW_LONG" />
@@ -75,7 +75,7 @@
 	        L.LECTURE_TITLE,
 	        L.LECTURE_CONTENT,
 	        L.PRICE,
-	        L.INSTRUCTOR_INTORODUCTION,
+	        L.INSTRUCTOR_INTRODUCTION,
 	        L.LECTURE_LEVEL,
 	        L.START_TIME,
 	        L.HOW_LONG,
@@ -184,7 +184,7 @@
 		LECTURE_HOME_CONTENT = #{lectureHomeContent},
 		LECTURE_TITLE = #{lectureTitle},
 		LECTURE_CONTENT = #{lectureContent},
-		INSTRUCTOR_INTORODUCTION = #{instructor},
+		INSTRUCTOR_INTRODUCTION = #{instructor},
 		LECTURE_LEVEL = #{level},
 		START_TIME = #{startTime},
 		HOW_LONG = #{howLong},
