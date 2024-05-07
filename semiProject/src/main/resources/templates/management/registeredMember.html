@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>message.properties 값 출력</title>
+	
+	<!-- main css -->
+	<link rel="stylesheet" href="/css/management/registerMember.css">
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">	
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	  
+</head>
+<body>
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+
+	<div style="width: 100vw; height: 7vh;"></div>	
+	<div id="home-content-container" style="background-color:blue;">
+		<div></div>
+		<div>
+		</div>
+		<div></div>		
+	</div>
+	
+	
+	
+	
+	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+
+	<div id="full-container">
+		<div id="first-container">
+			<div id="fir-div1"></div>
+			<div id="fir-div2">
+				<img id="lecture-img" th:src="|${lecture.files.get(0).filePath}${lecture.files.get(0).fileRename}|">
+				<div id="rig-div">
+					<div id="lecturer">
+						<img id="lecturer-img" th:src="|${lecture.profileImg}|">					
+						<div th:text="${lecture.memberNickname}"></div>						
+					</div>
+					<div id="title-div">
+						<div th:text="${lecture.lectureHomeTitle}"></div>
+					</div>
+
+				</div>
+				
+
+			</div>
+			<div id="fir-div3"></div>
+		</div>
+		
+		<div id="second-container">
+			<div id="sec-div1">
+				
+			</div>
+			<div id="sec-div2">
+				<th:block th:each="new1 : ${newBornList}">
+					<div class="per-container">
+						<div class="date-restnum">
+							<div th:text="${new1.lectureDateStr}" class="date-div"></div>
+							<div class="restnum-div">
+								<i class="fa-solid fa-people-group"></i>  &nbsp; &nbsp;
+								<div th:text="${new1.restNum}" class="restnum"></div> &nbsp; / &nbsp;
+								<div th:text="|${lecture.acceptableNumber}|"></div> 
+							</div>
+						</div>
+						<div class="list-title">
+							<div class="list-title1">참여자</div>
+							<div class="list-title2">취소</div>
+							<div class="list-title3">결제 건수</div>											
+						</div>
+						
+						<th:block th:if="${new1.babyList != null and new1.babyList.size() > 0}"
+						th:each="baby : ${new1.babyList}" >						
+						<div class="point-div">
+
+								<div class="participants-div">
+									<img th:src="${baby.profileImg}" class="baby-profile-img">
+									<div th:text="${baby.memberNickname}"></div>		
+								</div>
+								<div class="cancel-div">
+									<div th:text="${baby.registeredMemberNo}" style="display: none;"></div>
+									<div th:text="${baby.memberNo}" style="display: none;"></div>
+									<div th:text="${baby.registeredMemberFl}" style="display: none;"></div>
+									<a th:href="@{/manage/cancelRegister(lectureNo=${lecture.lectureNo}, lectureDate=${new1.lectureDateStr},
+									memberNo=${baby.memberNo}, quantity = ${baby.quantity}
+									)}" class="cancel-a">
+										<i class="fa-solid fa-ban" ></i>										
+									</a>
+
+								</div>
+								<div class="message-div">
+									<div th:text="${baby.quantity}"></div>
+								</div>
+						</div>
+						</th:block>						
+
+					</div>
+				</th:block>
+			</div>
+			<div id="sec-div3">
+				
+			</div>
+			
+		</div>	
+	</div>
+	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+	
+	
+
+
+
+	<th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!— 로그인 모달창 js —>
+	<script src="/js/common/loginModal.js"></script>
+</body>
+</html>

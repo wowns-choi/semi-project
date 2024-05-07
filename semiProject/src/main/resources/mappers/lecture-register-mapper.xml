@@ -106,7 +106,14 @@
 		
 	</insert>
 
-
+	<insert id="addRestNumberPerDate">
+		INSERT INTO LECTURE_RESTNUM
+		VALUES(SEQ_LECTURE_RESTNUM_NO.NEXTVAL, 
+			#{lectureNo},
+			#{lectureDate},
+			#{restNum}
+		)
+	</insert>
 
 	
 	

@@ -2,6 +2,8 @@ package com.project.semi.register.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -218,6 +220,36 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 		 * */
 		
 		int result11 = lectureRegisterMapper.addLectureMap(register);
+		
+		
+		
+		/* LECTURE_
+		 * */
+		log.debug("register.get=={}", register.getStartDate()); //2024-05-05
+		log.debug("register.get=={}", register.getEndDate()); //2024-05-23
+		
+		// 몇일간 하는 강의인지 계산 
+		LocalDate startDate = LocalDate.parse(register.getStartDate());
+		LocalDate endDate = LocalDate.parse(register.getEndDate());
+		long daysDifference = ChronoUnit.DAYS.between(startDate, endDate);
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("lectureNo", register.getLectureNo());
+		paramMap.put("restNum", register.getAcceptableNumber());
+		paramMap.put("lectureDate", startDate);		
+		
+		for(int i=0; i<=daysDifference; i++) {
+
+			lectureRegisterMapper.addRestNumberPerDate(paramMap);			
+			startDate = startDate.plusDays(1);
+			paramMap.put("lectureDate", startDate);		
+		}
+		
+
+		
+		
+		
+		
 		
 		// TODO Auto-generated method stub
 		return 0;

@@ -30,14 +30,15 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String home(Model model,
-			@RequestParam(value="cp", required=false, defaultValue = "1") int cp) {
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
+			@RequestParam(value="key", required=false, defaultValue = "전체") String query) {
 		
 		
 		//lecture 테이블과 그 테이블과 연관된 이미지들을 가져와서 model 에 잘 담아줘야 함. 
 		
 //		List<Lecture> lectureList = lectureService.findLectures();
 		
-		Map<String, Object> map = lectureService.viewAll(cp);
+		Map<String, Object> map = lectureService.viewAll(cp, query);
 		
 		//Lecture(lectureNo=1, 
 		//memberNo=20, 
@@ -51,17 +52,25 @@ public class MainController {
 		//LectureFile(lectureFileNo=2, lectureNo=1, filePath=/lecture/file, originalName=perfume2.jpg, rename=perfume2.jpg, uploadDate=Thu Apr 18 04:33:19 YAKT 2024)])
 		model.addAttribute("lectureList", map.get("lectureList"));
 		model.addAttribute("mainPagination", map.get("mainPagination"));
-		
+		model.addAttribute("query", query);
 		return "common/main";
 	}
 	
-	@GetMapping("{lectureCategoryNum:[0-9]+}")
+	@GetMapping("/{lectureCategoryNum:[0-9]+}")
 	public String select(@PathVariable("lectureCategoryNum") int lectureCategoryNum,
-			Model model) {
+			Model model,
+			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
+			@RequestParam(value="key", required=false, defaultValue = "전체") String query) {
 		
-		List<Lecture> selectList = lectureService.selectList(lectureCategoryNum);
 		
-		model.addAttribute("lectureList", selectList);
+		
+		Map<String, Object> map = lectureService.selectView(lectureCategoryNum, cp, query);
+		
+//		List<Lecture> selectList = lectureService.selectList(lectureCategoryNum);
+		model.addAttribute("lectureCategoryNum", lectureCategoryNum);
+		model.addAttribute("lectureList", map.get("lectureList"));
+		model.addAttribute("mainPagination", map.get("mainPagination"));
+		model.addAttribute("query", query);
 		
 		return "/common/main";
 	}

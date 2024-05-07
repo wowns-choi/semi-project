@@ -35,6 +35,12 @@ public interface LectureService {
 	 */
 	List<Lecture> selectList(int lectureCategoryNum);
 
-	Map<String, Object> viewAll(int cp);
+	Map<String, Object> viewAll(int cp, String query);
+
+	Map<String, Object> selectView(int lectureCategoryNum, int cp, String query);
+	
+	int checkRestNum(String lectureNo, String lectureDate);
+
+	int deleteReview(String lectureReviewNo);
 
 }

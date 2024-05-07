@@ -303,9 +303,13 @@ public class LectureServiceImpl implements LectureService{
 
 	// 페이지네이션
 	@Override
-	public Map<String, Object> viewAll(int cp) {
+	public Map<String, Object> viewAll(int cp, String query) {
 		
-		int listCount = lectureMapper.getListCount();
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("query", query);		
+		
+		int listCount = lectureMapper.getListCount(map);
 		
 		MainPagination mainPagination = new MainPagination(cp,listCount);
 		
@@ -313,9 +317,10 @@ public class LectureServiceImpl implements LectureService{
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		List<Lecture> lectureList = lectureMapper.selectLectureList(cp, rowBounds);
+		
+		
+		List<Lecture> lectureList = lectureMapper.selectLectureList(map, rowBounds);
 
-		Map<String, Object> map = new HashMap<>();
 		
 		map.put("mainPagination", mainPagination);
 		map.put("lectureList", lectureList);
@@ -323,6 +328,59 @@ public class LectureServiceImpl implements LectureService{
 		// 5. 결과 반환
 		return map;
 	}
+
+	@Override
+	public Map<String, Object> selectView(int lectureCategoryNum, int cp, String query) {
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("query", query);
+		map.put("lectureCategoryNum", lectureCategoryNum);
+		
+		int listCount = lectureMapper.getSelectCount(map);
+		
+		MainPagination mainPagination = new MainPagination(cp,listCount);
+		
+		int limit = mainPagination.getLimit();
+		int offset = (cp - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		
+
+		List<Lecture> lectureList = lectureMapper.selectCategoryList(map, rowBounds);
+
+		
+		map.put("mainPagination", mainPagination);
+		map.put("lectureList", lectureList);
+		
+		// 5. 결과 반환
+		return map;
+
+	}
+	
+	
+	@Override
+	public int checkRestNum(String lectureNo, String lectureDate) {
+		
+		Map<String,Object> paramMap = new HashMap<>();
+		paramMap.put("lectureNo", lectureNo);
+		paramMap.put("lectureDate", lectureDate);
+		
+		
+		
+		Integer restNum = lectureMapper.checkRestNum(paramMap);
+		
+		log.debug("aaaa***********={}", restNum);
+		return restNum;
+	}
+
+
+	
+	@Override
+	public int deleteReview(String lectureReviewNo) {
+		// 메서드명만 delete 이지, update 하고 있음. 
+		return lectureMapper.deleteReview(lectureReviewNo);
+	}
+
 	
 	
 	

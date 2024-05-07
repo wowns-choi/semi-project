@@ -364,6 +364,24 @@ body {
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
 
 }
+
+#lecture-price-span{
+	display: block;
+	color: black;
+	margin-left: 30vw;
+	margin-top: 10vh;
+}
+#price{
+	width: 12vw;
+	height: 5vh;
+	border: 1px solid black;
+	padding-left: 10px;
+	border-radius: 3px;
+	outline: none;
+
+
+}
+
 #register-btn-div{
 	margin-left: 30vw;
 

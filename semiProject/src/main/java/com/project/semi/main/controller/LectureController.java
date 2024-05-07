@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.semi.main.model.dto.Lecture;
+import com.project.semi.main.model.dto.LectureRestnum;
 import com.project.semi.main.model.dto.LectureReview;
 import com.project.semi.main.model.service.LectureService;
 import com.project.semi.member.model.dto.Member;
@@ -43,6 +44,8 @@ public class LectureController {
 		log.debug("currentPage=={}", currentPage);
 		
 		Map<String, Object> returnMap = lectureService.findLectureDetail(lectureNo, currentPage);
+		
+		
 		Lecture lecture = (Lecture) returnMap.get("lecture");
 		List<LectureReview> fiveParentReview = (List<LectureReview>) returnMap.get("fiveParentReview");
 		Integer totalPosts = (Integer) returnMap.get("totalPosts");
@@ -52,7 +55,12 @@ public class LectureController {
 		
 		model.addAttribute("lecture", lecture);
 		model.addAttribute("fiveParentReview", fiveParentReview);
-		model.addAttribute("currentPage", currentPage);
+		model.addAttribute("currentPage", Integer.parseInt(currentPage));
+		
+		log.debug("currentPAGE============{}", currentPage);
+		log.debug("currentPAGE============{}", currentPage);
+		log.debug("currentPAGE============{}", currentPage);
+		
 		model.addAttribute("totalPosts", totalPosts);
 		model.addAttribute("pageGroupSize", pageGroupSize);
 		model.addAttribute("currentGroupFirstPage", currentGroupFirstPage);
@@ -141,11 +149,10 @@ public class LectureController {
 								@RequestParam("lectureNo") String lectureNo,
 								@RequestParam("parentReviewNo") String parentReviewNo,
 								RedirectAttributes ra
-			) {
+			)  throws IllegalStateException, IOException{
 		int memberNo = loginMember.getMemberNo();
 		
 		int result = lectureService.addReviewReply(memberNo, reviewContent, replyFile, lectureNo, parentReviewNo);
-		
 		
 		String path = null;
 		if(result == 0) {
@@ -174,11 +181,47 @@ public class LectureController {
 		
 		if(result != 0) { // 제대로 업데이트 됬다. 
 			ra.addFlashAttribute("message", "대댓글 수정 중 오류 발생");
-		} 
+		}
 		
 		return "redirect:/lecture/showLectureDetail?lectureNo=" + lectureNo;
 
 		
 	}
+	
+	@GetMapping("checkRestnum")
+	@ResponseBody
+	public int checkRestNum(@RequestParam("lectureNo") String lectureNo,
+								@RequestParam("lectureDate") String lectureDate
+								
+			) {
+		log.debug("lectureNo=={}",lectureNo);
+		log.debug("lectureDate=={}",lectureDate);
+		log.debug("trueOrFalse=={}", lectureDate.equals("2024-05-11")); // true 나옴. 
+		
+		
+		// 이제 이 데이터로 LECTURE_RESTNUM 테이블에서 해당 강의의 해당 날짜의 남은 자리가 있는지 조회할 거임. 
+		int restNum = lectureService.checkRestNum(lectureNo, lectureDate);
+				
+		
+		return restNum; 
+		
+	}
+	
+	@GetMapping("deleteReview")
+	public String deleteReview (@RequestParam("lectureReviewNo") String lectureReviewNo,
+							@RequestParam("lectureNo") String lectureNo,
+							RedirectAttributes ra ) {
+		
+		int result = lectureService.deleteReview(lectureReviewNo);
+		if(result==0) {
+			ra.addFlashAttribute("message", "댓글 삭제 중 오류 발생");
+		} else {
+			ra.addFlashAttribute("message", "댓글이 삭제되었습니다");
+		}
+		
+		return "redirect:/lecture/showLectureDetail?lectureNo=" + lectureNo;
+		
+	}
+
 	
 }

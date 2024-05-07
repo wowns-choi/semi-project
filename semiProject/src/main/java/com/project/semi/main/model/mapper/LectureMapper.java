@@ -36,8 +36,17 @@ public interface LectureMapper {
 
 	List<Lecture> selectList(int lectureCategoryNum);
 
-	int getListCount();
+	int getListCount(Map<String, Object> map);
 
-	List<Lecture> selectLectureList(int cp, RowBounds rowBounds);
+	List<Lecture> selectLectureList(Map<String, Object> map, RowBounds rowBounds);
+
+	int getSelectCount(Map<String, Object> map);
+
+	List<Lecture> selectCategoryList(Map<String, Object> map, RowBounds rowBounds);
+	
+	Integer checkRestNum(Map<String, Object> paramMap);
+
+	int deleteReview(String lectureReviewNo);
+
 }
 

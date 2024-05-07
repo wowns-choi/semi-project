@@ -24,7 +24,11 @@
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa"></script>
 	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa&libraries=services,clusterer,drawing"></script>
 
-
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	
 </head>
 <body>
 	<!-- navbar 추가 -->
@@ -71,10 +75,22 @@
 		    <div id="empty-space-div-1"></div>
 		</div>
 	</div>
-	
-	<div id="body-container-2">
-		<div id="left-container-2"></div>
-		<div id="mid-container-2">
+	<div id="option-container">
+		<div id="option-left">
+		
+		</div>
+		<div id="option-mid">
+			<div id="option-box">
+				<a href="#option-mid" id="go-to-lecture-intro">강의 소개</a>
+				<a href="#scroll-point-for-lecturer" id="go-to-lecturer-intro"> 강사 소개 </a>
+				<a href="#div-6" id="go-to-review">리뷰</a>
+				<a href="#div-8" id="go-to-location">위치</a>
+			</div>
+		</div>
+	</div>	
+	<div id="body-container-2" >
+		<div id="left-container-2" ></div>
+		<div id="mid-container-2" >
 			<div id="div-1">
 				<div th:text="${lecture.lectureTitle}"></div>
 			</div>
@@ -95,33 +111,38 @@
 			<div id="div-3">
 				<textarea th:text="${lecture.lectureContent}" id="lecture-content" readonly> </textarea>
 			</div>
+			<div style="width: 100%; height: 15vh;" id="scroll-point-for-lecturer"></div>
 			<div id="div-4">
 				<div>
 					<i class="fa-solid fa-person-chalkboard"></i>&nbsp;&nbsp;
 					강사 소갯말
 				</div>
-				<textarea th:text="${lecture.instructorIntroduction}" readonly></textarea>				
+
+				<textarea th:text="${lecture.instructorIntroduction}" readonly id="myTextarea"></textarea>				
 			</div>
 			<div id="div-5"></div>
 			<div id="div-6"> <!-- 후기 -->
 				<div>Review</div>
 				<form action="/lecture/addReview" method="post" enctype="multipart/form-data">
-				<div id="review-write-container">
+				<div id="review-write-container" >
+					<th:block th:if="${session.loginMember != null}">
 					<div id="review-write-div1">
 						
-						<img	th:if="${session.loginMember}"
+						<img
 							th:with="user=#{user.default.image}"
 							th:src="${session.loginMember.profileImg ?: user}"
 							id="writer-img"
 							>
 					</div>
 					<div id="review-write-div2">
-						<div th:text="${session.loginMember.memberNickname}"
-						id="writer-name"
-						></div>
-						<textarea name="reviewContent" id="write-content" placeholder="리뷰를 작성해주세요" ></textarea> 					
+						
+							<div 
+							th:text="${session.loginMember.memberNickname}"
+							id="writer-name"
+							></div>
+							<textarea name="reviewContent" id="write-content" placeholder="리뷰를 작성해주세요" ></textarea> 					
 					</div>
-					<button type="submit" id="review-write-btn">					<i class="fa-regular fa-paper-plane"></i></button>
+					<button type="submit" id="review-write-btn"> <i class="fa-regular fa-paper-plane"></i></button>
 					<label for="review-file" id="review-file-label">
 						<i class="fa-regular fa-file-image"></i>
 					</label>
@@ -134,7 +155,14 @@
 					</span>
 					<input type="file" name="reviewImg" placeholder="파일" id="review-file" style="display:none;">
 					<input type="hidden" name="lectureNo" th:value="${lectureNo}">
-					</form>	
+					</form>
+					</th:block>
+					<th:block th:if="${session.loginMember == null}">
+						<div style="display: flex;  align-items: center;  padding: 10px;">
+							로그인이 필요합니다 
+						</div>
+						
+					</th:block>
 				</div>
 				
 				
@@ -159,7 +187,8 @@
 						<!-- =====================평소에는 숨겨져 있다가 "수정" 버튼 누르면 나오게 되는 부분 시작=============== -->
 						<div class="update-form-div">
 							<form th:action="@{/lecture/updateReview}" method="post" enctype="multipart/form-data" >
-								<textarea name="reviewContent2"  placeholder="리뷰를 작성해주세요" th:value="${review.reviewContent}" th:text="${review.reviewContent}"></textarea> 					
+								<textarea  name="reviewContent2"  placeholder="리뷰를 작성해주세요" th:value="${review.reviewContent}" th:text="${review.reviewContent}"></textarea> 					
+
 	
 								<img th:if="${review.reviewImg}"  th:src="${review.reviewImg}" class="aaa">
 								<!-- 현재 맥이 파일 접근권한을 막아서, 외부 파일이 안읽어와져서 주석처리해놓음. -->
@@ -167,31 +196,39 @@
 								<div class="xxx-btn">
 								<i class="fa-solid fa-circle-xmark" ></i>
 								</div>
-	
-								<button type="submit">저장</button>
+								
+								<button type="submit" class="update-review-btn">
+									<i class="fa-solid fa-arrow-rotate-right" style="color:darkslategray"></i>
+								</button>	
+
+
 								<input type="hidden" name="updateReplyNo" th:value="${review.lectureReviewNo}">
 								<input type="hidden" name="lectureNo" th:value="${lecture.lectureNo}">
 							</form>
 						</div>
 						<!-- =====================평소에는 숨겨져 있다가 수정 버튼 누르면 나오게 되는 부분 끝 =============== -->
 
-					
-					<div th:if="${session.loginMember.memberNo == review.memberNo}" class="update-delete-container">
-						<span th:attr="data-review-no=${review.lectureReviewNo}" data-editing="false"  class="update-text">수정</span>
-						<a th:href="@{/lecture/deleteReview?lectureReviewNo={lectureReviewNo}(lectureReviewNo = ${review.lectureReviewNo})}">삭제</a>
-					</div>					
-					<div class="reply-btn" data-bool="true">
+					<th:block th:if="${session.loginMember}">
+						<div th:if="${session.loginMember.memberNo == review.memberNo}" class="update-delete-container">
+							<span th:attr="data-review-no=${review.lectureReviewNo}" data-editing="false"  class="update-text">수정</span>
+							<a th:href="@{/lecture/deleteReview(lectureReviewNo=${review.lectureReviewNo}, lectureNo=${lecture.lectureNo})}">삭제</a>
+						</div>	
+					</th:block>
+									
+					<div class="reply-btn" data-bool="true" th:if="${session.loginMember}">
 						댓글 쓰기
 
 					</div>
+					
 					
 					<!-- ======== 여기까지가리뷰의 답급 전 까지 ========== -->
 					<!-- ======== 여기서부터 리뷰의 리플에 대한 html ========== -->
 					<!-- ======== 리뷰의 리플 달기 시작 ========== -->
 					
-					<div class="reply-input-form-container">
+					<div class="reply-input-form-container" th:if="${session.loginMember}">
 						<form action="/lecture/addReviewReply" method="post" class="reply-input-form" enctype="multipart/form-data">
-							<img th:with="user=#{user.default.image}"
+							<img 
+								th:with="user=#{user.default.image}"
 								th:src="${session.loginMember.profileImg ?: user}"
 								>
 							<textarea name="reviewContent2"  placeholder="답글을 작성해주세요" class="dapgle-textarea"></textarea> 					
@@ -209,7 +246,15 @@
 						</form>
 					</div>
 					
-					<!-- ======== 리뷰의 리플 달기 끝 ========== -->					
+					<!-- ======== 리뷰의 리플 달기 끝 ========== -->			
+					
+					<span>
+						<span class="show-reply-btn" th:attr="data-dapCount=${review.replies.size()}">
+							<i class="fa-solid fa-angle-down" style="color:royalblue;"></i>
+							댓글
+							<span th:text="${review.replies.size()}" style="color:royalblue"></span>
+						</span>
+					</span>		
 					
 					<!-- ======== 리뷰의 리플 렌더링 ========== -->
 					<div th:each="reply : ${review.replies}" class="reply-container">
@@ -226,52 +271,69 @@
 						
 						<form action="/lecture/replyUpdate" method="post" class="reply-update-form">
 							<textarea name="reviewContent"  placeholder="리뷰를 작성해주세요" th:value="${reply.reviewContent}" th:text="${reply.reviewContent}" class="reply-update-textarea"></textarea>
-							<!--	<img th:src="${reply.reviewImg}"> -->
-							<img src="/images/user.png" class="reply-update-img">
+							<img th:if="${reply.reviewImg}" th:src="${reply.reviewImg}" class="reply-update-img">
 							<div class="review-update-x-btn">
 								<i class="fa-solid fa-circle-xmark"></i>
 							</div>
-							<button class="reply-update-save-btn">저장</button>
+							<button class="reply-update-save-btn">
+								<i class="fa-solid fa-arrow-rotate-right" style="color:darkslategray"></i>
+							</button>
 							<input type="hidden" name="lectureNo" th:value="${lectureNo}">
 							<input type="hidden" name="parentReviewNo" th:value="${review.lectureReviewNo}">
 							<input type="hidden" name="lectureReviewNo" th:value="${reply.lectureReviewNo}" >
 						</form>
 						
-						<div class="reply-update-delete-div">
+						<div class="reply-update-delete-div" th:if="${session.loginMember}">
 							<span class="reply-update" 	data-reup="true" >수정</span>
-							<span class="reply-delete">삭제</span>
+							<a th:href="@{/lecture/deleteReview(lectureReviewNo=${reply.lectureReviewNo}, lectureNo=${lecture.lectureNo})}"	class="reply-delete">삭제</a>
 						</div>					
 					</div>
+				</div>
+				<div id="div-7">
+					<div th:if="${currentGroupLastPage != 0}" th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}" >
+						<span th:if="${i == currentPage}" th:text="${i}" class="current-page">Current Page</span>
+					    <a th:if="${i != currentPage}" th:href="@{/lecture/showLectureDetail(lectureNo=${lectureNo}, currentPage=${i})}"
+							th:text="${i}" 	class="page-num">Page Link
+						</a>
+					    &nbsp;&nbsp;
+					</div>
+					<div th:if="${currentGroupLastPage == 0}" class="pagination-div">
+						<span	class="current-page">1</span>
+					</div>
+				</div>
+				
+				<div id="div-8">
+					위치
+				</div>
+				<div id="div-9">
+					<span th:text="${lecture.roadAddress}" class="div-9-child"></span>
+					<span th:text="${lecture.jibunAddress}"	class="div-9-child"></span>
+					<span th:text="${lecture.detailAddress}" class="div-9-child"></span>
+				</div>
+				
+				
+				<div id="div-10">
+						<div id="map" style="width:100%;height:400px; background-color: antiquewhite;"></div>
 				</div>
 				
 			</div>
 
 			
-			<!-- 페이지네이션 -->
-			
-			<div th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}">
-			    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;">Current Page</span>
-			    <a th:unless="${i == currentPage}" th:href="@{/lecture/showLectureDetail(lectureNo=${lectureNo}, currentPage=${i})}"
-					th:text="${i}">Page Link</a>
-			    &nbsp;&nbsp;
-			</div>
 
-			<div id="div-10">
-				<div id="map" style="width:500px;height:400px;"></div>
-			</div>
 			
-			<div th:text="${lecture.postCode}"></div>
-			<div th:text="${lecture.roadAddress}"></div>
-			<div th:text="${lecture.jibunAddress}"></div>
-			<div th:text="${lecture.detailAddress}"></div>
 			
 
 
-			
+			<!--<th:block th:replace="~{common/footer}" style="margin-top:100vh;"></th:block>-->
+
+
 			
 		</div>
+
+		
 	</div>
-	
+	<th:block th:replace="~{common/footer}"></th:block>
+
 	
 	<!-- ============== 결제 컨테이너 ================ -->
 	<div id="pay-container">
@@ -282,7 +344,9 @@
 			<div></div>
 		</div>
 		<div id="pay-div-3">
-			<span>참여가능인원 :</span>  <span th:text="|${lecture.restNumber}/${lecture.acceptableNumber}|"></span>
+			<span>참여가능인원 :</span>  
+			<span id="rest-num-span" style="margin-right: 2px; color: coral;"></span> 
+			<span th:text="|/${lecture.acceptableNumber}|" style="color: black"></span>
 		</div>
 		<div id="pay-div-4">
 			<span>가격 : </span>  
@@ -301,18 +365,35 @@
 		</div>
 		<div id="pay-div-7">
 			<span>총 결제 금액 :&nbsp;&nbsp;</span>
-			<span th:text="|${lecture.price}원|" id="total-price"></span>
+			<span th:text="|${lecture.price}|" id="total-price"></span> &nbsp; 원
 		</div>
 		
 		<div id="pay-div-8">
-			<button type="button"> 결제하기 </button>
+			<button type="button" id="want-pay-btn"> 결제하기 </button>
 		</div>
+	</div>
+	<!-- 결제수단 선택창 -->
+	<div id="payment-method-container">
+		<div id="method-x-div"><i class="fa-solid fa-x" ></i></div>
+		<div id="card-div">
+			<i class="fa-regular fa-credit-card"></i>	
+			&nbsp;&nbsp; 카드 결제
+		</div>
+		<div id="kakao-div">
+			<i class="fa-solid fa-comment"></i>
+			&nbsp;&nbsp;
+			카카오 페이
+		</div>
+
+		
 	</div>
 	
 	
+	
+	
+	
 
-	<div style="height: 400vh;"></div>
-	<th:block th:replace="~{common/footer}"></th:block>
+
 	<!--navbar js-->
 	<script src="/js/common/navbar.js"></script>
 	<!-- 로그인 모달창 js -->
@@ -339,6 +420,10 @@
 		// 위도와 경도 타임리프로 받아서 자바스크립트 변수로 만들기
 		let latitude = /*[[${lecture.latitude}]]*/ "위도";
 		let hardness = /*[[${lecture.hardness}]]*/ "경도";
+		
+		let lectureNo = /*[[${lecture.lectureNo}]]*/ "강의넘버";
+		
+		let lectureTitle = /*[[${lecture.lectureTitle}]]*/		
 		
 	</script>
 	
@@ -390,5 +475,28 @@
 		
 	</script>
 
+	
+	<!--textarea 높이 자동조절 -->
+	<script>
+	    function autoResize() {
+	
+	        var textarea = document.getElementById("myTextarea");
+	        textarea.style.height = "auto"; // 높이를 자동으로 조정하기 위해 높이를 'auto'로 설정합니다.
+	        textarea.style.height = (textarea.scrollHeight) + "px"; // textarea의 실제 높이를 설정합니다.
+
+	        var textarea2 = document.getElementById("lecture-content");
+	        textarea2.style.height = "auto"; // 높이를 자동으로 조정하기 위해 높이를 'auto'로 설정합니다.
+	        textarea2.style.height = (textarea2.scrollHeight) + "px"; // textarea의 실제 높이를 설정합니다.
+	    
+		}
+	
+	    // 페이지 로드 후 textarea의 초기 높이를 설정합니다.
+	    window.onload = autoResize;
+	</script>
+	
+	
+	
+	
+	
 </body>
 </html>
