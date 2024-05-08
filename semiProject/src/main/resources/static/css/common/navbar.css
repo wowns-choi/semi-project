@@ -29,6 +29,10 @@
     height:100%;
 }
 
+#logo {
+    height: 48px;
+}
+
 /* #free-board {
     font-size: 25px;
 } */
@@ -148,4 +152,46 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+}
+
+#message-box > div {
+    position: relative;
+    font-size: 30px;
+}
+
+#message-box p {
+    position: absolute;
+    top: 0;
+    right: 30;
+    border: 1px solid black;
+    border-radius: 50%;
+}
+
+.note-num {
+    position: absolute;
+    top: -2px;
+    right: -8px;
+    z-index: 3;
+    height: 17px;
+    width: 17px;
+    line-height: 18px;
+    text-align: center;
+    background-color: darkslategray;
+    border-radius: 15px;
+    display: inline-block;
+    font-size: 11px;
+    color: white !important;
+}
+
+.fa-regular {
+    margin-top: 5px;
+}
+
+#notification {
+    margin-right: 6px;
+    position: relative;
+}
+
+#notification i {
+    font-size: 25px;
 }
