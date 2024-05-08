@@ -283,6 +283,7 @@ public class MemberController {
 	}
 	
 	
+	
 	@PostMapping("/foundId")
 	public String foundId(
 			@ModelAttribute Member member,
@@ -297,9 +298,10 @@ public class MemberController {
 		if (result.equals("not correct")) {
 			
 			message = "일치하는 사용자의 정보가 없습니다. 아이디 또는 휴대폰 번호를 확인해주세요.";
+			
 			ra.addFlashAttribute("message", message);
 			
-			return "redirect:/member/foundId";
+			return "redirect:/member/findMemberEmail";
 						
 		}else {
 			

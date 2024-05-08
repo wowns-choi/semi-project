@@ -6,13 +6,29 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>회원탈퇴</title>
 	
-	<link rel="stylesheet" href="/css/member/witdrawal.css">
+	<link rel="stylesheet" href="/css/member/witdrawal.css">	
+	
+	<link rel="stylesheet" href="/secession2.css">
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	<th:block th:replace="~{common/common}"></th:block>
 </head>
 
-<link rel="stylesheet" href="/secession2.css">
+
 
 <body>
 
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
 	
 		<section class="big-container">
 
@@ -76,8 +92,16 @@
 
 
 		</section>
-	
+		
+		<th:block th:replace="~{common/footer}"></th:block>
+		 	
 		<script src="/js/member/member.js"></script>
+		
+		<!--navbar js-->
+		<script src="/js/common/navbar.js"></script>
+		
+		<!-- 로그인 모달창 js -->
+		<script src="/js/common/loginModal.js"></script>
 </body>
 
 </html>
