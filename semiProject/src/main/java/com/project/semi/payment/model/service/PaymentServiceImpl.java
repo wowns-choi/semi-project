@@ -65,7 +65,7 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public Map<String, String> addOrder(Integer lectureNo, Integer totalPrice, Integer memberNo, Integer quantity) {
+	public Map<String, Object> addOrder(Integer lectureNo, Integer totalPrice, Integer memberNo, Integer quantity) {
 		
 		Order order = new Order();
 		order.setMemberNo(memberNo);
@@ -78,13 +78,15 @@ public class PaymentServiceImpl implements PaymentService{
         long nano = System.currentTimeMillis();
         String merchantUid = "pid-" + nano;
         
+        log.debug("주문을 넣을 떄의 merchantUid==={}", merchantUid);
+        
         order.setMerchantUid(merchantUid);
         
-        int result = paymentMapper.addOrder(order);		
+       int result  = paymentMapper.addOrder(order);		
 		
-        Map<String, String> returnMap = new HashMap<>();
+        Map<String, Object> returnMap = new HashMap<>();
         returnMap.put("merchantUid", merchantUid);
-        returnMap.put("result", String.valueOf(result));
+        returnMap.put("result",  result);
         
 		return returnMap;
 	}
@@ -292,10 +294,12 @@ public class PaymentServiceImpl implements PaymentService{
                 //cancel_history 테이블에 insert
             }
 
+            log.debug("merchantUid---={}", merchantUid);
+            
     		// 2. responseBody 에 있는 merchant_uid 를 이용해서, LECTURE_ORDERS 테이블의 행을 조회할 것. 
     		// 왜? LECTURE_PAYMENTS 테이블에 행을 삽입할건데, 컬럼 중 LECTURE_ORDERS_NO 이 있거든. 
             Integer lectureOrdersNo = paymentMapper.selectLectureOrdersNo(merchantUid);
-            
+                        
             Payment payment = new Payment(
             		memberNo, lectureOrdersNo, impUid, merchantUid, amount, currency, status, failReason, failedAt, payMethod, name, paidAt, receiptUrl, startedAt, userAgent, buyerName, buyerTel, buyerAddr, buyerPostcode, buyerEmail, applyNum, cardCode, cardName,cardNumber ,cardQuota ,cardType , bankCode, bankName, vbankCode, vbankDate, vbankHolder, vbankIssuedAt, vbankNum, vbankName, customData, customerUid, customerUidUsage, channel, cashReceiptIssued, escrow, pgId, pgProvider, embPgProvider, pgTid, cancelAmount, cancelReason, cancelledAt
             		);

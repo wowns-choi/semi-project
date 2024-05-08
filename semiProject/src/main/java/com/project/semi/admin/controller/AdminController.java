@@ -48,11 +48,7 @@ public class AdminController {
 		
 		// 2. 주문내역 리스트를 가져올 것. 페이지네이션 할 거임. 
 		adminService.findOrderList(Integer.parseInt(page), model);
-		
-		
-		
 		return "/admin/orderPage";
-		
 	}
 	
 	@RequestMapping("orderByNameOrTel")
@@ -113,6 +109,32 @@ public class AdminController {
 		
 	}
 	
+	@PostMapping("refundByNameOrTelOrMerchantUid")
+	public String refundByNameOrTelOrMerchantUid (
+				@RequestParam("findOption") String findOption,
+				@RequestParam("option") String option,
+				@RequestParam(value="page", required=false, defaultValue="1") String page,
+				Model model,
+				RedirectAttributes ra,
+				@SessionAttribute("loginMember") Member loginMember
+			) {
+		// 1. 지금 요청 보낸 사람이 admin 이 맞나? 
+		Integer memberNo = loginMember.getMemberNo();
+		int authority = adminService.findAuthority(memberNo);
+		
+		if(authority == 1) {
+			// 일반 사용자인 경우 
+			ra.addFlashAttribute("message", "잘못된 접근입니다. ");
+			return "redirect:/";
+		}
+		// 2. 환불 리스트를 가져올 것. 페이지네이션 할 거임. 
+		adminService.findRefundList2(Integer.parseInt(page), model, findOption, option);
+		return "/admin/refundPage";
+	}
+	
+	
+	
+	
 	@GetMapping("payment")
 	public String payment(@SessionAttribute("loginMember") Member loginMember,
 						RedirectAttributes ra) {
@@ -151,7 +173,30 @@ public class AdminController {
 		return "/admin/paymentResult";		
 	}
 	
+	@GetMapping("settlement")
+	public String settlement(
+											@RequestParam(value="page", required=false, defaultValue="1") String page,
+											Model model
+			) {
+		adminService.settlement(Integer.parseInt(page), model);
+		return "/admin/settlement";
+	}
 	
+	@RequestMapping("settlementOption")
+	public String settlementOption(@RequestParam("lecturer") String lecturer,
+			@RequestParam("count") String count,
+			@RequestParam(value="page", required=false, defaultValue="1") String page,
+			Model model) {
+		log.debug("aaaa={}" , lecturer.equals("")); // 만약, 아무것도 입력안했을 경우 빈문자열로 들어옴. 
+		log.debug("count=={}", count); // 아무것도 안눌렀으면 0. 정산넣었으면 양수. 미정산 눌렀으면 음수
+		
+		adminService.settlementOption(lecturer, Integer.parseInt(count), Integer.parseInt(page), model);
+		
+		model.addAttribute("lecturer", lecturer);
+		model.addAttribute("count", count);
+		
+		return "/admin/settlementOption";
+	}
 	
 	
 	

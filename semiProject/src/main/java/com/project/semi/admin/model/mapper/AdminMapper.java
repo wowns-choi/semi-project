@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.semi.admin.model.dto.FeeSettlement;
 import com.project.semi.admin.model.dto.RefundCustomer;
 import com.project.semi.payment.model.dto.Order;
 import com.project.semi.payment.model.dto.Payment;
@@ -32,5 +33,25 @@ public interface AdminMapper {
 
 	Payment payment(String merchantUid);
 
+	Integer findAllRefundCountByNickname(String option);
+
+	Integer findAllRefundCountByTel(String option);
+
+	Integer findAllRefundCountByMerchantUid(String option);
+	
+	Integer settlement1();
+
+	List<FeeSettlement> findCurrentPageSettlementList1(Map<String, Object> paramMap2);
+
+
+	Integer settlement2(Map<String, Object> paramMap);
+
+	List<FeeSettlement> findCurrentPageSettlementList2(Map<String, Object> paramMap );
+
+
+
+
+	
+	
 
 }

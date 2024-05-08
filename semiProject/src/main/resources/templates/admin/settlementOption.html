@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+	<!-- adminNavbar css -->
+	<link rel="stylesheet" href="/css/admin/common/adminNavbar.css">
+	<!-- adminHome css -->
+	<link rel="stylesheet" href="/css/admin/settlement.css">
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+	<th:block th:replace="~{admin/common/adminNavbar}"></th:block>
+
+	<div id="option-div">
+		<form action="/admin/settlementOption" method="post">
+			<input type="text" name="lecturer" id="option-input" placeholder="강사이름" th:value="${lecturer}">
+			<button type="button" id="settled-btn">정산</button>
+			<button 	type="button" id="unsettled-btn">미정산</button>
+			<input type="hidden" name="count" id="count-btn" th:value="${count}">
+			<button type="submit" id="option-btn"> 조회 </button>
+		</form>	
+	</div>
+	
+	<!-- -->
+	<div id="refund-container-header"> 
+		정산
+	</div>
+	
+	
+	<div id="refund-container-body">
+		<div id="left-container"></div>
+		<div id="mid-container">
+				<div id="list-title">
+					<div id="list-div1">번호</div>
+					<div id="list-div2">고객명</div>
+					<div id="list-div3">정산금액</div>
+					<div id="list-div4">정산상태</div>
+
+				</div>
+			<th:block th:each="settlement : ${currentPageSettlementList}">
+				<div class="list-content">
+
+					
+					<div th:text="${settlement.memberNickname}" 	class="list-content-div1"></div>	
+					
+					<div th:text="${settlement.lecturerMemberNo}" class="list-content-div2"></div>	
+					
+					<div th:text="${settlement.settlementAmount}" class="list-content-div3"></div>	
+					
+					<div th:text="${settlement.settlementStatus}" class="list-content-div4"></div>	
+					
+	
+				</div>
+			</th:block>
+		</div>
+		<div id="right-container"></div>		
+	</div>
+	
+	
+	
+	<!-- 페이지네이션 -->
+		<div id="pagination-div">
+			
+			<!-- 처음 -->
+			<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/settlementOption(page=1, lecturer=${lecturer}, count=${count})}"  id="first-page-a">&lt;&lt;</a>
+			<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/settlementOption(page=${currentGroupFirstPage}-1, lecturer=${lecturer}, count=${count})}" id="previous-a">&lt;</a>
+			
+			
+			
+			<!-- 중간 -->
+			<div th:if="${currentGroupLastPage != 0}" th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}" class="pagination-element">
+			    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;" class="current-page-span">Current Page</span>
+			    <a th:if="${i != currentPage}" th:href="@{/admin/settlementOption(page=${i}, lecturer=${lecturer}, count=${count})}" class="pagination-a"
+					th:text="${i}">Page Link</a>
+			    &nbsp;&nbsp;
+			</div>
+			<div th:if="${currentGroupLastPage == 0}">
+				<span style="color:#e06500;" class="current-page-span">1</span>
+			</div>
+			
+			<!-- 끝 -->
+			<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/settlementOption(page=${currentGroupLastPage}+1, 	lecturer=${lecturer}, count=${count} )}" id="next-a">&gt;</a>
+			<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/settlementOption(page=${totalPages}, lecturer=${lecturer}, count=${count})}" id="last-page-a">&gt;&gt;</a>
+		
+		</div>
+	
+	
+	
+	<script src="/js/admin/settlement.js"></script>
+	
+		
+</body>
+</html>

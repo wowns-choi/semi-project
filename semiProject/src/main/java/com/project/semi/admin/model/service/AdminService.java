@@ -16,5 +16,13 @@ public interface AdminService {
 
 	Payment payment(String merchantUid);
 
+	void findRefundList2(int page, Model model, String findOption, String option);
+
+	void settlement(Integer page, Model model);
+	
+	void settlementOption(String lecturer, Integer count, int page, Model model);
+
+
+
 
 }
