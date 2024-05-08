@@ -115,7 +115,36 @@
 		)
 	</insert>
 
+	<select id="selectMessage">
+		SELECT MESSAGE_NO, MEMBER_NO, MESSAGE_TITLE, MESSAGE_CONTENT,
+			MESSAGE_CHECK, TO_CHAR(MESSAGE_REGDATE, 'YYYY"년" MM"월" DD"일" HH24:MI:SS') MESSAGE_REGDATE, REGISTERED_MEMBER_NO
+		FROM REGISTERED_MESSAGE
+		WHERE REGISTERED_MEMBER_NO = #{registeredMemberNo}
+	</select>
 	
+	<insert id="insertMessage">
+		INSERT INTO "REGISTERED_MESSAGE"
+		VALUES(
+			SEQ_REGISTERED_MESSAGE_NO.NEXTVAL,
+			#{memberNo},
+			#{messageTitle},
+			#{messageContent},
+			DEFAULT,
+			DEFAULT,
+			#{registeredMemberNo}
+		)
+	</insert>
 	
+	<update id="updateMessage">
+		UPDATE REGISTERED_MESSAGE SET
+		MESSAGE_TITLE = #{messageTitle},
+		MESSAGE_CONTENT = #{messageContent}
+		WHERE MESSAGE_NO = #{messageNo}
+	</update>
+	
+	<delete id="deleteMessage">
+		DELETE FROM REGISTERED_MESSAGE
+		WHERE MESSAGE_NO = #{messageNo}
+	</delete>
 
 </mapper>

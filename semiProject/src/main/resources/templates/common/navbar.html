@@ -2,9 +2,11 @@
 	<div></div>
 	<div id="container">
 		<div id="icon">
+			
 			<a href="/" id="logo-box">
 				<img src="/images/logo.png" id="logo">
 			</a>
+			
 			
 			<a href="/board/all" id="free-board">
 				<!-- <i class="fa-solid fa-ellipsis-vertical" id="free-board"></i> -->
@@ -19,6 +21,20 @@
 
 		<div id="icon-box">
 			
+			<!-- <a href="#" id="message-box">
+
+				<div>
+					<i class="fa-regular fa-envelope"></i>
+					<p>1</p>
+				</div>
+			</a> -->
+
+			<th:block th:if="${session.loginMember}">
+				<div class="nav-right">
+					<div class="nav-btn" id="notification"><i class="fa-regular fa-envelope"></i> <span class="note-num">3</span></div>
+				</div>
+			</th:block>
+
 			<a href="/register/idVerification" id="class-register">
 				<i class="fa-solid fa-file-circle-plus"></i>
 				<span style="font-size: 10px; color: gray;">(강의 등록)</span>

@@ -1,8 +1,10 @@
 package com.project.semi.register.model.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.project.semi.register.model.dto.RegisterDTO;
+import com.project.semi.register.model.dto.RegisterMessage;
 
 public interface LectureRegisterService {
 
@@ -13,5 +15,11 @@ public interface LectureRegisterService {
 	int checkPassFlag(Integer memberNo);
 
 	int registerForm(RegisterDTO register)throws IllegalStateException, IOException;
+
+	RegisterMessage selectMessage(int registeredMemberNo);
+
+	RegisterMessage updateMessage(RegisterMessage message);
+
+	int deleteMessage(int messageNo);
 
 }
