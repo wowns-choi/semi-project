@@ -12,7 +12,7 @@ public interface PaymentService {
 
 	int minusRestNum(String lectureNo, String selectDate, String quantity);
 
-	Map<String, String> addOrder(Integer lectureNo, Integer totalPrice, Integer MemberNo, Integer quantity);
+	Map<String, Object> addOrder(Integer lectureNo, Integer totalPrice, Integer MemberNo, Integer quantity);
 
 	TokenResponse getAccessToken();
 

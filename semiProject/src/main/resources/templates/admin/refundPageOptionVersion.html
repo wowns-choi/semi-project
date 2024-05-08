@@ -88,15 +88,15 @@
 	<div id="pagination-div">
 		
 		<!-- 처음 -->
-		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/refund(page=1)}"  id="first-page-a">&lt;&lt;</a>
-		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/refund(page=${currentGroupFirstPage}-1)}" id="previous-a">&lt;</a>
+		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/refundByNameOrTelOrMerchantUid(page=1)}"  id="first-page-a">&lt;&lt;</a>
+		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/refundByNameOrTelOrMerchantUid(page=${currentGroupFirstPage}-1)}" id="previous-a">&lt;</a>
 		
 		
 		
 		<!-- 중간 -->
 		<div th:if="${currentGroupLastPage != 0}" th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}" class="pagination-element">
 		    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;" class="current-page-span">Current Page</span>
-		    <a th:if="${i != currentPage}" th:href="@{/admin/refund(page=${i})}" class="pagination-a"
+		    <a th:if="${i != currentPage}" th:href="@{/admin/refundByNameOrTelOrMerchantUid(page=${i})}" class="pagination-a"
 				th:text="${i}">Page Link</a>
 		    &nbsp;&nbsp;
 		</div>
@@ -105,8 +105,8 @@
 		</div>
 		
 		<!-- 끝 -->
-		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/refund(page=${currentGroupLastPage}+1)}" id="next-a">&gt;</a>
-		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/refund(page=${totalPages})}" id="last-page-a">&gt;&gt;</a>
+		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/refundByNameOrTelOrMerchantUid(page=${currentGroupLastPage}+1)}" id="next-a">&gt;</a>
+		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/refundByNameOrTelOrMerchantUid(page=${totalPages})}" id="last-page-a">&gt;&gt;</a>
 	
 	</div>
 	

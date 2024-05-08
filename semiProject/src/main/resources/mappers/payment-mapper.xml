@@ -10,7 +10,7 @@
 	</update>
 
 
-	<insert id="addOrder">
+	<insert id="addOrder" >
 		INSERT INTO LECTURE_ORDERS
 		VALUES 
 		(
@@ -24,7 +24,6 @@
 			NULL,
 			SYSDATE
 		)
-		
 	</insert>
 	
 	<update id="updateStatus">
@@ -149,7 +148,8 @@
 		INSERT INTO FEE_SETTLEMENT
 		VALUES (SEQ_FEE_SETTLEMENT_NO.NEXTVAL,
 			#{lecturerMemberNo},
-			#{totalPrice}
+			#{totalPrice},
+			DEFAULT
 		)
 	</insert>
 	

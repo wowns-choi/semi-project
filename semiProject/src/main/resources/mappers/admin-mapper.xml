@@ -129,6 +129,24 @@
 		SELECT COUNT(*) FROM REFUND_CUSTOMER
 	</select>
 	
+	<select id="findAllRefundCountByNickname">
+		SELECT COUNT(*) FROM REFUND_CUSTOMER RC
+		LEFT JOIN MEMBER M ON (RC.REFUND_CUSTOMER_MEMBER_NO = M.MEMBER_NO)
+		WHERE M.MEMBER_NICKNAME = #{memberNickaname}
+	</select>
+	
+	<select id="findAllRefundCountByTel">
+		SELECT COUNT(*) FROM REFUND_CUSTOMER RC
+		LEFT JOIN MEMBER M ON (RC.REFUND_CUSTOMER_MEMBER_NO = M.MEMBER_NO)
+		WHERE M.MEMBER_TEL = #{option}
+	</select>
+	
+	<select id="findAllRefundCountByMerchantUid">
+		SELECT COUNT(*) FROM REFUND_CUSTOMER RC
+		WHERE MERCHANT_UID = #{option}
+	</select>
+	
+	
 	<select id="findCurrentPageRefunds">
 		SELECT RC.REFUND_CUSTOMER_NO, 
 		RC.LECTURE_NO,
@@ -148,10 +166,22 @@
 		L.MEMBER_NO LECTURER_MEMBER_NO
 		
 		FROM REFUND_CUSTOMER RC
-		
+ 		 
 		LEFT JOIN MEMBER M ON (RC.REFUND_CUSTOMER_MEMBER_NO = M.MEMBER_NO)
 		
 		LEFT JOIN LECTURE L ON (RC.LECTURE_NO = L.LECTURE_NO)
+		
+		<if test=" memberNickName != null">
+   			 WHERE M.MEMBER_NICKNAME = #{memberNickName}
+ 		 </if>
+		
+		<if test="memberTel != null">
+		     WHERE M.MEMBER_TEL = #{memberTel}
+ 		 </if>
+ 		 
+ 		<if test="merchantUid != null">
+   			 WHERE RC.MERCHANT_UID = #{merchantUid}
+ 		 </if>
 				
 		ORDER BY RC.REFUND_CUSTOMER_NO DESC
 		
@@ -166,5 +196,70 @@
 		SELECT * FROM LECTURE_PAYMENTS
 		WHERE MERCHANT_UID = #{merchantUid}
 	</select>
+	
+	<select id="settlement1">
+		SELECT COUNT(*) FROM FEE_SETTLEMENT 
+	</select>
+	
+<select id="findCurrentPageSettlementList1">
+    SELECT 
+        LECTURER_MEMBER_NO, 
+        SUM(SETTLEMENT_AMOUNT) AS SETTLEMENT_AMOUNT, 
+        SETTLEMENT_STATUS
+    FROM FEE_SETTLEMENT
+    GROUP BY LECTURER_MEMBER_NO, SETTLEMENT_STATUS
+    ORDER BY MAX(FEE_SETTLEMENT_NO) DESC
+    OFFSET #{startRow} ROWS
+    FETCH NEXT #{pageSize} ROWS ONLY
+</select>
+
+
+	<select id="settlement2">
+		SELECT COUNT(*) FROM FEE_SETTLEMENT FS
+		
+		LEFT JOIN MEMBER M ON (FS.LECTURER_MEMBER_NO = M.MEMBER_NO)
+		
+		WHERE 1=1
+		<if test=" lecturer != null">
+   			 AND M.MEMBER_NICKNAME = #{lecturer}
+ 		 </if>
+  		 <if test=" count != null">
+   			 AND FS.SETTLEMENT_STATUS = #{status}
+ 		 </if>
+	</select>
+	
+		<select id="findCurrentPageSettlementList2">
+    SELECT   
+        LECTURER_MEMBER_NO, 
+        SUM(SETTLEMENT_AMOUNT) AS SETTLEMENT_AMOUNT, 
+        SETTLEMENT_STATUS 
+    FROM FEE_SETTLEMENT FS
+    LEFT JOIN MEMBER M ON FS.LECTURER_MEMBER_NO = M.MEMBER_NO		
+    WHERE 1=1
+    <if test="lecturer != null">
+        AND M.MEMBER_NICKNAME = #{lecturer}
+    </if>
+    <if test="count != null">
+        AND FS.SETTLEMENT_STATUS = #{status}
+    </if>
+    GROUP BY LECTURER_MEMBER_NO, SETTLEMENT_STATUS		 
+    ORDER BY MAX(FS.FEE_SETTLEMENT_NO) DESC
+    OFFSET #{startRow} ROWS
+    FETCH NEXT #{pageSize} ROWS ONLY
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

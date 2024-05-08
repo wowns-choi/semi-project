@@ -550,13 +550,11 @@ cardPayBtn.addEventListener('click', function(e){
 		headers : {"Content-Type" : "application/json"},
 		body : JSON.stringify(obj),
 	})
-	.then(resp => {return resp.json()})
+	.then(resp => {return resp.json();})
 	.then(data => {
-		
-		let result = data.result;
-		if(result = 1){
+	
 			let merchantUid = data.merchantUid;		
-				
+
 			// 사전 검증 시작 
 				let obj2 = {
 					'lectureNo' : lectureNo,
@@ -616,14 +614,15 @@ cardPayBtn.addEventListener('click', function(e){
 								location.href='/lecture/showLectureDetail?lectureNo=' + lectureNo;								
 							})
 						} else{
+
 							alert('결제에 실패하였습니다. 에러 내용 : ' + rsp.error_msg);
-							location.href= '/payment/paymentFail?merchantUid=' + merchantUid + '&impUid=' + rsp.imp_uid + "&selectDate=" +selectDate +'&lectureNo=' +lectureNo+ '&quantity=' + quantity;
+							location.href= '/payment/paymentFail?merchantUid=' + merchantUid + '&impUid=' + rsp.imp_uid + "&selectDate=" +selectDate +'&lectureNo=' +lectureNo+ '&quantity=' + quantity + '&lectureOrdersNo=' + lectureOrdersNo;
 						}
 					}
 				)
 			})
 		
-		}
+		
 	})
 	
 })

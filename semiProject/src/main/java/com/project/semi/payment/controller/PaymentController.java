@@ -70,26 +70,22 @@ public class PaymentController {
 	
 	@PostMapping("addOrder")
 	@ResponseBody
-	public Map<String, String> addOrder(
+	public Map<String, Object> addOrder(
 				@RequestBody Map<String, Object> map,
 				@SessionAttribute("loginMember") Member loginMember
-			) {
+			) {		
 		
-		Integer lectureNo = (Integer)map.get("lectureNo");
 
-		
-		
+		Integer lectureNo = (Integer) map.get("lectureNo");		
 		Integer totalPrice = (Integer) map.get("totalPrice");
-
-		String quantityStr = (String) map.get("quantity");
-		Integer quantity = Integer.parseInt(quantityStr);
-		
+		Integer quantity = Integer.parseInt((String)map.get("quantity"));
+				
 		log.debug("-----------=={}", lectureNo);
 		log.debug("-----------=={}", totalPrice);
 		
 		// LECTURE_ORDERS 테이블에 행 삽입
-		Map<String, String> returnMap = paymentService.addOrder(lectureNo, totalPrice, loginMember.getMemberNo(), quantity);
-		
+		Map<String, Object> returnMap = paymentService.addOrder(lectureNo, totalPrice, loginMember.getMemberNo(), quantity);
+		log.debug("returnMap==={}",  returnMap.get("merchantUid"));
 		return returnMap;
 	}
 	
@@ -98,18 +94,19 @@ public class PaymentController {
 	public Map<String,String> preValidation(
 			@RequestBody Map<String, Object> map
 			) {
-		Integer lectureNoInt = (Integer)map.get("lectureNo");
-		String lectureNo = String.valueOf(lectureNoInt);
 		
-		String quantity = String.valueOf(map.get("quantity"));
+		log.debug("사전검증 컨트롤러 입장");
+		String lectureNo =  String.valueOf((Integer)map.get("lectureNo"));		
+		String quantity =  (String) map.get("quantity");
 		
 		String selectDate = (String) map.get("selectDate");
 		
 		Integer totalPrice = (Integer)map.get("totalPrice");
+				
 
 
 		
-		String merchantUid = (String) map.get("merchantUid");
+		String merchantUid = (String)map.get("merchantUid");
 		
 		
 		log.debug("quantity===!!!!!!!!!!!!!!!!{}", quantity);
@@ -150,9 +147,11 @@ public class PaymentController {
 		
 		String impUid= (String) paramMap.get("imp_uid");
 		String merchantUid = (String) paramMap.get("merchant_uid");
-		Integer lectureNo = (Integer) paramMap.get("lectureNo");
+		Integer lectureNo = (Integer)paramMap.get("lectureNo");
 		String lectureDate = (String) paramMap.get("lectureDate");		
-		Integer totalPrice = (Integer) paramMap.get("totalPrice");
+		Integer totalPrice =  (Integer)paramMap.get("totalPrice");
+		
+		
 
 		
 		// 일단, LECTURE_ORDERS 테이블의 해당 주문 행의 status 컬럼을 Processing 으로 update 
@@ -242,6 +241,7 @@ public class PaymentController {
 	}
 	
 	
+
 	
 	
 	
