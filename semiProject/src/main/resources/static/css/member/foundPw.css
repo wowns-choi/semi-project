@@ -107,7 +107,27 @@
         
     }
 
-    input{
+    #member-name{
+        border: none;
+
+        border-bottom: 1px solid black;
+    
+        outline: none;
+   
+        width : 150px;
+
+        padding: 7px;
+        
+        transition: transform 0.3s ease;
+    }
+       
+    
+   #member-name:hover {
+        transform: scale(1.05);
+    }
+    
+    
+     #member-mail{
         border: none;
 
         border-bottom: 1px solid black;
@@ -121,9 +141,29 @@
         transition: transform 0.3s ease;
     }
     
-    input:hover {
+     #member-mail:hover {
         transform: scale(1.05);
     }
+    
+    #auth-key{
+        border: none;
+
+        border-bottom: 1px solid black;
+    
+        outline: none;
+   
+        width : 150px;
+
+        padding: 7px;
+        
+        transition: transform 0.3s ease;
+    }
+    
+     #auth-key:hover {
+        transform: scale(1.05);
+    }
+    
+    
         .input1{
             margin-right: 5vw;
         }
@@ -136,7 +176,18 @@
     
     
            
-    button{
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+   /* 버튼  */        
+    #get-auth-key-Btn{
 
         background-color: darkslategrey;
 
@@ -149,14 +200,42 @@
         background-color : 0.3s;
     }
 
-    button:hover{
+    #get-auth-key-Btn:hover{
 
             color: darkslategrey;
             background-color: #FFFFFF;
 
     }
 
-    button:active{
+   #get-auth-key-Btn:active{
+
+        color : #FFFFFF;
+        background-color: darkslategrey;
+    }
+    
+    
+    
+    #change-pw-btn{
+
+        background-color: darkslategrey;
+
+        color: #FFFFFF;
+
+        border:none;
+        border-radius: 2px;
+
+        transition: color 0.3s;
+        background-color : 0.3s;
+    }
+    
+    #change-pw-btn:hover{
+
+            color: darkslategrey;
+            background-color: #FFFFFF;
+
+    }
+    
+    #change-pw-btn:active{
 
         color : #FFFFFF;
         background-color: darkslategrey;

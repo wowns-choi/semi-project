@@ -57,7 +57,7 @@
     
 }
 
-input{
+#member-nickname{
     border: none;
     border-bottom: 1px solid black;
     outline: none;
@@ -68,13 +68,28 @@ input{
     transition: transform 0.3s ease;
 }
 
-input:hover {
+#member-nickname:hover {
     transform: scale(1.05);
-  }
+}
+
+#member-tel{
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    width : 150px;
+    padding: 7px;
+    margin-right: 10px; /* 인풋과 버튼 사이의 간격을 조정 */
+
+    transition: transform 0.3s ease;
+}
+
+#member-tel:hover {
+    transform: scale(1.05);
+}
 
 
 
-button{
+#found-id{
     background-color: darkslategrey;
     color: #FFFFFF;
     border:none;
@@ -83,12 +98,12 @@ button{
     background-color : 0.3s;
 }
 
-button:hover{
+#found-id:hover{
     color: darkslategrey;
     background-color: white;
 }
 
-button:active{
+#found-id:active{
     color: white;
     background-color: darkslategrey;
 }
