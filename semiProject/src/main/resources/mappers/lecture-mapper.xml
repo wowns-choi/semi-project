@@ -265,6 +265,7 @@
          LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
          LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
          WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+         AND LECTURE_DEL_FL = 'N'
          ORDER BY L.ENROLL_DATE DESC
    </select>
    
@@ -306,9 +307,10 @@
          LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
          LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
          LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+         WHERE LECTURE_DEL_FL = 'N'
          <if test="query != '전체' || query == null">
-            WHERE ROAD_ADDRESS LIKE '%' || #{query} || '%'
-            OR JIBUN_ADDRESS LIKE '%' || #{query} || '%'
+            AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
+            OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
          </if>
          ORDER BY L.ENROLL_DATE DESC
    </select>
@@ -353,17 +355,18 @@
          LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
          LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
          LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+         WHERE LECTURE_DEL_FL = 'N'
          <if test="(lectureCategoryNum != 0) and (query != '전체' || query == null)">
-            WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+            AND LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
             AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
             OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
          </if>
          <if test="(lectureCategoryNum != 0) and query.equals('전체')">
-            WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
+            AND LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
          </if>
          <if test="(lectureCategoryNum == 0) and (query != '전체' || query == null)">
-            WHERE ROAD_ADDRESS LIKE '%' || #{query} || '%'
-            OR JIBUN_ADDRESS LIKE '%' || #{query} || '%'
+            AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
+            OR JIBUN_ADDRESS LIKE '%' || #{query} || '%')
          </if>
          ORDER BY L.ENROLL_DATE DESC
    </select>

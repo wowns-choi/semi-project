@@ -23,4 +23,5 @@ public class RegisterMessage {
 	private String messageCheck;
 	private String messageRegdate;
 	private int registeredMemberNo;
+	private String lectureTitle;
 }
