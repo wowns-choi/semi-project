@@ -185,4 +185,10 @@
 		FROM REGISTERED_MESSAGE
 		WHERE MESSAGE_NO = #{messageNo}
 	</select>
+	
+	<update id="updateShowMessage">
+		UPDATE REGISTERED_MESSAGE SET
+		MESSAGE_CHECK = 'Y'
+		WHERE MESSAGE_NO = #{messageNo}
+	</update>
 </mapper>

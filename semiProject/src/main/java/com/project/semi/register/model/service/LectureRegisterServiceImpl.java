@@ -330,7 +330,16 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 
 	@Override
 	public RegisterMessage showMessageHref(int messageNo) {
-		return lectureRegisterMapper.showMessageHref(messageNo);
+		
+		RegisterMessage message = null;
+		
+		int result = lectureRegisterMapper.updateShowMessage(messageNo);
+		
+		if(result > 0) {
+			message = lectureRegisterMapper.showMessageHref(messageNo);
+		}
+		
+		return message;
 	}
 
 
