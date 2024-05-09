@@ -89,7 +89,8 @@ public class MemberController {
 		Member loginMember = memberService.login(memberEmail, memberPw);
 		
 		if( loginMember == null ) { // 로그인 실패
-			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다");
+			ra.addFlashAttribute("message", "아이디 또는 비밀번호가 일치하지 않습니다. \n확인 후 다시 시도해주세요.");
+			return "redirect:/";
 		}
 		
 		if( loginMember != null ) { // 로그인 성공
