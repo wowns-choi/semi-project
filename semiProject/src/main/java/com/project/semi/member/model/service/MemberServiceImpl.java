@@ -90,7 +90,6 @@ public class MemberServiceImpl implements MemberService{
 	public Member login(String memberEmail, String memberPw) {
 		// MEMBER 테이블에서 사용자가 입력한 이메일과 동일한 이메일을 가진 행을 조회.
 		Member loginMember = memberMapper.login(memberEmail);
-		log.debug("sssssssssssssss=={}", loginMember.getAuthority());
 		// 만약 일치하는 이메일이 없어서 null 인 경우
 		if(loginMember == null) {
 			return null;
