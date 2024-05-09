@@ -286,8 +286,10 @@ public class AdminServiceImpl implements AdminService{
 				// 총 개수 
 			
 				// 조회된 행의 개수. 조건에 따라 동적으로 정해짐 
-				Integer totalRows = adminMapper.settlement1(); 
 				
+
+				List<Integer> ct= adminMapper.settlement1(); 
+				Integer totalRows = ct.size();
 				
 				Integer pageSize = 10; // 페이지당 보여질 게시글 수 
 				Integer totalPages = (int)Math.ceil((double)totalRows/pageSize);
@@ -369,7 +371,9 @@ public class AdminServiceImpl implements AdminService{
 		paramMap.put("status", status);
 		
 		// 조회된 행의 개수. 조건에 따라 동적으로 정해짐 
-		Integer totalRows = adminMapper.settlement2(paramMap); 
+		 
+		List<Integer>	ct = 	adminMapper.settlement2(paramMap); 
+		Integer totalRows = ct.size();
 		
 		Integer pageSize = 10; // 페이지당 보여질 게시글 수 
 		Integer totalPages = (int)Math.ceil((double)totalRows/pageSize);

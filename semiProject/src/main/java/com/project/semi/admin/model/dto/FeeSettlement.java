@@ -13,11 +13,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder // 인스턴스 쉽게 만들게해줌.
-public class FeeSettlement {
-	
-	private Integer memberNickname;
-	private Integer lecturerMemberNo;
+public class FeeSettlement {	
+	private String memberNickname;
+	private Integer feeSettlementNo;
 	private Integer settlementAmount;
 	private String settlementStatus;
-
 }

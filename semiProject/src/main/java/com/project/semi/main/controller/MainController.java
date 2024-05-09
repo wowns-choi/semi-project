@@ -34,6 +34,8 @@ public class MainController {
 			@RequestParam(value="key", required=false, defaultValue = "전체") String query) {
 		
 		
+		log.debug("sssssssss");
+		
 		//lecture 테이블과 그 테이블과 연관된 이미지들을 가져와서 model 에 잘 담아줘야 함. 
 		
 //		List<Lecture> lectureList = lectureService.findLectures();
