@@ -1,3 +1,4 @@
+
 #navbar{
     width: 100vw;
     height: 7vh;
@@ -14,12 +15,13 @@
 }
 /* 가운데 컨테이너 */
 #navbar > div:nth-child(2){
-    flex-basis: 70%;
+    flex-basis: 38%;
 	display: flex;
-
 	align-items: center;
+	justify-content: flex-end;
 	
 }
+
 
 #icon {
     display: flex;
@@ -30,23 +32,26 @@
 }
 
 #logo {
-    height: 48px;
+    height: 40px;
 }
 
 /* #free-board {
     font-size: 25px;
 } */
 
+
 #free-board, #faq {
-    text-decoration: none;
-    color: gray;
-    font-size: 15px;
-    margin-left: 30px;
+ 	font-size: 15px;
+ 	color: black;
+ 	flex-basis: 10%;
+ 	text-decoration: none;
+ 	display: flex;
+ 	justify-content: center;
+ 	align-items: center;
+ 	margin-right: 3vw;
 }
 
-#faq {
-    margin-left: 50px;
-}
+
 
 #show-login-modal {
     background-color: darkslategray;
@@ -68,26 +73,26 @@
 }
 
 #navbar > div:nth-child(3){
-    flex-basis: 15%;
+	flex-basis: 30%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;	
 }
 
 /*----------------------클래스 등록, 클래스 관리 -----------------------------*/
 #class-register{
 	text-decoration: none;
-	margin-left: 20px;
+	margin-left: 3vw;
 	color: black;
     margin-top: 15px;
     margin-bottom: 10px;
-
 }
 #class-manage{
 	text-decoration: none;
-	margin-left: 20px;
-	margin-right: 10px;
     margin-top: 15px;
 	color: black;
     margin-bottom: 10px;
-
+	margin-left: 3vw;
 }
 
 /*-----------------------------------------------------*/
@@ -116,7 +121,6 @@
     height: auto;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
     display: none;  /* 초기 상태를 보이지 않게 설정 */
-
 }
 #update-user-info-and-logout-dropdown-child{
     width: 100%;
@@ -193,6 +197,7 @@
 }
 
 #notification i {
+	margin-left : 3vw;
     font-size: 25px;
 }
 
@@ -313,3 +318,7 @@
 #layerCloseSpan:hover{ color :grey; }
 
 #layerCloseSpan:active{ color : darkslategray; }
+
+#img-container{
+	height: 100%;
+}
