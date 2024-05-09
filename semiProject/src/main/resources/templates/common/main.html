@@ -76,7 +76,7 @@
 			<option value="전체">전체</option>
 			<option value="서울">서울</option>
 			<option value="경기">경기도</option>
-      <option value="인천">인천</option>
+			<option value="인천">인천</option>
 			<option value="강원">강원도</option>
 			<option value="충청">충청도</option>
 			<option value="전라">전라도</option>
@@ -95,10 +95,12 @@
 				</li>
 	
 				<th:block th:unless="${query}" th:each="categoryType : ${application.categoryTypeList}">
+				<label>
 					<li class="category-li">
-						<a th:text="${categoryType.categoryName}" class="category-btn" 
-						th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}"></a>
+							<a th:text="${categoryType.categoryName}" class="category-btn" 
+							th:href="@{/{lectureCategoryNum}(lectureCategoryNum=${categoryType.lectureCategoryNum})}"></a>
 					</li>
+				</label>	
 				</th:block>
 				<th:block th:if="${query}" th:each="categoryType : ${application.categoryTypeList}">
 					<li class="category-li">
