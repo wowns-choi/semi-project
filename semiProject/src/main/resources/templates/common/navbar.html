@@ -7,9 +7,7 @@
 				<img src="/images/logo.png" id="logo">
 			</a>
 			
-			
 			<a href="/board/all" id="free-board">
-				<!-- <i class="fa-solid fa-ellipsis-vertical" id="free-board"></i> -->
 				자유게시판
 			</a>
       
@@ -20,20 +18,17 @@
 		</div>
 
 		<div id="icon-box">
-			
-			<!-- <a href="#" id="message-box">
-
-				<div>
-					<i class="fa-regular fa-envelope"></i>
-					<p>1</p>
-				</div>
-			</a> -->
 
 			<th:block th:if="${session.loginMember}">
 				<div class="nav-right">
-					<div class="nav-btn" id="notification"><i class="fa-regular fa-envelope"></i> <span class="note-num">3</span></div>
+					<div class="nav-btn" id="notification"><i class="fa-regular fa-envelope" id="message-icon"></i> <span
+						 class="note-num" th:text="${session.messageCount}" id="notiSpan">3</span></div>
 				</div>
 			</th:block>
+
+			<!-- <th:block th:if="${application.messageList}">
+				<li>이게 출력되야지</li>
+			</th:block> -->
 
 			<a href="/register/idVerification" id="class-register">
 				<i class="fa-solid fa-file-circle-plus"></i>
@@ -68,7 +63,40 @@
 				<button type="button" id="show-login-modal">로그인</button>	
 			</th:block>
 		</div>
-		
+
+		<!-- 메세지 -->
+		<div id="messageLayer" class="popup-hidden">
+			<div class="popup-row">
+				번호 : <span id="layerMessageNo"></span>
+				|
+				제목 : <span id="layerMessageTitle"></span>
+	
+				<span id="layerClose">&times;</span>
+			</div>
+	
+			<div class="popup-row">
+				메세지 발송일 : <span id="layerRegDate"></span>
+			</div>
+	
+			<div class="popup-row">
+				[내용]
+				<div id="layerMessageContent"></div>
+			</div>
+		</div>
+
+		<div id="layerMessageList" class="popup-hidden">
+			<!--
+			<div class="popup-row">
+				번호 : <span id="layerMessageNo"></span>
+				|
+				제목 : <span id="layerMessageTitle"><a id="layerMessageATag"></a></span>
+			</div>
+			
+			<div class="popup-row">
+				메세지 발송일 : <span id="layerRegDate"></span>
+			</div>
+		-->
+		</div>
 	</div>
 	<div></div>
 </div>

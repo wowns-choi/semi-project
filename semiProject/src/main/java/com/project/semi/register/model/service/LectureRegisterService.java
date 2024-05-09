@@ -2,6 +2,7 @@ package com.project.semi.register.model.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import com.project.semi.register.model.dto.RegisterDTO;
 import com.project.semi.register.model.dto.RegisterMessage;
@@ -21,5 +22,15 @@ public interface LectureRegisterService {
 	RegisterMessage updateMessage(RegisterMessage message);
 
 	int deleteMessage(int messageNo);
+
+	List<RegisterMessage> selectMessageList();
+
+	int messageCount(Integer memberNo);
+
+	RegisterMessage showMessage(Integer memberNo);
+
+	List<RegisterMessage> showMessageList(Integer memberNo);
+
+	RegisterMessage showMessageHref(int messageNo);
 
 }
