@@ -41,7 +41,9 @@ public class MainController {
 			@RequestParam(value="key", required=false, defaultValue = "전체") String query,
 			HttpServletRequest request) {
 		
+
 		HttpSession session = request.getSession();
+
 		
 		int messageCount = 0;
 		

@@ -39,12 +39,12 @@ public interface AdminMapper {
 
 	Integer findAllRefundCountByMerchantUid(String option);
 	
-	Integer settlement1();
+	List<Integer> settlement1();
 
 	List<FeeSettlement> findCurrentPageSettlementList1(Map<String, Object> paramMap2);
 
 
-	Integer settlement2(Map<String, Object> paramMap);
+	List<Integer> settlement2(Map<String, Object> paramMap);
 
 	List<FeeSettlement> findCurrentPageSettlementList2(Map<String, Object> paramMap );
 
