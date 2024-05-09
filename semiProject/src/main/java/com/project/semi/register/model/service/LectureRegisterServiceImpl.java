@@ -250,13 +250,6 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 			startDate = startDate.plusDays(1);
 			paramMap.put("lectureDate", startDate);		
 		}
-		
-
-		
-		
-		
-		
-		
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -300,6 +293,48 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 	public int deleteMessage(int messageNo) {
 		return lectureRegisterMapper.deleteMessage(messageNo);
 	}
+
+	/** MessageExistInterceptor 전처리
+	 * @return messageList
+	 */
+	@Override
+	public List<RegisterMessage> selectMessageList() {
+		return lectureRegisterMapper.selectMessageList();
+	}
+
+	/** 받은 메세지 count 개인
+	 * @return messageCount
+	 */
+	@Override
+	public int messageCount(Integer memberNo) {
+		return lectureRegisterMapper.messageCount(memberNo);
+	}
+
+	@Override
+	public RegisterMessage showMessage(Integer memberNo) {
+		
+		RegisterMessage message = null;
+		
+		int result = lectureRegisterMapper.updateCheckMessage(memberNo);
+		if(result > 0) {
+			message = lectureRegisterMapper.showMessage(memberNo);
+		}
+		
+		return message;
+	}
+
+	@Override
+	public List<RegisterMessage> showMessageList(Integer memberNo) {	
+		return lectureRegisterMapper.showMessageList(memberNo);
+	}
+
+	@Override
+	public RegisterMessage showMessageHref(int messageNo) {
+		return lectureRegisterMapper.showMessageHref(messageNo);
+	}
+
+
+
 	
 
 		

@@ -42,6 +42,20 @@ public interface LectureRegisterMapper {
 
 	int deleteMessage(int messageNo);
 
+	List<RegisterMessage> selectMessageList();
+
+	int messageCount(Integer memberNo);
+
+	RegisterMessage showMessage();
+
+	RegisterMessage showMessage(Integer memberNo);
+
+	int updateCheckMessage(Integer memberNo);
+
+	List<RegisterMessage> showMessageList(Integer memberNo);
+
+	RegisterMessage showMessageHref(int messageNo);
+
 
 	
 	

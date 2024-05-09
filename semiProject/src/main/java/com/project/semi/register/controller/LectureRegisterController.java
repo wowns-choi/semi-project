@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -150,5 +151,23 @@ public class LectureRegisterController {
 	@DeleteMapping("delete")
 	public int deleteMessage(@RequestBody int messageNo) {
 		return lectureRegisterService.deleteMessage(messageNo);
+	}
+	
+	@ResponseBody
+	@GetMapping("showMessage")
+	public RegisterMessage showMessage(@SessionAttribute("loginMember") Member loginMember) {
+		return lectureRegisterService.showMessage(loginMember.getMemberNo());
+	}
+	
+	@ResponseBody
+	@GetMapping("showMessageList")
+	public List<RegisterMessage> showMessageList(@SessionAttribute("loginMember") Member loginMember) {
+		return lectureRegisterService.showMessageList(loginMember.getMemberNo());
+	}
+	
+	@ResponseBody
+	@GetMapping("showMessageHref")
+	public RegisterMessage showMessage(@RequestParam(value="messageNo", defaultValue="0") int messageNo) {
+		return lectureRegisterService.showMessageHref(messageNo);
 	}
 }
