@@ -1,11 +1,13 @@
 package com.project.semi.register.model.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.semi.main.model.dto.LectureFile;
 import com.project.semi.register.model.dto.RegisterDTO;
+import com.project.semi.register.model.dto.RegisterMessage;
 
 @Mapper
 public interface LectureRegisterMapper {
@@ -31,6 +33,28 @@ public interface LectureRegisterMapper {
 	int addLectureMap(RegisterDTO register);
 
 	void addRestNumberPerDate(Map<String, Object> paramMap);
+
+	RegisterMessage selectMessage(int registeredMemberNo);
+
+	int insertMessage(RegisterMessage message);
+
+	int updateMessage(RegisterMessage message);
+
+	int deleteMessage(int messageNo);
+
+	List<RegisterMessage> selectMessageList();
+
+	int messageCount(Integer memberNo);
+
+	RegisterMessage showMessage();
+
+	RegisterMessage showMessage(Integer memberNo);
+
+	int updateCheckMessage(Integer memberNo);
+
+	List<RegisterMessage> showMessageList(Integer memberNo);
+
+	RegisterMessage showMessageHref(int messageNo);
 
 
 	

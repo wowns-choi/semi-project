@@ -79,7 +79,8 @@
 						<div class="list-title">
 							<div class="list-title1">참여자</div>
 							<div class="list-title2">취소</div>
-							<div class="list-title3">결제 건수</div>											
+							<div class="list-title3">결제 건수</div>
+							<div class="list-title4">메세지</div>
 						</div>
 						
 						<th:block th:if="${new1.babyList != null and new1.babyList.size() > 0}"
@@ -91,8 +92,8 @@
 									<div th:text="${baby.memberNickname}"></div>		
 								</div>
 								<div class="cancel-div">
-									<div th:text="${baby.registeredMemberNo}" style="display: none;"></div>
-									<div th:text="${baby.memberNo}" style="display: none;"></div>
+									<div class="registered-member" th:text="${baby.registeredMemberNo}" style="display: none;"></div>
+									<div class="get-member" th:text="${baby.memberNo}" style="display: none;"></div>
 									<div th:text="${baby.registeredMemberFl}" style="display: none;"></div>
 									<a th:href="@{/manage/cancelRegister(lectureNo=${lecture.lectureNo}, lectureDate=${new1.lectureDateStr},
 									memberNo=${baby.memberNo}, quantity = ${baby.quantity}
@@ -100,9 +101,15 @@
 										<i class="fa-solid fa-ban" ></i>										
 									</a>
 
+
 								</div>
 								<div class="message-div">
 									<div th:text="${baby.quantity}"></div>
+								</div>
+								<div class="message-div">
+									<div class="message-send">
+										<i class="fa-regular fa-envelope"></i>
+									</div>
 								</div>
 						</div>
 						</th:block>						
@@ -118,14 +125,60 @@
 	</div>
 	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
 	
-	
+	<div id="popupLayer" class="popup-hidden">
+        <div class="popup-row">
+            번호 : <span id="popupMessageNo"></span>
+            |
+            제목 : <span id="popupMessageTitle"></span>
 
+            <span id="popupClose">&times;</span>
+        </div>
 
+        <div class="popup-row">
+            확인 여부 : <span id="popupCheck"></span>
+            |
+            등록일 : <span id="popupRegDate"></span>
+        </div>
+
+        <div class="popup-row">
+            [내용]
+            <div id="popupMessageContent"></div>
+        </div>
+
+        <div class="btn-container">
+            <button id="updateView">메세지 작성</button>
+            <button id="deleteBtn">삭제</button>
+        </div>
+    </div>
+
+	<div id="updateLayer" class="popup-hidden">
+        <div class="popup-row">
+          제목 : <input type="text" id="updateTitle">
+        </div>
+
+        <div class="popup-row">
+            <textarea id="updateContent" cols="50" rows="5"></textarea>
+        </div>
+
+        <div class="btn-container">
+            <button id="updateBtn">수정</button>     
+            <button id="updateCancel">취소</button>     
+        </div>
+    </div>
 
 	<th:block th:replace="~{common/footer}"></th:block>
+
 	<!--navbar js-->
 	<script src="/js/common/navbar.js"></script>
-	<!— 로그인 모달창 js —>
+
 	<script src="/js/common/loginModal.js"></script>
+
+	<script src="/js/management/registeredMember.js"></script>
+
+	<script th:inline="javascript">
+
+	const loginMemberNo = /*[[${session.loginMember.memberNo}]]*/ "로그인회원번호";
+
+	</script>
 </body>
 </html>

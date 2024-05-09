@@ -1,5 +1,5 @@
 const memberName = document.querySelector("#member-name");
-const memberEmail = document.querySelector("#member-email");
+const memberEmail = document.querySelector("#member-mail");
 
 const getAuthKeyBtn = document.querySelector("#get-auth-key-Btn");
 

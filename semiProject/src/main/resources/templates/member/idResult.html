@@ -6,13 +6,18 @@
     <title>아이디 검색 결과</title>
 
     <link rel="stylesheet" href="/css/member/idResult.css">
+	
 	<link rel="stylesheet" href="/css/common/navbar.css">
 	<!-- footer css -->
 	<link rel="stylesheet" href="/css/common/footer.css">
+	<!-- 로그인 모달 창 css -->
+<link rel="stylesheet" href="/css/common/loginModal.css">
 </head>
 <body>
 	
 	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
 	
 	
 	    <section class="container">
@@ -34,6 +39,8 @@
 		<th:block th:replace="~{common/footer}"></th:block>
 		<!--navbar js-->
 		<script src="/js/common/navbar.js"></script>
+		<!-- 로그인 모달창 js -->
+		<script src="/js/common/loginModal.js"></script>
 </body>
 </html>
 

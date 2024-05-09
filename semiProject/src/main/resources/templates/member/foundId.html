@@ -5,18 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>아이디 찾기</title>
 
-    <link rel="stylesheet" href="/css/member/foundId.css">
+   
+</head>
+
+	<link rel="stylesheet" href="/css/member/foundId.css">
 	
+	<!-- navbar css -->
 	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
 	
 	<!-- footer css -->
 	<link rel="stylesheet" href="/css/common/footer.css">
-</head>
+	
+	<th:block th:replace="~{common/common}"></th:block>
 <body>
    
 	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
 	
-	<form action="/member/foundId" method="POST">
+	<form action="/member/foundId" method="post">
         <section class="big-container">
 
             <div class="left-container">
@@ -46,8 +56,8 @@
 
                 <div class="right-input">
 
-                    <input placeholder="성함" id="member-nickname" name="memberNickname"><br>
-                    <input placeholder="&#39;-&#39;없이 숫자만 입력하세요" id="member-tel" name="memberTel">
+                    <input placeholder="성함" id="member-nickname" name="memberNickname" autocomplete="off"><br>
+                    <input type="text" placeholder="&#39;-&#39;없이 번호만 입력하세요" id="member-tel" name="memberTel" autocomplete="off">
                 </div>
 
                 <div>
@@ -58,9 +68,14 @@
         </section>
    </form>
 	
-   <th:block th:replace="~{common/footer}"></th:block>
-   <!--navbar js-->
-   <script src="/js/common/navbar.js"></script>
-	<!--<script src="/js/member/foundId.js"></script>   -->
+	<th:block th:replace="~{common/footer}"></th:block>
+	
+	 <!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	 
+	<script src="/js/member/foundId.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
+	
 </body>
 </html>

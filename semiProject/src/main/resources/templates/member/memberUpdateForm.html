@@ -9,6 +9,12 @@
 	<!-- navbar css -->
 	<link rel="stylesheet" href="/css/common/navbar.css">
 	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
     <link rel="stylesheet" href="../css/memberUpdateForm.css">
     <script src="https://kit.fontawesome.com/670206db20.js" crossorigin="anonymous"></script>
 </head>
@@ -16,6 +22,8 @@
 <body>
 	<!-- navbar 추가 -->
 	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
 
         <!--full-container start -->
         <div id="full-container">
@@ -247,6 +255,10 @@
 	
 	</script>
 	<th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
 
 </body>
 

@@ -2,6 +2,7 @@ const memberNickname = document.querySelector("#member-nickname");
 const memberTel = document.querySelector("#member-tel");
 const foundId = document.querySelector("#found-id");
 
+/*
 foundId.addEventListener('click', function() {
 	
 	let memberNicknameValue = memberNickname.value;
@@ -31,4 +32,10 @@ foundId.addEventListener('click', function() {
 		}
 		
 	} )
+});
+*/
+
+memberTel.addEventListener('input', function(event) {
+    // 입력된 값이 숫자가 아니면 제거
+    this.value = this.value.replace(/[^0-9]/g, '');
 });

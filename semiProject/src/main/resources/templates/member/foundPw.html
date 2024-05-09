@@ -4,11 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 찾기</title>
+	
+	<link rel="stylesheet" href="/css/member/foundPw.css">
+		
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+		
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	<th:block th:replace="~{common/common}"></th:block>
 </head>
 
-    <link rel="stylesheet" href="/css/member/foundPw.css">
+    
 <body>
     
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	
     <form action="/member/foundPw" method="POST">
         <section class="big-container">
 
@@ -40,11 +57,11 @@
                 <div class="right-input">
 					
 	                    <div>
-	                        <input placeholder="성함" class="input1" id="member-name">
+	                        <input placeholder="성함" class="input1" id="member-name" autocomplete="off">
 	                    </div>
 	                    <br>
 	                    <div class = "check">
-	                        <input placeholder="이메일" id="member-email" name = "memberEmail">
+	                        <input placeholder="이메일" id="member-mail" name = "memberEmail">
 	                        <button type="button" id="get-auth-key-Btn">인증번호 받기</button>
 	                    </div>
 					
@@ -67,6 +84,14 @@
         </section>
 		</form>
 	
+		<th:block th:replace="~{common/footer}"></th:block>	
+	
 	<script src="/js/member/foundPw.js"></script>
+	
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>	
+	
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
 </body>
 </html>

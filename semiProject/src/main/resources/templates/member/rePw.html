@@ -6,31 +6,55 @@
     <title>비밀번호 변경</title>
 
     <link rel="stylesheet" href="/css/member/newPw.css">
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
 
 </head>
 <body>
-    <form action="/member/rePw" method="POST">
+	
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	
+    <form action="/member/rePw" method="POST" id="changePw">
 	    <section class="container">
 	
 	        <div class="main-box">
-	            
+				<span id="pwFormInfo"> 영어, 숫자, 특수문자 (!,@,#,-,_) 6 ~ 20글자 이내로 입력하세요</span><br>
 	            <div class="inputs">
 	                <input type="password" class="input" placeholder="변경할 비밀번호"
-	                       id="currentPw" name="newPw"><br>
+	                       id="currentPw" name="newPw" maxlength="20"><br>
 	                <input type="password" class="input" placeholder="비밀번호 확인"
-	                       id="currentPwConf" name="newPwConf"><br>
+	                       id="currentPwConf" name="newPwConf" maxlength="20"><br>
 	                <input type="hidden" th:value="${memberEmail}" name="memberEmail">
 	            </div>
 	
 	
 	            <div class="button-box">
-	                <button type="submit" class="button">변경</button>
+	                <button type="submit" class="button" id="changePwBtn">변경</button>
 	            </div>
 	
 	        </div>
 	  
 	    </section>
 	</form>
-    <script src="/js/member/mewPw.js"></script>
+	
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
+    <script src="/js/member/newPw.js"></script>
 </body>
 </html>

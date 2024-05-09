@@ -1,22 +1,31 @@
 package com.project.semi.register.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.semi.member.model.dto.Member;
 import com.project.semi.register.model.dto.RegisterDTO;
+import com.project.semi.register.model.dto.RegisterMessage;
 import com.project.semi.register.model.service.LectureRegisterService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import retrofit2.http.PUT;
 
 @Controller
 @RequiredArgsConstructor
@@ -116,5 +125,49 @@ public class LectureRegisterController {
 		return "hello";
 	}
 	
+	@ResponseBody
+	@PostMapping("selectMessage")
+	public RegisterMessage selectMessage(@RequestBody int registeredMemberNo) {
+		
+		RegisterMessage message = lectureRegisterService.selectMessage(registeredMemberNo);
+
+		if(message == null) {
+			RegisterMessage temp = new RegisterMessage();
+			return temp;
+		}
+		
+		return message;
+	}
 	
+	@ResponseBody
+	@PostMapping("update")
+	public RegisterMessage updateMessage(@RequestBody RegisterMessage message) {
+		
+		return lectureRegisterService.updateMessage(message);
+
+	}
+	
+	@ResponseBody
+	@DeleteMapping("delete")
+	public int deleteMessage(@RequestBody int messageNo) {
+		return lectureRegisterService.deleteMessage(messageNo);
+	}
+	
+	@ResponseBody
+	@GetMapping("showMessage")
+	public RegisterMessage showMessage(@SessionAttribute("loginMember") Member loginMember) {
+		return lectureRegisterService.showMessage(loginMember.getMemberNo());
+	}
+	
+	@ResponseBody
+	@GetMapping("showMessageList")
+	public List<RegisterMessage> showMessageList(@SessionAttribute("loginMember") Member loginMember) {
+		return lectureRegisterService.showMessageList(loginMember.getMemberNo());
+	}
+	
+	@ResponseBody
+	@GetMapping("showMessageHref")
+	public RegisterMessage showMessage(@RequestParam(value="messageNo", defaultValue="0") int messageNo) {
+		return lectureRegisterService.showMessageHref(messageNo);
+	}
 }

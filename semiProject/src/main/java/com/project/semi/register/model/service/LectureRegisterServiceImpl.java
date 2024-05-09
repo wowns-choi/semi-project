@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.semi.common.util.Utility;
 import com.project.semi.main.model.dto.LectureFile;
 import com.project.semi.register.model.dto.RegisterDTO;
+import com.project.semi.register.model.dto.RegisterMessage;
 import com.project.semi.register.model.mapper.LectureRegisterMapper;
 
 import jakarta.annotation.PostConstruct;
@@ -248,16 +250,91 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 			startDate = startDate.plusDays(1);
 			paramMap.put("lectureDate", startDate);		
 		}
-		
-
-		
-		
-		
-		
-		
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public RegisterMessage selectMessage(int registeredMemberNo) {
+		return lectureRegisterMapper.selectMessage(registeredMemberNo);
+	}
+
+	@Override
+	public RegisterMessage updateMessage(RegisterMessage message) {
+		RegisterMessage temp = new RegisterMessage();
+		
+		int messageNo = message.getMessageNo();
+		
+		int result = -1;
+		
+		if(messageNo == 0) {
+			
+			result = lectureRegisterMapper.insertMessage(message);
+			
+		} else {
+			
+			result = lectureRegisterMapper.updateMessage(message);
+			
+		}
+		
+		if(result > 0) {
+			
+			return lectureRegisterMapper.selectMessage(message.getRegisteredMemberNo());
+			
+		} else {
+			
+			return temp;
+			
+		}
+				
+	}
+
+	@Override
+	public int deleteMessage(int messageNo) {
+		return lectureRegisterMapper.deleteMessage(messageNo);
+	}
+
+	/** MessageExistInterceptor 전처리
+	 * @return messageList
+	 */
+	@Override
+	public List<RegisterMessage> selectMessageList() {
+		return lectureRegisterMapper.selectMessageList();
+	}
+
+	/** 받은 메세지 count 개인
+	 * @return messageCount
+	 */
+	@Override
+	public int messageCount(Integer memberNo) {
+		return lectureRegisterMapper.messageCount(memberNo);
+	}
+
+	@Override
+	public RegisterMessage showMessage(Integer memberNo) {
+		
+		RegisterMessage message = null;
+		
+		int result = lectureRegisterMapper.updateCheckMessage(memberNo);
+		if(result > 0) {
+			message = lectureRegisterMapper.showMessage(memberNo);
+		}
+		
+		return message;
+	}
+
+	@Override
+	public List<RegisterMessage> showMessageList(Integer memberNo) {	
+		return lectureRegisterMapper.showMessageList(memberNo);
+	}
+
+	@Override
+	public RegisterMessage showMessageHref(int messageNo) {
+		return lectureRegisterMapper.showMessageHref(messageNo);
+	}
+
+
+
 	
 
 		
