@@ -199,11 +199,17 @@
 	<script th:inline="javascript">
 		const selectLocation = document.getElementById('selectLocation');
 		let lectureCategoryNum = /*[[${lectureCategoryNum}]]*/ "카테고리";
+		
+        let urlParams = new URLSearchParams(window.location.search); // 현재 URL의 파라미터 가져오기
+        let key = urlParams.get('key'); // URL에서 'key' 파라미터 값 가져오기
+
+        // 기본 선택값 설정
+        if (key !== null) {
+            selectLocation.value = key;
+        }
 
 		selectLocation.addEventListener('change', function() {
-
-			console.log(this.value);
-
+			
 			if(location.search == "") {
 
 				location.href = location.pathname + "?key=" + this.value;
@@ -211,6 +217,7 @@
 			} else {
 
 				location.href = location.pathname + "?cp=1&key=" + this.value;
+
 			}
 		})
 	</script>
