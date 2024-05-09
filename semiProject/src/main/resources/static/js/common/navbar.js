@@ -68,112 +68,120 @@ const selectMessage = (url) => {
     fetch(url)
     .then(resp => resp.json())
     .then(message => {
-        layerMessageNo.innerText = message.messageNo;
-        layerMessageTitle.innerText = message.messageTitle;
-        layerRegDate.innerText = message.messageRegdate;
-        layerMessageContent.innerText = message.messageContent;
-        messageLayer.classList.remove("popup-hidden");
-        layerMessageList.classList.add("popup-hidden");
-    });
-};
 
-
-messageIcon.addEventListener("click", () => {
-
-    console.log(notiSpan.innerText);
-
-    if(notiSpan.innerText == 0) {
-        alert("도착한 메세지가 없습니다.");
-        return;
-    }
-
-    // 한개 조회해와서 바로 보여주기
-    if(notiSpan.innerText == 1) {
-        fetch("/register/showMessage")
-        .then(resp => resp.json())
-        .then(message => {
+        if(message.messageNo == 0) {
+            alert("메세지 조회 실패");
+        } else {
             layerMessageNo.innerText = message.messageNo;
             layerMessageTitle.innerText = message.messageTitle;
-            // layerChecked.innerText = message.messageCheck;
             layerRegDate.innerText = message.messageRegdate;
             layerMessageContent.innerText = message.messageContent;
             messageLayer.classList.remove("popup-hidden");
-        })
-
-    }
-
-    if(notiSpan.innerText > 1) {
-        fetch("/register/showMessageList")
-        .then(resp => resp.json())
-        .then(messageList => {
-            layerMessageList.innerHTML = "";
-
-            const layerCloseSpan = document.createElement('span');
-            layerCloseSpan.id = 'layerCloseSpan';
-            layerCloseSpan.innerHTML = '&times;';
-
-            layerMessageList.appendChild(layerCloseSpan);
-
-            for(let message of messageList) {
-
-                const popupRow = document.createElement('div');
-                popupRow.className = 'popup-row';
-                popupRow.id = 'noLine';
-
-                // 번호(span#layerMessageNo) 엘리먼트 생성
-                let messageNo = document.createElement('span');
-                messageNo.id = 'layerMessageNo';
-                popupRow.appendChild(document.createTextNode('번호 : '));
-                messageNo.innerText = message.messageNo;
-                popupRow.appendChild(messageNo);
-                popupRow.appendChild(document.createTextNode(' | '));
-
-                // 제목(span#layerMessageTitle) 엘리먼트 생성
-                let messageTitle = document.createElement('span');
-                messageTitle.id = 'layerMessageTitle';
-                popupRow.appendChild(document.createTextNode('제목 : '));
-                popupRow.appendChild(messageTitle);
-
-                // 제목 내부의 링크(a#layerMessageATag) 엘리먼트 생성
-                let messageLink = document.createElement('a');
-                messageLink.innerText = message.messageTitle;
-                messageLink.id = 'layerMessageATag';
-                messageLink.href = "/register/showMessageHref?messageNo=" + message.messageNo;
-                messageTitle.appendChild(messageLink);
-
-                const popupRower = document.createElement('div');
-                popupRower.className = 'popup-row';
-
-                // 메세지 발송일(span#layerRegDate) 엘리먼트 생성
-                let regDate = document.createElement('span');
-                regDate.id = 'layerRegDate';
-                regDate.innerText = message.messageRegdate;
-                popupRower.appendChild(document.createTextNode('\n'));
-                popupRower.appendChild(document.createTextNode('메세지 발송일 : '));
-                popupRower.appendChild(regDate);
-
-                if(message.messageTitle) {
-                     messageLink.addEventListener("click", e => {
-                         e.preventDefault();
-                         selectMessage(e.target.href);
-                     });
-                }
-
-                layerMessageList.appendChild(popupRow);
-                layerMessageList.appendChild(popupRower);
-            }
-
-            layerMessageList.classList.remove("popup-hidden");
-
-            layerCloseSpan.addEventListener("click", () => {
             layerMessageList.classList.add("popup-hidden");
+        }
+
+    });
+};
+
+if(messageIcon != null) {
+
+    messageIcon.addEventListener("click", () => {
+    
+        console.log(notiSpan.innerText);
+    
+        if(notiSpan.innerText == 0) {
+            alert("도착한 메세지가 없습니다.");
+            return;
+        }
+    
+        // 한개 조회해와서 바로 보여주기
+        if(notiSpan.innerText == 1) {
+            fetch("/register/showMessage")
+            .then(resp => resp.json())
+            .then(message => {
+                layerMessageNo.innerText = message.messageNo;
+                layerMessageTitle.innerText = message.messageTitle;
+                // layerChecked.innerText = message.messageCheck;
+                layerRegDate.innerText = message.messageRegdate;
+                layerMessageContent.innerText = message.messageContent;
+                messageLayer.classList.remove("popup-hidden");
             })
-        })
-    }
-
-    layerMessageList.classList.add("popup-hidden");
-
-});
+    
+        }
+    
+        if(notiSpan.innerText > 1) {
+            fetch("/register/showMessageList")
+            .then(resp => resp.json())
+            .then(messageList => {
+                layerMessageList.innerHTML = "";
+    
+                const layerCloseSpan = document.createElement('span');
+                layerCloseSpan.id = 'layerCloseSpan';
+                layerCloseSpan.innerHTML = '&times;';
+    
+                layerMessageList.appendChild(layerCloseSpan);
+    
+                for(let message of messageList) {
+    
+                    const popupRow = document.createElement('div');
+                    popupRow.className = 'popup-row';
+                    popupRow.id = 'noLine';
+    
+                    // 번호(span#layerMessageNo) 엘리먼트 생성
+                    let messageNo = document.createElement('span');
+                    messageNo.id = 'layerMessageNo';
+                    popupRow.appendChild(document.createTextNode('번호 : '));
+                    messageNo.innerText = message.messageNo;
+                    popupRow.appendChild(messageNo);
+                    popupRow.appendChild(document.createTextNode(' | '));
+    
+                    // 제목(span#layerMessageTitle) 엘리먼트 생성
+                    let messageTitle = document.createElement('span');
+                    messageTitle.id = 'layerMessageTitle';
+                    popupRow.appendChild(document.createTextNode('제목 : '));
+                    popupRow.appendChild(messageTitle);
+    
+                    // 제목 내부의 링크(a#layerMessageATag) 엘리먼트 생성
+                    let messageLink = document.createElement('a');
+                    messageLink.innerText = message.messageTitle;
+                    messageLink.id = 'layerMessageATag';
+                    messageLink.href = "/register/showMessageHref?messageNo=" + message.messageNo;
+                    messageTitle.appendChild(messageLink);
+    
+                    const popupRower = document.createElement('div');
+                    popupRower.className = 'popup-row';
+    
+                    // 메세지 발송일(span#layerRegDate) 엘리먼트 생성
+                    let regDate = document.createElement('span');
+                    regDate.id = 'layerRegDate';
+                    regDate.innerText = message.messageRegdate;
+                    popupRower.appendChild(document.createTextNode('\n'));
+                    popupRower.appendChild(document.createTextNode('메세지 발송일 : '));
+                    popupRower.appendChild(regDate);
+    
+                    if(message.messageTitle) {
+                         messageLink.addEventListener("click", e => {
+                             e.preventDefault();
+                             selectMessage(e.target.href);
+                         });
+                    }
+    
+                    layerMessageList.appendChild(popupRow);
+                    layerMessageList.appendChild(popupRower);
+                }
+    
+                layerMessageList.classList.remove("popup-hidden");
+    
+                layerCloseSpan.addEventListener("click", () => {
+                layerMessageList.classList.add("popup-hidden");
+                })
+            })
+        }
+    
+        layerMessageList.classList.add("popup-hidden");
+    
+    });
+}
 
 if(layerClose != null) {
 

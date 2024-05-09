@@ -56,6 +56,8 @@ public interface LectureRegisterMapper {
 
 	RegisterMessage showMessageHref(int messageNo);
 
+	int updateShowMessage(int messageNo);
+
 
 	
 	
