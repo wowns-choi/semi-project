@@ -207,6 +207,7 @@ if(layerDeleteBtn != null) {
 
         const messageNo = layerMessageNo.innerText;
         let count = notiSpan.innerText;
+        console.log(count);
         fetch("/register/delete", {
             method : "DELETE",
             headers : {"Content-Type" : "application/json"},
@@ -216,7 +217,6 @@ if(layerDeleteBtn != null) {
         .then(result => {
             if(result > 0) {
                 alert("삭제 성공");
-                popupLayer.classList.add("popup-hidden");
                 notiSpan.innerText = count -1;
 
             } else {

@@ -17,8 +17,6 @@ const updateContent = document.querySelector("#updateContent");
 const updateBtn = document.querySelector("#updateBtn");
 const updateCancel = document.querySelector("#updateCancel");
 
-const notiSpan = document.querySelector("#notiSpan");
-
 let memberNo = 0;
 let registeredMemberNo = 0;
 
