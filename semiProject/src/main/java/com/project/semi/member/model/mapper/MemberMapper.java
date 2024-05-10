@@ -38,7 +38,7 @@ public interface MemberMapper {
 	
 	int getAuth(Member member);
 
-	Map<String, String> checkAuth();
+	Integer checkAuth();
 
 	int checkAuth(Map<String, String> map);
 

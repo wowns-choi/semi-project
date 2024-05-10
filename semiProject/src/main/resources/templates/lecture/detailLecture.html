@@ -99,15 +99,15 @@
 			<div id="div-2">
 				<div>
 					<i class="fa-regular fa-clock"></i> &nbsp;
-					<span th:text="|${startFirstTwo}시 ${startLastTwo}분 시작|"></span>
+					<span th:text="|${startFirstTwo}시 ${startLastTwo}분 시작|" id="start-span"></span>
 				</div>
 				<div>
 					<i class="fa-solid fa-hourglass-half"></i>	&nbsp;
-					<span th:text="|${lecture.howLong}시간 수업|"></span>
+					<span th:text="|${lecture.howLong}시간 수업|" id="how-long-span"></span>
 				</div>
 				<div>
 					<i class="fa-solid fa-stairs"></i>	&nbsp;
-					<span th:text="|${lectureLevelString}|"></span>					
+					<span th:text="|${lectureLevelString}|" id="lecture-level-span"></span>					
 				</div>
 			</div>
 			<div id="div-3">
@@ -163,12 +163,11 @@
 						<div style="display: flex;  align-items: center;  padding: 10px;">
 							로그인이 필요합니다 
 						</div>
-						
 					</th:block>
 				</div>
 				
 				
-				<div>				
+				<div class="datgle">				
 					<i class="fa-regular fa-comment-dots"></i>
 					댓글
 				</div>
@@ -178,12 +177,12 @@
 					<div>
 						<img th:with="user=#{user.default.image}" 
 						th:src="${review.profileImg ?: user}">
-						<div th:text="${review.memberNickname}" ></div>							
+						<div th:text="${review.memberNickname}" class="k123"></div>							
 					</div>
 					<div>
 						<div th:text="${review.reviewContent}"></div>	
 						<div th:text="${review.stringCreateDate}"></div>
-						<img th:if="${review.reviewImg}" th:src="${review.reviewImg}">
+						<img th:if="${review.reviewImg}" th:src="${review.reviewImg}" style="width: 30%; height: 16vh;">
 					</div>
 
 						<!-- =====================평소에는 숨겨져 있다가 "수정" 버튼 누르면 나오게 되는 부분 시작=============== -->
@@ -232,6 +231,7 @@
 							<img 
 								th:with="user=#{user.default.image}"
 								th:src="${session.loginMember.profileImg ?: user}"
+								style="width: 40px; height: 40px; border-radius: 50%;"
 								>
 							<textarea name="reviewContent2"  placeholder="답글을 작성해주세요" class="dapgle-textarea"></textarea> 					
 							<button type="submit" class="dapgle"><i class="fa-regular fa-paper-plane"></i></button>
@@ -305,6 +305,7 @@
 				</div>
 				
 				<div id="div-8">
+					<i class="fa-solid fa-location-dot" style="margin-right: 15px; color: coral;"></i>
 					위치
 				</div>
 				<div id="div-9">

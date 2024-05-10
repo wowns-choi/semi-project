@@ -32,17 +32,17 @@
 			</th:block> -->
 			<th:block th:if="${session.loginMember}">
 				<a href="/register/idVerification" id="class-register">
-					<i class="fa-solid fa-file-circle-plus"></i>
-					<span style="font-size: 15px;  color: black;">(강의 등록)</span>
+					<i class="fa-solid fa-file-circle-plus" style="color:coral;"></i>
+					<span style="font-size: 15px;  color: gray;">(강의 등록)</span>
 				</a>	
 				<a href="/manage/showMyLectures" id="class-manage">
-					<i class="fa-solid fa-list-check"></i>
-					<span style="font-size: 15px;  color: black;">(강의 관리)</span>
+					<i class="fa-solid fa-list-check"  style="color:coral;"></i>
+					<span style="font-size: 15px;  color: gray;">(강의 관리)</span>
 				</a>
 			</th:block>
 		
 			<!--로그인 됐을 경우-->
-			<div th:if="${session.loginMember != null}" id="img-container">
+			<div th:if="${session.loginMember != null}" id="img-container2">
 				<div id="welcome">
 					<img th:with="user=#{user.default.image}"
 						 th:src="${session.loginMember.profileImg ?: user}"
@@ -80,7 +80,7 @@
 				메세지 발송일 : <span id="layerRegDate"></span>
 			</div>
 		
-			<div class="popup-row">s
+			<div class="popup-row">
 				[내용]
 				<div id="layerMessageContent"></div>
 			</div>
@@ -98,9 +98,7 @@
 				메세지 발송일 : <span id="layerRegDate"></span>
 			</div>
 		-->
-		
-		
-	</div>
+		</div>
 	
 	<div></div>
 </div>
