@@ -275,19 +275,23 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 50px;
+	border: none;
 }
 
 #carouselExampleAutoplaying{
 	width: 60vw;
 	height: 100%;
-	   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
-	   	border-radius: 10px;
-
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5); 
+   	border-radius: 10px;
+	border: none;
 
 }
 .carousel-item{
 	border-radius: 10px;
 	height: 100%;
+	width: 100%;
+	border: none;
+
 }
 
 .carousel-inner{
@@ -301,14 +305,13 @@ body {
 #carousel1,
 #carousel2,
 #carousel3 {
-  position: relative;
-  width: 100%;    /* 컨테이너의 폭을 설정 */
-  overflow: hidden;
-background-color: black;
-height: 100%;
-border-radius: 5px;
+ 	 position: relative;
+  	width: 100%;    /* 컨테이너의 폭을 설정 */
+  	overflow: hidden;
+	background-color: black;
+	height: 100%;
+	border-radius: 5px;
 	border: none;
-
 }
 
 #carousel1 img,
