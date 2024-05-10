@@ -219,6 +219,12 @@ public class MemberController {
 			SessionStatus sessionStatus
 			) {
 		
+		String memberEmail = loginMember.getMemberEmail();
+		
+		if(memberEmail.startsWith("kakao_")) {
+			return 100;
+		}
+		
 		//log.debug("111111111111={}", map.get("pwInput"));
 		//log.debug("111111111111={}", map.get("pwConfInput"));
 		
