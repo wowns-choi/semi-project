@@ -217,11 +217,13 @@ public class MemberController {
 			@RequestBody Map<String, String> map,
 			@SessionAttribute("loginMember") Member loginMember,
 			SessionStatus sessionStatus
+		
 			) {
 		
 		String memberEmail = loginMember.getMemberEmail();
 		
 		if(memberEmail.startsWith("kakao_")) {
+			sessionStatus.setComplete();
 			return 100;
 		}
 		
