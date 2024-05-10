@@ -27,7 +27,7 @@
 	<th:block th:replace="~{common/navbar}"></th:block>
 	<!-- 로그인 모달창 추가 -->
 	<th:block th:replace="~{common/loginModal}"></th:block>
-	
+	<!-- 
 	<form action="/member/foundId" method="post">
         <section class="big-container">
 
@@ -69,6 +69,46 @@
 
         </section>
    </form>
+   -->
+   
+   
+   <form 	action="/member/foundId" method="POST">
+   <div id="big-container">
+   <div class="left-container">
+   		
+   	<div id="top-line"> </div>
+   		<div id="first-text">
+   			아이디 찾기 
+   		</div>
+   		<div id="second-text">
+   			가입 당시 사용하신 <span style="color:coral;"> 전화번호</span>				&nbsp;를 이용하여
+   			아이디를 찾을 수 있습니다.
+   		</div>
+   		
+   		<div>
+			<input placeholder="성함"			class="input1"  id="member-name" name="memberNickname" autocomplete="off"><br>
+
+   		</div>
+   
+   		<div class = "check">
+               <input type="text" placeholder="&#39;-&#39;없이 번호만 입력하세요" id="member-tel" 	name="memberTel"	autocomplete="off">
+   		</div>
+   
+   		
+   		<div>
+   		    <button id="change-pw-btn" type="submit">아이디 찾기</button>
+   		</div>
+   	                 
+   
+   	
+   	                 
+   
+   
+   
+   	
+   </div>
+   </form>
+   </div>
 	
 	<th:block th:replace="~{common/footer}"></th:block>
 	
