@@ -260,8 +260,10 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 	}
 
 	@Override
-	public RegisterMessage updateMessage(RegisterMessage message) {
+	public RegisterMessage updateMessage(RegisterMessage message, int lectureMemberNo) {
 		RegisterMessage temp = new RegisterMessage();
+		
+		message.setLectureMemberNo(lectureMemberNo);
 		
 		int messageNo = message.getMessageNo();
 		
