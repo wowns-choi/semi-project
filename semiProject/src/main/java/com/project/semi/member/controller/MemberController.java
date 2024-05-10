@@ -279,7 +279,6 @@ public class MemberController {
 	
 	@GetMapping("findMemberEmail")
 	public String foundId() {
-		
 		return "/member/foundId";
 	}
 	
@@ -292,24 +291,16 @@ public class MemberController {
 			RedirectAttributes ra
 			
 			) {
-				
 		String result = memberService.foundId(member);
-
 		String message = null;
 		if (result.equals("not correct")) {
-			
-			message = "일치하는 사용자의 정보가 없습니다. 아이디 또는 휴대폰 번호를 확인해주세요.";
-			
+			message = "일치하는 사용자의 정보가 없습니다. 이름 또는 휴대폰 번호를 확인해주세요.";
 			ra.addFlashAttribute("message", message);
-			
 			return "redirect:/member/findMemberEmail";
-						
 		}else {
-			
 			model.addAttribute("memberEmail" , result);
 			return "/member/idResult"; 
 		}
-				
 	}
 	
 	@GetMapping("idResult")
