@@ -5,106 +5,101 @@
     font-style: normal;
 }
 
-*{
+* {
     font-family: 'Pretendard-Regular';
 }
 
-.big-container{
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+#big-container{
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    width: 100vw;
+    flex-direction: column; 
+    
 }
 
 .left-container{
     border: none;
-    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
+    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+	align-items: center;
     width: 25vw;
     height: 65vh;
+	border-radius: 5%;
+}
+#top-line{
+	width: 100%;
+	height: 3vh;
+	background-color: darkslategray;
+
+	
+}
+#first-text{
+	margin-top: 15vh;
+	font-size: 30px;
+
+}
+#second-text{
+	margin-top: 10px;
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
 }
 
-.information{
-    border: 0.5px solid grey;
-    width: 20vw;
-    height: 30vh;
-    margin-top: 15vh;
+#member-name{
+	margin-top: 3vh;
+	width: 10vw;
+	height: 4vh;
+	border: 1.5px solid black;
+	padding-left: 10px;
 }
-
-.right-container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    border :none;
-    box-shadow: 1px 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 추가 */ 
-    width: 25vw;
-    height: 65vh;
-    transition: box-shadow 0.5s;
-}
-
-.right-container:hover{
-    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.5); /* 그림자 추가 */ 
-}
-
-.right-input{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    height: 30vh;
-    
-}
-
-#member-nickname{
-    border: none;
-    border-bottom: 1px solid black;
-    outline: none;
-    width : 150px;
-    padding: 7px;
-    margin-right: 10px; /* 인풋과 버튼 사이의 간격을 조정 */
-
-    transition: transform 0.3s ease;
-}
-
-#member-nickname:hover {
-    transform: scale(1.05);
-}
-
 #member-tel{
+	margin-top: 1vh;
+	width: 10vw;
+	height: 4vh;
+	border: 1.5px solid black;
+	padding-left: 10px;
+
+}
+
+#get-auth-key-Btn{
+	margin-top: 2vh;
+	width: 5vw;
+	height: 5vh;
+	background-color: darkslategray;
+	color: white;
+	cursor: pointer;
     border: none;
-    border-bottom: 1px solid black;
-    outline: none;
-    width : 150px;
-    padding: 7px;
-    margin-right: 10px; /* 인풋과 버튼 사이의 간격을 조정 */
-
-    transition: transform 0.3s ease;
+    border-radius: 5px;
+    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+	transition: color 0.4s, background-color 0.4s;
 }
-
-#member-tel:hover {
-    transform: scale(1.05);
+.input3{
+	margin-top: 4vh;
+	width: 10vw;
+	height: 4vh;
+	border: none;
+	border-bottom: 1.5px solid black;
+	outline: none;
 }
-
-
-
-#found-id{
-    background-color: darkslategrey;
-    color: #FFFFFF;
-    border:none;
-    border-radius: 2px;
-    transition: color 0.3s;
-    background-color : 0.3s;
-}
-
-#found-id:hover{
-    color: darkslategrey;
-    background-color: white;
-}
-
-#found-id:active{
-    color: white;
-    background-color: darkslategrey;
+#change-pw-btn{
+		margin-top: 2vh;
+	width: 5vw;
+	height: 5vh;
+	background-color: darkslategray;
+	color: white;
+	cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+	transition: color 0.4s, background-color 0.4s;
 }
 

@@ -141,9 +141,11 @@ public class LectureRegisterController {
 	
 	@ResponseBody
 	@PostMapping("update")
-	public RegisterMessage updateMessage(@RequestBody RegisterMessage message) {
+	public RegisterMessage updateMessage(@RequestBody RegisterMessage message,
+			@SessionAttribute("loginMember") Member loginMember) {
 		
-		return lectureRegisterService.updateMessage(message);
+		int lectureMemberNo = loginMember.getMemberNo();
+		return lectureRegisterService.updateMessage(message, lectureMemberNo);
 
 	}
 	

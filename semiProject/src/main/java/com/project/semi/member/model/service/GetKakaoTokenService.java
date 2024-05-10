@@ -47,7 +47,7 @@ public class GetKakaoTokenService {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("grant_type", "authorization_code");
         map.add("client_id", "9a9c9b276f33c0b00e56034c85cad4fb"); //앱키 중 REST API 키를 쓰면 된다. 
-        map.add("redirect_uri", "http://localhost:8080/get-auth-code");
+        map.add("redirect_uri", "http://115.90.212.22:11115/get-auth-code");
         map.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(map, headers);

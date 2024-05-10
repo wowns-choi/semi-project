@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>비밀번호 변경</title>
 
-    <link rel="stylesheet" href="/css/member/newPw.css">
+    <link rel="stylesheet" href="/css/member/rePw.css">
 	
 	<!-- navbar css -->
 	<link rel="stylesheet" href="/css/common/navbar.css">
@@ -35,11 +35,17 @@
 	        <div class="main-box">
 				<span id="pwFormInfo"> 영어, 숫자, 특수문자 (!,@,#,-,_) 6 ~ 20글자 이내로 입력하세요</span><br>
 	            <div class="inputs">
-	                <input type="password" class="input" placeholder="변경할 비밀번호"
-	                       id="currentPw" name="newPw" maxlength="20"><br>
-	                <input type="password" class="input" placeholder="비밀번호 확인"
-	                       id="currentPwConf" name="newPwConf" maxlength="20"><br>
-	                <input type="hidden" th:value="${memberEmail}" name="memberEmail">
+					<div>
+						<i class="fa-solid fa-key" id="key-icon1"></i>
+		                <input type="password" class="input"  placeholder="변경할 비밀번호"
+		                       id="currentPw" name="newPw" maxlength="20">
+				    </div>
+				    <div>
+						   <i class="fa-solid fa-key" id="key-icon2"></i>
+						   <input type="password" class="input" placeholder="비밀번호 확인"
+	                       id="currentPwConf" name="newPwConf" maxlength="20">
+				    </div>
+						   <input type="hidden" th:value="${memberEmail}" name="memberEmail">
 	            </div>
 	
 	

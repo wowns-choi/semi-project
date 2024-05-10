@@ -19,7 +19,7 @@ public interface LectureRegisterService {
 
 	RegisterMessage selectMessage(int registeredMemberNo);
 
-	RegisterMessage updateMessage(RegisterMessage message);
+	RegisterMessage updateMessage(RegisterMessage message, int lectureMemberNo);
 
 	int deleteMessage(int messageNo);
 

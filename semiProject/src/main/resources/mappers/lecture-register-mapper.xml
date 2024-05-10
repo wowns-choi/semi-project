@@ -131,7 +131,8 @@
 			#{messageContent},
 			DEFAULT,
 			DEFAULT,
-			#{registeredMemberNo}
+			#{registeredMemberNo},
+			#{lectureMemberNo}
 		)
 	</insert>
 	
