@@ -70,7 +70,6 @@ public class LectureRegisterController {
 	}
 	
 	@PostMapping("registerForm")
-	@ResponseBody
 	public String registerForm(@ModelAttribute RegisterDTO register,
 							@SessionAttribute("loginMember") Member loginMember
 			) throws IllegalStateException, IOException{
@@ -121,7 +120,7 @@ public class LectureRegisterController {
 		
 		
 		
-		return "/register/registerForm";
+		return "redirect:/";
 	}
 	
 	@ResponseBody
