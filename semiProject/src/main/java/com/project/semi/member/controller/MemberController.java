@@ -215,14 +215,20 @@ public class MemberController {
 	@ResponseBody
 	public int withdrawal(
 			@RequestBody Map<String, String> map,
-			@SessionAttribute("loginMember") Member loginMember
+			@SessionAttribute("loginMember") Member loginMember,
+			SessionStatus sessionStatus
 			) {
 		
 		//log.debug("111111111111={}", map.get("pwInput"));
 		//log.debug("111111111111={}", map.get("pwConfInput"));
 		
-		return memberService.withdrawal(map,loginMember);
+		int result = memberService.withdrawal(map,loginMember);
 		
+		if(result > 0 ) {
+			sessionStatus.setComplete();
+		}
+		
+		return result;
 	}
 	
 	
