@@ -1,17 +1,14 @@
 const pwInput = document.querySelector("#pwInput");
 const pwConfInput = document.querySelector("#pwConfInput");
 
-const withdrawalBtn = document.querySelector("#withdrawal");
-const mainBtn = document.querySelector("#main");
+const withdrawalBtn = document.querySelector("#withdrawal2");
+const mainBtn = document.querySelector("#goMain");
 
 
-withdrawalBtn.addEventListener("click", function(){
-
-
-		let obj ={
-		
-		"pwInput" : pwInput.value,
-		"pwConfInput" : pwConfInput.value
+withdrawalBtn.addEventListener('click', function(e){
+	let obj ={
+	"pwInput" : pwInput.value,
+	"pwConfInput" : pwConfInput.value
 	}
 	
 	
@@ -32,9 +29,10 @@ withdrawalBtn.addEventListener("click", function(){
 		} 	
 		
 	})
-}
 	
-);
+});
+
+
 
 mainBtn.addEventListener("click" , function(){
 	

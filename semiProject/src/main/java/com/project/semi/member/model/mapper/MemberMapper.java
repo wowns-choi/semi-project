@@ -28,7 +28,7 @@ public interface MemberMapper {
 
 	String findPw(int memberNo);
 
-	void withdrawal(int memberNo);
+	int withdrawal(int memberNo);
 
 	int newPw(Map<String, Object> paramMap);
 	
@@ -37,8 +37,6 @@ public interface MemberMapper {
 	int foundIdCount(Member member);
 	
 	int getAuth(Member member);
-
-	Integer checkAuth();
 
 	int checkAuth(Map<String, String> map);
 

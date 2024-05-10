@@ -194,6 +194,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		if (bCryptPasswordEncoder.matches(pwInput, encPw)) {
 			memberMapper.withdrawal(memberNo);
+			
 			result= 1;
 			
 		}

@@ -21,4 +21,10 @@ public class CommonController {
 		return "common/rodlswjdqh";
 	}
 	
+	@GetMapping("rhrortpsxj")
+	public String rhrortpsxj() {
+		
+		return "common/rhrortpsxj";
+	}
+	
 }

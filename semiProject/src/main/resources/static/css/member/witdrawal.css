@@ -74,6 +74,8 @@
 
                 margin-top: 3vh;
                 margin-bottom: 2vh;
+                
+                width: 300px;
             }
 
             
@@ -147,7 +149,20 @@
 
     
     
-    button{
+    #withdrawal2 {
+
+        background-color: #306D5F;
+
+        color: #FFFFFF;
+        
+        border:none;
+        border-radius: 2px;
+
+        transition: color 0.3s;
+        background-color : 0.3s;
+    }
+    
+    #goMain {
 
         background-color: #306D5F;
 
@@ -160,12 +175,19 @@
         background-color : 0.3s;
     }
 
-        button:hover{
+        #withdrawal:hover{
 
             color: #306D5F;
             background-color: white;
 
-        }  
+        }
+        
+        #goMain:hover{
+
+            color: #306D5F;
+            background-color: white;
+
+        }
         
 
 
@@ -185,3 +207,7 @@
             width :10vw;
            
         }
+
+        
+        
+        
