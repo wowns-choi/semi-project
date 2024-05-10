@@ -24,9 +24,15 @@ withdrawalBtn.addEventListener('click', function(e){
 			alert("탈퇴가 완료되었습니다.");
 			location.href = "/";
 			
-		}else {
+		}else if(result == 100){
+			alert("회원탈퇴되었습니다.");
+			location.href= "/";
+			
+		}else{
 			alert("비밀번호가 일치하지 않습니다.");
-		} 	
+		}
+		
+		 	
 		
 	})
 	
