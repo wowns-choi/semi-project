@@ -60,7 +60,6 @@ public class LectureRegisterController {
 			// 가지고 있지 않은 경우 == url 로 비정상접근한 경우 
 			ra.addFlashAttribute("message","잘못된 접근입니다");
 			return "redirect:/register/idVerification";
-			
 		}
 
 	}
@@ -122,7 +121,7 @@ public class LectureRegisterController {
 		
 		
 		
-		return "hello";
+		return "/register/registerForm";
 	}
 	
 	@ResponseBody
