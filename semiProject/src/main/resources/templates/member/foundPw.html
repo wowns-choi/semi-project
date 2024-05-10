@@ -22,69 +22,64 @@
 </head>
 
     
-<body>
+<div>
     
 	<th:block th:replace="~{common/navbar}"></th:block>
 	<!-- 로그인 모달창 추가 -->
 	<th:block th:replace="~{common/loginModal}"></th:block>
 	
-    <form action="/member/foundPw" method="POST">
-        <section class="big-container">
+	<form 	action="/member/foundPw" method="POST">
+	<div id="big-container">
+		<div class="left-container">
+			
+			<div id="top-line"> </div>
+			<div id="first-text">
+				비밀번호 찾기
+			</div>
 
-            <div class="left-container">
-
-                <pre class="information">
-                    
-                    <b>비밀번호 찾기</b>
-
-                    비밀번호를 잃어버리셨나요 ?
-                    
-                    
-                    가입 당시 사용하신 이메일을 이용하여
-                    비밀번호를 찾을 수 있습니다.
-
-                    
-                    ※ 서비스 이용 시, 불편하신 상황에는 
-                    고객센터로 문의해주세요
-                    
-                    고객센터 : 010 - 6702 - 5246
-                </pre>
-                
-
-                
-            </div>
-
-            <div class="right-container">
-
-                <div class="right-input">
-					
-	                    <div>
-	                        <input placeholder="성함" class="input1" id="member-name" autocomplete="off">
-	                    </div>
-	                    <br>
-	                    <div class = "check">
-	                        <input placeholder="이메일" id="member-mail" name = "memberEmail">
-	                        <button type="button" id="get-auth-key-Btn">인증번호 받기</button>
-	                    </div>
-					
-					<br>
-					
-					
-                    <div>
-                        <input placeholder="인증번호 6자리" class="input3" id="auth-key" name ="checkAuthKey">
-                    </div>
-                </div>
-                
-                
-                
-                <div>
-                    <button id="change-pw-btn" type="submit">비밀번호 변경</button>
-                </div>
+			<div id="second-text">
+				가입 당시 사용하신 <span style="color:coral;"> 이메일</span>				&nbsp;을 이용하여
+				비밀번호를 찾을 수 있습니다.
+			</div>
+			
+			<div>
+			    <input placeholder="성함" class="input1" id="member-name" autocomplete="off">
+			</div>
+			
+			<br>
+			
+			<div class = "check">
+			    <input placeholder="이메일" id="member-mail" name = "memberEmail">
+			    <button type="button" id="get-auth-key-Btn">인증번호 받기</button>
+			</div>
+			
+			<div>
+			    <input placeholder="인증번호 6자리" class="input3" id="auth-key" name ="checkAuthKey">
+			</div>
+			
+			<div>
+			    <button id="change-pw-btn" type="submit">비밀번호 변경</button>
+			</div>
+		                 
+		                 
+			<div>
+				※ 서비스 이용 시, 불편하신 상황에는 
+				고객센터로 문의해주세요
 				
-            </div>
+				고객센터 : 010 - 6702 - 5246
+			</div>
+		
+		                 
 
-        </section>
-		</form>
+
+
+		
+	</div>
+	</form>
+    </div>
+         
+
+
 	
 		<th:block th:replace="~{common/footer}"></th:block>	
 	

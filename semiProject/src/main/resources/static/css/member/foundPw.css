@@ -5,240 +5,53 @@
     font-style: normal;
 }
 
-*{
+* {
     font-family: 'Pretendard-Regular';
 }
 
+body {
+    margin: 0;
+    padding: 0;
+}
 
-.big-container{
 
+#big-container{
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     height: 100vh;
+    width: 100vw;
+    flex-direction: column; 
+    
 }
 
 .left-container{
-
     border: none;
-    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.5); /* 그림자 추가 */
-
+    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
     display: flex;
-
-    justify-content: center;
-    
-    
+    flex-direction: column;
+	align-items: center;
     width: 25vw;
     height: 65vh;
-
-
+	border-radius: 5%;
 }
+#top-line{
+	width: 100%;
+	height: 3vh;
+	background-color: darkslategray;
 
-    .information{
-
-        border: 0.5px solid grey;
-
-        width: 20vw;
-        height: 30vh;
-
-
-        margin-top: 15vh;
-    }
-
-    /* .line{
-
-        width: 250px;
-        height: 2px; 
-        
-        background: #306D5F;
-        }
-    */
-.right-container{
-
-    display: flex;
-
-    justify-content: center;
-    
-    flex-direction: column;
-
-    align-items: center;
-
-    border :none;
-    box-shadow: 1px 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 추가 */ 
-
-    width: 25vw;
-    height: 65vh;
-
-    transition: box-shadow 0.5s;
+	
 }
-
-.right-container:hover{
-    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.5); /* 그림자 추가 */ 
+#first-text{
+	margin-top: 10vh;
+	font-size: 30px;
+	
 }
-/* .main-box{
-
-    border: none;
-    box-shadow: 1px 6px 12px rgba(0, 0, 0, 0.2); 그림자
-
-    display: flex;
-
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 30vw;
-    height: 60vh;
-    transition: box-shadow 0.3s;
-
-
-} */
-    .right-input{
-
-        display: flex;
-       
-        flex-direction: column;
-        align-items: center;
-        
-    
-        height: 30vh;
-
-        margin-top:5vh;
-        
-    }
-
-    #member-name{
-        border: none;
-
-        border-bottom: 1px solid black;
-    
-        outline: none;
-   
-        width : 150px;
-
-        padding: 7px;
-        
-        transition: transform 0.3s ease;
-    }
-       
-    
-   #member-name:hover {
-        transform: scale(1.05);
-    }
-    
-    
-     #member-mail{
-        border: none;
-
-        border-bottom: 1px solid black;
-    
-        outline: none;
-   
-        width : 150px;
-
-        padding: 7px;
-        
-        transition: transform 0.3s ease;
-    }
-    
-     #member-mail:hover {
-        transform: scale(1.05);
-    }
-    
-    #auth-key{
-        border: none;
-
-        border-bottom: 1px solid black;
-    
-        outline: none;
-   
-        width : 150px;
-
-        padding: 7px;
-        
-        transition: transform 0.3s ease;
-    }
-    
-     #auth-key:hover {
-        transform: scale(1.05);
-    }
-    
-    
-        .input1{
-            margin-right: 5vw;
-        }
-        .input2{
-            margin-right: 5vw;
-        }
-        .input3{
-            margin-right: 5vw;
-        }
-    
-    
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-   /* 버튼  */        
-    #get-auth-key-Btn{
-
-        background-color: darkslategrey;
-
-        color: #FFFFFF;
-
-        border:none;
-        border-radius: 2px;
-
-        transition: color 0.3s;
-        background-color : 0.3s;
-    }
-
-    #get-auth-key-Btn:hover{
-
-            color: darkslategrey;
-            background-color: #FFFFFF;
-
-    }
-
-   #get-auth-key-Btn:active{
-
-        color : #FFFFFF;
-        background-color: darkslategrey;
-    }
-    
-    
-    
-    #change-pw-btn{
-
-        background-color: darkslategrey;
-
-        color: #FFFFFF;
-
-        border:none;
-        border-radius: 2px;
-
-        transition: color 0.3s;
-        background-color : 0.3s;
-    }
-    
-    #change-pw-btn:hover{
-
-            color: darkslategrey;
-            background-color: #FFFFFF;
-
-    }
-    
-    #change-pw-btn:active{
-
-        color : #FFFFFF;
-        background-color: darkslategrey;
-    }
+#second-text{
+	margin-top: 10px;
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+}
 
 

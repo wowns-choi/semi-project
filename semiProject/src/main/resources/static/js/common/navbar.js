@@ -16,7 +16,7 @@ loginModalX.addEventListener('click', function(e){
 })
 
 document.addEventListener("DOMContentLoaded", function() {
-	let imgContainer = document.querySelector('#img-container');
+	let imgContainer = document.querySelector('#img-container2');
     var welcomeElement = document.getElementById('welcome');
     var dropdownMenu = document.getElementById('update-user-info-and-logout-dropdown');
 
@@ -148,6 +148,8 @@ if(messageIcon != null) {
                     messageLink.innerText = message.messageTitle;
                     messageLink.id = 'layerMessageATag';
                     messageLink.href = "/register/showMessageHref?messageNo=" + message.messageNo;
+                    messageLink.style.textDecoration = 'none';
+                    messageLink.style.color = 'black';
                     messageTitle.appendChild(messageLink);
     
                     const popupRower = document.createElement('div');
