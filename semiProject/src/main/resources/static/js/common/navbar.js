@@ -195,3 +195,34 @@ if(layerClose != null) {
         layerMessageList.classList.remove("popup-hidden");
     });
 }
+
+const layerDeleteBtn = document.querySelector("#layerDeleteBtn");
+
+if(layerDeleteBtn != null) {
+
+    layerDeleteBtn.addEventListener("click", () => {
+        if(!confirm("정말 삭제하시겠습니까?")) {
+            return;
+        }
+
+        const messageNo = layerMessageNo.innerText;
+        let count = notiSpan.innerText;
+        fetch("/register/delete", {
+            method : "DELETE",
+            headers : {"Content-Type" : "application/json"},
+            body : messageNo
+        })
+        .then(resp => resp.text())
+        .then(result => {
+            if(result > 0) {
+                alert("삭제 성공");
+                popupLayer.classList.add("popup-hidden");
+                notiSpan.innerText = count -1;
+
+            } else {
+                alert("삭제 실패");
+            }
+        });
+        messageLayer.classList.add("popup-hidden");
+    })
+}

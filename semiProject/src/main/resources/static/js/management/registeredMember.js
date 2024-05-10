@@ -17,6 +17,8 @@ const updateContent = document.querySelector("#updateContent");
 const updateBtn = document.querySelector("#updateBtn");
 const updateCancel = document.querySelector("#updateCancel");
 
+const notiSpan = document.querySelector("#notiSpan");
+
 let memberNo = 0;
 let registeredMemberNo = 0;
 
@@ -24,7 +26,7 @@ document.querySelectorAll('.message-send').forEach(function(messageLink) {
         // 각 링크에 클릭 이벤트 리스너 추가
         messageLink.addEventListener('click', function(event) {
         // 이벤트의 기본 동작을 중지
-        // event.preventDefault();
+        event.preventDefault();
         popupMessageNo.innerText = "";
         popupMessageTitle.innerText = "";
         popupCheck.innerText = "";
@@ -117,7 +119,6 @@ if(updateBtn != null) {
     
             if(message.messageNo != 0) {
                 alert("메세지가 전송되었습니다.");
-
                 updateLayer.classList.add("popup-hidden");
     
                 popupMessageNo.innerText = message.messageNo;

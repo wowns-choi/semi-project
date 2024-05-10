@@ -231,16 +231,35 @@
 .popup-row{
 	padding: 10px;
 	margin: 10px;
-	border-bottom: 1px solid grey;
+	/* border-bottom: 1px solid grey; */
 	/* 위치의 상대적 기준점 */
 	position : relative;
 	width: 90%;
 }
 
+.popup-text {
+    color: lightgray;
+}
 
-
-.popup-row > span {
+#layerMessageNo{
+    padding-left: 20px;
 	color: black;
+}
+
+#layerMessageTitle {
+    padding-left: 20px;
+    color: black;
+}
+
+
+#layerRegDate {
+    padding-left: 20px;
+    color: black;
+}
+
+#layerMessageContent {
+    padding-top: 10px;
+    color: black;
 }
 
 .popup-hidden{ display: none !important; }
