@@ -32,10 +32,11 @@
 	<!-- 로그인 모달창 추가 -->
 	<th:block th:replace="~{common/loginModal}"></th:block>
 	
+	
 		<section class="big-container">
 
 
-
+		
 			<div class="small-container">
 
 				<div class="left-container">
@@ -61,7 +62,7 @@
 				</div>
 
 				<div class="right-container">
-
+				<div class="line"></div>
 					<div class="notice">
 
 						<br>
@@ -72,7 +73,9 @@
 
 						&nbsp;※ 탈퇴된 회원의 정보는 30일간 유지됩니다.<br>
 					</div>
-
+				
+				
+					
 					<div class="input-container">
 
 						<div class="info-input">
@@ -85,16 +88,18 @@
 
 					<br>
 
-					<div class="info-button">
-						<button type="button" id="withdrawal">탈퇴하기</button>
-						<button type="button" id="main">메인으로</button>
+					<div id="info-button">
+						<div class="line2"></div>
+						
+						<button type="button" id="withdrawal2">탈퇴하기</button>
+						<button id="goMain">메인으로</button>
 					</div>
 
 				</div>
+			
+			</section>
+			
 
-
-		</section>
-		
 		<th:block th:replace="~{common/footer}"></th:block>
 		 	
 		<script src="/js/member/member.js"></script>

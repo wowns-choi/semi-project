@@ -225,6 +225,7 @@ public class MemberController {
 		
 	}
 	
+	
 	@GetMapping("password-validation")
 	public String changePassword() {
 		
@@ -347,12 +348,14 @@ public class MemberController {
 		if (result > 0 ) {
 			
 			model.addAttribute("memberEmail",memberEmail);
-			
 			return "/member/rePw";
-			
+		}else {
+			ra.addFlashAttribute("message", "성함, 이메일, 인증번호란을 확인해주세요.");
+		
+			return "redirect:/member/findMemberPw";
 		}
 		
-		return null;
+		
 	}
 	
 	@PostMapping("/rePw")
@@ -362,12 +365,9 @@ public class MemberController {
 			@RequestParam("memberEmail") String memberEmail,
 			RedirectAttributes ra
 			) {
-		
-		
+			
 		int result = memberService.rePw(newPw,memberEmail);
-		
-		
-		
+				
 		if(result > 0) {
 			
 			return "redirect:/" ;
