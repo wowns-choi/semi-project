@@ -25,4 +25,6 @@ public class RegisterMessage {
 	private int registeredMemberNo;
 	private String lectureTitle;
 	private int lectureMemberNo;
+	private String memberNickname;
+	private String profileImg;
 }

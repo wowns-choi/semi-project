@@ -139,8 +139,28 @@ if(updateBtn != null) {
 
 if(deleteBtn != null) {
     deleteBtn.addEventListener("click", () => {
-        if(!confirm("정말 삭제하시겠습니까?")) {
-            return;
+        // if(!confirm("정말 삭제하시겠습니까?")) {
+        //     return;
+        // }
+
+        if(confirm("정말 삭제하시겠습니까?")) {
+            fetch("/register/delete", {
+                method : "DELETE",
+                headers : {"Content-Type" : "application/json"},
+                body : messageNo
+            })
+            .then(resp => resp.text())
+            .then(result => {
+                if(result > 0) {
+                    alert("삭제 성공");
+                    popupLayer.classList.add("popup-hidden");
+    
+                } else {
+                    alert("삭제 실패");
+                }
+            });
+        } else {
+            
         }
 
         const messageNo = popupMessageNo.innerText;

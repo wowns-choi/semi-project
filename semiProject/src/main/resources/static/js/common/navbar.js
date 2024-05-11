@@ -54,7 +54,9 @@ const messageLayer = document.querySelector("#messageLayer");
 const layerMessageNo = document.querySelector("#layerMessageNo");
 const layerMessageTitle = document.querySelector("#layerMessageTitle");
 const layerClose = document.querySelector("#layerClose");
-// const layerChecked = document.querySelector("#layerChecked");
+const lecturerProfile = document.querySelector("#lecturer-profile");
+const lecturerProfileImg = document.querySelector("#lecturer-profileImg");
+const lecturerNickname = document.querySelector("#lecturer-nickname");
 const layerRegDate = document.querySelector("#layerRegDate");
 const layerMessageContent = document.querySelector("#layerMessageContent");
 
@@ -103,7 +105,8 @@ if(messageIcon != null) {
             .then(message => {
                 layerMessageNo.innerText = message.messageNo;
                 layerMessageTitle.innerText = message.messageTitle;
-                // layerChecked.innerText = message.messageCheck;
+                lecturerProfileImg.src = message.profileImg;
+                lecturerNickname.innerText = message.memberNickname;
                 layerRegDate.innerText = message.messageRegdate;
                 layerMessageContent.innerText = message.messageContent;
                 messageLayer.classList.remove("popup-hidden");
