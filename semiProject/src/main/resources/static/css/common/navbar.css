@@ -347,3 +347,11 @@
 #img-container2{
 	height: 100%;
 }
+
+/* ---------------------------- */
+
+#lecturer-profileImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}

@@ -26,10 +26,6 @@
 				</div>
 			</th:block>
 			
-		
-			<!-- <th:block th:if="${application.messageList}">
-				<li>이게 출력되야지</li>
-			</th:block> -->
 			<th:block th:if="${session.loginMember}">
 				<a href="/register/idVerification" id="class-register">
 					<i class="fa-solid fa-file-circle-plus" style="color:coral;"></i>
@@ -70,10 +66,16 @@
 		<div id="messageLayer" class="popup-hidden">
 			<div class="popup-row">
 				번호 : <span id="layerMessageNo"></span>
-				|
-				제목 : <span id="layerMessageTitle"></span>
+				<span id="lecturer-profile">
+					<img id="lecturer-profileImg">
+				</span>
+				<span id="lecturer-nickname"></span>
 		
 				<span id="layerClose">&times;</span>
+			</div>
+
+			<div>
+				제목 : <span id="layerMessageTitle"></span>
 			</div>
 		
 			<div class="popup-row">
