@@ -64,27 +64,35 @@
 		
 		<!-- 메세지 -->
 		<div id="messageLayer" class="popup-hidden">
+			<div class="first-line"></div>
+
 			<div class="popup-row">
-				번호 : <span id="layerMessageNo"></span>
+				<span id="layerMessageNo" style="display: none;"></span>
+				<span id="layerClose">&times;</span>
+			</div>
+			
+			<div id="send-people">
+				보낸 사람 : &nbsp;
 				<span id="lecturer-profile">
 					<img id="lecturer-profileImg">
 				</span>
-				<span id="lecturer-nickname"></span>
-		
-				<span id="layerClose">&times;</span>
+				&nbsp;
+				&nbsp;
+				<span id="lecturer-nickname" style="color: black;"></span>
 			</div>
 
-			<div>
-				제목 : <span id="layerMessageTitle"></span>
+			<div id="title-div-message">
+				제목 : <span id="layerMessageTitle" style="color:gray;"-></span>
 			</div>
 		
 			<div class="popup-row">
-				메세지 발송일 : <span id="layerRegDate"></span>
+				내용 : 
+				<div id="layerMessageContent" style="color:gray;"></div>
 			</div>
-		
+			
 			<div class="popup-row">
-				[내용]
-				<div id="layerMessageContent"></div>
+				<span style="font-size: 11px; color: black;"> 메세지 발송일 : </span>
+				<span id="layerRegDate" style="font-size: 11px; color: coral;"></span>
 			</div>
 
 			<div class="btn-container">
@@ -103,7 +111,7 @@
 			<div class="popup-row">
 				메세지 발송일 : <span id="layerRegDate"></span>
 			</div>
-		-->
+			-->
 		</div>
 	
 	<div></div>

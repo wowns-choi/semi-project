@@ -37,9 +37,6 @@
 		<div></div>		
 	</div>
 	
-	
-	
-	
 	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
 
 	<div id="full-container">
@@ -128,32 +125,35 @@
 	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
 	
 	<div id="popupLayer" class="popup-hidden">
+		<div class="first-line"></div>
         <div class="popup-row">
-            번호 : <span id="popupMessageNo"></span>
-            |
-            제목 : <span id="popupMessageTitle"></span>
-
+            <span id="popupMessageNo" style="display: none;"></span>
             <span id="popupClose">&times;</span>
         </div>
-
+		
         <div class="popup-row">
-            확인 여부 : <span id="popupCheck"></span>
-            |
-            등록일 : <span id="popupRegDate"></span>
+			제목 : <span id="popupMessageTitle"></span>
         </div>
-
+		
         <div class="popup-row">
-            [내용]
-            <div id="popupMessageContent"></div>
+            내용 :
+            <span id="popupMessageContent"></span>
         </div>
-
+		
+		<div calss="popup-row" style="display: flex; align-items: center; font-size: 11px; margin-top: 10vh; margin-left: 10px; padding:10px;">
+			확인 여부 : &nbsp; <span id="popupCheck" style="color: coral;"></span> &nbsp; 			&nbsp;
+			등록일 : &nbsp;<span id="popupRegDate" style="color: coral;"></span>
+		</div>
+		
         <div class="btn-container">
             <button id="updateView">메세지 작성</button>
             <button id="deleteBtn">삭제</button>
         </div>
+		
     </div>
 
 	<div id="updateLayer" class="popup-hidden">
+		<div class="first-line"></div>
         <div class="popup-row">
           제목 : <input type="text" id="updateTitle">
         </div>
@@ -170,7 +170,6 @@
 
 	<th:block th:replace="~{common/footer}"></th:block>
 
-	<!--navbar js-->
 	<script src="/js/common/navbar.js"></script>
 
 	<script src="/js/common/loginModal.js"></script>

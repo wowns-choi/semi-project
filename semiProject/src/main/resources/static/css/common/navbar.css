@@ -216,6 +216,8 @@
     height: 400px;
     background-color: white;
 	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3); /* 그림자 효과 추가 */
+    border-bottom-left-radius: 10%;
+    border-bottom-right-radius: 10%;
     position: fixed; /* 브라우저에서 위치 고정 */
     /* 브라우저 정가운데 배치 */
     margin: auto;
@@ -226,6 +228,16 @@
 	
     display: flex;
     flex-direction: column;
+}
+.first-line{
+	width: 100%;
+	height: 3vh;
+	background-color: darkslategray;
+}
+#send-people{
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
 }
 
 .popup-row{
@@ -246,19 +258,24 @@
 	color: black;
 }
 
+#title-div-message{
+	margin-top: 2vh;
+	padding-left: 20px;
+}
+
 #layerMessageTitle {
-    padding-left: 20px;
+    margin-left: 20px;
     color: black;
+    
 }
 
 
 #layerRegDate {
-    padding-left: 20px;
+    padding-left: 5px;
     color: black;
 }
 
 #layerMessageContent {
-    padding-top: 10px;
     color: black;
 }
 
@@ -302,22 +319,41 @@
     color: darkslategray;
 } */
 
+.btn-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#layerDeleteBtn{
+	width: 5vw;
+	height: 4vh;
+	background-color: white;
+	border: none;
+	border: 1px solid lightgray;
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 10%;
+	cursor: pointer;
+	font-size: 14px;
+	transition: background-color 0.3s, color 0.3s;
+}
+#layerDeleteBtn:hover{
+	background-color: darkslategray;
+	color: white;
+}
+
 #layerMessageList {
     width: 400px;
     height: 400px;
     background-color: white;
     border-radius: 3px;
 	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3); /* 그림자 효과 추가 */
-
     position: fixed; /* 브라우저에서 위치 고정 */
-
     /* 브라우저 정가운데 배치 */
     margin: auto;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-
     display: flex;
     flex-direction: column;
 }
@@ -339,17 +375,12 @@
   
     cursor: pointer; /* 커서 손가락 모양 */
 }
-
 #layerCloseSpan:hover{ color :grey; }
-
 #layerCloseSpan:active{ color : darkslategray; }
-
 #img-container2{
 	height: 100%;
 }
-
 /* ---------------------------- */
-
 #lecturer-profileImg {
     width: 40px;
     height: 40px;
