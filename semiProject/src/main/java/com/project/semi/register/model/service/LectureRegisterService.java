@@ -33,4 +33,8 @@ public interface LectureRegisterService {
 
 	RegisterMessage showMessageHref(int messageNo);
 
+	int onesideDelete(int messageNo);
+
+	int deleteStudent(int messageNo);
+
 }

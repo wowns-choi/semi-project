@@ -170,4 +170,20 @@ public class LectureRegisterController {
 	public RegisterMessage showMessage(@RequestParam(value="messageNo", defaultValue="0") int messageNo) {
 		return lectureRegisterService.showMessageHref(messageNo);
 	}
+	
+	@ResponseBody
+	@PostMapping("onesideDelete")
+	public int onesideDelete(@RequestBody int messageNo) {
+		return lectureRegisterService.onesideDelete(messageNo);
+	}
+	
+	/** 학생 쪽 메세지 삭제 경우
+	 * @param messageNo
+	 * @return result
+	 */
+	@ResponseBody
+	@PostMapping("deleteStudent")
+	public int deleteStudent(@RequestBody int messageNo) {
+		return lectureRegisterService.deleteStudent(messageNo);
+	}
 }

@@ -140,10 +140,51 @@ if(updateBtn != null) {
 if(deleteBtn != null) {
     deleteBtn.addEventListener("click", () => {
         // if(!confirm("정말 삭제하시겠습니까?")) {
-        //     return;
+        //     
         // }
 
-        if(confirm("정말 삭제하시겠습니까?")) {
+        // if(confirm("정말 삭제하시겠습니까? ()")) {
+        //     fetch("/register/delete", {
+        //         method : "DELETE",
+        //         headers : {"Content-Type" : "application/json"},
+        //         body : messageNo
+        //     })
+        //     .then(resp => resp.text())
+        //     .then(result => {
+        //         if(result > 0) {
+        //             alert("삭제 성공");
+        //             popupLayer.classList.add("popup-hidden");
+    
+        //         } else {
+        //             alert("삭제 실패");
+        //         }
+        //     });
+        // } else {
+            
+        // }
+        
+        const messageNo = popupMessageNo.innerText;
+        
+        if(popupCheck.innerText == 'N') {
+            if(!confirm("정말 삭제하시겠습니까? (확인 클릭 시 상대방에게서도 메세지가 삭제됩니다.)")) {
+                // 취소 클릭시 강사쪽에서만 안보이게
+                fetch("/register/onesideDelete", {
+                    method : "POST",
+                    headers : {"Content-Type" : "application/json"},
+                    body : messageNo
+                })
+                .then(resp => resp.text())
+                .then(result => {
+                    if(result > 0) {
+                        alert("메세지가 삭제되었습니다.");
+                        popupLayer.classList.add("popup-hidden");
+                    } else {
+                        alert("삭제 실패");
+                    }
+                })
+    
+            }
+    
             fetch("/register/delete", {
                 method : "DELETE",
                 headers : {"Content-Type" : "application/json"},
@@ -159,23 +200,23 @@ if(deleteBtn != null) {
                     alert("삭제 실패");
                 }
             });
-        } else {
-            
+
         }
 
-        const messageNo = popupMessageNo.innerText;
+        if(!confirm("정말 삭제하시겠습니까?")) {
+            return;
+        }
 
-        fetch("/register/delete", {
-            method : "DELETE",
+        fetch("/register/onesideDelete", {
+            method : "POST",
             headers : {"Content-Type" : "application/json"},
             body : messageNo
         })
         .then(resp => resp.text())
         .then(result => {
             if(result > 0) {
-                alert("삭제 성공");
+                alert("메세지가 삭제되었습니다.");
                 popupLayer.classList.add("popup-hidden");
-
             } else {
                 alert("삭제 실패");
             }

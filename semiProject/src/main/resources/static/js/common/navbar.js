@@ -211,8 +211,8 @@ if(layerDeleteBtn != null) {
         const messageNo = layerMessageNo.innerText;
         let count = notiSpan.innerText;
         console.log(count);
-        fetch("/register/delete", {
-            method : "DELETE",
+        fetch("/register/deleteStudent", {
+            method : "POST",
             headers : {"Content-Type" : "application/json"},
             body : messageNo
         })
