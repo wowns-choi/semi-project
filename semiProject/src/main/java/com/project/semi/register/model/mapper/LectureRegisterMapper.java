@@ -58,6 +58,14 @@ public interface LectureRegisterMapper {
 
 	int updateShowMessage(int messageNo);
 
+	int onesideDelete(int messageNo);
+
+	int selectDeleteCount(int messageNo);
+
+	int selectLCount(int messageNo);
+
+	int studentSidDelete(int messageNo);
+
 
 	
 	

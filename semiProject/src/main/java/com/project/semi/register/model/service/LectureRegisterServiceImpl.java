@@ -344,6 +344,35 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 		return message;
 	}
 
+	@Override
+	public int onesideDelete(int messageNo) {
+		
+		// 학생이 지웠는지 확인 후 지워졌다면 아예 delete 아니라면 L 표시
+		int count = lectureRegisterMapper.selectDeleteCount(messageNo);
+		
+		if(count > 0) {
+			lectureRegisterMapper.deleteMessage(messageNo);
+			return count;
+		} else {
+			return lectureRegisterMapper.onesideDelete(messageNo);			
+		}
+		
+	}
+
+	@Override
+	public int deleteStudent(int messageNo) {
+
+		// 강사가 지웠는지 확인 후 지워졌다면 아예 delete 아니라면 S 표시
+		int count = lectureRegisterMapper.selectLCount(messageNo);
+		
+		if(count > 0) {
+			lectureRegisterMapper.deleteMessage(messageNo);
+			return count;
+		} else {
+			return lectureRegisterMapper.studentSidDelete(messageNo);
+		}
+	}
+
 
 
 	
