@@ -161,6 +161,8 @@
 		SELECT COUNT(*)
 		FROM REGISTERED_MESSAGE
 		WHERE MEMBER_NO = #{memberNo}
+		AND (MESSAGE_ONESIDE_DEL_FL != 'S'
+		OR MESSAGE_ONESIDE_DEL_FL IS NULL)
 	</select>
 	
 	<select id="showMessage">
