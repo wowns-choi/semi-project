@@ -78,6 +78,8 @@ const selectMessage = (url) => {
         } else {
             layerMessageNo.innerText = message.messageNo;
             layerMessageTitle.innerText = message.messageTitle;
+            lecturerProfileImg.src = message.profileImg;
+            lecturerNickname.innerText = message.memberNickname;
             layerRegDate.innerText = message.messageRegdate;
             layerMessageContent.innerText = message.messageContent;
             messageLayer.classList.remove("popup-hidden");
