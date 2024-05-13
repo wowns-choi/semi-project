@@ -19,7 +19,7 @@
 		<th:block th:if="${session.loginMember}">
 			<div class="nav-right">
 				<div class="nav-btn" id="notification">
-					<i class="fa-regular fa-envelope" id="message-icon"></i> 
+					<i class="fa-regular fa-envelope" id="message-icon" style="color: black;"></i> 
 					<span class="note-num" th:text="${session.messageCount}" id="notiSpan">
 						3
 					</span>
@@ -44,7 +44,8 @@
 				<img th:with="user=#{user.default.image}"
 						th:src="${session.loginMember.profileImg ?: user}"
 						id="memberProfile"
-						alt="프로필 이미지">	
+						alt="프로필 이미지"
+						>	
 			</div>
 			
 			<div id="update-user-info-and-logout-dropdown">
@@ -104,6 +105,12 @@
 	</div>
 
 	<div id="layerMessageList" class="popup-hidden">
+		<div>
+			<div>번호</div>
+			<div>제목</div>
+			<div>발송일</div>
+		</div>
+		
 		<!--
 		<div class="popup-row">
 			번호 : <span id="layerMessageNo"></span>
