@@ -38,7 +38,15 @@ public class LectureRegisterController {
 	
 
 	@GetMapping("idVerification")
-	public String idVerification() {
+	public String idVerification(@SessionAttribute("loginMember") Member loginMember) {
+		
+		// REGISTER_AUTH 테이블에 행이 있고, 그 행의 FLAG 가 1 이라면 바로 /register/registerForm 으로 리다이렉트
+		int result = lectureRegisterService.checkPassFlag(loginMember.getMemberNo());
+		
+		if(result > 0) {
+			return "redirect:/register/registerForm";
+		}
+		
 		return "/register/idVerification";
 		
 	}
