@@ -34,18 +34,20 @@
 	    <section class="container">
 	
 	        <div class="main-box">
-	            <span id="pwFormInfo"> 영어, 숫자, 특수문자 (!,@,#,-,_) 6 ~ 20글자 이내로 입력하세요</span><br>
-	            <div class="inputs">
-	                <input type="password" class="input" placeholder="변경할 비밀번호"
-	                       id="currentPw" name="newPw" maxlength="20"><br>
-	                <input type="password" class="input" placeholder="비밀번호 확인"
-	                       id="currentPwConf" maxlength="20"><br>
-	                
-	            </div>
-	            <div class="button-box">
-	                <button type="submit" class="button" id="changePwBtn">변경</button>
-	            </div>
-	
+				<div id="first-div-inner"></div>
+				<div id="second-div-inner">
+		            <span id="pwFormInfo"> 영어, 숫자, 특수문자 (!,@,#,-,_) 6 ~ 20글자 이내로 입력하세요</span><br>
+		            <div class="inputs">
+		                <input type="password" class="newPw" placeholder="변경할 비밀번호"
+		                       id="currentPw" name="newPw" maxlength="20">
+		                <input type="password" class="newPw" placeholder="비밀번호 확인"
+		                       id="currentPwConf" maxlength="20"><br>
+		                
+		            </div>
+		            <div class="button-box">
+		                <button type="submit" class="button" id="changePwBtn">변경</button>
+		            </div>
+				</div>
 	        </div>
 	  
 	    </section>
@@ -53,10 +55,10 @@
 	
 	<th:block th:replace="~{common/footer}"></th:block>
 	
-	<!--navbar js-->
+	<!—navbar js—>
 	<script src="/js/common/navbar.js"></script>
 	
-	<!-- 로그인 모달창 js -->
+	<!— 로그인 모달창 js —>
 	<script src="/js/common/loginModal.js"></script>
 	
     <script src="/js/member/newPw.js"></script>
