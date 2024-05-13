@@ -64,11 +64,6 @@ public interface ManagementMapper {
 
 	void addRefundCustomer(Map<String, Object> paramMap);
 	
-	
-
-	
-
-
-
+	void addMessage(Map<String, Object> paramMap);
 
 }
