@@ -341,7 +341,21 @@
 			NULL
 		)
 	</insert>
-	
+
+	<insert id="addMessage">
+		INSERT INTO REGISTERED_MESSAGE
+		VALUES 
+		(SEQ_REGISTERED_MESSAGE_NO.NEXTVAL,
+		#{memberNo},
+		'강의 취소 안내',
+		'강사님이 강의를 취소하셨습니다',
+		DEFAULT,
+		DEFAULT,
+		#{registeredMemberNo},
+		#{loginMemberNo},
+		'L'
+		)
+	</insert>
 
 	
 	

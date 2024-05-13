@@ -135,69 +135,65 @@ public class ManagementController {
 	
 	@GetMapping("cancelRegister")
 	public String cancelRegister(@RequestParam("lectureNo")String lectureNo, 
-								@RequestParam("lectureDate") String lectureDate,
-								@RequestParam("memberNo") String memberNo,
-								@RequestParam("quantity") String quantity,
-								@SessionAttribute("loginMember") Member loginMember,
-								RedirectAttributes ra 
-			) {
-		
-		
+							@RequestParam("lectureDate") String lectureDate,
+							@RequestParam("memberNo") String memberNo,
+							@RequestParam("quantity") String quantity,
+							@SessionAttribute("loginMember") Member loginMember,
+							RedirectAttributes ra
+						) {
+
 		log.debug("lectureNo== {}", lectureNo);
 		log.debug("lectureDate== {}", lectureDate);
 		log.debug("memberNo== {}", memberNo);
 		log.debug("quantity=={}", quantity);
-		
-		
-		Integer loginMemberNo = loginMember.getMemberNo();		
+
+
+		Integer loginMemberNo = loginMember.getMemberNo();      
 		// 들어가기 전에, 지금 요청을 보낸 사용자가 해당 강의를 포스팅한 강사가 맞는지 확인 
 		Integer findMemberNo = managementService.findMemberNo(lectureNo);
-		
-		
-		
-		
+
 		if(loginMemberNo != findMemberNo) {
 			ra.addFlashAttribute("message", "잘못된 접근입니다.");
 			return "redirect:/";
 		}
-				
+	        
 		// 1. REGISTERED_MEMBER 테이블에서 해당 회원을 삭제한다. 
 		Integer registeredMemberNo = managementService.updateFlag(lectureNo, lectureDate, memberNo, quantity);
 		// 현재 registeredMemberNo 에는 REGISTERED_MEMBER 테이블에서 위 코드로 REGISTERED_MEMBER_FL 컬럼값을
 		// 'Y' 로 바꾼 그 행의 기본키가 들어있다. 아래에서 쓰려고 함. 
-		
-		
+	
+	
 		// 2. LECTURE_RESTNUM 테이블에서 해당 강의의 해당 날짜의 REST_NUM 컬럼값을 얼마큼 증가시켜야해? 
 		// 해당 사용자가 결제한 수량만큼 증가시켜야함. 
 		// 그러기 위해서는, 뭐가 필요하냐면, 해당 주문에 대한 정보가필요함. 근데, 어떻게 그 정보를 가져올 수 있을까? 
 		// REGISTERED_MEMBER 테이블에 merchant_uid 컬럼을추가시켜놓음. 
 		// 현재 이 강의에(lectureNo) 특정 날짜에(lectureDate) 에 강의신청한 memberNo를 조회한다. 
 		// 아직 없는 정보는 수량에 대한 정보인데, 이 수량에 대한 정보로 같은 날짜에 여러번 다른 수량 혹은 같은 수량으로
-		// 주문한 사용자에 대한 주문 취소처리를 할 수 있을 것이라 예상한다. 		
+		// 주문한 사용자에 대한 주문 취소처리를 할 수 있을 것이라 예상한다.       
 		paymentService.plusRestNum(lectureDate, lectureNo, quantity);
-		
-		
+
 		// 3. 정산테이블에서 해당 강사의 amount 감소시키기.
 		// minusAmount : 정산에서 제외한 금액 == 환불해줄 금액이다. 환불 테이블에 삽입할 때 쓰려고 리턴받아옴. 
 		Integer minusAmount = managementService.minusFeeSettlement(lectureNo, quantity);
-		
-		
-		
-		
-		// 3. 테이블을 하나 만든다. 그 테이블은 환불할 대상자들의 명단을 담은 테이블로 한다. 
+	
+		// 4. 테이블을 하나 만든다. 그 테이블은 환불할 대상자들의 명단을 담은 테이블로 한다. 
 		// 관리자페이지에서 해당 대상자들의 명단을 보여주도록 한다. merchant_uid
 		managementService.addRefundCustomer(lectureNo, memberNo, minusAmount, registeredMemberNo);
-		
 
-		
 		ra.addFlashAttribute("message", "해당 참여자가 강의에서 제외되었습니다");
-		
+	
+		// 메세지 취소되었습니다 를 전달하면 됨. 
+		// 필요한 재료들
+		// 1. MEMBER_NO : 받을 놈. 현재 memberNo에 들어와 있음 
+		// 2. MESSAGE_TITLE 은 '결제 취소 안내' 라고 써주면 되고
+		// 3. MESSAGE_CONTENT 는 '강사님의 취소로 결제가 취소되었습니다' 라고 써주면 됨. 
+		// 4. REGISTERED_MEMBER_NO 는 registeredMemberNo
+		// 5. LECTURER_MEMBER_NO 는 loginMemberNo 로.
+	  
+		managementService.addMessage(memberNo, registeredMemberNo, loginMemberNo);
 
-		
-		
 		return "redirect:/manage/manageRegisteredMember?lectureNo=" + lectureNo;
 	}
-	
 	
 	@GetMapping("deleteLecture")
 	public String deleteLecture(@RequestParam("lectureNo") String lectureNo, 

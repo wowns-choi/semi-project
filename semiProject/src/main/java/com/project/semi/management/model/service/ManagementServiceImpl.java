@@ -571,10 +571,18 @@ public class ManagementServiceImpl implements ManagementService {
 		paramMap.put("merchantUid", merchantUid);
 		managementMapper.addRefundCustomer(paramMap);
 		
+	}
+	
+	@Override
+	public void addMessage(String memberNo, Integer registeredMemberNo, Integer loginMemberNo) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("memberNo", memberNo);
+		paramMap.put("registeredMemberNo", registeredMemberNo);
+		paramMap.put("loginMemberNo", loginMemberNo);
 		
-		
-		
-		
+
+		managementMapper.addMessage(paramMap);
+	
 	}
 
 	
