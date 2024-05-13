@@ -51,7 +51,7 @@
 			<div id="update-user-info-and-logout-dropdown">
 				<div id="update-user-info-and-logout-dropdown-child">
 					<a href="/member/myData">내 정보</a>
-					<a href="/member/password-validation">비밀번호 변경</a>
+					<a href="/member/password-validation" th:text="${kakao == null && naver == null}">비밀번호 변경</a>
 					<a href="/member/withdrawal" id="withdrawal">회원 탈퇴하기</a>
 					<a href="/member/logout" id="logout">로그아웃</a>
 				</div>

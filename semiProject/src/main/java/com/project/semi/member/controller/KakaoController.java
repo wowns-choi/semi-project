@@ -70,6 +70,7 @@ public class KakaoController {
 		if (findMember != null) {
 			// 동일한 아이디가 있는 경우 == 이전에 카톡으로 로그인해서 내 애플리케이션에 회원가입이 되어 있는 경우
 			// 세션객체에 로그인한 사용자의 데이터를 담아준다.
+			model.addAttribute("kakao", "true");
 			model.addAttribute("loginMember",findMember); // 이거 model 을 세션스코프로 쓴거임.
 			return "redirect:/";
 
@@ -86,6 +87,7 @@ public class KakaoController {
 			if(result > 0) {
 				// 제대로 insert 된 경우
 				Member findMember2 = memberMapper.findMemberByPw(memberPw);
+				model.addAttribute("kakao", "true");
 				model.addAttribute("loginMember", findMember2);
 				ra.addFlashAttribute("message", memberNickname + "님 가입을 환영합니다.");				
 			} else {
