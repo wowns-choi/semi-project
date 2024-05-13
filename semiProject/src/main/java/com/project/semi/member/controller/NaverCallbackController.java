@@ -61,6 +61,7 @@ public class NaverCallbackController {
 			
 			if(findMember2 != null) {
 				// 네이버로 로그인해서 회원가입한적이 있는 사람인 경우
+				model.addAttribute("naver", "true");
 				model.addAttribute("loginMember", findMember2); // 세션스코프로 넣은거임.
 				return 2;
 			} else {
@@ -74,6 +75,7 @@ public class NaverCallbackController {
 
 				
 				Member findMember3 = memberMapper.findMemberByPw(id);
+				model.addAttribute("naver", "true");
 				model.addAttribute("loginMember", findMember3);  // 세션스코프로 넣은거임.
 				
 				if(result > 0) {
