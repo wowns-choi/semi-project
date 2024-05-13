@@ -1,118 +1,121 @@
 <div id="navbar">
 	<div></div>
 	<div id="container">
-			<a href="/board/all" id="free-board">
-				자유게시판
-			</a>
-      
-			<a href="/faq/lecturer" id="faq">
-				FAQ
-			</a>
-			
-			<a href="/" id="logo-box">
-				<img src="/images/logo.png" id="logo">
-			</a>
+		<a href="/board/all" id="free-board">
+			자유게시판
+		</a>
+	
+		<a href="/faq/lecturer" id="faq">
+			FAQ
+		</a>
+	</div>
+	<div>
+		<a href="/" id="logo-box">
+			<img src="/images/logo.png" id="logo">
+		</a>
 	</div>
 	<div id="third-container">
 		
-			<th:block th:if="${session.loginMember}">
-				<div class="nav-right">
-					<div class="nav-btn" id="notification">
-						<i class="fa-regular fa-envelope" id="message-icon"></i> 
-						<span class="note-num" th:text="${session.messageCount}" id="notiSpan">
-						 3
-					 	</span>
-					</div>
-				</div>
-			</th:block>
-			
-			<th:block th:if="${session.loginMember}">
-				<a href="/register/idVerification" id="class-register">
-					<i class="fa-solid fa-file-circle-plus" style="color:coral;"></i>
-					<span style="font-size: 15px;  color: gray;">(강의 등록)</span>
-				</a>	
-				<a href="/manage/showMyLectures" id="class-manage">
-					<i class="fa-solid fa-list-check"  style="color:coral;"></i>
-					<span style="font-size: 15px;  color: gray;">(강의 관리)</span>
-				</a>
-			</th:block>
-		
-			<!--로그인 됐을 경우-->
-			<div th:if="${session.loginMember != null}" id="img-container2">
-				<div id="welcome">
-					<img th:with="user=#{user.default.image}"
-						 th:src="${session.loginMember.profileImg ?: user}"
-						 id="memberProfile"
-						 alt="프로필 이미지">	
-				</div>
-				
-				<div id="update-user-info-and-logout-dropdown">
-					<div id="update-user-info-and-logout-dropdown-child">
-						<a href="/member/myData">내 정보</a>
-						<a href="/member/password-validation">비밀번호 변경</a>
-						<a href="/member/withdrawal" id="withdrawal">회원 탈퇴하기</a>
-						<a href="/member/logout" id="logout">로그아웃</a>
-					</div>
+		<th:block th:if="${session.loginMember}">
+			<div class="nav-right">
+				<div class="nav-btn" id="notification">
+					<i class="fa-regular fa-envelope" id="message-icon"></i> 
+					<span class="note-num" th:text="${session.messageCount}" id="notiSpan">
+						3
+					</span>
 				</div>
 			</div>
+		</th:block>
+		
+		<th:block th:if="${session.loginMember}">
+			<a href="/register/idVerification" id="class-register">
+				<i class="fa-solid fa-file-circle-plus" style="color:coral;"></i>
+				<span style="font-size: 15px;  color: gray;">(강의 등록)</span>
+			</a>	
+			<a href="/manage/showMyLectures" id="class-manage">
+				<i class="fa-solid fa-list-check"  style="color:coral;"></i>
+				<span style="font-size: 15px;  color: gray;">(강의 관리)</span>
+			</a>
+		</th:block>
+	
+		<!--로그인 됐을 경우-->
+		<div th:if="${session.loginMember != null}" id="img-container2">
+			<div id="welcome">
+				<img th:with="user=#{user.default.image}"
+						th:src="${session.loginMember.profileImg ?: user}"
+						id="memberProfile"
+						alt="프로필 이미지">	
+			</div>
 			
-			<!-- 로그인이 되어있지 않을 경우 -->
-			<th:block th:if="${session.loginMember == null}">
-				<button type="button" id="show-login-modal">로그인</button>	
-			</th:block>
+			<div id="update-user-info-and-logout-dropdown">
+				<div id="update-user-info-and-logout-dropdown-child">
+					<a href="/member/myData">내 정보</a>
+					<a href="/member/password-validation">비밀번호 변경</a>
+					<a href="/member/withdrawal" id="withdrawal">회원 탈퇴하기</a>
+					<a href="/member/logout" id="logout">로그아웃</a>
+				</div>
+			</div>
 		</div>
 		
-		<!-- 메세지 -->
-		<div id="messageLayer" class="popup-hidden">
-			<div class="first-line"></div>
-
-			<div class="popup-row">
-				<span id="layerMessageNo" style="display: none;"></span>
-				<span id="layerClose">&times;</span>
-			</div>
-			
-			<div id="send-people">
-				보낸 사람 : &nbsp;
-				<span id="lecturer-profile">
-					<img id="lecturer-profileImg">
-				</span>
-				&nbsp;
-				&nbsp;
-				<span id="lecturer-nickname" style="color: black;"></span>
-			</div>
-
-			<div id="title-div-message">
-				제목 : <span id="layerMessageTitle" style="color:gray;"-></span>
-			</div>
-		
-			<div class="popup-row">
-				내용 : 
-				<div id="layerMessageContent" style="color:gray;"></div>
-			</div>
-			
-			<div class="popup-row">
-				<span style="font-size: 11px; color: black;"> 메세지 발송일 : </span>
-				<span id="layerRegDate" style="font-size: 11px; color: coral;"></span>
-			</div>
-
-			<div class="btn-container">
-				<button id="layerDeleteBtn">삭제</button>
-			</div>
-		</div>
-
-		<div id="layerMessageList" class="popup-hidden">
-			<!--
-			<div class="popup-row">
-				번호 : <span id="layerMessageNo"></span>
-				|
-				제목 : <span id="layerMessageTitle"><a id="layerMessageATag"></a></span>
-			</div>
-			
-			<div class="popup-row">
-				메세지 발송일 : <span id="layerRegDate"></span>
-			</div>
-			-->
-		</div>
+		<!-- 로그인이 되어있지 않을 경우 -->
+		<th:block th:if="${session.loginMember == null}">
+			<button type="button" id="show-login-modal">로그인</button>	
+		</th:block>
+	</div>
 	
 	<div></div>
+
+	<!-- 메세지 -->
+	<div id="messageLayer" class="popup-hidden">
+		<div class="first-line"></div>
+
+		<div class="popup-row">
+			<span id="layerMessageNo" style="display: none;"></span>
+			<span id="layerClose">&times;</span>
+		</div>
+		
+		<div id="send-people">
+			보낸 사람 : &nbsp;
+			<span id="lecturer-profile">
+				<img id="lecturer-profileImg">
+			</span>
+			&nbsp;
+			&nbsp;
+			<span id="lecturer-nickname" style="color: black;"></span>
+		</div>
+
+		<div id="title-div-message">
+			제목 : <span id="layerMessageTitle" style="color:gray;"-></span>
+		</div>
+	
+		<div class="popup-row">
+			내용 : 
+			<div id="layerMessageContent" style="color:gray;"></div>
+		</div>
+		
+		<div class="popup-row">
+			<span style="font-size: 11px; color: black;"> 메세지 발송일 : </span>
+			<span id="layerRegDate" style="font-size: 11px; color: coral;"></span>
+		</div>
+
+		<div class="btn-container">
+			<button id="layerDeleteBtn">삭제</button>
+		</div>
+	</div>
+
+	<div id="layerMessageList" class="popup-hidden">
+		<!--
+		<div class="popup-row">
+			번호 : <span id="layerMessageNo"></span>
+			|
+			제목 : <span id="layerMessageTitle"><a id="layerMessageATag"></a></span>
+		</div>
+		
+		<div class="popup-row">
+			메세지 발송일 : <span id="layerRegDate"></span>
+		</div>
+		-->
+	</div>
+	
+	
 </div>

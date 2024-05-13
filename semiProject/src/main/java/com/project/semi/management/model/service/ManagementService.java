@@ -37,5 +37,7 @@ public interface ManagementService {
 	Integer minusFeeSettlement(String lectureNo, String quantity);
 
 	void addRefundCustomer(String lectureNo, String memberNo, Integer minusAmount, Integer registeredMemberNo);
+	
+	void addMessage(String memberNo, Integer registeredMemberNo, Integer loginMemberNo);
 
 }
