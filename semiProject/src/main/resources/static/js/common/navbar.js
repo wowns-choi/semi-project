@@ -121,31 +121,54 @@ if(messageIcon != null) {
             .then(resp => resp.json())
             .then(messageList => {
                 layerMessageList.innerHTML = "";
-    
+    			
+    			const firstlineDarkslate = document.createElement('div');
+    			firstlineDarkslate.id = 'first-line-darkslate';
+    			layerMessageList.appendChild(firstlineDarkslate);
+    			
                 const layerCloseSpan = document.createElement('span');
                 layerCloseSpan.id = 'layerCloseSpan';
                 layerCloseSpan.innerHTML = '&times;';
-    
                 layerMessageList.appendChild(layerCloseSpan);
+    			
+    			const firstDiv = document.createElement('span');
+    			firstDiv.id = 'first-div-div';
+    			
+    			const firstCh = document.createElement('span');
+    			firstCh.id = 'first-ch';
+    			firstCh.innerText = '번호';
+    			firstDiv.appendChild(firstCh);
+
+    			const secCh = document.createElement('span');
+    			secCh.id = 'sec-ch';
+    			secCh.innerText = '제목';
+    			firstDiv.appendChild(secCh);
+
+    			const thirdCh = document.createElement('span');
+    			thirdCh.id = 'third-ch';
+				thirdCh.innerText = '발송일';    	
+    			firstDiv.appendChild(thirdCh);		
+    			
+    			layerMessageList.appendChild(firstDiv);
+    	
+    			
+    			
     
                 for(let message of messageList) {
     
                     const popupRow = document.createElement('div');
-                    popupRow.className = 'popup-row';
+                    popupRow.className = 'popup-row2';
                     popupRow.id = 'noLine';
     
                     // 번호(span#layerMessageNo) 엘리먼트 생성
                     let messageNo = document.createElement('span');
-                    messageNo.id = 'layerMessageNo';
-                    popupRow.appendChild(document.createTextNode('번호 : '));
+                    messageNo.id = 'layerMessageNo2';
                     messageNo.innerText = message.messageNo;
                     popupRow.appendChild(messageNo);
-                    popupRow.appendChild(document.createTextNode(' | '));
     
                     // 제목(span#layerMessageTitle) 엘리먼트 생성
                     let messageTitle = document.createElement('span');
-                    messageTitle.id = 'layerMessageTitle';
-                    popupRow.appendChild(document.createTextNode('제목 : '));
+                    messageTitle.id = 'layerMessageTitle2';
                     popupRow.appendChild(messageTitle);
     
                     // 제목 내부의 링크(a#layerMessageATag) 엘리먼트 생성
@@ -157,16 +180,12 @@ if(messageIcon != null) {
                     messageLink.style.color = 'black';
                     messageTitle.appendChild(messageLink);
     
-                    const popupRower = document.createElement('div');
-                    popupRower.className = 'popup-row';
     
                     // 메세지 발송일(span#layerRegDate) 엘리먼트 생성
                     let regDate = document.createElement('span');
-                    regDate.id = 'layerRegDate';
+                    regDate.id = 'layerRegDate2';
                     regDate.innerText = message.messageRegdate;
-                    popupRower.appendChild(document.createTextNode('\n'));
-                    popupRower.appendChild(document.createTextNode('메세지 발송일 : '));
-                    popupRower.appendChild(regDate);
+                    popupRow.appendChild(regDate);
     
                     if(message.messageTitle) {
                          messageLink.addEventListener("click", e => {
@@ -176,7 +195,6 @@ if(messageIcon != null) {
                     }
     
                     layerMessageList.appendChild(popupRow);
-                    layerMessageList.appendChild(popupRower);
                 }
     
                 layerMessageList.classList.remove("popup-hidden");
