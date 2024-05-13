@@ -392,8 +392,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 5px;
 }
-#layerRegDate{
+#layerRegDate2{
 	flex-basis: 55%;
     display: flex;
     justify-content: center;
