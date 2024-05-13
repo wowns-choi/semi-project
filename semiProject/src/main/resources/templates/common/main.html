@@ -148,7 +148,8 @@
 					</div>
 					
 					<div class="lecture-memberNickname">
-						<img th:src="${lecture.profileImg}" class="lecturer-img">
+						<img th:with="user=#{user.default.image}"
+						th:src="${lecture.profileImg ?: user}" class="lecturer-img">
 						<span 	th:text="|by ${lecture.memberNickname}|" class="lecturer-nick"></span>
 						<span th:text="${lecture.formattedEnrollDate}" class="enroll-date"></span>
 					</div>
