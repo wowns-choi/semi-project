@@ -139,17 +139,22 @@ public class ManagementController {
 								@RequestParam("memberNo") String memberNo,
 								@RequestParam("quantity") String quantity,
 								@SessionAttribute("loginMember") Member loginMember,
-								
 								RedirectAttributes ra 
 			) {
+		
+		
 		log.debug("lectureNo== {}", lectureNo);
 		log.debug("lectureDate== {}", lectureDate);
 		log.debug("memberNo== {}", memberNo);
 		log.debug("quantity=={}", quantity);
 		
+		
+		Integer loginMemberNo = loginMember.getMemberNo();		
 		// 들어가기 전에, 지금 요청을 보낸 사용자가 해당 강의를 포스팅한 강사가 맞는지 확인 
-		Integer loginMemberNo = loginMember.getMemberNo();
 		Integer findMemberNo = managementService.findMemberNo(lectureNo);
+		
+		
+		
 		
 		if(loginMemberNo != findMemberNo) {
 			ra.addFlashAttribute("message", "잘못된 접근입니다.");
@@ -186,6 +191,10 @@ public class ManagementController {
 
 		
 		ra.addFlashAttribute("message", "해당 참여자가 강의에서 제외되었습니다");
+		
+
+		
+		
 		return "redirect:/manage/manageRegisteredMember?lectureNo=" + lectureNo;
 	}
 	

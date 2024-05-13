@@ -95,7 +95,7 @@
 									<div class="get-member" th:text="${baby.memberNo}" style="display: none;"></div>
 									<div th:text="${baby.registeredMemberFl}" style="display: none;"></div>
 									<a th:href="@{/manage/cancelRegister(lectureNo=${lecture.lectureNo}, lectureDate=${new1.lectureDateStr},
-									memberNo=${baby.memberNo}, quantity = ${baby.quantity}
+									memberNo=${baby.memberNo}, quantity = ${baby.quantity}, registeredMemberNo = ${baby.registeredMemberNo}
 									)}" class="cancel-a" id="cancelPayment">
 										<i class="fa-solid fa-ban" ></i>										
 									</a>

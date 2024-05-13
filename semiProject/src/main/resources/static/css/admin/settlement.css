@@ -22,6 +22,12 @@ body {
 	align-items: center;
 	margin-top: 4vh;
 }
+#option-div>form{
+	display: flex;
+	width: 30vw;
+	justify-content: space-evenly;
+	align-items: center;
+}
 
 
 
@@ -40,8 +46,48 @@ body {
 	box-sizing: border-box;
 	font-size: 15px;
 	outline: none;
+	width: 12vw;
+	padding-left: 10px;
 
 }
+#settled-btn{
+	background-color: white;
+	border: none;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	border: 1.5px solid black;
+	transition: box-shadow 0.3s;
+	cursor: pointer;
+	font-size: 13px;
+
+}
+#settled-btn:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+}
+#settled-btn:active{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+#unsettled-btn{
+	background-color: white;
+	border: none;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	border: 1.5px solid black;
+	transition: box-shadow 0.3s;
+	cursor: pointer;
+	font-size: 13px;
+}
+#unsettled-btn:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+}
+#unsettled-btn:active{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+
+}
+
 #option-btn{
 	width: 5vw;
 	height: 5vh;
@@ -49,9 +95,16 @@ body {
 	border: 1px solid black;
 	background-color: white;
 	font-size: 15px;
+	cursor: pointer;
+	transition: box-shadow 0.3s;
 
 }
-
+#option-btn:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+}
+#option-btn:active{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);	
+}
 
 #refund-container-header{
 	width: 100vw;
@@ -67,12 +120,13 @@ body {
 #refund-container-body{
 	width: 100vw;
 	display: flex;
+	justify-content: center;
 }
 #left-container{
 
 }
 #mid-container{
-	flex-basis: 100%;
+	flex-basis: 60%;
 	display: flex; 
 	flex-direction: column;
 
@@ -86,22 +140,23 @@ body {
 	margin-bottom: 10px;
 	border-bottom: 1px solid gray;
 	height: 5vh;
+	justify-content: center;
 
 }
 #list-div1{
-	flex-basis: 10%;
+	flex-basis: 33%;
 	display: flex; 
 	justify-content: center;
 	align-items: center;
 }
 #list-div2{
-	flex-basis: 10%;
+	flex-basis: 33%;
 	display: flex; 
 	justify-content: center;
 	align-items: center;
 }
 #list-div3{
-	flex-basis: 8%;
+	flex-basis: 33%;
 	display: flex; 
 	justify-content: center;
 	align-items: center;
@@ -159,19 +214,19 @@ body {
 	min-height: 10vh;
 }
 .list-content-div1{
-	flex-basis: 10%;
+	flex-basis: 33%;
 	display: flex; 
 	justify-content: center;
 	align-items: center;
 }
 .list-content-div2{
-	flex-basis: 10%;
+	flex-basis: 33%;
 	display: flex; 
 	justify-content: center;
 	align-items: center;
 }
 .list-content-div3{
-	flex-basis: 8%;
+	flex-basis: 33%;
 	display: flex; 
 	justify-content: center;
 	align-items: center;
@@ -343,6 +398,8 @@ body {
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
 	
 }
+
+
 
 
 

@@ -63,6 +63,7 @@ public interface ManagementMapper {
 	String findMerchantUid(Integer registeredMemberNo);
 
 	void addRefundCustomer(Map<String, Object> paramMap);
+
 	
 	
 

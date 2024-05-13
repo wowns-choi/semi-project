@@ -38,4 +38,5 @@ public interface ManagementService {
 
 	void addRefundCustomer(String lectureNo, String memberNo, Integer minusAmount, Integer registeredMemberNo);
 
+
 }

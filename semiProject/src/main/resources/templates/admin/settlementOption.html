@@ -35,10 +35,9 @@
 		<div id="left-container"></div>
 		<div id="mid-container">
 				<div id="list-title">
-					<div id="list-div1">번호</div>
-					<div id="list-div2">고객명</div>
-					<div id="list-div3">정산금액</div>
-					<div id="list-div4">정산상태</div>
+					<div id="list-div1">고객명</div>
+					<div id="list-div2">정산금액</div>
+					<div id="list-div3">정산상태</div>
 
 				</div>
 			<th:block th:each="settlement : ${currentPageSettlementList}">
@@ -47,11 +46,10 @@
 					
 					<div th:text="${settlement.memberNickname}" 	class="list-content-div1"></div>	
 					
-					<div th:text="${settlement.feeSettlementNo}" class="list-content-div2"></div>	
+					<div th:text="${settlement.settlementAmount}" class="list-content-div2"></div>	
 					
-					<div th:text="${settlement.settlementAmount}" class="list-content-div3"></div>	
+					<div th:text="${settlement.settlementStatus}" class="list-content-div3"></div>	
 					
-					<div th:text="${settlement.settlementStatus}" class="list-content-div4"></div>	
 					
 	
 				</div>
@@ -82,7 +80,7 @@
 				<span style="color:#e06500;" class="current-page-span">1</span>
 			</div>
 			
-			<!-- 끝 -->
+			<!— 끝 —>
 			<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/settlementOption(page=${currentGroupLastPage}+1, 	lecturer=${lecturer}, count=${count} )}" id="next-a">&gt;</a>
 			<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/settlementOption(page=${totalPages}, lecturer=${lecturer}, count=${count})}" id="last-page-a">&gt;&gt;</a>
 		

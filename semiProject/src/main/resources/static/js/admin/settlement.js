@@ -13,19 +13,19 @@ unsettledBtn.addEventListener('click' , function(){
 
 window.onload = function() {
 	if(countBtn.value== 1){
-		settledBtn.style.color = 'red';
+		settledBtn.style.color = 'coral';
 	}else if (countBtn.value== -1){
-		unsettledBtn.style.color = 'red';
+		unsettledBtn.style.color = 'coral';
 	}
 };
 settledBtn.addEventListener('click', function(){
-	settledBtn.style.color = 'red';
+	settledBtn.style.color = 'coral';
 	unsettledBtn.style.color = 'black';
 
 })
 
 unsettledBtn.addEventListener('click', function(){
-	unsettledBtn.style.color = 'red';
+	unsettledBtn.style.color = 'coral';
 	settledBtn.style.color = 'black';
 
 })
