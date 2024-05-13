@@ -285,7 +285,7 @@
 							<input type="hidden" name="lectureReviewNo" th:value="${reply.lectureReviewNo}" >
 						</form>
 						
-						<div class="reply-update-delete-div" th:if="${session.loginMember}">
+						<div class="reply-update-delete-div" th:if="${session.loginMember.memberNo == reply.memberNo}">
 							<span class="reply-update" 	data-reup="true" >수정</span>
 							<a th:href="@{/lecture/deleteReview(lectureReviewNo=${reply.lectureReviewNo}, lectureNo=${lecture.lectureNo})}"	class="reply-delete">삭제</a>
 						</div>					

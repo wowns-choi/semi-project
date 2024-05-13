@@ -174,7 +174,7 @@ if(messageIcon != null) {
                     // 제목 내부의 링크(a#layerMessageATag) 엘리먼트 생성
                     let messageLink = document.createElement('a');
                     messageLink.innerText = message.messageTitle;
-                    messageLink.id = 'layerMessageATag';
+                    messageLink.id = 'layerMessageATag2';
                     messageLink.href = "/register/showMessageHref?messageNo=" + message.messageNo;
                     messageLink.style.textDecoration = 'none';
                     messageLink.style.color = 'black';
