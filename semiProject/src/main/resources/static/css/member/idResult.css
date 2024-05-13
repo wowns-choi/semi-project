@@ -1,18 +1,20 @@
 @font-face {
-font-family: 'Pretendard-Regular';
-src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-font-weight: 400;
-font-style: normal;
-}
-
-*{
     font-family: 'Pretendard-Regular';
-    
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 
-body{
-    background-color: #fafafa;
+* {
+    font-family: 'Pretendard-Regular';
 }
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
 
 .container{
 
@@ -28,7 +30,6 @@ body{
 }
 
 .main-box{
-    background-image: url('/images/forest2.png');
     border: none;
     box-shadow: 1px 6px 12px rgba(0, 0, 0, 0.2); /* 그림자 추가 */ 
     display: flex;
@@ -37,24 +38,32 @@ body{
     align-items: flex-end;
     border-radius: 10px;
     width: 20vw;
-    height: 40vh;
+    height: 20vh;
     transition: box-shadow 0.5s;
-   	
+	border-bottom-left-radius: 50%;
+	border-bottom-right-radius: 50%;
 }
 .main-box:hover{
     box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.5); /* 그림자 추가 */ 
 }
+#top-line-div{
+	width: 100%;
+	height: 10%;
+	background-color: darkslategray;
+}
+
 .inputs{
-    backdrop-filter: blur(1.5px);
-    background: rgba(255, 255, 255, 0.2);
     width: 20vw;
-    height: 40vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-span{
-    color : #FFFFFF;
+#id-result-span{
+	color: black;
+	padding-bottom: 30px;
+	font-size: 20px;
+	
 }

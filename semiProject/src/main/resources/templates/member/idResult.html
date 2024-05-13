@@ -23,12 +23,13 @@
 	<!-- 로그인 모달창 추가 -->
 	<th:block th:replace="~{common/loginModal}"></th:block>
 	
-	
 	    <section class="container">	
 	        <div class="main-box">
+				<div id="top-line-div"></div>
 	            <div class="inputs">
                     <br>
-                    <span th:text="${memberEmail}" ></span>
+                    <span th:text="${memberEmail}" id="id-result-span"></span>
+
                 </div>
 	        </div>
 	    </section>
