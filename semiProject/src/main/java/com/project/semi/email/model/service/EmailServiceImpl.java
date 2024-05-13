@@ -7,6 +7,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class EmailServiceImpl implements EmailService{
 	
 	// EmailConfig.class 에서 수동으로 등록한 빈이 주입됨.
@@ -74,15 +76,17 @@ public class EmailServiceImpl implements EmailService{
 			// 1-3-4) 이메일 제목 지정
 			helper.setSubject(subject);
 			
+
+			// 1-3-6) helper 의 setText 메서드를 호출하면서 넘겨준 파라미터의 의미.
+			// 1번 파라미터 : 메일로 보낼 문자열. loadHtml 이라는 메서드를 실행하면, 메일로 보낼 문자열이 리턴되야함. 
+			// 2번 파라미터 : HTML 코드를 HTML 코드로 인식할 것인지, 그냥 문자로 인식할 것인지 여부.
+			helper.setText(loadHtml(authKey, htmlName), true);
+
 			// 1-3-5) CID(Content-ID) 를 이용해서 메일에 이미지 첨부할 수 있음.
 			// 보낼 html 파일에서 이 이미지를 사용하려면, <img src="cid:logo"> 이런식으로 쓰면 됨. 
 			// 파일을 넣는 게 아니라, html 파일에 그려질 이미지를 첨부한다는거야.
 			helper.addInline("logo", new ClassPathResource("static/images/logo.png"));
 			
-			// 1-3-6) helper 의 setText 메서드를 호출하면서 넘겨준 파라미터의 의미.
-			// 1번 파라미터 : 메일로 보낼 문자열. loadHtml 이라는 메서드를 실행하면, 메일로 보낼 문자열이 리턴되야함. 
-			// 2번 파라미터 : HTML 코드를 HTML 코드로 인식할 것인지, 그냥 문자로 인식할 것인지 여부.
-			helper.setText(loadHtml(authKey, htmlName), true);
 			
 			// 1-3-7) 메일 보내기. 특이한 건, helper 를 파라미터로 넘겨주는 게 아니라, MimeMessage타입 객체를 넘겨줌.
 			// MimeMessageHelper 의 setTo, setSubject, addInline, setText 메서드를 호출하면, 

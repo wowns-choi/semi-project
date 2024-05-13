@@ -147,6 +147,7 @@ public class ManagementController {
 		log.debug("memberNo== {}", memberNo);
 		log.debug("quantity=={}", quantity);
 
+
 		Integer loginMemberNo = loginMember.getMemberNo();      
 		// 들어가기 전에, 지금 요청을 보낸 사용자가 해당 강의를 포스팅한 강사가 맞는지 확인 
 		Integer findMemberNo = managementService.findMemberNo(lectureNo);
@@ -190,7 +191,7 @@ public class ManagementController {
 		// 5. LECTURER_MEMBER_NO 는 loginMemberNo 로.
 	  
 		managementService.addMessage(memberNo, registeredMemberNo, loginMemberNo);
-	  
+
 		return "redirect:/manage/manageRegisteredMember?lectureNo=" + lectureNo;
 	}
 	

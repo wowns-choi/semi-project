@@ -580,6 +580,7 @@ public class ManagementServiceImpl implements ManagementService {
 		paramMap.put("registeredMemberNo", registeredMemberNo);
 		paramMap.put("loginMemberNo", loginMemberNo);
 		
+
 		managementMapper.addMessage(paramMap);
 	
 	}

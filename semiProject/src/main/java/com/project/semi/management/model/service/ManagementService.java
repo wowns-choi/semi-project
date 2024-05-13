@@ -40,4 +40,5 @@ public interface ManagementService {
 	
 	void addMessage(String memberNo, Integer registeredMemberNo, Integer loginMemberNo);
 
+
 }

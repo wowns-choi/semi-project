@@ -81,7 +81,7 @@
 				<span style="color:#e06500;" class="current-page-span">1</span>
 			</div>
 			
-			<!-- 끝 -->
+			<!— 끝 —>
 			<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/settlement(page=${currentGroupLastPage}+1 )}" id="next-a">&gt;</a>
 			<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/settlement(page=${totalPages})}" id="last-page-a">&gt;&gt;</a>
 		
