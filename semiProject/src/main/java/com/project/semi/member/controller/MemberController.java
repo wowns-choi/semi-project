@@ -127,7 +127,6 @@ public class MemberController {
 
 	@GetMapping("logout")
 	public String logout(SessionStatus status) {
-		log.debug("logout");
 		status.setComplete(); // 클래스레벨에 @SessionAttributes("loginMember") 이거 안쓰면 세션 무효화 안됨.
 		return "redirect:/";
 	}
@@ -135,12 +134,7 @@ public class MemberController {
 	@GetMapping("myData")
 	public String info(@SessionAttribute("loginMember") Member loginMember,
 						Model model) {
-		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.toString());		
 
-		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
-		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
-		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
-		log.debug("imgimgimgimgimgimgimgimg====={}", loginMember.getProfileImg());		
 		// 수정 후 다시 이 메서드로 오기 때문에, db 에서 조회해온다. 
 		Member member = memberService.findMemberByMemberNo(loginMember.getMemberNo());
 		
@@ -151,10 +145,7 @@ public class MemberController {
 		// 따라서, 주소가 있을 경우에만~
 		if(memberAddress != null) {
 			
-			log.debug("memberAddress = {}", memberAddress); //01076^^^서울 강북구 노해로13길 40^^^서울 강북구 수유동 31-67^^^정면 왼쪽 초록색 대문
-			
 			String[] arr = memberAddress.split("\\^\\^\\^"); // 이스케이프 문자. 왜 이스케이프를 써야 할까? 매개변수로 전달되는 걸 보면, 정규표현식임.
-			log.debug("Arrays.toString(arr)={}", Arrays.toString(arr)); //Arrays.toString(arr)=[01076, 서울 강북구 노해로13길 40, 서울 강북구 수유동 31-67, 정면 왼쪽 초록색 대문]
 
 			model.addAttribute("postCode", arr[0]);
 			model.addAttribute("roadAddress", arr[1]);
@@ -183,8 +174,6 @@ public class MemberController {
 			@SessionAttribute("loginMember") Member loginMember,
 			RedirectAttributes ra ) {
 		
-		log.debug(Arrays.toString(memberAddress)); //[01076, 서울 강북구 노해로13길 40, 서울 강북구 수유동 31-67, 정면 왼쪽 초록색 대문]
-		
 		int memberNo = loginMember.getMemberNo();
 		int result = memberService.updateInfo(inputMember, memberNo, memberAddress);
 		
@@ -205,8 +194,6 @@ public class MemberController {
 					@SessionAttribute("loginMember") Member loginMember,
 					RedirectAttributes ra
 			) throws Exception {
-		
-		log.debug("profileImg={}", profileImg);
 		
 		int result = memberService.updateImg(profileImg, loginMember);
 		
@@ -244,9 +231,6 @@ public class MemberController {
 			sessionStatus.setComplete();
 			return 100;
 		}
-		
-		//log.debug("111111111111={}", map.get("pwInput"));
-		//log.debug("111111111111={}", map.get("pwConfInput"));
 		
 		int result = memberService.withdrawal(map,loginMember);
 		

@@ -58,8 +58,6 @@ public class PaymentServiceImpl implements PaymentService{
 		paramMap.put("selectDate", selectDate);
 		paramMap.put("quantity", quantity);
 		
-		log.debug("quantity={}", quantity);
-		
 		Integer result = paymentMapper.minusRestNum(paramMap);
 		return result;
 	}
@@ -77,8 +75,6 @@ public class PaymentServiceImpl implements PaymentService{
 		//merchantUid 생성
         long nano = System.currentTimeMillis();
         String merchantUid = "pid-" + nano;
-        
-        log.debug("주문을 넣을 떄의 merchantUid==={}", merchantUid);
         
         order.setMerchantUid(merchantUid);
         
@@ -293,8 +289,6 @@ public class PaymentServiceImpl implements PaymentService{
                 String receiptUrl1 = anno.getReceiptUrl();
                 //cancel_history 테이블에 insert
             }
-
-            log.debug("merchantUid---={}", merchantUid);
             
     		// 2. responseBody 에 있는 merchant_uid 를 이용해서, LECTURE_ORDERS 테이블의 행을 조회할 것. 
     		// 왜? LECTURE_PAYMENTS 테이블에 행을 삽입할건데, 컬럼 중 LECTURE_ORDERS_NO 이 있거든. 

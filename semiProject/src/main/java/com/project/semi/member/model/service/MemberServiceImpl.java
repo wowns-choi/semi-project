@@ -146,17 +146,14 @@ public class MemberServiceImpl implements MemberService{
 	  public int updateImg(MultipartFile profileImg, Member loginMember)
 	  throws Exception{
 	 
-	 log.debug("profileImg={}", profileImg);
-	 
 	 String updatePath = null; 
 	 String rename = null;
 	 
 	 if(!profileImg.isEmpty()) { rename =
-	 Utility.fileRename(profileImg.getOriginalFilename()); 
-	 log.debug("rename={}", rename);
+	 Utility.fileRename(profileImg.getOriginalFilename());
 	 
 	 updatePath = webPath + rename; // 고유키 앞에 조각을 붙임.
-	 log.debug("updatePath={}",updatePath); }
+	 }
 	 
 	 Member member = Member.builder()
 			 							.memberNo(loginMember.getMemberNo())
@@ -224,8 +221,6 @@ public class MemberServiceImpl implements MemberService{
 	public int newPw(String newPw, Member loginMember) {
 		
 		String encPw = bCryptPasswordEncoder.encode(newPw);
-		
-		log.debug("encPw===={}", encPw);
 		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("encPw", encPw);

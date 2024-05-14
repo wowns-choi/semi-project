@@ -42,8 +42,6 @@ public class ManagementController {
 		
 		managementService.showMyLectures(memberNo, page, model);
 		
-
-
 		return "/management/myLectures";
 	}
 	
@@ -63,8 +61,6 @@ public class ManagementController {
 		
 		// 2. 강의에 대한 정보를 가져와서 수정폼에 뿌려줄건데, 그걸 위해 강의에 대한 정보를 조회해온다.
 		Lecture findLecture = managementService.findLectureAllData(lectureNo);
-		
-		log.debug("aaaaaaaaaaaaaaaaaaa={}",findLecture.toString());
 		
 		model.addAttribute("findLecture", findLecture);		
 				
@@ -91,20 +87,11 @@ public class ManagementController {
 								
 			) throws IllegalStateException, IOException{
 		
-		log.debug("register==={}aaaaaaaaaaaaaaaaaaaa", register.getMain().getOriginalFilename());
-		log.debug("mainFlag=={}",mainFlag );
-		log.debug("mainFlag=={}",sub1Flag );
-		log.debug("mainFlag=={}",sub2Flag );
-		log.debug("mainFlag=={}",sub3Flag );
-		log.debug("mainFlag=={}",sub4Flag );
-		
 		// 주소는 입력해도 입력하지 않아도 그냥 온 걸 그대로 업데이트 해주면 됨.		
 		// 위도경도는 null 이 아닌 경우에만 update 해주면 됨. 
 		// 파일은? mainFlag 가 0이면 기존 것 유지. 1이면 업데이트. -1이면 기존 것 삭제 
 		register.setStartTime(		register.getStartHour() + register.getStartMin()  );
-		
-		
-		log.debug("register=={}", register); //lectureNo 을 hidden 타입 input 으로 전달받음. 
+
 		int result = managementService.updateLecture(register, 
 													 mainFlag,
 													 sub1Flag,
@@ -141,12 +128,6 @@ public class ManagementController {
 							@SessionAttribute("loginMember") Member loginMember,
 							RedirectAttributes ra
 						) {
-
-		log.debug("lectureNo== {}", lectureNo);
-		log.debug("lectureDate== {}", lectureDate);
-		log.debug("memberNo== {}", memberNo);
-		log.debug("quantity=={}", quantity);
-
 
 		Integer loginMemberNo = loginMember.getMemberNo();      
 		// 들어가기 전에, 지금 요청을 보낸 사용자가 해당 강의를 포스팅한 강사가 맞는지 확인 
@@ -221,8 +202,6 @@ public class ManagementController {
 		
 		return "redirect:/manage/showMyLectures";
 	}
-	
-	
 	
 }
 

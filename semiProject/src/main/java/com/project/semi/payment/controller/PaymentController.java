@@ -42,10 +42,6 @@ public class PaymentController {
 								HttpServletRequest request
 			) {
 		
-		log.debug("lectureNo==={}", lectureNo);
-		log.debug("quantity==={}", quantity);
-		log.debug("selectDate===={}", selectDate);
-		
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		
@@ -79,13 +75,9 @@ public class PaymentController {
 		Integer lectureNo = (Integer) map.get("lectureNo");		
 		Integer totalPrice = (Integer) map.get("totalPrice");
 		Integer quantity = Integer.parseInt((String)map.get("quantity"));
-				
-		log.debug("-----------=={}", lectureNo);
-		log.debug("-----------=={}", totalPrice);
 		
 		// LECTURE_ORDERS 테이블에 행 삽입
 		Map<String, Object> returnMap = paymentService.addOrder(lectureNo, totalPrice, loginMember.getMemberNo(), quantity);
-		log.debug("returnMap==={}",  returnMap.get("merchantUid"));
 		return returnMap;
 	}
 	
@@ -94,22 +86,15 @@ public class PaymentController {
 	public Map<String,String> preValidation(
 			@RequestBody Map<String, Object> map
 			) {
-		
-		log.debug("사전검증 컨트롤러 입장");
+
 		String lectureNo =  String.valueOf((Integer)map.get("lectureNo"));		
 		String quantity =  (String) map.get("quantity");
 		
 		String selectDate = (String) map.get("selectDate");
 		
 		Integer totalPrice = (Integer)map.get("totalPrice");
-				
-
-
 		
 		String merchantUid = (String)map.get("merchantUid");
-		
-		
-		log.debug("quantity===!!!!!!!!!!!!!!!!{}", quantity);
 		
 		// 남은 자리가 있는지 확인
 		int restNum = lectureService.checkRestNum(lectureNo, selectDate);
@@ -124,9 +109,7 @@ public class PaymentController {
 		// 남은 자리가 있는 경우. 
 		// 남은자리를 미리 하나 제거해둠. 왜? 결제했는데, 남은자리가 없는 경우를 방지 
 		// 손해를 좀 보더라도 사용자가 화나게 하지 않기 위함. 
-		// 나중에 결제가 문제가 생긴다면 그 때 다시 남은 자리를 +1 해주는 걸로. 		
-		
-		log.debug("여기왔나?????????????????????");
+		// 나중에 결제가 문제가 생긴다면 그 때 다시 남은 자리를 +1 해주는 걸로.
 		
 		paymentService.minusRestNum(lectureNo, selectDate, quantity);
 		
@@ -150,10 +133,7 @@ public class PaymentController {
 		Integer lectureNo = (Integer)paramMap.get("lectureNo");
 		String lectureDate = (String) paramMap.get("lectureDate");		
 		Integer totalPrice =  (Integer)paramMap.get("totalPrice");
-		
-		
 
-		
 		// 일단, LECTURE_ORDERS 테이블의 해당 주문 행의 status 컬럼을 Processing 으로 update 
 		// Processing : 결제 처리 중 
 		paymentService.updateStatus(merchantUid, "PROCESSING");
@@ -203,8 +183,7 @@ public class PaymentController {
 	        //JSON 파싱에 실패한 경우
 	        return "결제 중 오류가 발생되었습니다. JsonParsingException";
 	    } catch(Exception e){
-	    	
-	    	log.debug("eeeeeeeeeee={}", e);
+
 	    	e.printStackTrace();
 	        return "결제 중 오류가 발생되었습니다. Exception";
 	    }

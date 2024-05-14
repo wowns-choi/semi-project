@@ -81,18 +81,7 @@ public class LectureRegisterController {
 	public String registerForm(@ModelAttribute RegisterDTO register,
 							@SessionAttribute("loginMember") Member loginMember
 			) throws IllegalStateException, IOException{
-		
-		log.debug("register==={}", register);
-		log.debug("register==={}",  register.getMain().isEmpty());
-		log.debug("register==={}",  register.getMain().getOriginalFilename() == null);
-		log.debug("register==={}",  register.getSub1().isEmpty());
-		log.debug("register==={}",  register.getSub2().isEmpty());
-		log.debug("register==={}",  register.getSub3().isEmpty());
 
-		log.debug("register==={}",  register.getSub4());
-
-		
-		
 		/* main=org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@15faf8e4, 
 		 * sub1=org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@23e15338, 
 		 * sub2=org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@fac355, 

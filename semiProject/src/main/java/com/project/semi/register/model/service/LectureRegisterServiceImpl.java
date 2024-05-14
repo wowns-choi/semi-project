@@ -63,9 +63,6 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 		
 		String findAuthKey= lectureRegisterMapper.findAuthKey(memberNo);
 		
-		log.debug("findAuthKey=={}", findAuthKey);
-		log.debug("authKey=={}", authKey);
-		
 		int result = 0;
 		
 		if(findAuthKey.equals(authKey)) {
@@ -231,8 +228,6 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 		
 		/* LECTURE_
 		 * */
-		log.debug("register.get=={}", register.getStartDate()); //2024-05-05
-		log.debug("register.get=={}", register.getEndDate()); //2024-05-23
 		
 		// 몇일간 하는 강의인지 계산 
 		LocalDate startDate = LocalDate.parse(register.getStartDate());
