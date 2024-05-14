@@ -328,8 +328,14 @@ public class LectureServiceImpl implements LectureService{
 			
 			Integer lectureNo = lecture.getLectureNo();
 			LectureFile lectureFile = lectureMapper.findLectureFile(lectureNo);
+			lecture.getFiles().remove(0);
 			lecture.getFiles().add(lectureFile);		
 		}
+		for(Lecture lecture : lectureList) {
+			log.debug("lectureList=={}", lecture.getFiles());
+
+		}
+		
 		
 		
 		log.debug("lectureList.size() =============={}", lectureList.size()); // 12
@@ -363,6 +369,7 @@ public class LectureServiceImpl implements LectureService{
 		for(Lecture lecture : lectureList) {
 			Integer lectureNo = lecture.getLectureNo();
 			LectureFile lectureFile = lectureMapper.findLectureFile(lectureNo);
+			lecture.getFiles().remove(0);
 			lecture.getFiles().add(lectureFile);		
 		}
 		
