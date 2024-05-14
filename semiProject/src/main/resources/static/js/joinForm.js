@@ -401,7 +401,19 @@ memberTel.addEventListener('input', function(e){
 const signupForm = document.querySelector("#sing-up-form");
 // *************** Sign Up 버튼 클릭 시,  checkObj 가 모두 true 인 경우에만 폼제출이 되도록 할 거임.*******************
 
+const postcode = document.querySelector("#postcode");
+
 signupForm.addEventListener('submit', function(e){
+
+	const detailAddress = document.querySelector("#detailAddress");
+
+	if(postcode.value != ''){
+		if(detailAddress.value == ''){
+			alert('상세 주소를 입력해 주세요');
+			e.preventDefault();
+			return;
+		}
+	}
 
     // for ~ in (객체 전용 향상된 for 문)
     for (let key in checkObj){ // checkObj 요소의 key 값을 순서대로 꺼내옴
@@ -440,11 +452,12 @@ signupForm.addEventListener('submit', function(e){
 				case "memberTel" :
 					focus = "#member-tel"; break;
 			}
-			
+
 			let beFocused = document.querySelector(focus);
 			beFocused.focus();
             e.preventDefault(); // form 태그 기본 이벤트(제출) 막기
             return;
+
         }
         
     }
