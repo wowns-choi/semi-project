@@ -135,7 +135,7 @@
 					<!-- 일치하는 게시글이 없을 경우 -->
 					<th:block th:unless="*{startPage lt endPage}">
 						<li>
-							<a class="current">1</a>
+							<a class="current" th:text="*{maxPage}">1</a>
 						</li>
 					</th:block>
 

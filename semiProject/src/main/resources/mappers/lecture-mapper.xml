@@ -262,8 +262,8 @@
          
          
          FROM LECTURE L
-         LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
-         LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+         JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+         JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
          WHERE LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
          AND LECTURE_DEL_FL = 'N'
          ORDER BY L.ENROLL_DATE DESC
@@ -272,7 +272,7 @@
    <select id="getListCount">
       SELECT COUNT(*)
       FROM "LECTURE" L
-      LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+      JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
       WHERE LECTURE_DEL_FL = 'N'
       <if test="query != '전체' || query == null">
          AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
@@ -304,9 +304,9 @@
          
          
          FROM LECTURE L
-         LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
-         LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
-         LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+         JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+         JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+         JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
          WHERE LECTURE_DEL_FL = 'N'
          <if test="query != '전체' || query == null">
             AND (ROAD_ADDRESS LIKE '%' || #{query} || '%'
@@ -318,7 +318,7 @@
    <select id="getSelectCount">
       SELECT COUNT(*)
       FROM "LECTURE" L
-      LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+      JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
       WHERE LECTURE_DEL_FL = 'N'
       <if test="lectureCategoryNum != 0">
          AND LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
@@ -352,9 +352,9 @@
          
          
          FROM LECTURE L
-         LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
-         LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
-         LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+         JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+         JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+         JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
          WHERE LECTURE_DEL_FL = 'N'
          <if test="(lectureCategoryNum != 0) and (query != '전체' || query == null)">
             AND LECTURE_CATEGORY_NUM = #{lectureCategoryNum}
@@ -384,8 +384,5 @@
 		REVIEW_DEL_FL = 'Y'
 		WHERE LECTURE_REVIEW_NO = #{lectureReviewNo}
 	</update>
-	
-	
-	
 	
 </mapper>
