@@ -21,6 +21,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.semi.member.model.dto.Member;
 import com.project.semi.member.model.service.MemberService;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -80,7 +82,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping("login")
-	public String login(@RequestParam Map<String,String> map, RedirectAttributes ra, Model model) {
+	public String login(@RequestParam Map<String,String> map,
+			RedirectAttributes ra, Model model,
+			HttpServletResponse resp) {
 		
 		String saveId = map.get("saveId"); // 아이디 저장 버튼 눌렀으면 on, 안눌렀으면 null
 		String memberEmail = map.get("memberEmail"); // 이메일
@@ -95,6 +99,20 @@ public class MemberController {
 		
 		if( loginMember != null ) { // 로그인 성공
 			model.addAttribute("loginMember", loginMember); // @SessionAttributes() 와 함께했기에 세션스코프에 올라진것.
+
+			Cookie cookie = new Cookie("saveId", memberEmail);
+			
+			cookie.setPath("/");
+			
+			if(saveId != null) { // "on" 아이디 저장 체크 시
+				cookie.setMaxAge(60 * 60 * 24 * 30); // 30일 초 단위로 지정 만료기간 설정하는 거
+			} else { // 미체크 시
+				cookie.setMaxAge(0); // 0초 (클라이언트 쿠키 삭제)
+			}
+			
+			// 응답 객체에 쿠키 추가 -> 클라이언트로 전달
+			resp.addCookie(cookie);
+
 		}
 		
 		// 관리자 흐름 만들기 
