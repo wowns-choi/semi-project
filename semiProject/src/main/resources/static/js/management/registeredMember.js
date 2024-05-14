@@ -16,6 +16,7 @@ const updateTitle = document.querySelector("#updateTitle");
 const updateContent = document.querySelector("#updateContent");
 const updateBtn = document.querySelector("#updateBtn");
 const updateCancel = document.querySelector("#updateCancel");
+const updateMessageNo = document.querySelector("#updateMessageNo");
 
 let memberNo = 0;
 let registeredMemberNo = 0;
@@ -25,12 +26,17 @@ document.querySelectorAll('.message-send').forEach(function(messageLink) {
         messageLink.addEventListener('click', function(event) {
         // 이벤트의 기본 동작을 중지
         event.preventDefault();
-        popupMessageNo.innerText = "";
+        popupLayer.classList.add("popup-hidden");
+        updateLayer.classList.add("popup-hidden");
+        popupMessageNo.value = "";
         popupMessageTitle.innerText = "";
         popupCheck.innerText = "";
         popupRegDate.innerText = "";
         popupMessageContent.innerText = "";
-        
+        updateTitle.innerText = "";
+        updateContent.innerText = "";
+        updateMessageNo.value = "";
+
         var memberNoElement = event.target.closest('.point-div').querySelector('.get-member');
         var registeredNoElement = event.target.closest('.point-div').querySelector('.registered-member');
 
@@ -47,21 +53,27 @@ document.querySelectorAll('.message-send').forEach(function(messageLink) {
         })
         .then(resp => resp.json())
         .then(message => {
-
+            popupMessageTitle.innerText = "";
+            popupMessageContent.innerText = "";
+            updateTitle.innerText = "";
+            updateContent.innerText = "";
+            
             if(message.messageNo == 0) {
                 alert("메세지를 작성해주세요.");
-                popupLayer.classList.remove("popup-hidden");
-                updateLayer.classList.add("popup-hidden");
-
+                updateBtn.innerText = "메세지 작성";
+                updateLayer.classList.remove("popup-hidden");
+                popupLayer.classList.add("popup-hidden");
+                updateMessageNo.value = message.messageNo;
             } else {
-                popupMessageNo.innerText = message.messageNo;
+                popupMessageNo.value = message.messageNo;
                 popupMessageTitle.innerText = message.messageTitle;
                 popupCheck.innerText = message.messageCheck;
                 popupRegDate.innerText = message.messageRegdate;
                 popupMessageContent.innerText = message.messageContent;
+                updateMessageNo.value = message.messageNo;
                 popupLayer.classList.remove("popup-hidden");
                 updateLayer.classList.add("popup-hidden");
-
+                console.log(popupMessageNo.value);
             }
 
         })
@@ -74,7 +86,11 @@ popupClose.addEventListener("click", () => {
 
 if(updateView != null) {
 
+    updateMessageNo.value = popupMessageNo.value;
+
     updateView.addEventListener("click", () => {
+        updateView.innerText = "수정";
+        console.log(updateMessageNo.value);
 
         popupLayer.classList.add("popup-hidden");
 
@@ -83,24 +99,28 @@ if(updateView != null) {
         updateTitle.value = popupMessageTitle.innerText;
         updateContent.value = popupMessageContent.innerHTML.replaceAll("<br>", "\n");
 
-        updateBtn.setAttribute("data-message-no", popupMessageNo.innerText);
+        updateBtn.setAttribute("data-message-no", popupMessageNo.value);
     });
 
     updateCancel.addEventListener("click", () => {
 
         updateLayer.classList.add("popup-hidden");
 
-        popupLayer.classList.remove("popup-hidden");
+        if(updateMessageNo == 0) {
+            popupLayer.classList.remove("popup-hidden");
+        }
     });
 }
 
 if(updateBtn != null) {
     updateBtn.addEventListener("click", e => {
 
-        console.log(popupMessageNo.innerText);
+
+
+        console.log(popupMessageNo.value);
 
         const obj = {
-            "messageNo" : popupMessageNo.innerText,
+            "messageNo" : popupMessageNo.value,
             "memberNo" : memberNo,
             "messageTitle" : updateTitle.value,
             "messageContent" : updateContent.value,
@@ -119,7 +139,7 @@ if(updateBtn != null) {
                 alert("메세지가 전송되었습니다.");
                 updateLayer.classList.add("popup-hidden");
     
-                popupMessageNo.innerText = message.messageNo;
+                popupMessageNo.value = message.messageNo;
                 popupMessageTitle.innerText = message.messageTitle;
                 popupCheck.innerText = message.messageCheck;
                 popupRegDate.innerText = message.messageRegdate;
@@ -163,7 +183,7 @@ if(deleteBtn != null) {
             
         // }
         
-        const messageNo = popupMessageNo.innerText;
+        const messageNo = popupMessageNo.value;
         
         if(popupCheck.innerText == 'N') {
             if(!confirm("정말 삭제하시겠습니까? (확인 클릭 시 상대방에게서도 메세지가 삭제됩니다.)")) {

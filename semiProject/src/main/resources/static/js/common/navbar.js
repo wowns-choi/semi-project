@@ -151,9 +151,6 @@ if(messageIcon != null) {
     			
     			layerMessageList.appendChild(firstDiv);
     	
-    			
-    			
-    
                 for(let message of messageList) {
     
                     const popupRow = document.createElement('div');
@@ -179,7 +176,6 @@ if(messageIcon != null) {
                     messageLink.style.textDecoration = 'none';
                     messageLink.style.color = 'black';
                     messageTitle.appendChild(messageLink);
-    
     
                     // 메세지 발송일(span#layerRegDate) 엘리먼트 생성
                     let regDate = document.createElement('span');
