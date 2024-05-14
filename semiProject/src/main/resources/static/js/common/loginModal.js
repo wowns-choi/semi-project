@@ -30,8 +30,6 @@ const getCookie = (key) => {
 
     const cookies = document.cookie;
 
-	console.log(cookies);
-
     const cookieList = cookies.split("; ").map( el => el.split("="));
 
     const obj = {}; // 비어있는 객체 선언
