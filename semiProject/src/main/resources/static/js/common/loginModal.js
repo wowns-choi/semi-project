@@ -25,3 +25,38 @@ if(loginForm != null){
 	
 	});		
 };
+
+const getCookie = (key) => {
+
+    const cookies = document.cookie;
+
+	console.log(cookies);
+
+    const cookieList = cookies.split("; ").map( el => el.split("="));
+
+    const obj = {}; // 비어있는 객체 선언
+
+    for(let i = 0 ; i < cookieList.length ; i++) {
+        const k = cookieList[i][0]; // key 값
+        const v = cookieList[i][1]; // value 값
+        obj[k] = v; // 객체에 추가
+    }
+
+    return obj[key];
+
+}
+
+if(memberEmail != null) {
+
+	const saveId = getCookie("saveId"); // undefined 또는 이메일
+    // 아이디 저장 체크 안 했을 때 undefined
+    // 체크 했을 때는 이메일 넘어옴
+
+    // saveId 값이 있을 경우
+    if(saveId != undefined) {
+        memberEmail.value = saveId; // 쿠키에서 얻어온 값을 input에 value로 세팅
+
+        // 아이디 저장 체크박스에 체크 해두기
+        document.querySelector("input[name='saveId']").checked = true;
+    }
+}
