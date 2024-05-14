@@ -46,7 +46,9 @@ public class MainController {
 
 		
 		int messageCount = 0;
-		
+		// cp 에는 1, query = 전체
+		log.debug("cp================={}", cp);
+		log.debug("query================={}", query);
 		Map<String, Object> map = lectureService.viewAll(cp, query);
 		
 		if(session.getAttribute("loginMember") != null) {

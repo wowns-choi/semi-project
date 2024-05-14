@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.semi.main.model.dto.Lecture;
+import com.project.semi.main.model.dto.LectureFile;
 import com.project.semi.main.model.dto.LectureReview;
 import com.project.semi.member.model.dto.Member;
 
@@ -47,6 +48,8 @@ public interface LectureMapper {
 	Integer checkRestNum(Map<String, Object> paramMap);
 
 	int deleteReview(String lectureReviewNo);
+
+	LectureFile findLectureFile(Integer lectureNo);
 
 }
 

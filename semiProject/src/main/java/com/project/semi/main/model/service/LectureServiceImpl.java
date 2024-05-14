@@ -310,7 +310,7 @@ public class LectureServiceImpl implements LectureService{
 		
 		Map<String, Object> map = new HashMap<>();
 
-		map.put("query", query);		
+		map.put("query", query); // query = 전체		
 		
 		int listCount = lectureMapper.getListCount(map);
 		
@@ -323,7 +323,16 @@ public class LectureServiceImpl implements LectureService{
 		
 		
 		List<Lecture> lectureList = lectureMapper.selectLectureList(map, rowBounds);
-
+		
+		for(Lecture lecture : lectureList) {
+			
+			Integer lectureNo = lecture.getLectureNo();
+			LectureFile lectureFile = lectureMapper.findLectureFile(lectureNo);
+			lecture.getFiles().add(lectureFile);		
+		}
+		
+		
+		log.debug("lectureList.size() =============={}", lectureList.size()); // 12
 		
 		map.put("mainPagination", mainPagination);
 		map.put("lectureList", lectureList);
@@ -350,7 +359,13 @@ public class LectureServiceImpl implements LectureService{
 		
 
 		List<Lecture> lectureList = lectureMapper.selectCategoryList(map, rowBounds);
-
+		
+		for(Lecture lecture : lectureList) {
+			Integer lectureNo = lecture.getLectureNo();
+			LectureFile lectureFile = lectureMapper.findLectureFile(lectureNo);
+			lecture.getFiles().add(lectureFile);		
+		}
+		
 		
 		map.put("mainPagination", mainPagination);
 		map.put("lectureList", lectureList);
