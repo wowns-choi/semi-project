@@ -284,11 +284,12 @@
 							<input type="hidden" name="parentReviewNo" th:value="${review.lectureReviewNo}">
 							<input type="hidden" name="lectureReviewNo" th:value="${reply.lectureReviewNo}" >
 						</form>
-						
-						<div class="reply-update-delete-div" th:if="${session.loginMember.memberNo == reply.memberNo}">
-							<span class="reply-update" 	data-reup="true" >수정</span>
-							<a th:href="@{/lecture/deleteReview(lectureReviewNo=${reply.lectureReviewNo}, lectureNo=${lecture.lectureNo})}"	class="reply-delete">삭제</a>
-						</div>					
+						<th:block th:if="${session.loginMember}">
+							<div class="reply-update-delete-div" th:if="${session.loginMember.memberNo == reply.memberNo}">
+								<span class="reply-update" 	data-reup="true" >수정</span>
+								<a th:href="@{/lecture/deleteReview(lectureReviewNo=${reply.lectureReviewNo}, lectureNo=${lecture.lectureNo})}"	class="reply-delete">삭제</a>
+							</div>			
+						</th:block>		
 					</div>
 				</div>
 				<div id="div-7">
@@ -335,7 +336,6 @@
 
 		
 	</div>
-	<th:block th:replace="~{common/footer}"></th:block>
 
 	
 	<!-- ============== 결제 컨테이너 ================ -->
@@ -393,7 +393,8 @@
 	
 	
 	
-	
+	<!-- <th:block th:replace="~{common/footer}"></th:block> -->
+
 	
 
 
