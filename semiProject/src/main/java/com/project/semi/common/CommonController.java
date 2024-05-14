@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+// Footer -> 이용약관 , 개인정보보호방침, 고객센터
 @Controller
 @RequestMapping("common")
 public class CommonController {
@@ -26,5 +26,6 @@ public class CommonController {
 		
 		return "common/rhrortpsxj";
 	}
-	
+
 }
+
