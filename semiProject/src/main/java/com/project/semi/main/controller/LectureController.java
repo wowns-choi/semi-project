@@ -41,8 +41,6 @@ public class LectureController {
 								Model model
 			) {
 		
-		log.debug("currentPage=={}", currentPage);
-		
 		Map<String, Object> returnMap = lectureService.findLectureDetail(lectureNo, currentPage);
 		
 		
@@ -57,18 +55,13 @@ public class LectureController {
 		model.addAttribute("fiveParentReview", fiveParentReview);
 		model.addAttribute("currentPage", Integer.parseInt(currentPage));
 		
-		log.debug("currentPAGE============{}", currentPage);
-		log.debug("currentPAGE============{}", currentPage);
-		log.debug("currentPAGE============{}", currentPage);
-		
 		model.addAttribute("totalPosts", totalPosts);
 		model.addAttribute("pageGroupSize", pageGroupSize);
 		model.addAttribute("currentGroupFirstPage", currentGroupFirstPage);
 		model.addAttribute("currentGroupLastPage", currentGroupLastPage);
 		
 		model.addAttribute("lectureNo", lectureNo);
-		
-		
+
 		String startTime = lecture.getStartTime();
         String startFirstTwo = startTime.substring(0, 2);  // 0, 1 인덱스 추출
         String startLastTwo = startTime.substring(2, 4);  // 2, 3 인덱스 추출
@@ -88,13 +81,9 @@ public class LectureController {
         	lectureLevelString = "고급";
         }
         
-        
         model.addAttribute("lectureLevelString", lectureLevelString);
         model.addAttribute("lectureNo", lectureNo);
 
-        
-		
-		
 		return "/lecture/detailLecture";
 	}
 	
@@ -110,7 +99,6 @@ public class LectureController {
 		
 		int result = lectureService.addReview(lectureNo, reviewContent, reviewImg, loginMember);
 
-		
 		if(result == 0) {
 			ra.addFlashAttribute("message", "리뷰 작성중 오류 발생");
 			
@@ -127,15 +115,10 @@ public class LectureController {
 							RedirectAttributes ra
 			) {
 		// wantDeleteImg 의 값이 true 면, 해당 댓글의 이미지를 null 로 변경하면 된다. 		
-		log.debug("reviewContent2===={}", reviewContent2);
-		log.debug("wantDeleteImg===={}", wantDeleteImg);
-		log.debug("updateReplyNo", updateReplyNo);
 		int result = lectureService.updateReview(reviewContent2, wantDeleteImg, updateReplyNo);
 		if(result == 0) {
 			ra.addFlashAttribute("message", "리뷰 수정 중 오류 발생");
-		} 
-		
-		log.debug("최재준최재준최재준최재준최재준");
+		}
 		
 		return "redirect:/lecture/showLectureDetail?lectureNo=" + lectureNo;
 
@@ -174,7 +157,6 @@ public class LectureController {
 			
 			) {
 		
-		log.debug("wantDeleteImg=={}", wantDeleteImg);		
 		int memberNo = loginMember.getMemberNo();
 	
 		int result = lectureService.replyUpdate(reviewContent, wantDeleteImg, memberNo, lectureNo, parentReviewNo, lectureReviewNo);
@@ -185,7 +167,6 @@ public class LectureController {
 		
 		return "redirect:/lecture/showLectureDetail?lectureNo=" + lectureNo;
 
-		
 	}
 	
 	@GetMapping("checkRestnum")
@@ -194,15 +175,10 @@ public class LectureController {
 								@RequestParam("lectureDate") String lectureDate
 								
 			) {
-		log.debug("lectureNo=={}",lectureNo);
-		log.debug("lectureDate=={}",lectureDate);
-		log.debug("trueOrFalse=={}", lectureDate.equals("2024-05-11")); // true 나옴. 
-		
 		
 		// 이제 이 데이터로 LECTURE_RESTNUM 테이블에서 해당 강의의 해당 날짜의 남은 자리가 있는지 조회할 거임. 
 		int restNum = lectureService.checkRestNum(lectureNo, lectureDate);
-				
-		
+
 		return restNum; 
 		
 	}

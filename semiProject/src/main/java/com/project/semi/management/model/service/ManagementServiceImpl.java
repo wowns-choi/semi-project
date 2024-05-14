@@ -71,11 +71,7 @@ public class ManagementServiceImpl implements ManagementService {
 		 Integer currentGroupLastPage = Math.min(currentGroupFirstPage + pageGroupSize - 1, totalPages);
 		 
 		 // 1. 현재 페이지에 보여질 게시글(PostsDTO) 을 담은 List 자료구조
-		 Integer startRow = (currentPage - 1)*pageSize;		
-		 
-		 log.debug("memberNo=={}", memberNo);
-		 log.debug("startRow=={}", startRow);
-		 log.debug("pageSize=={}", pageSize);
+		 Integer startRow = (currentPage - 1)*pageSize;
 		 
 		 Map<String, Integer> paramMap = new HashMap<>();
 		 paramMap.put("memberNo", memberNo);
@@ -83,9 +79,7 @@ public class ManagementServiceImpl implements ManagementService {
 		 paramMap.put("pageSize", pageSize);
 		 
 		 List<Lecture> lectureList = managementMapper.showMyLectures(paramMap);
-			log.debug("재준아!!!!!!!!!!!!!={}", lectureList.size());
 
-		 
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalLectures", totalLectures);
 		model.addAttribute("totalPages", totalPages);
@@ -93,9 +87,7 @@ public class ManagementServiceImpl implements ManagementService {
 		model.addAttribute("currentGroupFirstPage", currentGroupFirstPage);
 		model.addAttribute("currentGroupLastPage", currentGroupLastPage);
 		model.addAttribute("lectureList", lectureList);
-		
-		log.debug("재준아!!!!!!!!!!!!!={}", lectureList.size());
-		
+
 	}
 
 	@Override
@@ -104,8 +96,7 @@ public class ManagementServiceImpl implements ManagementService {
 		Map<String, Integer> paramMap = new HashMap<>();
 		paramMap.put("lectureNo", lectureNo);
 		paramMap.put("memberNo", memberNo);
-		
-		
+
 		return managementMapper.findOwner(paramMap);
 	}
 
@@ -113,9 +104,7 @@ public class ManagementServiceImpl implements ManagementService {
 	public Lecture findLectureAllData(Integer lectureNo) {
 
 		Lecture lecture = managementMapper.findLectureAllData(lectureNo);
-		
-		log.debug("lecture여기임!!=={}", lecture.toString());
-		
+
 		return lecture;
 	}
 
@@ -404,9 +393,6 @@ public class ManagementServiceImpl implements ManagementService {
 				flag2 = false;
 			}
 		}
-		log.debug("result1=={}", result1);
-		log.debug("flag=={}", flag);
-		log.debug("flag2=={}", flag2);
 		
 		if(result1 == 0 || !flag || !flag2) {
 			// 업데이트가 제대로 안됬다는 것.
@@ -461,12 +447,7 @@ public class ManagementServiceImpl implements ManagementService {
 			
 			newBornList.add(newBorn);			
 		}
-		
-		
-		for(NewBorn newborn : newBornList) {
-			log.debug("newBorn==========================={}", newborn);
-		}
-		
+
 		// 이때, 새로운 List 타입을 만들거고, 그 List 타입은 NewBorn 이라고 하자. 
 		// 그 다음에, 조건을 거는거야. 2. 에서 조회된 행들을 하나씩 꺼내와서 넣을 거임. 
 		// 근데, 만약에 2. 에서 조회된 행들의 LECTURE_DATE 와 1 에서 조회된 행들의 LECTURE_DATE 가 같다면, 
@@ -474,9 +455,7 @@ public class ManagementServiceImpl implements ManagementService {
 		// 그러지 일치하는 게 없다면, 그냥 2. 에서 조회된 것들만 NewBorn 에 담기게 되는 구조가 될 것. 
 		
 		model.addAttribute("newBornList", newBornList);
-		
-		
-		
+
 	}
 
 	@Override
@@ -487,9 +466,7 @@ public class ManagementServiceImpl implements ManagementService {
 
 	@Override
 	public Integer updateFlag(String lectureNo, String lectureDate, String memberNo, String quantity) {
-		
 
-		
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("lectureNo", lectureNo);
 		paramMap.put("lectureDate", lectureDate);

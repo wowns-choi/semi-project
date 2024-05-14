@@ -58,12 +58,7 @@ public class AdminController {
 			@RequestParam("findOption") String findOption,
 			@RequestParam("option") String option,
 			Model model) {
-		
-		
-		log.debug("!!!!!!@@@@@@@@@@@=={}", findOption);
-		log.debug("!!!!!!@@@@@@@@@@@=={}", option);
-		log.debug("!!!!!!@@@@@@@@@@@=={}", findOption.equals("memberNickName"));
-		
+
 		// 1. 지금 요청 보낸 사람이 admin 이 맞나? 
 		Integer memberNo = loginMember.getMemberNo();
 		int authority = adminService.findAuthority(memberNo);
@@ -79,7 +74,6 @@ public class AdminController {
 		
 		model.addAttribute("findOption", findOption);
 		model.addAttribute("option", option);
-		
 		
 		return "/admin/orderPageOptionVersion";
 	}
@@ -187,8 +181,6 @@ public class AdminController {
 			@RequestParam("count") String count,
 			@RequestParam(value="page", required=false, defaultValue="1") String page,
 			Model model) {
-		log.debug("aaaa={}" , lecturer.equals("")); // 만약, 아무것도 입력안했을 경우 빈문자열로 들어옴. 
-		log.debug("count=={}", count); // 아무것도 안눌렀으면 0. 정산넣었으면 양수. 미정산 눌렀으면 음수
 		
 		adminService.settlementOption(lecturer, Integer.parseInt(count), Integer.parseInt(page), model);
 		

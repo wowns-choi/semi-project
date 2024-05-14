@@ -47,7 +47,7 @@ public class LectureServiceImpl implements LectureService{
 		List<Lecture> lectureList = lectureMapper.findLecturesLatest();
 		
 		for(Lecture lec : lectureList) { //이 for 문으로 인해, 연관된 이미지가 없는 게시글은 files 라는 List자료구조를 담은 필드에 null 이 담기게 되었음. 
-			log.debug(lec.toString());
+
 			List<LectureFile> lectureFileList = lec.getFiles();
 			if(lectureFileList.get(0).getLectureFileNo() == null) {
 				lec.setFiles(null);
@@ -169,15 +169,6 @@ public class LectureServiceImpl implements LectureService{
         returnMap.put("pageGroupSize", pageGroupSize); // 6
         returnMap.put("currentGroupFirstPage", currentGroupFirstPage); // 4
         returnMap.put("currentGroupLastPage", currentGroupLastPage); //5
-        
-        
-        
-        
-        for(LectureReview review : fiveParentReview) {
-        	log.debug("aaaaaaaaaaaaaaaaaaaaa====={}", review.getMemberNo());
-        }
-        
-        
 
 		return returnMap;
 	}
@@ -207,7 +198,6 @@ public class LectureServiceImpl implements LectureService{
 		if(result > 0) {
 			reviewImg.transferTo(new File(folderPath + rename));
 		}
-		
 		
 		return result;
 	}
@@ -253,18 +243,10 @@ public class LectureServiceImpl implements LectureService{
 				.lectureNo(Integer.parseInt(lectureNo))
 				.parentReviewNo(Integer.parseInt(parentReviewNo))
 				.build();
-		
-		
-		log.debug(lectureReivew.toString());
-		
 	
 		replyFile.transferTo(new File(folderPath + rename));
 		
 		return lectureMapper.addReviewReply(lectureReivew);
-		
-		
-		
-		
 
 	}
 
@@ -285,10 +267,7 @@ public class LectureServiceImpl implements LectureService{
 		}else {
 			result = lectureMapper.replyUpdate2(paramMap);
 		}
-		
-		
-		
-		
+
 		return 0;
 	}
 
@@ -320,8 +299,6 @@ public class LectureServiceImpl implements LectureService{
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		
-		
 		List<Lecture> lectureList = lectureMapper.selectLectureList(map, rowBounds);
 		
 		for(Lecture lecture : lectureList) {
@@ -331,14 +308,6 @@ public class LectureServiceImpl implements LectureService{
 			lecture.getFiles().remove(0);
 			lecture.getFiles().add(lectureFile);		
 		}
-		for(Lecture lecture : lectureList) {
-			log.debug("lectureList=={}", lecture.getFiles());
-
-		}
-		
-		
-		
-		log.debug("lectureList.size() =============={}", lectureList.size()); // 12
 		
 		map.put("mainPagination", mainPagination);
 		map.put("lectureList", lectureList);
@@ -362,8 +331,6 @@ public class LectureServiceImpl implements LectureService{
 		int offset = (cp - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		
-
 		List<Lecture> lectureList = lectureMapper.selectCategoryList(map, rowBounds);
 		
 		for(Lecture lecture : lectureList) {
@@ -373,7 +340,6 @@ public class LectureServiceImpl implements LectureService{
 			lecture.getFiles().add(lectureFile);		
 		}
 		
-		
 		map.put("mainPagination", mainPagination);
 		map.put("lectureList", lectureList);
 		
@@ -382,7 +348,6 @@ public class LectureServiceImpl implements LectureService{
 
 	}
 	
-	
 	@Override
 	public int checkRestNum(String lectureNo, String lectureDate) {
 		
@@ -390,15 +355,10 @@ public class LectureServiceImpl implements LectureService{
 		paramMap.put("lectureNo", lectureNo);
 		paramMap.put("lectureDate", lectureDate);
 		
-		
-		
 		Integer restNum = lectureMapper.checkRestNum(paramMap);
-		
-		log.debug("aaaa***********={}", restNum);
+
 		return restNum;
 	}
-
-
 	
 	@Override
 	public int deleteReview(String lectureReviewNo) {
@@ -406,7 +366,5 @@ public class LectureServiceImpl implements LectureService{
 		return lectureMapper.deleteReview(lectureReviewNo);
 	}
 
-	
-	
 	
 }

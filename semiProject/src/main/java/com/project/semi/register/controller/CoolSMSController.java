@@ -67,7 +67,6 @@ public class CoolSMSController {
 	public SingleMessageSentResponse sendOne(@RequestBody Map<String, String> map,
 			@SessionAttribute("loginMember") Member loginMember) {
 
-		log.debug("map.get(phoneNum)=={}", map.get("phoneNum"));
 		String phoneNum = map.get("phoneNum");
 
 		Message message = new Message();

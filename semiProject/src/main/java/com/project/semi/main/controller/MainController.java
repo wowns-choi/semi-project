@@ -47,8 +47,6 @@ public class MainController {
 		
 		int messageCount = 0;
 		// cp 에는 1, query = 전체
-		log.debug("cp================={}", cp);
-		log.debug("query================={}", query);
 		Map<String, Object> map = lectureService.viewAll(cp, query);
 		
 		if(session.getAttribute("loginMember") != null) {
@@ -69,9 +67,7 @@ public class MainController {
 			Model model,
 			@RequestParam(value="cp", required=false, defaultValue = "1") int cp,
 			@RequestParam(value="key", required=false, defaultValue = "전체") String query) {
-		
-		
-		
+
 		Map<String, Object> map = lectureService.selectView(lectureCategoryNum, cp, query);
 		
 //		List<Lecture> selectList = lectureService.selectList(lectureCategoryNum);
