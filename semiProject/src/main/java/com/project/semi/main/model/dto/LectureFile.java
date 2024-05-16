@@ -24,7 +24,4 @@ public class LectureFile {
     private String originalName;
     private String fileRename;
     private Date uploadDate;
-    
-    
-
 }
