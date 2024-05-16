@@ -634,7 +634,7 @@ document.querySelector('#kakao-div').addEventListener('click', function(){
 	  {
 	    pg: "kakaopay",
 	    pay_method: "card", // 생략가
-	    merchant_uid: "order_no_0004", // 상점에서 생성한 고유 주문번호
+	    merchant_uid: "order_no_0006", // 상점에서 생성한 고유 주문번호
 	    name: "주문명:결제테스트",
 	    amount: 1,
 	    buyer_email: "wowns590@naver.com",
