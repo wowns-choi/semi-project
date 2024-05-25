@@ -179,7 +179,7 @@ body {
     display: flex;
 }
 
-#div9>{
+#div9>input{
     height: 100%;
     width: 40%;
     border: none;
@@ -224,7 +224,7 @@ body {
     display: flex;
 }
 
-#div9-1>{
+#div9-1>input{
     height: 100%;
     width: 40%;
     border: none;
@@ -269,7 +269,7 @@ body {
     display: flex;
 }
 
-#div11>{
+#div11>input{
     height: 100%;
     width: 40%;
     border: none;
@@ -303,7 +303,7 @@ body {
     display: flex;
 }
 
-#div13>{
+#div13>input{
     height: 100%;
     width: 40%;
     border: none;
