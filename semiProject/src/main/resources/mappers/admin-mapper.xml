@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.semi.admin.model.mapper.AdminMapper"> 
+
+	<select id="findAuthority"> 
+		SELECT AUTHORITY FROM MEMBER 
+		WHERE MEMBER_NO = #{memberNo}		
+	</select>
+	
+	<select id="findAllOrderCount">
+		SELECT COUNT(*) FROM LECTURE_ORDERS
+	</select>
+	
+	<select id="findAllOrderCountByNickname">
+		SELECT COUNT(*) 
+		FROM LECTURE_ORDERS LO
+		LEFT JOIN MEMBER M ON (LO.MEMBER_NO = M.MEMBER_NO)
+		WHERE M.MEMBER_NICKNAME = #{option}
+	</select>
+	
+	<select id="findAllOrderCountByTel">
+		SELECT COUNT(*) 
+		FROM LECTURE_ORDERS LO
+		LEFT JOIN MEMBER M ON (LO.MEMBER_NO = M.MEMBER_NO)
+		WHERE M.MEMBER_TEL = #{option}
+	</select>
+	
+	<select id="findCurrentPageOrders">
+	SELECT 
+	LO.LECTURE_ORDERS_NO,
+	LO.MEMBER_NO,
+	LO.LECTURE_NO,
+	LO.MERCHANT_UID,
+	LO.AMOUNT,
+	LO.QUANTITY,
+	LO.STATUS,
+	LO.FAIL_REASON,
+	TO_CHAR(LO.CREATED, 'YYYY-MM-DD') CREATED_STR,
+	
+	M.MEMBER_NICKNAME, 
+	M.MEMBER_TEL,
+	M.PROFILE_IMG,
+	
+	L.LECTURE_HOME_TITLE
+	
+	FROM LECTURE_ORDERS LO
+	
+	LEFT JOIN MEMBER M ON (LO.MEMBER_NO = M.MEMBER_NO)
+	
+	LEFT JOIN LECTURE L ON (LO.LECTURE_NO = L.LECTURE_NO)
+			
+	ORDER BY LO.LECTURE_ORDERS_NO DESC
+	
+	OFFSET #{startRow} ROWS
+	FETCH NEXT #{pageSize} ROWS ONLY
+	
+
+	</select>
+	
+	<select id="findCurrentPageOrdersByNickname">
+	SELECT 
+	LO.LECTURE_ORDERS_NO,
+	LO.MEMBER_NO,
+	LO.LECTURE_NO,
+	LO.MERCHANT_UID,
+	LO.AMOUNT,
+	LO.QUANTITY,
+	LO.STATUS,
+	LO.FAIL_REASON,
+	TO_CHAR(LO.CREATED, 'YYYY-MM-DD') CREATED_STR,
+	
+	M.MEMBER_NICKNAME, 
+	M.MEMBER_TEL,
+	M.PROFILE_IMG,
+	
+	L.LECTURE_HOME_TITLE
+	
+	FROM LECTURE_ORDERS LO
+	
+	LEFT JOIN MEMBER M ON (LO.MEMBER_NO = M.MEMBER_NO)
+	
+	LEFT JOIN LECTURE L ON (LO.LECTURE_NO = L.LECTURE_NO)
+	
+	WHERE M.MEMBER_NICKNAME = #{option}
+			
+	ORDER BY LO.LECTURE_ORDERS_NO DESC
+	
+	OFFSET #{startRow} ROWS
+	FETCH NEXT #{pageSize} ROWS ONLY
+	</select>
+	
+	<select id="findCurrentPageOrdersByTel">
+	SELECT 
+	LO.LECTURE_ORDERS_NO,
+	LO.MEMBER_NO,
+	LO.LECTURE_NO,
+	LO.MERCHANT_UID,
+	LO.AMOUNT,
+	LO.QUANTITY,
+	LO.STATUS,
+	LO.FAIL_REASON,
+	TO_CHAR(LO.CREATED, 'YYYY-MM-DD') CREATED_STR,
+	
+	M.MEMBER_NICKNAME, 
+	M.MEMBER_TEL,
+	M.PROFILE_IMG,
+	
+	L.LECTURE_HOME_TITLE
+	
+	FROM LECTURE_ORDERS LO
+	
+	LEFT JOIN MEMBER M ON (LO.MEMBER_NO = M.MEMBER_NO)
+	
+	LEFT JOIN LECTURE L ON (LO.LECTURE_NO = L.LECTURE_NO)
+	
+	WHERE M.MEMBER_TEL = #{option}
+	
+	ORDER BY LO.LECTURE_ORDERS_NO DESC
+	
+	OFFSET #{startRow} ROWS
+	FETCH NEXT #{pageSize} ROWS ONLY
+	
+
+	</select>
+	
+	
+	
+	<select id="findAllRefundCount">
+		SELECT COUNT(*) FROM REFUND_CUSTOMER
+	</select>
+	
+	<select id="findAllRefundCountByNickname">
+		SELECT COUNT(*) FROM REFUND_CUSTOMER RC
+		LEFT JOIN MEMBER M ON (RC.REFUND_CUSTOMER_MEMBER_NO = M.MEMBER_NO)
+		WHERE M.MEMBER_NICKNAME = #{memberNickaname}
+	</select>
+	
+	<select id="findAllRefundCountByTel">
+		SELECT COUNT(*) FROM REFUND_CUSTOMER RC
+		LEFT JOIN MEMBER M ON (RC.REFUND_CUSTOMER_MEMBER_NO = M.MEMBER_NO)
+		WHERE M.MEMBER_TEL = #{option}
+	</select>
+	
+	<select id="findAllRefundCountByMerchantUid">
+		SELECT COUNT(*) FROM REFUND_CUSTOMER RC
+		WHERE MERCHANT_UID = #{option}
+	</select>
+	
+	
+	<select id="findCurrentPageRefunds">
+		SELECT RC.REFUND_CUSTOMER_NO, 
+		RC.LECTURE_NO,
+		RC.MERCHANT_UID,
+		RC.REFUND_CUSTOMER_MEMBER_NO,
+		RC.REFUND_AMOUNT,
+		RC.REFUND_REASON,
+		RC.REFUND_STATUS,
+		TO_CHAR(RC.REFUND_REQUEST_DATE,'YYYY-MM-DD') REFUND_REQUEST_DATE_STR,
+		TO_CHAR(RC.REFUND_PROCESSING_DATE,'YYYY-MM-DD') REFUND_PROCESSING_DATE_STR,
+		
+		M.MEMBER_NICKNAME, 
+		M.MEMBER_TEL,
+		M.PROFILE_IMG,
+		
+		L.LECTURE_HOME_TITLE, 
+		L.MEMBER_NO LECTURER_MEMBER_NO
+		
+		FROM REFUND_CUSTOMER RC
+ 		 
+		LEFT JOIN MEMBER M ON (RC.REFUND_CUSTOMER_MEMBER_NO = M.MEMBER_NO)
+		
+		LEFT JOIN LECTURE L ON (RC.LECTURE_NO = L.LECTURE_NO)
+		
+		<if test=" memberNickName != null">
+   			 WHERE M.MEMBER_NICKNAME = #{memberNickName}
+ 		 </if>
+		
+		<if test="memberTel != null">
+		     WHERE M.MEMBER_TEL = #{memberTel}
+ 		 </if>
+ 		 
+ 		<if test="merchantUid != null">
+   			 WHERE RC.MERCHANT_UID = #{merchantUid}
+ 		 </if>
+				
+		ORDER BY RC.REFUND_CUSTOMER_NO DESC
+		
+		OFFSET #{startRow} ROWS
+		FETCH NEXT #{pageSize} ROWS ONLY
+		
+	
+	</select>
+	
+	
+	<select id="payment">
+		SELECT * FROM LECTURE_PAYMENTS
+		WHERE MERCHANT_UID = #{merchantUid}
+	</select>
+	
+	<select id="settlement1">
+		SELECT LECTURER_MEMBER_NO 
+		FROM FEE_SETTLEMENT
+		GROUP BY LECTURER_MEMBER_NO 
+	</select>
+	
+	
+<!--  
+<select id="findCurrentPageSettlementList1">
+SELECT 
+  LECTURER_MEMBER_NO, 
+  SUM(SETTLEMENT_AMOUNT) AS SETTLEMENT_AMOUNT, 
+  SETTLEMENT_STATUS
+FROM FEE_SETTLEMENT
+GROUP BY LECTURER_MEMBER_NO, SETTLEMENT_STATUS
+ORDER BY MAX(FEE_SETTLEMENT_NO) DESC
+OFFSET #{startRow} ROWS
+FETCH NEXT #{pageSize} ROWS ONLY
+</select>
+-->
+
+<select id="findCurrentPageSettlementList1">
+	SELECT 
+	
+	SUM(SETTLEMENT_AMOUNT) SETTLEMENT_AMOUNT ,
+	SETTLEMENT_STATUS, 
+	M.MEMBER_NICKNAME
+	
+	FROM FEE_SETTLEMENT FS 
+	
+	LEFT JOIN MEMBER M ON (FS.LECTURER_MEMBER_NO = M.MEMBER_NO)
+	
+	GROUP BY FS.LECTURER_MEMBER_NO, FS.SETTLEMENT_STATUS, M.MEMBER_NICKNAME
+	ORDER BY MAX(FS.FEE_SETTLEMENT_NO) DESC
+	
+	OFFSET #{startRow} ROWS
+	FETCH NEXT #{pageSize} ROWS ONLY
+</select>
+
+
+
+
+	<select id="settlement2">
+		SELECT LECTURER_MEMBER_NO 
+		
+		FROM FEE_SETTLEMENT FS
+				
+		LEFT JOIN MEMBER M ON (FS.LECTURER_MEMBER_NO = M.MEMBER_NO)
+				
+		WHERE 1=1
+		
+		<if test=" lecturer != null">
+   			 AND M.MEMBER_NICKNAME = #{lecturer}
+ 		 </if>
+  		 <if test=" count != null">
+   			 AND FS.SETTLEMENT_STATUS = #{status}
+ 		 </if>
+ 		
+		GROUP BY LECTURER_MEMBER_NO		 		
+ 		 
+	</select>
+
+<!-- 
+		<select id="findCurrentPageSettlementList2">
+    	SELECT
+    	M.MEMBER   
+        LECTURER_MEMBER_NO, 
+        SUM(SETTLEMENT_AMOUNT) AS SETTLEMENT_AMOUNT, 
+        SETTLEMENT_STATUS 
+    FROM FEE_SETTLEMENT FS
+    LEFT JOIN MEMBER M ON FS.LECTURER_MEMBER_NO = M.MEMBER_NO		
+    WHERE 1=1
+    <if test="lecturer != null">
+        AND M.MEMBER_NICKNAME = #{lecturer}
+    </if>
+    <if test="count != null">
+        AND FS.SETTLEMENT_STATUS = #{status}
+    </if>
+    GROUP BY LECTURER_MEMBER_NO, SETTLEMENT_STATUS		 
+    ORDER BY MAX(FS.FEE_SETTLEMENT_NO) DESC
+    OFFSET #{startRow} ROWS
+    FETCH NEXT #{pageSize} ROWS ONLY
+</select>
+
+ -->
+
+<select id="findCurrentPageSettlementList2">
+	SELECT
+	
+	SUM(SETTLEMENT_AMOUNT) SETTLEMENT_AMOUNT ,
+	SETTLEMENT_STATUS, 
+	M.MEMBER_NICKNAME
+	
+	FROM FEE_SETTLEMENT FS
+	
+	LEFT JOIN MEMBER M ON FS.LECTURER_MEMBER_NO = M.MEMBER_NO		
+	
+	WHERE 1=1
+	<if test="lecturer != null">
+	 AND M.MEMBER_NICKNAME = #{lecturer}
+	</if>
+	<if test="count != null">
+	AND FS.SETTLEMENT_STATUS = #{status}
+	</if>
+	GROUP BY FS.LECTURER_MEMBER_NO, FS.SETTLEMENT_STATUS, M.MEMBER_NICKNAME
+	ORDER BY MAX(FS.FEE_SETTLEMENT_NO) DESC
+	
+	OFFSET #{startRow} ROWS
+	FETCH NEXT #{pageSize} ROWS ONLY
+	</select>
+
+
+
+
+
+
+</mapper>

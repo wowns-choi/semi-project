@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원수정</title>
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+    <link rel="stylesheet" href="../css/memberUpdateForm.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	
+    <script src="https://kit.fontawesome.com/670206db20.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+
+        <!--full-container start -->
+        <div id="full-container">
+            <!-- inner-container start -->
+            <div id="inner-container">
+                <!-- left-container start -->
+                <div id="left-container">
+					<span id="deleteImage" >x</span>
+
+                    <div id="img-container">
+                        <div>
+							<form action="/member/updateMyImg" method="post" id="profile" enctype="multipart/form-data">
+						</div>
+                        <div>
+							<img th:with="user=#{user.default.image}"
+								th:src="${session.loginMember.profileImg ?: user}"
+								id="profileImg"
+								
+							>
+						</div>
+                        <div></div>
+                    </div>
+                    <div id="or-div">
+                        <div></div>
+                        <div>
+						</div>
+                        <div></div>
+                        <div>
+							<label for="imageInput">
+							<i class="fa-regular fa-pen-to-square" id="img-edit-icon"></i>
+							</label>
+							&nbsp; &nbsp; 
+
+							<input type="file" name="profileImg" id="imageInput" accept="image/*" style="display: none;">
+							<button type="submit" id="img-change-btn">
+								변경
+							</button>								
+						</div>
+                        <div>
+							</form>
+						</div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div id="id-email-div">
+                        <div th:if="${member.memberNickname}" th:text="${member.memberNickname}"></div>
+                        <div th:if="${member.memberEmail}" th:text="${member.memberEmail}">wowns590@naver.com </div>
+                    </div>
+					<form action="/member/myData" method="post" id="update-form">
+
+                </div>
+                <!-- left-container end -->
+                <!--right-container start-->
+                <div id="right-container">
+                    <!--point-container start-->
+                    <div id="point-container">
+                        <!--btn-container start-->
+                        <div id="btn-container">
+                            <button id="edit-btn" type="button"> <span
+                                    >EDIT</span>
+                            </button>
+                            <button id="save-btn">
+                                SAVE
+                            </button>
+                        </div>
+                        <!--btn-container end-->
+                        <!--basic-info-container start-->
+                        <div id="basic-info-container">
+                            <div id="basic-info-title">
+                                <i class="fa-regular fa-address-card"
+                                    style="font-size: 20px; margin-right: 10px; color:#002954;"></i> 기본
+                                정보
+                            </div>
+                            <div id="basic-info-content">
+                                <div id="basic-info-div-1">
+                                    <div>Name</div>
+                                    <div th:if="${member.memberNickname}" th:text="${member.memberNickname}"></div>
+                                    <input type="text" name="memberNickname" id="userName">
+                                </div>
+                                <div id="basic-info-div-2">
+                                    <div>Email</div>
+                                    <div id="email-domain-div">
+                                        <div id="email-domain-div-1">
+                                            <div id="email-div" th:if="${member.memberEmail}" th:text="${member.memberEmail}"></div>
+                                        </div>
+                                        <div id="email-domain-div-2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="basic-info-div-3">
+                                    <div>Phone</div>
+                                    <div th:if="${member.memberTel}" th:text="${member.memberTel}" id="phone-div"></div>
+                                    <input type="text" name="memberTel" id="update-pw-input"  placeholder="010">
+                                    <div id="phone-text">"-" 없이 번호만 써주세요</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--basic-info-container end-->
+
+                        <!-- address-info-container start -->
+                        <div id="address-info-container">
+                            <div id="addresstitle-findaddressbtn-div">
+                                <div id="address-info-title">
+                                    <i class="fa-solid fa-truck-arrow-right"
+                                        style="font-size: 20px; margin-right: 10px; color:#002954;"></i> 배송 정보
+                                </div>
+                                <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
+                                    class="find-address-btn"> <br>
+                            </div>
+                            <div id="post-code-div">
+                                <span id="post-code-div-1">
+                                    우편번호
+                                </span>
+                                <span id="post-code-div-2"
+								th:if="${postCode}"
+								th:text="${postCode}"
+								>
+                                </span>
+                                <input type="text" id="sample4_postcode" name="memberAddress" placeholder="우편번호" readonly>
+                            </div>
+                            <div id="road-address-div">
+                                <span>
+                                    도로명 주소
+                                </span>
+                                <span id="road-address-div-2"
+								th:if="${roadAddress}"
+								th:text="${roadAddress}"
+								>
+                                </span>
+                                <input type="text" id="sample4_roadAddress"name="memberAddress" placeholder="도로명주소" readonly>
+                            </div>
+                            <div id="jibun-address-div">
+                                <span>
+                                    지번 주소
+                                </span>
+                                <span id="jibun-address-div-2"
+								th:if="${jibunAddress}"
+								th:text="${jibunAddress}"
+								>
+                                </span>
+                                <input type="text" id="sample4_jibunAddress" name="memberAddress" placeholder="지번주소" readonly>
+                            </div>
+                            <div id="detail-address-div">
+                                <span>
+                                    상세 주소
+                                </span>
+                                <span id="detail-address-div-2"
+								th:if="${detailAddress}"
+								th:text="${detailAddress}">
+                                </span>
+                                <span id="guide" style="color:#999;display:none" ></span>
+                                <input type="text" id="sample4_detailAddress" placeholder="상세주소" name="memberAddress">
+                            </div>
+                       
+                        </div>
+                        <!-- address-info-container end -->
+
+                    </div>
+                    <!--point-container end-->
+                </div>
+                <!--right-container end-->
+            </div>
+            <!-- inner-container end -->
+        </div>
+        <!--full-container start -->
+    </form>
+
+    <script src=" ../js/memberUpdateForm.js">
+    </script>
+    <!-- 다음 api -->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+        function sample4_execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var roadAddr = data.roadAddress; // 도로명 주소 변수
+                    var extraRoadAddr = ''; // 참고 항목 변수
+
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraRoadAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if (extraRoadAddr !== '') {
+                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    document.getElementById('sample4_postcode').value = data.zonecode;
+                    document.getElementById("sample4_roadAddress").value = roadAddr;
+                    document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+
+
+
+                    var guideTextBox = document.getElementById("guide");
+                    // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                    if (data.autoRoadAddress) {
+                        var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                        guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                        guideTextBox.style.display = 'block';
+
+                    } else if (data.autoJibunAddress) {
+                        var expJibunAddr = data.autoJibunAddress;
+                        guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                        guideTextBox.style.display = 'block';
+                    } else {
+                        guideTextBox.innerHTML = '';
+                        guideTextBox.style.display = 'none';
+                    }
+                }
+            }).open();
+        }
+    </script>
+	
+	
+	<!-- 회원 프로필 이미지 js 변수로 얻어놓기 -->
+	<script   th:inline="javascript"> // js 에서 타임리프 쓰려면 th:inline 을 script에 붙여줬어야 함. 
+	const loginMemberProfileImg = /*[[${session.loginMember.profileImg}]]*/ "회원프로필이미지";
+		
+	
+	</script>
+	<th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
+
+</body>
+
+</html>

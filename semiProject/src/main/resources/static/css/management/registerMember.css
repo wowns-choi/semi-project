@@ -1,0 +1,350 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+#full-container{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20vh;
+}
+#first-container{
+	display:flex;
+	width: 100%;
+	height: 30vh;
+}
+#fir-div1{
+	flex-basis: 20%;
+}
+#fir-div2{
+	flex-basis: 60%;
+	display: flex;
+	align-items: center;
+	padding-left: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+
+}
+#fir-div2:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+
+}
+#lecture-img{
+	width: 30%;
+	height: 80%;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+#rig-div{
+	width: 60%;
+	height: 80%;
+	margin-left: 20px;
+	display: flex;
+	justify-content: flex-end;
+	flex-direction: column;
+}
+#lecturer{
+	flex-basis: 10%;
+	display: flex;
+	align-items: center;
+}
+#title-div{
+	flex-basis: 30%;
+	display:flex;
+	align-items: flex-end;
+	font-size: 30px;
+	padding-left: 10px;
+}
+
+#lecturer-img{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 15px;
+	
+}
+#fir-div3{
+	flex-basis: 20%;
+}
+#second-container{
+	display: flex; 
+	margin-top: 5vh;
+}
+#sec-div1{
+	flex-basis: 20%;
+}
+#sec-div2{
+	flex-basis: 60%;
+	display: flex;
+	flex-direction: column; 
+}
+.per-container{
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.date-restnum{
+	padding-left: 20px;
+	display: flex;
+	background-color: darkslategray;
+	align-items: center;
+	height: 10vh;
+
+}
+.date-div{
+	font-size: 30px;
+	color: white;
+}
+.restnum-div{
+	margin-left: 3vw;
+	display: flex;
+	border: 1px solid white;
+	height: 5vh;
+	width: 8vw;
+	justify-content: center;
+	align-items: center;
+	border-radius: 2px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s;
+    color: white;
+
+
+}
+.restnum-div:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+
+	
+}
+.restnum{
+	color: coral;
+}
+
+.list-title{
+	margin-top: 10px;
+	display: flex;
+	min-height: 20px;
+}
+.list-title1{
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid black;
+
+}
+.list-title2{
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid black;
+	
+}
+.list-title3{
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-right: 1px solid black;
+}
+.list-title4{
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.point-div{
+	margin-top: 10px;
+	display: flex;
+	min-height: 20px;
+}
+.participants-div{
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border-right: 1px solid lightgray;	
+}
+.baby-profile-img{
+	width: 30px;
+	height: 30px;
+	border-radius: 25%;
+	margin-right: 10px;
+}
+
+
+.cancel-div{
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+.fa-ban{
+	color: orangered;
+	cursor: pointer;
+}
+
+
+.message-div{
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+		border-left: 1px solid lightgray;	
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.fa-envelope{
+	color: royalblue;
+	cursor: pointer;
+
+}
+
+#popupLayer{
+    width: 400px;
+    height: 400px;
+    background-color: white;
+	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3); /* 그림자 효과 추가 */
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 10%;
+
+    position: fixed; /* 브라우저에서 위치 고정 */
+
+    /* 브라우저 정가운데 배치 */
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+.first-line{
+	width: 100%;
+	height: 3vh;
+	background-color: darkslategray;
+}
+
+.popup-row{
+	padding: 10px;
+	margin: 10px;
+	/* 위치의 상대적 기준점 */
+	position : relative;
+	width: 90%;
+}
+.popup-row > span {
+	color: gray;
+}
+.popup-hidden{ 
+	display: none !important; 
+}
+
+#popupClose{
+  /* 절대적인 위치 지정(기준 내에서 아무곳에나 배치 가능) */
+  position: absolute; 
+  top: 0px;   /* 위쪽으로    부터 0px 떨어진 위치 */
+  right: 10px; /* 오른쪽으로 부터 10px 떨어진 위치 */
+  font-size: 30px;
+  font-weight: bold;
+  user-select: none; /* 드래그 방지 */
+  cursor: pointer; /* 커서 손가락 모양 */
+}
+  
+#popupClose:hover{ color :grey; }
+
+#popupClose:active{ color : darkslategray; }
+
+/* 버튼 영역 */
+.btn-container{
+  flex-grow: 1; /* 중심축 방향으로 팽창 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 15px;
+}
+
+.btn-container > button{ 
+	margin: 3px;
+	width: 5vw;
+	height: 4vh;
+	border: none;
+	background-color: white;
+	font-size: 14px;
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 10%;
+	border: 1px solid lightgray;
+	transition: background-color 0.3s, color 0.3s;
+	cursor: pointer;
+}
+
+.btn-container > button:hover{
+	background-color: darkslategray; 
+	color: white;
+}
+
+/* 수정 팝업 레이어 */
+#updateLayer{
+	width: 400px;
+	height: 400px;
+	background-color: white;
+	position: fixed; /* 브라우저에서 위치 고정 */
+	/* 브라우저 정가운데 배치 */
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3); /* 그림자 효과 추가 */
+	border-bottom-left-radius: 10%;
+	border-bottom-right-radius: 10%;
+}
+
+#updateTitle{ 
+	width: 70%; 
+	height: 4vh;
+	padding-left: 10px;
+	font-size: 15px;
+	outline:none;
+	border: 1.5px solid darkslategray;
+}
+#updateContent{
+	width: 90%;
+	height: 15vh;
+	resize: none;
+	outline:none;
+	font-size: 15px;
+	margin-left: 15px;
+	border-bottom-left-radius: 5px;	
+	border-bottom-right-radius: 5px;	
+	border: 1.5px solid darkslategray;
+}
+
+#sec-div3{
+	flex-basis: 20%;
+}

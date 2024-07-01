@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+
+	<link rel="stylesheet" href="/css/member/foundId.css">
+		
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+
+	
+<body>
+   
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	<!-- 
+	<form action="/member/foundId" method="post">
+        <section class="big-container">
+
+            <div class="left-container">
+
+                <pre class="information">
+                    
+                    <b>아이디 찾기</b>
+
+                    아이디를 잃어버리셨나요 ?
+                    
+                    
+                    가입 당시 사용하신 휴대폰 번호를 이용하여
+                    아이디를 찾을 수 있습니다.
+
+                    
+                    ※ 서비스 이용 시, 불편하신 상황에는 
+                    고객센터로 문의해주세요
+                    
+                    고객센터 : 010 - 6702 - 5246
+                </pre>
+                
+
+                
+            </div>
+
+            <div class="right-container">
+
+                <div class="right-input">
+
+                    <input placeholder="성함" id="member-nickname" name="memberNickname" autocomplete="off"><br>
+                    <input type="text" placeholder="&#39;-&#39;없이 번호만 입력하세요" id="member-tel" name="memberTel" autocomplete="off">
+                </div>
+
+                <div>
+                    <button type="submit" id="found-id">아이디 찾기</button>
+                </div>
+            </div>
+
+        </section>
+   </form>
+   -->
+   
+   
+   <form 	action="/member/foundId" method="POST">
+   <div id="big-container">
+   <div class="left-container">
+   		
+   	<div id="top-line"> </div>
+   		<div id="first-text">
+   			아이디 찾기 
+   		</div>
+   		<div id="second-text">
+   			가입 당시 사용하신 <span style="color:coral;"> 전화번호</span>				&nbsp;를 이용하여
+   			아이디를 찾을 수 있습니다.
+   		</div>
+   		
+   		<div>
+			<input placeholder="성함"			class="input1"  id="member-name" name="memberNickname" autocomplete="off"><br>
+
+   		</div>
+   
+   		<div class = "check">
+               <input type="text" placeholder="&#39;-&#39;없이 번호만 입력하세요" id="member-tel" 	name="memberTel"	autocomplete="off">
+   		</div>
+   
+   		
+   		<div>
+   		    <button id="change-pw-btn" type="submit">아이디 찾기</button>
+   		</div>
+   	                 
+   
+   	
+   	                 
+   
+   
+   
+   	
+   </div>
+   </form>
+   </div>
+	
+	<th:block th:replace="~{common/footer}"></th:block>
+	
+	 <!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	 
+	<script src="/js/member/foundId.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
+	
+</body>
+</html>

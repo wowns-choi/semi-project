@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.semi.payment.model.mapper.PaymentMapper"> 
+
+	<update id="minusRestNum">
+		UPDATE LECTURE_RESTNUM
+		SET REST_NUM = REST_NUM - #{quantity}
+		WHERE LECTURE_NO = #{lectureNo}
+		AND LECTURE_DATE = TO_DATE(#{selectDate}, 'YYYY-MM-DD')		
+	</update>
+
+
+	<insert id="addOrder" >
+		INSERT INTO LECTURE_ORDERS
+		VALUES 
+		(
+			SEQ_LECTURE_ORDERS_NO.NEXTVAL,
+			#{memberNo},
+			#{lectureNo},
+			#{merchantUid},
+			#{amount},
+			#{quantity},
+			#{status},
+			NULL,
+			SYSDATE
+		)
+	</insert>
+	
+	<update id="updateStatus">
+		UPDATE LECTURE_ORDERS
+		SET STATUS = #{updateMessage}
+		WHERE MERCHANT_UID = #{merchantUid}
+	</update>
+	
+	<select id="selectLectureOrdersNo">
+		SELECT LECTURE_ORDERS_NO FROM LECTURE_ORDERS
+		WHERE MERCHANT_UID = #{merchantUid}
+	</select>
+
+
+	<insert id="addPayment">
+		INSERT INTO LECTURE_PAYMENTS
+		VALUES (
+			SEQ_LECTURE_PAYMENTS_NO.NEXTVAL,
+			
+			#{memberNo},
+			#{lectureOrdersNo},
+			#{impUid},
+			#{merchantUid},
+			#{amount},
+			
+			#{currency},
+			#{status},
+			#{failReason},
+			#{failedAt},
+			#{payMethod},
+			
+			#{name},
+			#{paidAt},
+			#{receiptUrl},
+			#{startedAt},
+			#{userAgent},
+			
+			#{buyerName},
+			#{buyerTel},
+			#{buyerAddr},
+			#{buyerPostcode},
+			#{buyerEmail},
+			
+			#{applyNum},
+			#{cardCode},
+			#{cardName},
+			#{cardNumber},
+			#{cardQuota},
+			
+			#{cardType},
+			#{bankCode},
+			#{bankName},
+			#{vbankCode},
+			#{vbankDate},
+			
+			#{vbankHolder},
+			#{vbankIssuedAt},
+			#{vbankNum},
+			#{vbankName},
+			#{customData},
+			
+			#{customerUid},
+			#{customerUidUsage},
+			#{channel},
+			#{cashReceiptIssued},
+			#{escrow},
+			
+			#{pgId},
+			#{pgProvider},
+			#{embPgProvider},
+			#{pgTid},
+			#{cancelAmount},
+			
+			#{cancelReason},
+			#{cancelledAt}
+			
+		)
+	</insert>
+	
+	<select id="findAmountByMerchantUid">
+		SELECT AMOUNT FROM LECTURE_ORDERS
+		WHERE MERCHANT_UID = #{merchantUid}
+	</select>
+
+	<update id="updateFailReason">
+		UPDATE FROM LECTURE_ORDERS
+		SET FAIL_REASON = #{failReason}
+		WHERE FAIL_REASON = #{merchantUid}
+	</update>
+	
+	<update id="plusRestNum">
+		UPDATE LECTURE_RESTNUM
+		SET REST_NUM = REST_NUM + #{quantity}
+		WHERE LECTURE_NO = #{lectureNo}
+		AND LECTURE_DATE = TO_DATE(#{selectDate}, 'YYYY-MM-DD')		
+	</update>
+	
+	<insert id="addRegisteredMember">
+		INSERT INTO REGISTERED_MEMBER 
+		VALUES (
+			SEQ_REGISTERED_MEMBER_NO.NEXTVAL,
+			#{memberNo},
+			#{lectureNo},
+			TO_DATE(#{lectureDate}, 'YYYY-MM-DD'),
+			#{merchantUid},
+			DEFAULT 	
+		)
+	</insert>
+	
+	<select id="findLecturerMemberNo">
+		SELECT MEMBER_NO FROM LECTURE 
+		WHERE LECTURE_NO = #{lectureNo}
+	</select>
+	
+	<update id="updateFeeSettlement">
+		UPDATE FEE_SETTLEMENT
+		SET SETTLEMENT_AMOUNT = SETTLEMENT_AMOUNT + #{totalPrice}
+		WHERE LECTURER_MEMBER_NO = #{lecturerMemberNo}
+	</update>
+	
+	<insert id="addFeeSettlement">
+		INSERT INTO FEE_SETTLEMENT
+		VALUES (SEQ_FEE_SETTLEMENT_NO.NEXTVAL,
+			#{lecturerMemberNo},
+			#{totalPrice},
+			DEFAULT
+		)
+	</insert>
+	
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

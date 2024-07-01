@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.semi.management.model.mapper.ManagementMapper"> 
+<resultMap type="Lecture" id="firstLectureRM" >
+	    <id property="lectureNo" column="LECTURE_NO" />
+	    
+	    <result property="memberNo" column="MEMBER_NO" />
+	    <result property="lectureCategoryNum" column="LECTURE_CATEGORY_NUM" />
+	    <result property="lectureHomeTitle" column="LECTURE_HOME_TITLE" />
+	    <result property="lectureHomeContent" column="LECTURE_HOME_CONTENT" />
+	    <result property="lectureTitle" column="LECTURE_TITLE" />
+	    <result property="lectureContent" column="LECTURE_CONTENT" />
+	    <result property="price" column="PRICE" />
+	    <result property="instructorIntroduction" column="INSTRUCTOR_INTRODUCTION" />
+	    <result property="lectureLevel" column="LECTURE_LEVEL"/>
+	    <result property="startTime" column="START_TIME" />
+	    <result property="howLong" column="HOW_LONG" />
+	    <result property="acceptableNumber" column="ACCEPTABLE_NUMBER" />
+	    <result property="restNumber" column="REST_NUMBER" />
+	    <result property="formattedStartDate" column="FORMMATED_START_DATE" />
+	    <result property="formattedEndDate" column="FORMMATED_END_DATE" />
+	    <result property="formattedEnrollDate" column="FORMMATED_ENROLL_DATE" />
+	    
+	    
+	    
+	    <!-- 조인해서 가져올 것들  -->
+	    <result property="memberNickname" column="MEMBER_NICKNAME" />
+	    <result property="profileImg" column="PROFILE_IMG"/>
+	    <result property="dayOfWeek" column="DAY_OF_WEEK" />
+	    
+	    <!-- LECTURE_ADDRESS 조인 -->
+	    <result property="postCode" column="POST_CODE"/>
+	    <result property="roadAddress" column="ROAD_ADDRESS"/>
+	    <result property="jibunAddress" column="JIBUN_ADDRESS"/>
+	    <result property="detailAddress" column="DETAIL_ADDRESS"/>
+	    
+	    <!-- LECTURE_MAP 조인 -->
+	    <result property="latitude" column="LATITUDE"/>
+	    <result property="hardness" column="HARDNESS"/>
+	    
+	    
+	    
+	    
+	    <collection property="files" ofType="LectureFile">
+	        <id property="lectureFileNo" column="LECTURE_FILE_NO" />
+            <result property="lectureNo" column="LECTURE_NO" />
+	        <result property="filePath" column="FILE_PATH" />
+	        <result property="originalName" column="ORIGINAL_NAME" />
+	        <result property="fileRename" column="FILE_RENAME" />
+	        <result property="uploadDate" column="UPLOAD_DATE" />
+	    </collection>
+	 
+	    <collection property="reviews" ofType="LectureReview">
+	        <id property="lectureReviewNo" column="LECTURE_REVIEW_NO" />
+            <result property="reviewWriteMember" column="MEMBER_NO" />
+	        <result property="reviewContent" column="REVIEW_CONTENT" />
+	        <result property="reviewImg" column="REVIEW_IMG" />
+	        <result property="formattedCreateDateReview" column="CREATE_DATE_REVIEW" />
+	        <result property="parentReviewNo" column="PARENT_REVIEW_NO" />
+	    </collection>
+	 
+
+	</resultMap>
+	
+	
+
+	
+	<select id="findLectureAllData" resultMap="firstLectureRM" >
+	    SELECT
+	        L.LECTURE_NO,
+	        L.MEMBER_NO,
+	        L.LECTURE_CATEGORY_NUM,
+	        L.LECTURE_HOME_TITLE,
+	        L.LECTURE_HOME_CONTENT,
+	        L.LECTURE_TITLE,
+	        L.LECTURE_CONTENT,
+	        L.PRICE,
+	        L.INSTRUCTOR_INTRODUCTION,
+	        L.LECTURE_LEVEL,
+	        L.START_TIME,
+	        L.HOW_LONG,
+	        L.ACCEPTABLE_NUMBER,
+	        L.REST_NUMBER,
+     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,	 
+  
+  
+			LF.LECTURE_FILE_NO,
+			LF.FILE_PATH,
+			LF.ORIGINAL_NAME,
+			LF.FILE_RENAME,
+			
+			LA.POST_CODE,
+			LA.ROAD_ADDRESS,
+			LA.JIBUN_ADDRESS,
+			LA.DETAIL_ADDRESS,
+			
+			LM.LATITUDE,
+			LM.HARDNESS
+		
+			FROM LECTURE L
+			
+			LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO
+			
+			LEFT JOIN LECTURE_ADDRESS LA ON L.LECTURE_NO = LA.LECTURE_NO
+			
+			LEFT JOIN LECTURE_MAP LM ON L.LECTURE_NO = LM.LECTURE_NO
+			
+			WHERE L.LECTURE_NO = #{lectureNo}
+			AND L.LECTURE_DEL_FL = 'N'
+	</select>
+
+
+
+	<resultMap type="Lecture" id="findLectureAllDataRM">
+	    <id property="lectureNo" column="LECTURE_NO" />
+	    <result property="formattedEnrollDate" column="FORMATTED_ENROLL_DATE" />
+
+		<collection 
+			property="files"
+			select="selectLectureFiles"
+			column="LECTURE_NO"
+			javaType="java.util.ArrayList"
+			ofType="LectureFile"
+		/>
+		
+	</resultMap>
+
+ 	<select id="showMyLectures" resultMap="findLectureAllDataRM">
+	    SELECT
+	        L.LECTURE_NO,
+	        L.MEMBER_NO,
+	        L.LECTURE_CATEGORY_NUM,
+	        L.LECTURE_HOME_TITLE,
+	        L.LECTURE_HOME_CONTENT,
+	        L.PRICE,
+	        L.LECTURE_LEVEL,
+     	    TO_CHAR(L.START_DATE, 'YYYY-MM-DD') FORMMATED_START_DATE,
+	        TO_CHAR(L.END_DATE, 'YYYY-MM-DD') FORMMATED_END_DATE,
+	        TO_CHAR(L.ENROLL_DATE, 'YYYY-MM-DD') FORMATTED_ENROLL_DATE,	 
+  
+			<!-- LF.LECTURE_FILE_NO,
+			LF.FILE_PATH,
+			LF.ORIGINAL_NAME,
+			LF.FILE_RENAME,
+			-->
+			
+			M.MEMBER_NICKNAME,
+	        M.PROFILE_IMG
+			
+			FROM LECTURE L
+			<!--LEFT JOIN LECTURE_FILE LF ON L.LECTURE_NO = LF.LECTURE_NO -->
+			LEFT JOIN MEMBER M ON L.MEMBER_NO = M.MEMBER_NO
+			WHERE M.MEMBER_NO = #{memberNo}
+			AND L.LECTURE_DEL_FL = 'N'
+			ORDER BY L.ENROLL_DATE DESC
+			OFFSET #{startRow} ROWS
+			FETCH NEXT #{pageSize} ROWS ONLY
+ 	</select>
+ 	
+ 	<select id="selectLectureFiles" resultType="LectureFile">
+		SELECT * FROM LECTURE_FILE
+		WHERE LECTURE_NO = #{lectureNo}
+	</select>
+ 	
+ 	
+ 	<select id="countMyLecture">
+ 		SELECT COUNT(*) FROM LECTURE 
+ 		WHERE MEMBER_NO = #{memberNo}
+ 		AND LECTURE_DEL_FL = 'N'
+ 	</select>
+ 	
+ 	<select id="findOwner">
+		SELECT COUNT(*) FROM LECTURE
+		WHERE MEMBER_NO = #{memberNo}
+		AND LECTURE_NO = #{lectureNo}
+ 		AND LECTURE_DEL_FL = 'N'
+	</select>
+	
+	<update id="updateLecture">
+		UPDATE LECTURE SET
+		LECTURE_CATEGORY_NUM = #{field},
+		LECTURE_HOME_TITLE = #{lectureHomeTitle},
+		LECTURE_HOME_CONTENT = #{lectureHomeContent},
+		LECTURE_TITLE = #{lectureTitle},
+		LECTURE_CONTENT = #{lectureContent},
+		INSTRUCTOR_INTRODUCTION = #{instructor},
+		LECTURE_LEVEL = #{level},
+		START_TIME = #{startTime},
+		HOW_LONG = #{howLong},
+		ACCEPTABLE_NUMBER = #{acceptableNumber},
+		START_DATE = #{startDate},
+		END_DATE = #{endDate},
+		PRICE = #{price}
+		WHERE LECTURE_NO = #{lectureNo}
+ 		AND LECTURE_DEL_FL = 'N'
+	</update>
+	
+	<select id="findLectureNos">
+		SELECT LECTURE_FILE_NO FROM LECTURE_FILE 
+		WHERE LECTURE_NO =#{lectureNo}
+		ORDER BY LECTURE_NO ASC
+	</select>
+
+	<update id="updateLectureFile">
+		UPDATE LECTURE_FILE SET 
+		FILE_PATH = #{filePath},
+		ORIGINAL_NAME = #{originalName},
+		FILE_RENAME = #{fileRename}
+		WHERE LECTURE_FILE_NO = #{lectureFileNo}
+	</update>
+	
+	
+	<insert id="addLectureFile">
+		INSERT INTO LECTURE_FILE 
+		VALUES 
+		(
+			SEQ_LECTURE_FILE_NO.NEXTVAL,
+			#{lectureNo},
+			#{filePath},
+			#{originalName},
+			#{fileRename},
+			DEFAULT
+		)
+	</insert>
+	
+	<update id="updateLectureAddress">
+		UPDATE LECTURE_ADDRESS SET
+		POST_CODE = #{lecturePostCode},
+		ROAD_ADDRESS = #{lectureRoadAddress},
+		JIBUN_ADDRESS = #{lectureJibunAddress},
+		DETAIL_ADDRESS = #{lectureDetailAddress}
+		WHERE LECTURE_NO = #{lectureNo}
+	</update>
+	
+	<update id="updateLectureMap">
+		UPDATE LECTURE_MAP SET
+		LATITUDE = #{latitude},
+		HARDNESS = #{hardness}
+		WHERE LECTURE_NO = #{lectureNo}
+	</update>
+
+	 <delete id="deleteLectureFile">
+		DELETE FROM LECTURE_FILE
+		WHERE LECTURE_FILE_NO = #{lectureFileNo} 
+	 </delete>
+	 
+	 <!-- 새로운 시도  -->
+	<select id="findRegisteredMembers">
+		SELECT RM.REGISTERED_MEMBER_NO, RM.MEMBER_NO, RM.LECTURE_NO, TO_CHAR(RM.LECTURE_DATE, 'YYYY-MM-DD') LECTURE_DATE_STR, RM.REGISTERED_MEMBER_FL,
+		M.MEMBER_NICKNAME, M.PROFILE_IMG ,
+		LO.QUANTITY 
+		
+		FROM REGISTERED_MEMBER RM
+		LEFT JOIN MEMBER M ON (RM.MEMBER_NO = M.MEMBER_NO)
+		LEFT JOIN LECTURE_ORDERS LO ON (RM.MERCHANT_UID =LO.MERCHANT_UID) 
+		
+		WHERE RM.LECTURE_NO = #{lectureNo}  
+		AND RM.REGISTERED_MEMBER_FL = 'N'
+	</select>
+	
+	<select id="findLectureRestNums">
+		SELECT LECTURE_RESTNUM_NO, LECTURE_NO, TO_CHAR(LECTURE_DATE, 'YYYY-MM-DD') LECTURE_DATE_STR, REST_NUM
+		FROM LECTURE_RESTNUM
+		WHERE LECTURE_NO = #{lectureNo}
+	</select>
+
+	 
+	 <select id="findMemberNo">
+		SELECT MEMBER_NO FROM LECTURE
+		WHERE LECTURE_NO = #{lectureNo}
+ 		AND LECTURE_DEL_FL = 'N'
+	 </select>
+	 
+	 <select id="findRegisteredMember">
+		SELECT RM.REGISTERED_MEMBER_NO 
+		FROM REGISTERED_MEMBER RM
+		LEFT JOIN LECTURE_ORDERS LO ON RM.MERCHANT_UID = LO.MERCHANT_UID 
+		
+		WHERE RM.REGISTERED_MEMBER_FL = 'N'
+		AND LO.QUANTITY = #{quantity}
+		
+		AND RM.LECTURE_NO = #{lectureNo}
+		AND RM.LECTURE_DATE = TO_DATE(#{lectureDate}, 'YYYY-MM-DD')
+		AND RM.MEMBER_NO = #{memberNo}	
+		
+	 </select>
+
+ 	 <update id="updateFlagSpecific">
+		UPDATE REGISTERED_MEMBER 
+		SET REGISTERED_MEMBER_FL = 'Y'
+		WHERE LECTURE_NO = #{lectureNo}
+		AND LECTURE_DATE = TO_DATE(#{lectureDate}, 'YYYY-MM-DD')
+		AND MEMBER_NO = #{memberNo}
+		AND REGISTERED_MEMBER_NO = #{registeredMemberNo}	
+	 </update>
+	 	 
+	 <update id="updateFlag">
+		UPDATE REGISTERED_MEMBER 
+		SET REGISTERED_MEMBER_FL = 'Y'
+		WHERE LECTURE_NO = #{lectureNo}
+		AND LECTURE_DATE = TO_DATE(#{lectureDate}, 'YYYY-MM-DD')
+		AND MEMBER_NO = #{memberNo}		
+	 </update>
+	 
+	 
+	 
+	 <select id="checkLecturerMemberNo">
+		SELECT MEMBER_NO FROM LECTURE 
+		WHERE LECTURE_NO= #{lectureNo}
+ 		AND LECTURE_DEL_FL = 'N'
+	 </select>
+	 
+	 <update id="deleteLecture">
+		UPDATE LECTURE SET LECTURE_DEL_FL = 'Y'
+		WHERE LECTURE_NO = #{lectureNo}
+	 </update>
+	 
+	<update id="minusFeeSettlement">
+		UPDATE FEE_SETTLEMENT 
+		SET SETTLEMENT_AMOUNT = SETTLEMENT_AMOUNT - #{minusAmount}
+		WHERE LECTURER_MEMBER_NO = #{lecturerMemberNo}
+	</update>
+	
+	<select id="findMerchantUid">
+		SELECT MERCHANT_UID FROM REGISTERED_MEMBER
+		WHERE REGISTERED_MEMBER_NO = #{registeredMemberNo}
+	</select>
+	
+	<insert id="addRefundCustomer">
+		INSERT INTO REFUND_CUSTOMER 
+		VALUES (
+			SEQ_REFUND_CUSTOMER_NO.NEXTVAL, 
+			#{lectureNo},
+			#{merchantUid},
+			#{memberNo},
+			#{minusAmount},
+			'강사가 강의를 취소하였습니다',
+			'NOT REFUND',
+			SYSDATE,
+			NULL
+		)
+	</insert>
+
+	<insert id="addMessage">
+		INSERT INTO REGISTERED_MESSAGE
+		VALUES 
+		(SEQ_REGISTERED_MESSAGE_NO.NEXTVAL,
+		#{memberNo},
+		'강의 취소 안내',
+		'강사님이 강의를 취소하셨습니다',
+		DEFAULT,
+		DEFAULT,
+		#{registeredMemberNo},
+		#{loginMemberNo},
+		'L'
+		)
+	</insert>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+ 	
+</mapper>

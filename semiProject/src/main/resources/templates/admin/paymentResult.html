@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+	<!-- adminNavbar css -->
+	<link rel="stylesheet" href="/css/admin/common/adminNavbar.css">
+	<!-- adminHome css -->
+	<link rel="stylesheet" href="/css/admin/paymentResult.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+	<th:block th:replace="~{admin/common/adminNavbar}"></th:block>
+
+	<div id="option-container">
+		<form action="/admin/payment" method="post">
+			
+			
+			<input type="text" name="merchantUid" id="option-input" placeholder="주문번호를 입력해주세요">
+			<button type="submit" id="option-btn"> 조회 </button>
+		</form>	
+	</div>
+
+	
+	<div id="refund-container-header"> 
+		결제 내역
+	</div>
+
+	
+	<div id="refund-container-body">
+		<div id="left-container"></div>
+		<div id="mid-container">
+			<div id="div1">
+				<span>주문번호 : </span>
+				<span th:text="${payment?.merchantUid}"></span>
+			</div>
+			<div id="div2">
+				<span>결제금액 : </span>
+				<span th:text="${payment?.amount}"></span>
+			</div>
+			<div id="div3">
+				<span>화폐 : </span>
+				<span th:text="${payment?.currency}"></span>
+			</div>
+			<div id="div4">
+				<span>결제상태 : </span>
+				<span th:text="${payment?.status}"></span>
+			</div>
+			<div id="div5">
+				<span>결제실패이유 : </span>
+				<span th:text="${payment?.failReason}"></span>
+			</div>
+			<div id="div6">
+				<span>결제실패시각 : </span>
+				<span th:text="${payment?.failedAt}"></span>
+			</div>
+			<div id="div7">
+				<span>결제방법 : </span>
+				<span th:text="${payment?.payMethod}"></span>
+			</div>
+			<div id="div8">
+				<span>주문번호 : </span>
+				<span th:text="${payment?.merchantUid}"></span>
+			</div>
+			<div id="div9">
+				<span>결제자 이름 : </span>
+				<span th:text="${payment?.name}"></span>
+			</div>
+			<div id="div10">
+				<span>결제시각 : </span>
+				<span th:text="${payment?.paidAt}"></span>
+			</div>
+			<div id="div11">
+				<span>영수증 URL : </span>
+				<span th:text="${payment?.receiptUrl}"></span>
+			</div>
+			<div id="div12">
+				<span>구매자 이름 : </span>
+				<span th:text="${payment?.buyerName}"></span>
+			</div>
+			<div id="div13">
+				<span>구매자 전화번호 : </span>
+				<span th:text="${payment?.buyerTel}"></span>
+			</div>
+			<div id="div14">
+				<span>구매자 주소 : </span>
+				<span th:text="${payment?.buyerAddr}"></span>
+			</div>
+			<div id="div15">
+				<span>구매자 우편주소 : </span>
+				<span th:text="${payment?.buyerPostcode}"></span>
+			</div>
+			<div id="div16">
+				<span>구매자 이메일 : </span>
+				<span th:text="${payment?.buyerEmail}"></span>
+			</div>
+			<div id="div17">
+				<span>applyNum : </span>
+				<span th:text="${payment?.applyNum}"></span>
+			</div>
+			<div id="div18">
+				<span>카드 코드 : </span>
+				<span th:text="${payment?.cardCode}"></span>
+			</div>
+			<div id="div19">
+				<span>카드 이름 : </span>
+				<span th:text="${payment?.cardName}"></span>
+			</div>
+			<div id="div20">
+				<span>카드 번호 : </span>
+				<span th:text="${payment?.cardNumber}"></span>
+			</div>
+			<div id="div21">
+				<span>카드 할부 : </span>
+				<span th:text="${payment?.cardQuota}"></span>
+			</div>
+			<div id="div22">
+				<span>카드 타입 : </span>
+				<span th:text="${payment?.cardType}"></span>
+			</div>
+			<div id="div23">
+				<span>은행코드 : </span>
+				<span th:text="${payment?.bankCode}"></span>
+			</div>
+			<!-- -->
+			<div id="div24">
+				<span>은행이름 : </span>
+				<span th:text="${payment?.bankName}"></span>
+			</div>			
+			<div id="div25">
+				<span>가상계좌코드 : </span>
+				<span th:text="${payment?.vbankCode}"></span>
+			</div>			
+			<div id="div26">
+				<span>은행코드 : </span>
+				<span th:text="${payment?.bankCode}"></span>
+			</div>			
+			<div id="div27">
+				<span>가상계좌 입금 일자 : </span>
+				<span th:text="${payment?.vbankDate}"></span>
+			</div>			
+			<div id="div28">
+				<span>가상계좌 예금주 : </span>
+				<span th:text="${payment?.vbankHolder}"></span>
+			</div>			
+			<div id="div29">
+				<span>가상계좌 번호 : </span>
+				<span th:text="${payment?.vbankNum}"></span>
+			</div>			
+			<div id="div30">
+				<span>가상계좌 이름 : </span>
+				<span th:text="${payment?.vbankName}"></span>
+			</div>			
+			<div id="div31">
+				<span>커스텀 데이터 : </span>
+				<span th:text="${payment?.customData}"></span>
+			</div>			
+			<div id="div32">
+				<span>customerUid : </span>
+				<span th:text="${payment?.customerUid}"></span>
+			</div>			
+			<div id="div33">
+				<span>customerUidUsage : </span>
+				<span th:text="${payment?.customerUidUsage}"></span>
+			</div>			
+			<div id="div34">
+				<span>channel : </span>
+				<span th:text="${payment?.channel}"></span>
+			</div>			
+			<div id="div35">
+				<span>현금영수증 발급여부 : </span>
+				<span th:text="${payment?.cashReceiptIssued}"></span>
+			</div>			
+			<div id="div36">
+				<span>에스크로 : </span>
+				<span th:text="${payment?.escrow}"></span>
+			</div>			
+			<div id="div37">
+				<span>PG(PAYMENT GATEWAY) 아이디 : </span>
+				<span th:text="${payment?.pgId}"></span>
+			</div>			
+			<div id="div38">
+				<span>PG Provider : </span>
+				<span th:text="${payment?.pgProvider}"></span>
+			</div>			
+			<div id="div39">
+				<span>embPgProvider : </span>
+				<span th:text="${payment?.embPgProvider}"></span>
+			</div>			
+			<div id="div40">
+				<span>pgTid : </span>
+				<span th:text="${payment?.pgTid}"></span>
+			</div>			
+			<div id="div41">
+				<span>결제취소금액 : </span>
+				<span th:text="${payment?.cancelAmount}"></span>
+			</div>			
+			<div id="div42">
+				<span>결제취소원인 : </span>
+				<span th:text="${payment?.cancelReason}"></span>
+			</div>			
+			<div id="div43">
+				<span>결제취소시각 : </span>
+				<span th:text="${payment?.cancelledAt}"></span>
+			</div>			
+		</div>
+		<div id="right-container"></div>		
+	</div>
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+		
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!-- 카카오 관련 시작 -->
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
+    integrity="sha384-kDljxUXHaJ9xAb2AzRd59KxjrFjzHa5TAoFQ6GbYTCAG0bjM55XohjjDT7tDDC01"
+    crossorigin="anonymous"></script>
+<script>
+    Kakao.init('f136f82ee91f39749dc1d23128da7bfa');
+    console.log(Kakao.isInitialized());
+</script>
+<script>
+    function loginWithKakao() {
+        Kakao.Auth.authorize({
+            redirectUri: 'http://115.90.212.22:11115/get-auth-code',
+        });
+    }
+</script>
+<!-- 카카오 관련 끝 -->
+
+
+
+<div id="login-modal-container">
+	<div id="overlay">
+	</div>
+
+	<div id="login-modal">
+		<div>
+			<div>
+				<div>
+					<i class="fa-solid fa-xmark" id="x-btn"></i>
+				</div>
+			</div>
+		</div>
+		<div id="login-modal-content">
+			<!-- 1 -->
+			<div></div>
+			<!-- 2 -->
+			<div>
+				로그인
+			</div>
+			<!-- 3 -->
+			<div>
+				<form action="/member/login" method="post" id="login-form">
+					<label>
+						아이디 저장 <input type="checkbox" name="saveId">
+					</label>
+			</div>
+			<!-- 4 -->
+			<div>
+				<div>
+					<i class="fa-regular fa-user"></i>
+				</div>
+				<input type="text" name="memberEmail" placeholder="이메일" id="member-email">
+			</div>
+			<!-- 5 -->
+			<div>
+				<div><i class="fa-solid fa-lock"></i></div>
+				<input type="password" name="memberPw" 	placeholder="비밀번호" id="member-pw2">
+			</div>
+			<!-- 6 -->
+			<div id="login-error"></div>
+			<!-- 7 -->
+			<div>
+				<button type="submit"> Sign in </button>
+			</div>
+			<!-- 8 -->
+			<div>
+				<a href="/member/findMemberEmail">아이디 찾기</a> &nbsp &nbsp | &nbsp <!-- 아이디 찾기 비밀번호 찾기 아직 컨트롤러도 안만듦 -->
+				<a href="/member/findMemberPw">비밀번호 찾기</a> &nbsp	 &nbsp | &nbsp
+				<a href="/member/signUp">회원가입</a>
+			</div>
+			<!-- 9 -->
+			<div>
+				<a id="kakao-login-btn" href="javascript:loginWithKakao()">
+				    <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+				        width="120px;" alt="카카오 로그인 버튼" />
+				</a>
+			</div>
+			<div>
+				<div id="naver_id_login"></div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- 네이버 관련 시작 -->
+	<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+	    var naver_id_login = new naver_id_login("akLY3ixqz148IBJVFcFD", "http://localhost:8080/naverCallback");
+	    var state = naver_id_login.getUniqState();
+	    naver_id_login.setButton("white", 2,40);
+	    naver_id_login.setDomain("http://localhost:8080");
+	    naver_id_login.setState(state);
+	    naver_id_login.setPopup();
+	    naver_id_login.init_naver_id_login();
+	</script>
+<!-- 네이버 관련 끝 -->

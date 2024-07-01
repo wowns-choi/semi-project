@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ</title>
+
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+
+	<!-- main css -->
+	<link rel="stylesheet" href="/css/common/main.css">
+
+  <!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+
+	<link href="/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/faq/faq.css">
+
+  <link rel="stylesheet" href="/css/common/faqSidebar.css">
+  
+  <link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+
+</head>
+<body>
+    <!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+    <!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+
+    <th:block th:replace="~{common/faqSidebar}"></th:block>
+
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                클래스 등록은 어떻게 하면 되나요?
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              강사님께서 직접 홈페이지에 회원 가입 후 자유롭게 클래스 등록 글을 작성해주시면 됩니다.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              정해진 입점 기준이 있나요?
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              홈페이지에서 클래스 등록 글을 작성해주실 때, 강사님께서 운영하고 계신 클래스에 대해 최대한 상사하게 기입해주시면 좋습니다.
+              특히 커리큘럼을 자세하게 작성해주시면 수강생분들께 도움이 된답니다! 또한 깔끔하고 예쁜 이미지를 업로드 해주시는 것도 중요해요♥
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              클래스 등록 시 필요한 서류가 있나요?
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              클래스 등록을 위해 따로 준비하실 서류는 없습니다.<br>
+              다만 강사님께서 요청하신다면 메일 또는 팩스를 통해 계약서를 작성할 수 있습니다.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
+              클래스 등록 후 유지 기간이 따로 있나요?
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              클래스 등록 후 유지 기간은 따로 없으며, 강사님이 원하실 때 클래스 운영을 중지 종료하실 수 있습니다.
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseThree">
+              클래스 홍보는 어떻게 진행되나요?
+            </button>
+          </h2>
+          <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              1. 인스타그램, 네이버 블로그에 클래스 소개 포스팅이 진행 됩니다.<br>
+              2. 구글과 네이버 검색에 클래스 제목으로 노출이 발생합니다.<br>
+              3. Chee:Mi 의 SNS (인스타그램과 네이버 블로그 및 페이스북)의 매거진을 통해 특별 콘텐츠로 구성하여 소개해 드리기도 합니다.
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
+
+  <script src="/js/common/faqSidebar.js"></script>
+
+  <script src="/js/bootstrap.bundle.js" crossorigin="anonymous"></script>
+</body>
+</html>

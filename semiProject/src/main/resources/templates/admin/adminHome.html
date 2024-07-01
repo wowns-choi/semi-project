@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+	<!-- adminNavbar css -->
+	<link rel="stylesheet" href="/css/admin/common/adminNavbar.css">
+	<!-- adminHome css -->
+	<link rel="stylesheet" href="/css/admin/adminHome.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+</head>
+<body>
+	<th:block th:replace="~{admin/common/adminNavbar}"></th:block>
+	
+	<div id="admin-home-container">
+
+		<a href="/admin/order" id="order">
+			주문내역
+		</a>
+		<a href="/admin/payment" id="payment">
+			결제내역
+		</a>
+		<a href="/admin/refund" id="refund-btn">
+			환불
+		</a>
+		<a href="/admin/settlement" id="settlement">
+			정산 
+		</a>
+	</div>
+		
+</body>
+</html>

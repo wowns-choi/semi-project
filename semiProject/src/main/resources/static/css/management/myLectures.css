@@ -1,0 +1,392 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#home-content-container{
+	display: flex;
+	margin-top: 13vh;
+}
+#home-content-container > div:nth-child(1){
+	flex-basis: 15%;
+}
+#home-content-container > div:nth-child(2){
+	flex-basis: 70%;
+}
+#home-content-container > div:nth-child(3){
+	flex-basis: 15%;
+}
+
+#body-container{
+	width: 100vw;
+	display:flex;
+	min-height: 60vh;
+}
+#body-container>div:nth-child(1){
+	flex-basis: 10%;
+
+}
+#body-container>div:nth-child(2){
+	padding-top: 50px;
+	flex-basis: 80%;
+	display:flex;
+    align-items: flex-start; /* 아이템들을 상단 정렬 */
+    justify-content: flex-start; /* 아이템들을 시작 지점부터 배치 */
+    row-gap: 4rem;
+    column-gap: 3rem;
+	padding-left: 50px;
+    flex-wrap: wrap; /* 여러 줄로 아이템을 나열하게 함 */
+}
+
+
+#body-container>div:nth-child(3){
+	flex-basis: 10%;
+}
+
+.element-div{
+	width: 330px;
+	height: 350px;
+	display: flex;
+	flex-direction: column;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* 부드러운 변환 효과 */
+    text-decoration: none;
+	border-bottom-left-radius: 7px;    
+	border-bottom-right-radius: 7px;    
+}
+.element-div:hover{
+    transform: translateY(-10px); /* 마우스 오버 시 10px 위로 이동 */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* 그림자 효과 추가 */
+}
+
+.lecture-img{
+	height: 150px;
+	width: auto;
+	object-fit: cover; /* 컨테이너를 채우면서 이미지의 비율 유지 */
+	object-position: center; /* 이미지가 잘리는 경우 중심에서 잘리도록 설정 */
+}
+.lecture-img-basic{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 150px;
+	width: 100%;
+}
+.lecture-img-basic > img{
+	width: 30%;
+	height: 100px;
+}
+.lecture-name{
+	width: 97%;
+	height: 10%;
+	display:flex;
+	padding-left: 9px;
+	align-items: center;
+	font-weight: bold;
+	border-top: 1px solid black;
+	font-size: 16px;
+	color: black;
+
+}
+.lecture-title{
+	width: 97%;
+	height: 17%;
+	display:flex;
+	padding-left: 9px;
+	font-size: 13px;
+	color: gray;
+}
+
+
+
+
+.btn-collection{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height: 4vh;
+}
+
+.manage-memeber{
+	flex-basis: 33%;
+	height: 100%;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: darkslategray;
+	transition: background-color 0.3s, color 0.3s;
+
+}
+.manage-memeber:hover{
+	color: white;
+	background-color: darkslategray;
+}
+
+.update-lecture{
+	flex-basis: 33%; 
+	height: 100%;
+	color: darkslategray;
+	border: none;
+	transition: background-color 0.3s, color 0.3s;
+	cursor: pointer;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.update-lecture:hover{
+	color: white;
+	background-color: darkslategray;
+	
+
+}
+.delete-lecture{
+	flex-basis: 33%; 
+	height: 100%;
+
+	color: darkslategray;
+	border: none;
+	transition: background-color 0.3s, color 0.3s;
+	cursor: pointer;
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.delete-lecture:hover{
+		color: white;
+	background-color: darkslategray;
+
+}
+
+.text-collection{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	height: 4vh;
+}
+.manage-memeber-text{
+	flex-basis: 33%; 
+	font-size: 10px;
+	color: gray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+
+}
+.update-lecture-text{
+	flex-basis: 33%; 
+	font-size: 10px;
+	color: gray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.delete-lecture-text{
+	flex-basis: 33%; 
+	font-size: 10px;
+	color: gray;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.profile-nickname-div{
+	padding-left: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-top: 1px solid gray;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+
+}
+
+.b{
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+		padding: 4px;
+
+	
+}
+.c{
+	
+	font-size: 13px;
+		padding: 2px;
+		text-decoration: underline;
+
+
+}
+.a{
+	font-size: 13px;
+	color: gray;
+	padding: 3px;
+}
+
+
+
+.lecture-memberNickname{
+	width: 97%;
+	height: 10%;
+	display:flex;
+	padding-left: 9px;
+	padding-top: 3px;
+	align-items: center;
+	font-size: 16px;
+	color: darkslategray;
+	border-radius: 3px;
+}
+
+
+
+#pagination-div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10vh;
+	margin-bottom: 10vh;
+
+}
+.pagination-element{
+	margin: 3vw;
+	font-size: 15px;
+}
+
+.current-page-span{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 1.7vw;
+	height: 3.4vh;
+		background-color: darkslategray;
+	border-radius: 50%;
+
+	
+}
+
+.pagination-a{
+	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	background-color: darkslategray;
+	width: 1.7vw;
+	height: 3.4vh;
+	border-radius: 50%;
+	    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+
+	transition: color 0.3s, background-color 0.3s;
+}
+.pagination-a:hover{
+	color: darkslategray;
+	background-color: white;
+}
+#first-page-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
+
+}
+#first-page-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+
+	
+		
+}
+#previous-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
+	margin-left: 1vw;
+}
+#previous-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+#next-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
+	margin-right: 1vw;	
+}
+#next-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+#last-page-a{
+	color: gray;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 50%;
+	text-decoration: none;
+	width: 25px;
+	height: 25px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: box-shadow 0.3s, color 0.3s, border 0.3s;
+}
+#last-page-a:hover{
+	color: black;
+	border: 1px solid black;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

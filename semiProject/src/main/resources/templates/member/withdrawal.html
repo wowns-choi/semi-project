@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>회원탈퇴</title>
+	
+	<link rel="stylesheet" href="/css/member/witdrawal.css">	
+	
+	<link rel="stylesheet" href="/secession2.css">
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+
+
+
+<body>
+
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	
+	
+		<section class="big-container">
+
+
+		
+			<div class="small-container">
+
+				<div class="left-container">
+
+					<img src="/images/Logo.png" class="logo"><!--chee : mi --></img> <!--나중에 경로 바꺼야함 -->
+					<br>
+
+					<div>
+
+						<div class="sece-info">
+							<br>
+							<div class="lines"></div>
+							<br>
+							고객센터 : 010-6701-5246
+						</div>
+
+						<div class="line"></div>
+
+						
+
+					</div>
+
+				</div>
+
+				<div class="right-container">
+				<div class="line"></div>
+					<div class="notice">
+
+						<br>
+						&nbsp;※ 비밀번호를 입력하시면 회원 탈퇴가 완료됩니다.<br><br><br>
+
+						&nbsp;※ 원치 않으시는 경우 [메인으로] 버튼을 눌러<br><br>
+						&nbsp;&nbsp;홈페이지의 메인으로 돌아시기 바랍니다.<br><br><br>
+
+						&nbsp;※ 탈퇴된 회원의 정보는 30일간 유지됩니다.<br>
+					</div>
+				
+				
+					
+					<div class="input-container">
+
+						<div class="info-input">
+							<br>
+							<input type="password" placeholder="비밀번호" id="pwInput"><br>
+							<br>
+							<input type="password" placeholder="비밀번호 확인" id="pwConfInput">
+						</div>
+					</div>
+
+					<br>
+
+					<div id="info-button">
+						<div class="line2"></div>
+						
+						<button type="button" id="withdrawal2">탈퇴하기</button>
+						<button id="goMain">메인으로</button>
+					</div>
+
+				</div>
+			
+			</section>
+			
+
+		<th:block th:replace="~{common/footer}"></th:block>
+		 	
+		<script src="/js/member/member.js"></script>
+		
+		<!--navbar js-->
+		<script src="/js/common/navbar.js"></script>
+		
+		<!-- 로그인 모달창 js -->
+		<script src="/js/common/loginModal.js"></script>
+</body>
+
+</html>

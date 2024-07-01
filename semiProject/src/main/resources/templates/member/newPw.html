@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비밀번호 변경</title>
+
+    <link rel="stylesheet" href="/css/member/newPw.css">
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+
+
+<body>
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	
+	
+    <form action="/member/newPw" method="POST" id="changePw">
+	    <section class="container">
+	
+	        <div class="main-box">
+				<div id="first-div-inner"></div>
+				<div id="second-div-inner">
+		            <span id="pwFormInfo"> 영어, 숫자, 특수문자 (!,@,#,-,_) 6 ~ 20글자 이내로 입력하세요</span><br>
+		            <div class="inputs">
+		                <input type="password" class="newPw" placeholder="변경할 비밀번호"
+		                       id="currentPw" name="newPw" maxlength="20">
+		                <input type="password" class="newPw" placeholder="비밀번호 확인"
+		                       id="currentPwConf" maxlength="20"><br>
+		                
+		            </div>
+		            <div class="button-box">
+		                <button type="submit" class="button" id="changePwBtn">변경</button>
+		            </div>
+				</div>
+	        </div>
+	  
+	    </section>
+	</form>
+	
+	<th:block th:replace="~{common/footer}"></th:block>
+	
+	<!—navbar js—>
+	<script src="/js/common/navbar.js"></script>
+	
+	<!— 로그인 모달창 js —>
+	<script src="/js/common/loginModal.js"></script>
+	
+    <script src="/js/member/newPw.js"></script>
+</body>
+</html>

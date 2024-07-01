@@ -1,0 +1,29 @@
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    /* border-top: 0.5px solid lightgray; */
+    background-color: darkslategray;
+    height: 200px;
+}
+
+article {
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+
+p {
+    word-spacing: 10px;
+    color: lightgray;
+}
+
+.footer-a {
+    text-decoration: none;
+    color: lightgray;
+    margin: 0 20px;
+}
+
+span {
+    color: lightgray;
+}

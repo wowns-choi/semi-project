@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Title</title>
+	<!-- adminNavbar css -->
+	<link rel="stylesheet" href="/css/admin/common/adminNavbar.css">
+	<!-- adminHome css -->
+	<link rel="stylesheet" href="/css/admin/refundPage.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+</head>
+<body>
+	<th:block th:replace="~{admin/common/adminNavbar}"></th:block>
+
+	<div id="option-div">
+		<form action="/admin/refundByNameOrTelOrMerchantUid" method="post">
+			<select name="findOption" class="name-or-tel">
+			  <option value="memberNickName">이름</option>
+			  <option value="memberTel" selected>전화번호</option>
+			  <option value="merchantUid" selected>주문번호</option>
+			</select>
+			
+			<input type="text" name="option" id="option-input">
+			<button type="submit" id="option-btn"> 조회 </button>
+		</form>	
+	</div>
+	
+	<div id="refund-container-header"> 
+		환불 내역 
+	</div>
+	<div id="refund-container-body">
+		<div id="left-container"></div>
+		<div id="mid-container">
+				<div id="list-title">
+					<div id="list-div1">고객명</div>
+					<div id="list-div2">전화번호</div>
+					<div id="list-div3">환불액</div>
+					<div id="list-div4">환불이유</div>
+					<div id="list-div5">환불여부</div>
+					<div id="list-div6">환불요청날짜</div>
+					<div id="list-div7">환불처리날짜</div>
+					<div id="list-div8">환불한 강의 정보</div>
+					<div id="list-div9">취소한 강사 정보</div>
+					<div id="list-div10">주문번호</div>
+				</div>
+			<th:block th:each="refund : ${currentPageRefundsList}">
+				<div class="list-content">
+					<div class="list-content-div1">
+						<img th:src="${refund.profileImg}" style="width: 30px; height: 30px; border-radius: 50%;">
+						<div th:text="${refund.memberNickname}"></div>	
+					</div>
+					
+					<div th:text="${refund.memberTel}" 	class="list-content-div2"></div>	
+					
+					<div th:text="|${refund.refundAmount}원|" class="list-content-div3"></div>	
+					
+					<div th:text="${refund.refundReason}" class="list-content-div4"></div>	
+					
+					<div th:text="${refund.refundStatus}" class="list-content-div5"></div>	
+					
+					<div th:text="${refund.refundRequestDateStr}" class="list-content-div6"></div>	
+					
+					<div th:text="${refund.refundProcessingDateStr}" class="list-content-div7"></div>	
+					<a th:href="@{/lecture/showLectureDetail(lectureNo=${refund.lectureNo})}" class="list-content-div8">
+						<i class="fa-solid fa-person-chalkboard"></i>
+					</a>
+					<div class="list-content-div9">
+						<button type="button">
+							<i class="fa-regular fa-lightbulb"></i>
+						</button>						
+					</div>
+					<div class="list-content-div10" th:text="${refund.merchantUid}"></div>
+
+				</div>
+			</th:block>
+		</div>
+		<div id="right-container"></div>		
+	</div>
+	
+	
+	
+
+	
+	<!-- 페이지네이션 -->
+	<div id="pagination-div">
+		
+		<!-- 처음 -->
+		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/refund(page=1)}"  id="first-page-a">&lt;&lt;</a>
+		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/admin/refund(page=${currentGroupFirstPage}-1)}" id="previous-a">&lt;</a>
+		
+		
+		
+		<!-- 중간 -->
+		<div th:if="${currentGroupLastPage != 0}" th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}" class="pagination-element">
+		    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;" class="current-page-span">Current Page</span>
+		    <a th:if="${i != currentPage}" th:href="@{/admin/refund(page=${i})}" class="pagination-a"
+				th:text="${i}">Page Link</a>
+		    &nbsp;&nbsp;
+		</div>
+		<div th:if="${currentGroupLastPage == 0}">
+			<span style="color:#e06500;" class="current-page-span">1</span>
+		</div>
+		
+		<!-- 끝 -->
+		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/refund(page=${currentGroupLastPage}+1)}" id="next-a">&gt;</a>
+		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/admin/refund(page=${totalPages})}" id="last-page-a">&gt;&gt;</a>
+	
+	</div>
+	
+	
+	
+	
+	
+		
+</body>
+</html>

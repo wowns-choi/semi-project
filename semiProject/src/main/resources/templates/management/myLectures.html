@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>message.properties 값 출력</title>
+	
+	<!-- main css -->
+	<link rel="stylesheet" href="/css/management/myLectures.css">
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">	
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	  
+</head>
+<body>
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+
+	<div style="width: 100vw; height: 7vh;"></div>	
+	<div id="home-content-container" style="background-color:blue;">
+		<div></div>
+		<div>
+		</div>
+		<div></div>		
+	</div>
+	
+	
+	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+
+	<div id="body-container">
+		<div></div>
+		<div>
+			<th:block th:each="lecture : ${lectureList}">
+				<div th:href="|/lecture/showLectureDetail?lectureNo=${lecture.lectureNo}|" class="element-div">
+					
+					<th:block >
+						<th:block th:if="${lecture.files != null and lecture.files.size() > 0}">
+							<img th:src="|${lecture.files.get(0).filePath}${lecture.files.get(0).fileRename}|"
+							class="lecture-img"
+							>
+						</th:block>
+						<th:block th:if="${lecture.files == null or lecture.files.size() == 0}">
+							<img src="/images/user.png"
+								class="lecture-img"
+							>
+						</th:block>
+					</th:block>
+					
+					<div th:if="${lecture.files == null}" class="lecture-img-basic">
+						<img src="/lecture/file/20240417192203_00001.jpg">
+					</div>
+					
+					<div th:text="|[${lecture.lectureHomeTitle}]|" class="lecture-name">
+					</div>
+					
+					<div th:text="${lecture.lectureHomeContent}" class="lecture-title">	
+					</div>
+
+					
+					<div style="background-color: #e06500;"></div>
+					<div class="btn-collection">
+						<a th:href="@{/manage/manageRegisteredMember(lectureNo=${lecture.lectureNo})}" class="manage-memeber">
+							<i class="fa-solid fa-people-roof"></i>						
+						</a>
+						
+						<a th:href="@{/manage/updateLecture(lectureNo=${lecture.lectureNo})}" class="update-lecture">
+							<i class="fa-solid fa-rotate-right"></i>
+						</a>
+						<a th:href="@{/manage/deleteLecture(lectureNo=${lecture.lectureNo})}" class="delete-lecture">
+							<i class="fa-solid fa-trash"></i>
+						</a>
+					</div>	
+					<div class="text-collection">
+						<div class="manage-memeber-text">(회원관리)</div>
+						<div class="update-lecture-text">(글 수정)</div>
+						<div class="delete-lecture-text">(글 삭제)</div>
+					</div>
+					<div class="profile-nickname-div">
+						<img th:src="${lecture.profileImg}" class="b">
+
+						<div th:text="|by ${lecture.memberNickname}|" class="c"></div>
+						<div th:text="|in ${lecture.formattedEnrollDate}|" class="a">
+						</div>		
+
+					</div>
+					
+				</div>
+			</th:block>
+		</div>
+		<div></div>
+	</div>
+	<!-- 페이지네이션 -->
+	<div id="pagination-div">
+		
+		<!-- 처음 -->
+		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/manage/showMyLectures(page=1)}"  id="first-page-a">&lt;&lt;</a>
+		<a th:if="${currentGroupFirstPage != 1}" th:href="@{/manage/showMyLectures(page=${currentGroupFirstPage}-1)}" id="previous-a">&lt;</a>
+		
+		
+		
+		<!-- 중간 -->
+		<div th:if="${currentGroupLastPage != 0}" th:each="i : ${#numbers.sequence(currentGroupFirstPage, currentGroupLastPage)}" class="pagination-element">
+		    <span th:if="${i == currentPage}" th:text="${i}" style="color:#e06500;" class="current-page-span">Current Page</span>
+		    <a th:if="${i != currentPage}" th:href="@{/manage/showMyLectures(page=${i})}" class="pagination-a"
+				th:text="${i}">Page Link</a>
+		    &nbsp;&nbsp;
+		</div>
+		<div th:if="${currentGroupLastPage == 0}">
+			<span style="color:#e06500;" class="current-page-span">1</span>
+		</div>
+		
+		<!-- 끝 -->
+		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/manage/showMyLectures(page=${currentGroupLastPage}+1)}" id="next-a">&gt;</a>
+		<a th:if="${currentGroupLastPage} < ${totalPages}" th:href="@{/manage/showMyLectures(page=${totalPages})}" id="last-page-a">&gt;&gt;</a>
+
+
+		
+	</div>
+	<!-- 페이지네이션 -->
+	
+	<!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+
+
+
+	<th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!— 로그인 모달창 js —>
+	<script src="/js/common/loginModal.js"></script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">	
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+	
+	<!-- registerForm.css -->
+	<link rel="stylesheet" href="/css/management/updateForm.css">	
+	
+	<!-- 부트스트랩 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+	<!-- 카카오 js -->
+
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js" 
+	  integrity="sha384-kDljxUXHaJ9xAb2AzRd59KxjrFjzHa5TAoFQ6GbYTCAG0bjM55XohjjDT7tDDC01" 
+	  crossorigin="anonymous"></script>
+	  
+	<script>
+	  // SDK를 초기화 합니다. 사용할 앱의 JavaScript 키를 설정해야 합니다.
+	  Kakao.init('f136f82ee91f39749dc1d23128da7bfa');	
+	  // SDK 초기화 여부를 판단합니다.
+	  console.log(Kakao.isInitialized());
+	</script>
+	
+	<!-- 카카오 지도 api -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa&libraries=services,clusterer,drawing"></script>
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	
+	<!-- footer css -->
+	<link rel="stylesheet" href="/css/common/footer.css">
+	
+	
+</head>
+<body>
+	
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	
+	<div style="width: 100vw; height: 7vh;"></div>	
+	<div id="home-content-container">
+		<div></div>
+		<div>
+		</div>
+		<div></div>		
+	</div>
+	
+	<!-- 핵심 시작 -->
+	<form action="/manage/updateLecture" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="mainFlag" id="main-flag" value="0">
+		<input type="hidden" name="sub1Flag" id="sub1-flag" value="0">
+		<input type="hidden" name="sub2Flag" id="sub2-flag" value="0">
+		<input type="hidden" name="sub3Flag" id="sub3-flag" value="0">
+		<input type="hidden" name="sub4Flag" id="sub4-flag" value="0">
+
+		<input type="hidden" name="lectureNo"  th:value="${findLecture.lectureNo}">
+		
+			<div id="select-img-text">이미지를 선택해주세요</div>
+	
+			<div id="register-image-div" >
+				<div id="register-image-div-1">
+					<div id="x1">
+						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
+					</div>
+					<img  id="before-img1" 	th:if="${findLecture.files.size() > 0 and findLecture.files.get(0).filePath != null}"  th:src="|${findLecture.files.get(0).filePath}${findLecture.files.get(0).fileRename}|" 	style="display:flex;"> 
+					<img  id="after-img1"> 
+
+					<label for="add-new-1" id="la1">
+						<i class="fa-regular fa-file-image"></i>
+					</label>
+					<input type="file" name="main" id="add-new-1">
+					<span id="main-essential-text">(메인사진 필수)</span>
+				</div>
+				
+				<div id="register-image-div-2">
+					<div id="x2">
+						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
+					</div>
+					<img  id="before-img2" src=""	th:if="${findLecture.files.size() > 1 and findLecture.files.get(1).filePath != null}"  th:src="|${findLecture.files.get(1).filePath}${findLecture.files.get(1).fileRename}|" style="display:flex;">
+					<img  id="after-img2"> 
+
+					<label for="add-new-2" id="la2" >
+						<i class="fa-regular fa-file-image"></i>
+					</label>
+					<input type="file" name="sub1" id="add-new-2">
+				</div>
+				
+				<div id="register-image-div-3">
+					<div id="x3">
+						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
+					</div>
+					<img id="before-img3"  th:if="${findLecture.files.size() > 2 and findLecture.files.get(2).filePath != null}" 	th:src="|${findLecture.files.get(2).filePath}${findLecture.files.get(2).fileRename}|"					style="display:flex;">
+					<img  id="after-img3"> 
+
+					<label for="add-new-3" id="la3">
+						<i class="fa-regular fa-file-image"></i>
+					</label>
+					<input type="file" name="sub2" id="add-new-3">
+				</div>
+				
+				<div id="register-image-div-4">
+					<div id="x4">
+						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
+					</div>
+					<img src="" id="before-img4" th:if="${findLecture.files.size() > 3 and findLecture.files.get(3).filePath != null}" 	th:src="|${findLecture.files.get(3).filePath}${findLecture.files.get(3).fileRename}|"					style="display:flex;">
+					<img  id="after-img4"> 
+
+					<label for="add-new-4" id="la4">
+						<i class="fa-regular fa-file-image"></i>
+					</label>
+					<input type="file"name="sub3" id="add-new-4">
+				</div>
+				
+				<div id="register-image-div-5">
+					<div id="x5">
+						<i class="fa-solid fa-circle-xmark" id="x-btn-icon"></i>
+					</div>
+					<img src="" id="before-img5" th:if="${findLecture.files.size() > 4 and findLecture.files.get(4).filePath != null}" 	th:src="|${findLecture.files.get(4).filePath}${findLecture.files.get(4).fileRename}|"					style="display:flex;">
+					<img  id="after-img5"> 
+
+					<label for="add-new-5" id="la5">
+						<i class="fa-regular fa-file-image"></i>
+					</label>
+					<input type="file" name="sub4" id="add-new-5">
+				</div>
+				
+			</div>
+			
+			<div id="register-div1">
+				<input type="text" name="lectureHomeTitle" th:value="${findLecture.lectureHomeTitle}" placeholder="홈 제목">
+				<textarea name="lectureHomeContent" th:text="${findLecture.lectureHomeContent}" placeholder="홈 내용"></textarea>
+				
+				<input type="text" name="lectureTitle" th:value="${findLecture.lectureTitle}" placeholder="상세 제목">
+				<textarea name="lectureContent" th:text="${findLecture.lectureContent}" placeholder="상세 내용"></textarea>
+			</div>
+			
+			<div id="info-container">
+				<div id="instructor-div">
+					<span>
+						<i class="fa-solid fa-person-chalkboard"></i>
+						&nbsp; 강사 소개 						
+					</span>
+
+					<textarea name="instructor" th:text="${findLecture.instructorIntroduction}"></textarea>
+				</div>
+				
+				<div id="field-div">
+					<label for="field">
+						<i class="fa-solid fa-table-list"></i>
+						분야
+					</label>
+					<select class="form-select form-select-sm mb-3" name="field" 
+					aria-label="Large select example" id="field" >
+					<option value="1" th:selected="${findLecture.lectureCategoryNum == 1}">비누</option>
+					<option value="2" th:selected="${findLecture.lectureCategoryNum == 2}">유리 공예</option>
+					<option value="3" th:selected="${findLecture.lectureCategoryNum == 3}">드로잉</option>
+					<option value="4" th:selected="${findLecture.lectureCategoryNum == 4}">가죽 공예</option>
+					<option value="5" th:selected="${findLecture.lectureCategoryNum == 5}">요리</option>
+					</select>
+					
+				</div>
+				<div id="level-div">
+					<label for="level">
+						<i class="fa-solid fa-stairs"></i>
+						강의 레벨
+					</label>
+					
+					<div id="level-div-inner-div">
+						<select class="form-select form-select-sm mb-3" name="level" 
+						aria-label="Large select example" id="level">
+						  <option selected value="1" th:selected="${findLecture.lectureLevel == 1}">초급</option>
+						  <option value="2" th:selected="${findLecture.lectureLevel == 2}">중급</option>
+						  <option value="3" th:selected="${findLecture.lectureLevel == 3}">고급</option>
+						</select>
+					</div>
+				</div>
+				<div id="lecture-start-time">
+					<span>
+						<i class="fa-regular fa-clock"></i>
+						강의 시작 시각
+					</span>
+					<div id="lecture-start-time-inner-div">						
+						<select class="form-select form-select-sm mb-3" name="startHour" 
+						aria-label="Large select example" id="startHour">
+						  <option  value="01" th:selected="${firstTwoChars == '1'}">1시</option>
+						  <option value="02" 	th:selected="${	firstTwoChars == '2'}">2시</option>
+						  <option value="03"  th:selected="${firstTwoChars == '3'}">3시</option>
+						  <option value="04"  th:selected="${firstTwoChars == '4'}">4시</option>
+						  <option value="05" th:selected="${firstTwoChars == '5'}">5시</option>
+	  					  <option value="06" th:selected="${firstTwoChars == '6'}">6시</option>
+	  					  <option value="07" th:selected="${firstTwoChars == '7'}">7시</option>
+	  					  <option value="08" th:selected="${firstTwoChars == '8'}" >8시</option>
+	  					  <option value="09" th:selected="${firstTwoChars == '9'}">9시</option>
+	  					  <option value="10" th:selected="${firstTwoChars == '10'}">10시</option>
+	  					  <option value="11"  th:selected="${firstTwoChars == '11'}">11시</option>
+	  					  <option value="12" th:selected="${firstTwoChars == '12'}">12시</option>
+	  					  <option value="13"	th:selected="${	firstTwoChars == '13'}">13시</option>
+	  					  <option value="14" th:selected="${firstTwoChars == '14'}">14시</option>
+	  					  <option value="15"	 th:selected="${firstTwoChars == '15'}">15시</option>
+	  					  <option value="16"	 th:selected="${firstTwoChars == '16'}">16시</option>
+	  					  <option value="17"	th:selected="${	firstTwoChars == '17'}">17시</option>
+	  					  <option value="18" th:selected="${firstTwoChars == '18'}">18시</option>
+	  					  <option value="19" th:selected="${firstTwoChars == '19'}">19시</option>
+	  					  <option value="20" th:selected="${firstTwoChars == '20'}">20시</option>
+	  					  <option value="21"	 th:selected="${firstTwoChars == '21'}">21시</option>
+	  					  <option value="22" th:selected="${firstTwoChars == 22}">22시</option>
+	  					  <option value="23" th:selected="${firstTwoChars == 23}">23시</option>
+	  					  <option value="24" th:selected="${firstTwoChars == 24}">24시</option>
+						</select>
+						
+						<select class="form-select form-select-sm mb-3" name="startMin" 
+						aria-label="Large select example" id="startMin">
+						  <option selected value="10" th:selected="${lastTwoChars == '10'}" >10분</option>
+						  <option value="20"  th:selected="${lastTwoChars == '20'}">20분</option>
+						  <option value="30"  th:selected="${lastTwoChars == '30'}">30분</option>
+						  <option value="40" th:selected="${lastTwoChars == '40'}">40분</option>
+						  <option value="50" th:selected="${lastTwoChars == '50'}">50분</option>
+						  <option value="60" th:selected="${lastTwoChars == '60'}">60분</option>
+						</select>
+					</div>
+				</div>
+				<div id="how-long-div">
+					<label for="howLong">
+						<i class="fa-regular fa-circle-stop"></i>
+						강의 진행 시간
+					</label>
+					<select class="form-select form-select-sm mb-3" name="howLong" 
+					aria-label="Large select example" id="howLong">
+					  <option selected value="1" 	th:selected="${	findLecture.howLong == 1}">1시간</option>
+					  <option value="2"  th:selected="${findLecture.howLong == 2}">2시간</option>
+					  <option value="3" 	th:selected="${	findLecture.howLong == 3}">3시간</option>
+					  <option value="4" 	th:selected="${	findLecture.howLong == 4}">4시간</option>
+					  <option value="5"  th:selected="${findLecture.howLong == 5}">5시간</option>
+					  <option value="6"  th:selected="${findLecture.howLong == 6}">6시간</option>
+					  <option value="7" 	th:selected="${	findLecture.howLong == 7}">7시간</option>
+					  <option value="8" 	th:selected="${	findLecture.howLong == 8}">8시간</option>
+					  <option value="9" 	th:selected="${	findLecture.howLong == 9}">9시간</option>
+					  <option value="10" th:selected="${findLecture.howLong == 10}">10시간</option>
+					  <option value="11" th:selected="${	findLecture.howLong == 11}">11시간</option>
+					  <option value="12"	 th:selected="${findLecture.howLong == 12}">12시간</option>
+					  <option value="13" th:selected="${findLecture.howLong == 13}">13시간</option>
+					  <option value="14" th:selected="${findLecture.howLong == 14}">14시간</option>
+					  <option value="15"	 th:selected="${findLecture.howLong == 15}">15시간</option>
+					  <option value="16" th:selected="${findLecture.howLong == 16}">16시간</option>
+					  <option value="17" th:selected="${findLecture.howLong == 17}">17시간</option>
+					  <option value="18"th:selected="${	findLecture.howLong == 18}">18시간</option>
+					  <option value="19" th:selected="${findLecture.howLong == 19}">19시간</option>
+					  <option value="20" th:selected="${findLecture.howLong == 20}">20시간</option>
+					  <option value="21"	 th:selected="${findLecture.howLong == 21}">21시간</option>
+					  <option value="22"th:selected="${findLecture.howLong == 22}">22시간</option>
+					  <option value="23"th:selected="${findLecture.howLong == 23}">23시간</option>
+					  <option value="24" th:selected="${findLecture.howLong == 24}">24시간</option> 
+					</select>
+				</div>
+				<div id="acceptable-number-div">
+					<span>
+						<i class="fa-solid fa-people-group"></i>
+						수용 가능 인원
+					</span>
+					<input type="number" name="acceptableNumber" id="acceptable-number" th:value="${findLecture.acceptableNumber}" placeholder="숫자만 입력해주세요">
+				</div>
+				<div id="start-date-div">
+					<span>
+						<i class="fa-regular fa-calendar"></i>
+						강의 시작 날짜
+					</span>
+					<input type="date" name="startDate" id="start-date" th:value="${findLecture.formattedStartDate}">						
+				</div>
+				<div id="end-date-div">
+					<span>
+						<i class="fa-regular fa-calendar"></i>
+						강의 종료 날짜
+					</span>
+					<input type="date" name="endDate" id="end-date" th:value="${findLecture.formattedEndDate}">
+				</div>
+			</div>
+			
+			<!-- 위도와 경도를 보내주기 위한 hidden 타입 input 시작 -->
+			<input type="hidden" name="latitude" id="latitude"> <!-- Latitude 는 '위도' -->
+			<input type="hidden" name="hardness" id="hardness">
+			
+			<!-- 위도와 경도를 보내주기 위한 hidden 타입 input 끝 -->
+			
+			 <!-- address-info-container start -->
+			 <div id="address-info-container">
+			     <div id="addresstitle-findaddressbtn-div">
+			         <div id="address-info-title">
+						<i class="fa-solid fa-location-dot"
+						style="font-size: 20px; margin-right: 10px; color:#002954;"
+						></i>
+ 						강의 장소
+			         </div>
+			         <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"
+			             class="find-address-btn" > <br>
+			     </div>
+			     <div id="post-code-div">
+			         <span id="post-code-div-1">
+			             우편번호
+			         </span>
+			         <span id="post-code-div-2"
+					th:if="${postCode}"
+					th:text="${postCode}"
+					>
+			         </span>
+			         <input type="text" th:value="${findLecture.postCode}" id="sample4_postcode" name="lecturePostCode" placeholder="우편번호" readonly>
+			     </div>
+			     <div id="road-address-div">
+			         <span>
+			             도로명 주소
+			         </span>
+			         <span id="road-address-div-2"
+					th:if="${roadAddress}"
+					th:text="${roadAddress}"
+					>
+			         </span>
+			         <input type="text" 	th:value="${findLecture.roadAddress}" id="sample4_roadAddress" name="lectureRoadAddress" placeholder="도로명주소" readonly>
+			     </div>
+			     <div id="jibun-address-div">
+			         <span>
+			             지번 주소
+			         </span>
+			         <span id="jibun-address-div-2"
+					th:if="${jibunAddress}"
+					th:text="${jibunAddress}"
+					>
+			         </span>
+			         <input type="text" id="sample4_jibunAddress"  th:value="${findLecture.jibunAddress}" name="lectureJibunAddress" placeholder="지번주소" readonly>
+			     </div>
+			     <div id="detail-address-div">
+			         <span>
+			             상세 주소
+			         </span>
+			         <span id="detail-address-div-2"
+					th:if="${detailAddress}"
+					th:text="${detailAddress}">
+			         </span>
+			         <span id="guide" style="color:#999;display:none" ></span>
+			         <input type="text" th:value="${findLecture.detailAddress}" id="sample4_detailAddress" placeholder="상세주소" name="lectureDetailAddress">
+			     </div>
+				 
+			
+			 </div>
+			 <!-- address-info-container end -->
+			 
+			 
+			 <div id="map" style="width:500px;height:400px;"></div>
+			 
+			<span id="lecture-price-span">
+				강의 가격 &nbsp;<input type="text" name="price" th:value="${findLecture.price}" id="price"> 원 
+			</span>
+			 <div id="register-btn-div">
+			  <button type="submit" id="register-btn">등록</button>
+			 </div> 
+	</form>
+	
+	<script th:inline="javascript">
+		// 위도와 경도 타임리프로 받아서 자바스크립트 변수로 만들기
+		let latitude = /*[[${findLecture.latitude}]]*/ "위도";
+		let hardness = /*[[${findLecture.hardness}]]*/ "경도";
+	</script>
+			
+			
+		<!-- 다음 주소 api -->
+			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			<script>
+			    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
+			    function sample4_execDaumPostcode() {
+			        new daum.Postcode({
+			            oncomplete: function (data) {
+			                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+			
+			                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+			                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+			                var roadAddr = data.roadAddress; // 도로명 주소 변수
+			                var extraRoadAddr = ''; // 참고 항목 변수
+			
+			                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+			                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+			                if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+			                    extraRoadAddr += data.bname;
+			                }
+			                // 건물명이 있고, 공동주택일 경우 추가한다.
+			                if (data.buildingName !== '' && data.apartment === 'Y') {
+			                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+			                }
+			                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+			                if (extraRoadAddr !== '') {
+			                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+			                }
+			
+			                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+			                document.getElementById('sample4_postcode').value = data.zonecode;
+			                document.getElementById("sample4_roadAddress").value = roadAddr;
+			                document.getElementById("sample4_jibunAddress").value = data.jibunAddress;
+							
+							//================== 찾아온 주소의 위경도 얻어오기 시작========================
+							let query;
+							if(document.querySelector('#sample4_roadAddress').value == ''){
+								query = document.querySelector('#sample4_jibunAddress').value;						
+							} else{
+								query = document.querySelector('#sample4_roadAddress').value;
+							}
+							
+							// API URL과 헤더 설정
+							const url = `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURIComponent(query)}`;
+							
+							// fetch 함수를 사용하여 API 호출
+							fetch(url, {
+								method : 'GET',
+								headers: {'Authorization' : 'KakaoAK 9a9c9b276f33c0b00e56034c85cad4fb'}
+							})
+						    .then(response => response.json())  // 응답을 JSON 형식으로 파싱
+							.then(data => {
+							    console.log(data);  // 데이터 출력
+								
+								let x;
+								let y;
+								
+							    if (data.documents.length > 0) {
+									let document = data.documents[0];
+									x = document.x;
+									y = document.y;
+		   					        console.log(`위도: ${y}, 경도: ${x}`);  // 첫 번째 결과의 위도와 경도 출력
+							    }
+								
+							//================== 찾아온 주소의 위경도 얻어오기 끝 ========================
+							
+								
+							//================== 얻어온 위도 경도를 hidden type 의 input 태그의 value 값으로 바인딩 해줌. 시작
+								
+								document.querySelector('#latitude').value = y;
+								document.querySelector('#hardness').value = x;
+								
+							//================== 얻어온 위도 경도를 hidden type 의 input 태그의 value 값으로 바인딩 해줌. 끝 
+
+								
+							// ============ 여기서 부터 하는게 지도에 얻어온 위도경도 위치를 표시하는 부분임. 시작
+								
+									// 지도 보여주는 것
+									var container = document.getElementById('map');
+									var options = {
+										center: new kakao.maps.LatLng(y, x),
+										level: 3
+									};
+								
+									var map = new kakao.maps.Map(container, options);
+									// 지도에 컨트롤 올리기 
+									var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+									    mapOption = { 
+									        center: new kakao.maps.LatLng(y, x), // 지도의 중심좌표
+									        level: 3 // 지도의 확대 레벨
+									    };
+									
+									var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+									
+									// 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+									var mapTypeControl = new kakao.maps.MapTypeControl();
+									
+									// 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+									// kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+									map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+									
+									// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+									var zoomControl = new kakao.maps.ZoomControl();
+									map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+								
+									//-----------------------마커
+									// 마커가 표시될 위치입니다 
+									var markerPosition  = new kakao.maps.LatLng(y, x); 
+									
+									// 마커를 생성합니다
+									var marker = new kakao.maps.Marker({
+									    position: markerPosition
+									});
+									
+									// 마커가 지도 위에 표시되도록 설정합니다
+									marker.setMap(map);
+		
+							// ============ 여기서 부터 하는게 지도에 얻어온 위도경도 위치를 표시하는 부분임. 끝
+								
+							  })
+							.catch(error => console.error('Error:', error));							
+			            }
+			        }).open();
+			    }
+			</script>
+			
+			<!--- 지울부분 -->
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f136f82ee91f39749dc1d23128da7bfa"></script>
+			<script>
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				    mapOption = { 
+				        center: new kakao.maps.LatLng(latitude, hardness), // 지도의 중심좌표
+				        level: 3 // 지도의 확대 레벨
+				    };
+				
+				var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+				
+				// 마커가 표시될 위치입니다 
+				var markerPosition  = new kakao.maps.LatLng(latitude, hardness); 
+				
+				// 마커를 생성합니다
+				var marker = new kakao.maps.Marker({
+				    position: markerPosition
+				});
+				
+				// 마커가 지도 위에 표시되도록 설정합니다
+				marker.setMap(map);
+				
+				// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+				// marker.setMap(null);   
+			</script>
+		
+			
+
+
+
+
+			
+
+
+	<!-- 핵심 끝 -->
+	
+	<div style="height: 30vh;"></div>
+
+	
+	<th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!-- 로그인 모달창 js -->
+	<script src="/js/common/loginModal.js"></script>
+	
+	<!-- registerForm.js -->
+	<script src="/js/management/updateForm.js"></script>
+	
+	<!-- 부트스트랩 js -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

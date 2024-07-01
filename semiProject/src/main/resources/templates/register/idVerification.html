@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+	
+	<!-- navbar css -->
+	<link rel="stylesheet" href="/css/common/navbar.css">
+	
+	<!-- 로그인 모달 창 css -->
+	<link rel="stylesheet" href="/css/common/loginModal.css">	
+	
+	<link rel="icon" href="/favicon6try.ico" type="image/x-icon">
+	
+	<!-- templates/common/common.html 조각으로 추가 -->
+	<th:block th:replace="~{common/common}"></th:block>
+	
+	<!-- idVerification.css -->
+	<link rel="stylesheet" href="/css/register/idVerification.css">	
+	
+</head>
+<body>
+	
+	<!-- navbar 추가 -->
+	<th:block th:replace="~{common/navbar}"></th:block>
+	<!-- 로그인 모달창 추가 -->
+	<th:block th:replace="~{common/loginModal}"></th:block>
+	
+
+	
+	<!-- 핵심 시작 -->
+	<div id="body-container">
+	<div id="a1-container">
+		본인인증	
+	</div>
+	<div id="a2-container">
+		<div id="a2-container-div1">
+			<i class="fa-solid fa-mobile-screen"></i>
+			<input type="text" name="phoneNum" id="phone-num" placeholder="&apos;-&apos; 없이 핸드폰 번호를 입력해주세요">	
+			<button id="get-authKey-btn" type="button">
+				<i class="fa-solid fa-arrow-right"></i>
+			</button>
+		</div>
+		<div id="a2-container-div2">
+			<i class="fa-solid fa-key"></i>
+			<input type="password" name="auth" id="auth-key-input" placeholder="인증번호를 입력해주세요">
+			<button id="authKey-submit-btn" type="button">
+				<i class="fa-solid fa-check"></i>
+			</button>
+		</div>		
+	</div>
+	</div>
+
+	
+	
+	<script>
+		let flag = 0;
+		
+		document.querySelector('#get-authKey-btn').addEventListener('click', function(e){
+			
+			let phoneNum = document.querySelector('#phone-num').value;
+			
+			
+			fetch("/coolSMS/send-one", {
+				method : "POST",
+				headers : {"Content-Type" : "application/json"},
+				body : JSON.stringify({"phoneNum" : phoneNum})
+			})
+			.then(resp => resp.text())
+			.then(result => {
+				alert('인증번호가 문자메세지로 전송되었습니다.');
+				flag += 1;
+			})
+			
+			
+		});
+		
+		document.querySelector('#authKey-submit-btn').addEventListener('click', function(e){
+			
+			if(flag == 0){
+				alert('핸드폰 번호를 입력하시고, 입력번호를 발급받으세요.');
+				return;
+			}
+			
+			let authKey = document.querySelector('#auth-key-input').value;
+			
+			
+			fetch("/coolSMS/verify", {
+				method : "POST",
+				headers : {"Content-Type" : "application/json"},
+				body : JSON.stringify({"authKey" : 	authKey})
+			})
+			.then(resp => resp.text())
+			.then(result => {
+				
+				if(result == 0){
+					alert('인증번호가 일치하지 않습니다.');
+					return;
+				} else{
+					alert('인증번호 일치');
+					location.href= '/register/registerForm';					
+				}
+				
+
+			})
+			
+			
+		});
+		
+		
+	</script>
+	<!-- 핵심 끝 -->
+	
+	<div style="height: 100vh;"></div>
+
+	
+	<th:block th:replace="~{common/footer}"></th:block>
+	<!--navbar js-->
+	<script src="/js/common/navbar.js"></script>
+	<!— 로그인 모달창 js —>
+	<script src="/js/common/loginModal.js"></script>
+	
+    
+</body>
+</html>

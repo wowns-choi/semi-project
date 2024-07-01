@@ -1,0 +1,105 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+#big-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column; 
+    
+}
+
+.left-container{
+    border: none;
+    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    display: flex;
+    flex-direction: column;
+	align-items: center;
+    width: 25vw;
+    height: 65vh;
+	border-radius: 5%;
+}
+#top-line{
+	width: 100%;
+	height: 3vh;
+	background-color: darkslategray;
+
+	
+}
+#first-text{
+	margin-top: 10vh;
+	font-size: 30px;
+	
+}
+#second-text{
+	margin-top: 10px;
+	color: black;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#member-name{
+	margin-top: 3vh;
+	width: 10vw;
+	height: 4vh;
+	border: 1.5px solid black;
+	padding-left: 10px;
+}
+#member-mail{
+	margin-top: 1vh;
+	width: 10vw;
+	height: 4vh;
+	border: 1.5px solid black;
+	padding-left: 10px;
+
+}
+
+#get-auth-key-Btn{
+	margin-top: 2vh;
+	width: 5vw;
+	height: 5vh;
+	background-color: darkslategray;
+	color: white;
+	cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+	transition: color 0.4s, background-color 0.4s;
+}
+.input3{
+	margin-top: 4vh;
+	width: 10vw;
+	height: 4vh;
+	border: none;
+	border-bottom: 1.5px solid black;
+	outline: none;
+}
+#change-pw-btn{
+		margin-top: 2vh;
+	width: 5vw;
+	height: 5vh;
+	background-color: darkslategray;
+	color: white;
+	cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 12px 24px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+	transition: color 0.4s, background-color 0.4s;
+}
+

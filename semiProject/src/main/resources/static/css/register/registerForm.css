@@ -1,0 +1,404 @@
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    font-family: 'Pretendard-Regular';
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#select-img-text{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 30px;
+	text-decoration: underline;
+	padding-top: 10vh;
+}
+
+
+#register-div1{
+	padding-top: 10vh;
+	padding-bottom: 10vh;
+	padding-left: 30vw;
+	display:flex;
+	flex-direction: column;
+	
+	    /* 이미지 경로 설정 */
+    background-image: url('/images/backImg.jpg');
+
+    /* 배경 이미지 크기 조절 */
+    background-size: cover;  /* 이미지가 요소 전체를 덮도록 조절 */
+    /* background-size: 100% 100%; 이미지가 요소의 크기에 맞춰 조절 (비율이 변할 수 있음) */
+
+    /* 배경 이미지 위치 조절 */
+    background-position: center;  /* 이미지가 요소의 중앙에 위치하도록 설정 */
+
+    /* 배경 이미지 반복 여부 */
+    background-repeat: no-repeat;  /* 이미지 반복 없음 */
+    /* background-repeat: repeat; 이미지가 요소를 채울 때까지 반복 */
+    
+    
+}
+#register-div1>input:nth-child(1){
+	width: 30vw;
+	height: 5vh;
+	outline:none;
+	border: none;
+	border-radius: 1px;
+	padding-left: 10px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.7);
+
+}
+#register-div1>textarea:nth-child(2){
+	margin-top:0.5vh;
+	width:40vw;
+	height: 20vh;
+	resize: none;
+	outline:none;
+	border: none;
+	border-radius: 1px;
+	padding-left: 10px;
+	padding-top: 20px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
+
+}
+#register-div1>input:nth-child(3){
+	margin-top:3vh;
+	width: 30vw;
+	height: 5vh;
+	outline:none;
+	border: none;
+	border-radius: 1px;
+	padding-left: 10px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
+
+
+}
+#register-div1>textarea:nth-child(4){
+	margin-top:0.5vh;
+	width:40vw;
+	height: 20vh;
+	resize: none;
+	outline:none;
+	border: none;
+	border-radius: 1px;
+	padding-left: 10px;
+	padding-top: 20px;
+
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 1);
+}
+
+#register-image-div{
+	display: flex;
+	margin-top: 10vh;
+	justify-content: center;
+    padding-top: 3vh;;
+    padding-bottom: 3vh;;
+    height: 300px;
+
+
+
+}
+#register-image-div-1,
+#register-image-div-2,
+#register-image-div-3,
+#register-image-div-4,
+#register-image-div-5{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-left: 20px;
+	width: 200px;
+	height: 200px;
+	
+}
+
+#f1, #f2, #f3, #f4, #f5 {
+	cursor:pointer;
+}
+
+#d1, #d2, #d3, #d4, #d5 {
+	display: none;
+}
+
+#img1, #img2, #img3, #img4, #img5 {
+	display: none;
+	width: 200px;
+	height: 200px;
+	border-radius: 5px;
+}
+#la1, #la2, #la3, #la4, #la5{
+	font-size: 25px;
+	color: #ff8547;
+	margin-top: 2vh;
+	cursor: pointer;
+} 
+
+#main-essential-text{
+	font-size: 12px;
+	color: gray;
+}
+
+
+
+#register-image-div-2{
+	display: flex;
+	flex-direction: column;
+}
+#register-image-div-3{
+	display: flex;
+	flex-direction: column;
+}
+#register-image-div-4{
+	display: flex;
+	flex-direction: column;
+}
+#register-image-div-5{
+	display: flex;
+	flex-direction: column;
+}
+
+#info-container{
+	display:flex;
+	flex-direction: column;
+	margin-top: 5vh;
+}
+#instructor-div{
+	display: flex;
+	flex-direction: column;
+	padding-left: 30vw;
+	padding-top: 10vh;
+}
+#instructor-div>span{
+	margin-bottom: 2vh;
+}
+
+#instructor-div> textarea{
+	width:40vw;
+	height: 20vh;
+	resize: none;
+	outline:none;
+	border: none;
+	border-radius: 1px;
+	padding-left: 10px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s;
+    font-size: 15px;
+}
+#instructor-div> textarea:hover{
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+	
+}
+#field-div{
+	padding-left: 30vw;
+	margin-top : 3vh;
+	display: flex;
+	flex-direction: column;
+	padding-left: 30vw;
+}
+#field{
+	width: 10vw;
+	height: 5vh;
+	border: 1px solid black;
+
+}
+#level-div{
+	display: flex;
+	flex-direction: column;
+	padding-left: 30vw;
+}
+#level-div-inner-div{
+	display: flex;
+	
+}
+#level{
+	width: 10vw;
+	height: 5vh;
+	border: 1px solid black;
+}
+
+
+#lecture-start-time{
+	display: flex;
+	flex-direction: column;
+	padding-left: 30vw;
+}
+#lecture-start-time-inner-div{
+	display: flex;
+}
+
+#how-long-div{
+	display:flex;
+	flex-direction: column;
+	padding-left: 30vw;
+}
+#howLong{
+	width: 10vw;
+	height: 5vh;
+	border: 1px solid black;
+}
+
+#acceptable-number-div{
+	display: flex;
+	flex-direction: column;
+	padding-left: 30vw;
+
+}
+#acceptable-number{
+	width: 12vw;
+	height: 5vh;
+	border: 1px solid black;
+	padding-left: 10px;
+	border-radius: 3px;
+
+}
+
+
+
+
+
+
+#startHour{
+	width: 10vw;
+	height: 5vh;
+
+	outline: none;
+	border: 1px solid black;
+}
+#startMin{
+	width: 10vw;
+	height: 5vh;
+	border: 1px solid black;
+	border-radius: 3px;
+	margin-left: 1.5vw;
+	
+}
+
+
+
+#start-date-div{
+	display: flex;
+	flex-direction: column;
+	padding-left: 30vw;
+	margin-top: 1.5vh;
+}
+#end-date-div{
+	display: flex;
+	flex-direction: column;
+	padding-left: 30vw;
+	margin-top: 1.5vh;
+}
+
+
+#start-date, #end-date{
+	width: 15vw;
+	height: 5vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	    border: 1px solid black;
+	    font-size: 15px;
+	    outline:none;
+	    	border-radius: 3px;
+
+
+}
+#start-date:hover{
+	background-color: #f0fffa;
+	color : black;
+}
+
+#address-info-container{
+	border-top: 1px solid black;
+	margin-top: 10vh;
+	padding-top: 10vh;
+	padding-left: 30vw;
+}
+.find-address-btn{
+	margin-top: 2vh;
+	width: 10vw;
+	height: 5vh;
+	background-color: white;
+	border:none;
+	border: 1px solid black;
+	transition: color 0.3s, background-color 0.3s;
+}
+.find-address-btn:hover{
+	background-color: darkslategray;
+	color: white;
+}
+#post-code-div{
+	margin-top: 2vh;
+}
+#post-code-div-1{
+	width: 10vw;
+	height: 10vh;
+	
+}
+
+#road-address-div{
+	margin-top: 1vh;
+
+}
+#jibun-address-div{
+	margin-top: 1vh;
+}
+#detail-address-div{
+	margin-top: 1vh;
+}
+
+#map{
+	margin-left: 30vw;
+	margin-top: 10vh;
+	width: 40vw;
+	height: 30vh;
+	border-radius: 5px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+
+}
+
+#lecture-price-span{
+	display: block;
+	color: black;
+	margin-left: 30vw;
+	margin-top: 10vh;
+}
+#price{
+	width: 12vw;
+	height: 5vh;
+	border: 1px solid black;
+	padding-left: 10px;
+	border-radius: 3px;
+	outline: none;
+
+
+}
+
+#register-btn-div{
+	margin-left: 30vw;
+
+}
+
+#register-btn{
+	margin-top: 10vh;
+	width: 10vw;
+	height: 5vh;
+	background-color: white;
+	border:none;
+	border: 1px solid black;
+	transition: color 0.3s, background-color 0.3s;
+}
+
+
+#register-btn:hover{
+	background-color: darkslategray;
+	color: white;
+}
