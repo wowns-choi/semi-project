@@ -45,7 +45,7 @@ public class PaymentController {
 		HttpSession session = request.getSession();
 		Member loginMember = (Member) session.getAttribute("loginMember");
 		
-		// 로그인 되지 않은 사용자인 경우 
+		// 로그인 되지 않은 사용자 
 		if(loginMember == null) {
 			return 0;
 		}

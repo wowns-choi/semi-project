@@ -36,8 +36,8 @@ INDEX VERSION 1.134+/Users/choejaejun/Desktop/취업/semi/semiProjectFiles/semi-
 2302675282.index
 2085046384.index
 2975661118.index
-4264326363.index
 2025209159.index
+4264326363.index
 215583298.index
 3895891645.index
 3594731577.index
@@ -73,7 +73,6 @@ INDEX VERSION 1.134+/Users/choejaejun/Desktop/취업/semi/semiProjectFiles/semi-
 4153609295.index
 435391626.index
 805455975.index
-1586795087.index
 1534962880.index
 1161214602.index
 926162047.index
