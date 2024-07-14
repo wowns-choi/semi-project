@@ -57,7 +57,7 @@ body {
 #mid-container{
 	padding-top: 100px;
 	padding-left: 20px;
-	flex-basis: 50%;
+	flex-basis: 54%;
 	display:flex;
     flex-wrap: wrap; /* 여러 줄로 아이템을 나열하게 함 */
 

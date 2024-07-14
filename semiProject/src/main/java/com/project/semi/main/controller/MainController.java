@@ -48,16 +48,17 @@ public class MainController {
 		int messageCount = 0;
 		// cp 에는 1, query = 전체
 		Map<String, Object> map = lectureService.viewAll(cp, query);
-		
+		/*
 		if(session.getAttribute("loginMember") != null) {
 			Member member = (Member)session.getAttribute("loginMember");
 			messageCount = lectureRegisterService.messageCount(member.getMemberNo());
 		}
+		*/
 		
 		model.addAttribute("lectureList", map.get("lectureList"));
 		model.addAttribute("mainPagination", map.get("mainPagination"));
 		model.addAttribute("query", query);
-		session.setAttribute("messageCount", messageCount);
+		/* session.setAttribute("messageCount", messageCount); */
 		
 		return "common/main";
 	}
